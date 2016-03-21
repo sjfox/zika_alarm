@@ -68,15 +68,16 @@ prob_ext <- function(prop_p, recov_p, disc_p, d_thresh, e_thresh, nsamples=10000
     record = run_branch(prop_p, recov_p, disc_p, d_thresh, e_thresh) #Run the simulation 
     Final.I = record[nrow(record),1]
     # print(paste("Final.I", Final.I, sep = "-"))
-    Final.D = record[length(record),2]
+    Final.D = record[nrow(record),2]
     # print(paste("Final.D", Final.D, sep = "-"))
-    #if (Final.D < d_thresh){  
-    if (Final.I > e_thresh) {
+    if (Final.D < d_thresh) {
+      next 
+    }
+    if (Final.I > e_thresh){  
       escapes = escapes + 1
     }
     i = i+1
     print(paste('Estimate', escapes / i, sep = ": "))
-    # }    
   }
 }
 

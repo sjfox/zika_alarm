@@ -67,5 +67,5 @@ def prob_ext(prop_p, recov_p, disc_p, d_thresh, e_thresh, nsamples=10000):
 # disc_threshold is how many cases we have "discovered"
 # and e_threshold is the escape number
 # estimates the probability escape will happen, if we have discovered at least d_thresh cases
-prob_ext(1.7/7, 1.0/7, .01, 5, 150)
+prob_ext(2.0/7, 1.0/7, .01, 5, 150)
 
