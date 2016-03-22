@@ -1,74 +1,81 @@
 
-# Three kinds of counters:
-# UI - Undiscovered Infecteds
-# DI - Discovered Infecteds
+# Kinds of counters:
+# UI - Undiscovered Infecteds, including UI_Symp and UI_Asymp
+# DI - Discovered Infecteds, including DI_Symp and DI_Asymp
+# I - Number of Infectious 
 # IncI - Incubation Infecteds
 # D - Cumulative number of discoveries
 #
+# Data to Store 
+# Run Number 
+# New_Exposed
+# New_Detected 
+# New_Infectious
+# Total_Infected 
+# Introductions 
+# Comulative Infections
 # Simulate until we have either:
 # - we run out of infecteds
 # - e_thresh number of infecteds, and d_thresh number of discoveries
 
-run_branch <- function(prop_p, recov_p, disc_p, incub_p, d_thres, e_thresh) {
-  UI = 1; DI = 0; D = 0; IncI = 0
-  I = UI + DI
-  time_record <- data.frame(matrix(data = c(I,D), ncol = 2))
-  colnames(time_record) <- c("I", "D")
+run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate) {
+  UI = 1; DI = 0;  D = 0; newI = 0; IncI = 0 
+  UI_Symp = 1; UI_Asymp = 0; DI_Symp = 0; DI_Asymp = 0 
+  CurrentInfecteds = UI + DI
+  I = CurrentInfecteds
   
-  while  (((I < e_thresh) & (I > 0)) | ((I > 0) & (D < d_thresh))) {
+  time_record <- data.frame(matrix(data = 0, ncol = 7))
+  colnames(time_record) <- c("New_Exposed", "New_Infectious", "Intros", "New_Detections", "Cum_Detects", "Total_Infected", "Cumulative_Infections") 
+  time_record$Total_Infected <- 1
+  time_record$Cumulative_Infections <- 1
+  
+  while  ( ((CurrentInfecteds > 0) & (D < d_thres))   |   ((CurrentInfecteds < e_thresh) & (CurrentInfecteds > 0)) ) {
+    
+    #i = 1
+    #for(i in 1:100) { 
     #while Number of infected is below epidemic threshold hold and more than 0 infected
     # or while number of infecteds is above 0 and the number of detected is below threshold
     
     ######## Step 1 - Infection ##################
-    newDI_draws = runif(DI) #New infected by Detected prop_p 
-    newDI_count = sum(newDI_draws < prop_p) 
+    #Could potentially have 4 different rates here , but assuming that transmissibility determined by detected or not 
+    newDI_draws = runif(DI) #New infected by detected prop_p 
+    newDI_count = sum(newDI_draws < prop_p) # For Right now prop_p is the same re
     
     newUI_draws = runif(UI) #Number infected by Undetected  
     newUI_count =  sum(newUI_draws < prop_p)  
     
-    IncI = newUI_count + newDI_count #New Infections
+    newI = newUI_count + newDI_count #New Infections (Exposed)
     
-    
-    ####### Step 2 - Exposed Period to Undetected Infectious ##########
-    IncI_draws = reunif(InI) #Probability of Exiting Infectious Period
-    ExitI = sum(IncI_draws < incub_p)
+    ####### Step 2 - Exposed Period to Undetected Infectious ##########   
+    IncI_draws = runif(IncI) #Probability of Exiting Infectious Period
+    ExitI = sum(IncI_draws < incub_p) #Num Infectious 
     
     
     # Symptomatic vs Asymptomatic
     newSymp_draws = runif(ExitI)
     newSymp_count = sum(newSymp_draws < prob_symp)
-    newAsymp_count = ExitI-newSympCount
-   
+    newAsymp_count = ExitI-newSymp_count
+    
     #Potential Introduction
-    intro_prob = reunif(1) #some possible number of events
-    intro_num = sum(intro_prob < intro_rate)
-    intro_type_draw = reunif(intro_num)
+    intro_prob = runif(1) #some possible number of events
+    intro_num = sum(intro_prob < intro_rate) #Number of Introductions 
+    intro_type_draw = runif(intro_num)
     intro_type_Symp = sum(intro_type_draw < prob_symp)
     intro_type_Asymp = intro_num - intro_type_Symp
     
-    #Add new Undetected Infectious Cases and Intro Cases Together 
-    UI_Symp = UI_Symp + newSymp_count + intro_type_Symp
-    UI_Asymp = UI_Aysmp + newAsymp_count + intro_type_Asymp
-  
     
     #### step 3 Detection  ######################### 
     # Detection of new Cases according to Symptomatic / Asymptomatic Probabilities  
     dectSymp_draws = runif(UI_Symp) 
     dectSymp_count = sum(dectSymp_draws < dis_prob_symp) 
     
-    dectAsymp_draws = reunif(UI_Asymp)
+    dectAsymp_draws = runif(UI_Asymp)
     dectAsymp_count = sum(dectAsymp_draws < dis_prob_asymp)
     
-    DI_Symp = DI_Symp + dectSymp_count
-    DI_Asymp = DI_Aymp + dectAsymp_count
+    NewlyDisc = dectSymp_count + dectAsymp_count # Number of New Detecteds 
     
-    NewlyDisc = DI_Symp + DI_Asymp 
     
-    #update UI 
-    UI_Symp = UI_Symp - detectSymp_count
-    UI_Asymp = UI_Asymp - detectAsymp_count
-  
-    ###### step 4 Recovery and Update ##################
+    ###### step 4 Recovery  ##################
     #Detected 
     recDI_Symp_draws = runif(DI_Symp) #Detected Symptomatic indivduals-will they recover?
     recDI_Symp_count = sum(recDI_Symp_draws < recov_p)
@@ -76,8 +83,6 @@ run_branch <- function(prop_p, recov_p, disc_p, incub_p, d_thres, e_thresh) {
     recDI_Asymp_draws = runif(DI_Asymp) #Detected Asymptomatic indivduals-will they recover?
     recDI_Asymp_count = sum(recDI_Asymp_draws < recov_p)
     
-    DI_Symp = DI_Symp - recDI_Symp_count
-    DI_Asymp = DI_Asymp - recDI_Asymp_count
     
     #Undetected 
     recUI_Symp_draws = runif(UI_Symp) #Undetected Symptomatic indivduals-will they recover?
@@ -86,43 +91,72 @@ run_branch <- function(prop_p, recov_p, disc_p, incub_p, d_thres, e_thresh) {
     recUI_Asymp_draws = runif(UI_Asymp) #Undetected Asymptomatic indivduals-will they recover?
     recUI_Asymp_count = sum(recUI_Asymp_draws < recov_p)
     
-    UI_Symp = UI_Symp - recUI_Symp_count
-    UI_Asymp = UI_Asymp - recUI_Asymp_count
+    ##### step 5  Updating final counters and time record ############      
+    IncI = IncI + newI - ExitI # Incubated are the number there, plus new, minus those that left 
     
-    ##### step 5  Updating final counters ############
-    removeUDIR_Asymp = sum((recUI_Asymp_draws < recov_p) & (dectAsymp_draws < dis_prob_asymp))
-    removeUDIR_Symp = sum((recUI_Symp_draws < recov_p) & (dectSsymp_draws < dis_prob_symp)) 
     
-    #Not sure if I need these....or if it's better to do the double 
-   
-    UI = UI_Symp  + UI_Asymp 
+    removeUI_Symp = sum((recUI_Symp_draws  < recov_p) | ( dectSymp_draws < dis_prob_symp) )
+    removeUDI_Symp = sum((recUI_Symp_draws  < recov_p) & ( dectSymp_draws < dis_prob_symp) )
+    
+    UI_Symp = UI_Symp + newSymp_count + intro_type_Symp - removeUI_Symp
+    DI_Symp = DI_Symp + dectSymp_count - removeUDI_Symp
+    
+    removeUI_Asymp = sum(( recUI_Asymp_draws  < recov_p) | ( dectAsymp_draws < dis_prob_asymp) )
+    removeUDI_Asymp = sum(( recUI_Asymp_draws  < recov_p) & ( dectAsymp_draws < dis_prob_asymp) )
+     
+    UI_Asymp = UI_Asymp + newAsymp_count + intro_type_Asymp - removeUI_Asymp
+    DI_Asymp = DI_Asymp + dectAsymp_count - removeUDI_Asymp
+
+    
+    UI = UI_Symp + UI_Asymp 
     DI = DI_Symp + DI_Asymp
-    D = D + NewlyDisc
-    I = UI + DI #Undiscovered and Discovered Infecteds 
-    time_record <- rbind(time_record,c(I,D))
+   
+    D = D + NewlyDisc # Cumulative Detected 
+    
+    CurrentInfecteds = UI + DI #Undiscovered and Discovered Infecteds 
+    if (CurrentInfecteds < 0) CurrentInfecteds = 0
+    I = I + ExitI
+    
+    #adding time step data 
+    time_record <- rbind(time_record, c(newI, ExitI, intro_num, NewlyDisc, D , CurrentInfecteds, I))     
+    # i = i + 1
   }
+  time <- data.frame(seq(1:nrow(time_record)))
+  colnames(time) <- "time"
+  time_record <- cbind(time, time_record)
   return(time_record)
 }
 
 
 
+# Call Run Branch and Save multiple runs 
+# Takes in all the parameters and replicates 
 
 
-prob_ext <- function(prop_p, recov_p, disc_p, d_thresh, e_thresh, nsamples=10000) {
+
+
+
+
+
+
+# Post Processing Functions 
+
+prob_ext <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate, nsamples=100) {
   escapes = 0
   i = 1 
+
   while (i < nsamples) {
-    record = run_branch(prop_p, recov_p, disc_p, d_thresh, e_thresh) #Run the simulation 
-    Final.I = record[nrow(record),1]
-    # print(paste("Final.I", Final.I, sep = "-"))
-    Final.D = record[nrow(record),2]
-    # print(paste("Final.D", Final.D, sep = "-"))
-    if (Final.D < d_thresh)  
+    record = run_branch(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate) #Run the simulation 
+    Final.I = record[nrow(record),7]
+    Final.D = record[nrow(record),6]
+
+    if (Final.D < d_thres)  {
       next
-    if (Final.I > e_thresh) {
-      escapes = escapes + 1
     }
-    i = i+1
-    print(paste('Estimate', escapes / i, sep = ": "))
+    if (Final.I > e_thresh) {
+      escapes = escapes + 1   
+    }
+    print(paste('Estimate', escapes/i , sep = ": "))
+    i = i+1    
   }
 }
