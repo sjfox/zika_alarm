@@ -131,10 +131,9 @@ run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, d
 
 # Call Run Branch and Save multiple runs 
 # Takes in all the parameters and replicates 
-
-
-
-
+run_branches <- function(num_reps, ...) {
+  rlply(.n = num_reps, .expr = run_branch(...) ) 
+}
 
 
 
