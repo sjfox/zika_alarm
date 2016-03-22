@@ -14,11 +14,10 @@ library(plyr)
 # e_thresh -- total instantaneous I's that count as epidemic escape (not cumulative):
 
 #Parameters 
-prop_p <- 1.7/7
+prop_p <- 1.7/7  
 recov_p <- 1.0/7
-disc_p <- .01
-d_thres <- 5
-e_thresh <- 150
+d_thres <- 25
+e_thresh <- 300
 prob_symp <- 1
 incub_p <- 1
 dis_prob_symp <- 0.01
@@ -26,12 +25,17 @@ dis_prob_asymp <- 0.00
 intro_rate <- .000
 
 
-
-prob_ext(prop_p = prop_p,recov_p = recov_p, incub_p = incub_p, prob_symp = prob_symp, 
-         d_thres,e_thresh = e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate, nsamples=1000)
-  
-
-trials <- run_branches(num_reps = 100, prop_p, recov_p, incub_p, prob_symp, 
+trials <- run_branches(num_reps = 1000, prop_p, recov_p, incub_p, prob_symp, 
                        d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate)
 
+
+escape_prob <- prob_ext(prop_p = prop_p,recov_p = recov_p, incub_p = incub_p, prob_symp = prob_symp, 
+         d_thres,e_thresh = e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate, nsamples=1000)
+
+escape_underDoverE <- prob_underD.overE(prop_p = prop_p,recov_p = recov_p, incub_p = incub_p, prob_symp = prob_symp, 
+                        d_thres,e_thresh = e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate, nsamples=100)
+
+
+# Given we have detected X cases- what is the average number of Total Infected Cases and Cumulative Cases 
+at.detect <- all_detect_rows(trials)
 

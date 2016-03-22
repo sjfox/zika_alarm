@@ -128,7 +128,6 @@ run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, d
 }
 
 
-
 # Call Run Branch and Save multiple runs 
 # Takes in all the parameters and replicates 
 run_branches <- function(num_reps, ...) {
@@ -136,22 +135,57 @@ run_branches <- function(num_reps, ...) {
 }
 
 
+#####################################################################
 
-# Post Processing Functions 
+# Analysis functions for extracting various elements from the trials 
+last_cuminfect_value <- function(x) {
+  row <- tail(x, 1) 
+  value <- row[8]
+  return(value)
+}
+all_last_cuminfect_values <- function(x) {
+  return(unlist(laply(x, last_cuminfect_value)))
+}
 
 
-# analysis function
+last_cumdetect_value <- function(x) {
+  row <- tail(x, 1) 
+  value <- row[6]
+  return(value)
+}
+all_last_cumdetect_values <- function(x) {
+  return(unlist(laply(x, last_cumdetect_value)))
+}
+
+last_instantInf_value <- function(x) {
+  row <- tail(x, 1) 
+  value <- row[7]
+  return(value)
+}
+all_last_instantInf_values <- function(x) {
+  return(unlist(laply(x, last_instantInf_value)))
+}
 
 
 
+## Set of functions to calculate given I have X cases, what is the distribution of cases I see 
+detection_rows <- function(x, detect_thres=d_thres) {
+  detections <- x[,6]
+  rows <- which(detections == detect_thres)
+  reduced <- x[rows,]
+  return(reduced)
+}
+
+all_detect_rows <- function(x, d_thres) {   # Function to return all rows in trials that match detection threshold
+ return(ldply(x, detection_rows))
+}
+  
 
 
-
-
-
-
+# Additional Post Processing Functions 
 prob_ext <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate, nsamples=100) {
   escapes = 0
+  escapes_prob <- c(escapes)
   i = 1 
 
   while (i < nsamples) {
@@ -165,7 +199,34 @@ prob_ext <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, dis
     if (Final.I > e_thresh) {
       escapes = escapes + 1   
     }
-    print(paste('Estimate', escapes/i , sep = ": "))
+    escapes_prob <- c(escapes_prob, escapes/i)
     i = i+1    
   }
+  return(escapes_prob)
 }
+
+
+
+# If you have not crossed the detection threshold, what is the probability that you have crossed your epidemic threshold? Seems to never happen
+prob_underD.overE <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate, nsamples=10) {
+  escapes = 0
+  escapes_prob <- c(escapes)
+  i = 1 
+  
+  while (i < nsamples) {
+    record = run_branch(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate) #Run the simulation 
+    Final.I = record[nrow(record),7]
+    Final.D = record[nrow(record),6]
+    
+    if (Final.D < d_thres)  { # Haven't Crossed Detection 
+      if (Final.I > e_thresh) { # Is my Instantaneous Number of Infections more than my epidemic threshold
+        escapes = escapes + 1   
+        escapes_prob <- c(escapes_prob, escapes/i)
+        
+      }
+    }
+    i = i+1   
+  }
+  return(escapes_prob)
+}
+
