@@ -18,7 +18,10 @@
 # - we run out of infecteds
 # - e_thresh number of infecteds, and d_thresh number of discoveries
 
-run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate) {
+run_branch <- function(params) {
+  with(params,{
+    
+  
   UI = 1; DI = 0;  D = 0; newI = 0; IncI = 0 
   UI_Symp = 1; UI_Asymp = 0; DI_Symp = 0; DI_Asymp = 0 
   CurrentInfecteds = UI + DI
@@ -28,10 +31,7 @@ run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, d
   colnames(time_record) <- c("New_Exposed", "New_Infectious", "Intros", "New_Detections", "Cum_Detects", "Total_Infected", "Cumulative_Infections") 
   time_record$Total_Infected <- 1
   time_record$Cumulative_Infections <- 1
-  while  ( ((CurrentInfecteds > 0) & (D < d_thres))   |   ((CurrentInfecteds < e_thresh) & (CurrentInfecteds > 0)) ) { ## Is this correct? I think we want cumulative infections here
-    
-    #i = 1
-    #for(i in 1:100) { 
+  while  ( ((CurrentInfecteds > 0) & (D < d_thres))   |   ((I < e_thresh) & (CurrentInfecteds > 0)) ) { 
     #while Number of infected is below epidemic threshold hold and more than 0 infected
     # or while number of infecteds is above 0 and the number of detected is below threshold
     
@@ -93,7 +93,7 @@ run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, d
     ##### step 5  Updating final counters and time record ############      
     IncI = IncI + newI - ExitI # Incubated are the number there, plus new, minus those that left 
     
-    
+    ## Ask Lauren to run through these tomorrow
     removeUI_Symp = sum((recUI_Symp_draws  < recov_p) | ( dectSymp_draws < dis_prob_symp) )
     removeUDI_Symp = sum((recUI_Symp_draws  < recov_p) & ( dectSymp_draws < dis_prob_symp) )
     
@@ -118,12 +118,13 @@ run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, d
     
     #adding time step data 
     time_record <- rbind(time_record, c(newI, ExitI, intro_num, NewlyDisc, D , CurrentInfecteds, I))     
-    # i = i + 1
   }
   time <- data.frame(seq(1:nrow(time_record)))
   colnames(time) <- "time"
   time_record <- cbind(time, time_record)
+  
   return(time_record)
+  })
 }
 
 
@@ -144,6 +145,10 @@ test_escape <- function(df, d_thres, e_thresh){
 }
 
 count_escapes <- function(x, d_thres, e_thresh){
+  ## Function to get probability of escape, if detecteds
+  ## are greater than the d_thres
+  ## x must be list of runs
+  
   escapes <- laply(x, test_escape, d_thres, e_thresh)
   numEscape <- sum(escapes, na.rm=T)
   numPossible <- sum(!is.na(escapes), na.rm=T)
