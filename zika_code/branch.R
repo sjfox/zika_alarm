@@ -15,48 +15,29 @@ library(cowplot)
 # e_thresh -- total instantaneous I's that count as epidemic escape (not cumulative):
 
 #Parameters 
-prop_p <- 1.7/7  
-recov_p <- 1.0/7
-d_thres <- 25
-e_thresh <- 300
-prob_symp <- 1
-incub_p <- 1/16.5 # Serial Incubation of 10-23 days from Brownstein, Taking the mean (16.5)
-dis_prob_symp <- 0.0246 # .16 chance of discovering over entire period so it's 
-dis_prob_asymp <- 0.00 
-intro_rate <- .00
+branch_params <- function(prop_p = .7/7 , 
+                          recov_p = 1.0/7,
+                          d_thres = 5,
+                          e_thresh = 300,
+                          prob_symp = 1,
+                          incub_p = 1/16.5,
+                          dis_prob_symp = 1,
+                          dis_prob_asymp = 0.00 ,
+                          intro_rate = 0.000)
+  return(as.list(environment()))
 
 
 
 
-dis_prob_symps <- seq(0.01, 1, length.out = 5)
-prop_ps <- seq(1.1/7, 4/7, length.out = 5)
-all_runs <- data.frame()
-for(dis_prob_symp in dis_prob_symps){
-  for(prop_p in prop_ps){
-    trials <- run_branches(num_reps = 1000, prop_p, recov_p, incub_p, prob_symp, 
-                           d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate)
-    all_runs <- rbind(all_runs, data.frame(dis_prob_symp=dis_prob_symp, prop_p=prop_p, final_size = all_last_cuminfect_values(trials)))
-  }
-}
+trials <- run_branches(num_reps = 1000, branch_params())
 
-grid_hist <- ggplot(all_runs, aes(final_size)) + geom_histogram(binwidth = 20) + 
-  facet_grid(dis_prob_symp~prop_p, labeller=label_both, scales = "free_y")+
-  scale_y_continuous(expand=c(0,0))+
-  scale_x_continuous(expand=c(0.01,0.01))
+count_escapes(trials, 1, branch_params()$e_thresh)
 
-ggsave(filename = "../ExploratoryFigures/Final_size_hist.pdf",plot = grid_hist, width=16, height=10)
-
-
-
-trials <- run_branches(num_reps = 1000, prop_p, recov_p, incub_p, prob_symp, 
-                       d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate)
-
-count_escapes(trials, d_thres, e_thresh)
+plot_final_sizes(trials)
 
 
 escape_prob <- prob_ext(prop_p = prop_p,recov_p = recov_p, incub_p = incub_p, prob_symp = prob_symp, 
          d_thres=d_thres,e_thresh = e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate, nsamples=100)
-
 escape_prob
 
 escape_underDoverE <- prob_underD.overE(prop_p = prop_p,recov_p = recov_p, incub_p = incub_p, prob_symp = prob_symp, 
@@ -66,3 +47,22 @@ escape_underDoverE <- prob_underD.overE(prop_p = prop_p,recov_p = recov_p, incub
 # Given we have detected X cases- what is the average number of Total Infected Cases and Cumulative Cases 
 at.detect <- all_detect_rows(trials)
 
+
+## Plot grid of histograms, not really of interest anymore
+# dis_prob_symps <- seq(0.01, 1, length.out = 5)
+# prop_ps <- seq(1.1/7, 4/7, length.out = 5)
+# all_runs <- data.frame()
+# for(dis_prob_symp in dis_prob_symps){
+#   for(prop_p in prop_ps){
+#     trials <- run_branches(num_reps = 1000, prop_p, recov_p, incub_p, prob_symp, 
+#                            d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate)
+#     all_runs <- rbind(all_runs, data.frame(dis_prob_symp=dis_prob_symp, prop_p=prop_p, final_size = all_last_cuminfect_values(trials)))
+#   }
+# }
+# 
+# grid_hist <- ggplot(all_runs, aes(final_size)) + geom_histogram(binwidth = 20) + 
+#   facet_grid(dis_prob_symp~prop_p, labeller=label_both, scales = "free_y")+
+#   scale_y_continuous(expand=c(0,0))+
+#   scale_x_continuous(expand=c(0.01,0.01))
+# 
+# ggsave(filename = "../ExploratoryFigures/Final_size_hist.pdf",plot = grid_hist, width=16, height=10)

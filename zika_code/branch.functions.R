@@ -18,7 +18,10 @@
 # - we run out of infecteds
 # - e_thresh number of infecteds, and d_thresh number of discoveries
 
-run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate) {
+run_branch <- function(params) {
+  with(params,{
+    
+  
   UI = 1; DI = 0;  D = 0; newI = 0; IncI = 0 
   UI_Symp = 1; UI_Asymp = 0; DI_Symp = 0; DI_Asymp = 0 
   CurrentInfecteds = UI + DI
@@ -29,9 +32,6 @@ run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, d
   time_record$Total_Infected <- 1
   time_record$Cumulative_Infections <- 1
   while  ( ((CurrentInfecteds > 0) & (D < d_thres))   |   ((I < e_thresh) & (CurrentInfecteds > 0)) ) { 
-    
-    #i = 1
-    #for(i in 1:100) { 
     #while Number of infected is below epidemic threshold hold and more than 0 infected
     # or while number of infecteds is above 0 and the number of detected is below threshold
     
@@ -93,7 +93,7 @@ run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, d
     ##### step 5  Updating final counters and time record ############      
     IncI = IncI + newI - ExitI # Incubated are the number there, plus new, minus those that left 
     
-    
+    ## Ask Lauren to run through these tomorrow
     removeUI_Symp = sum((recUI_Symp_draws  < recov_p) | ( dectSymp_draws < dis_prob_symp) )
     removeUDI_Symp = sum((recUI_Symp_draws  < recov_p) & ( dectSymp_draws < dis_prob_symp) )
     
@@ -113,17 +113,18 @@ run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, d
     D = D + NewlyDisc # Cumulative Detected 
     
     CurrentInfecteds = UI + DI #Undiscovered and Discovered Infecteds 
-    #if (CurrentInfecteds < 0) CurrentInfecteds = 0
+    if (CurrentInfecteds < 0) CurrentInfecteds = 0
     I = I + ExitI
     
     #adding time step data 
     time_record <- rbind(time_record, c(newI, ExitI, intro_num, NewlyDisc, D , CurrentInfecteds, I))     
-    # i = i + 1
   }
   time <- data.frame(seq(1:nrow(time_record)))
   colnames(time) <- "time"
   time_record <- cbind(time, time_record)
+  
   return(time_record)
+  })
 }
 
 
@@ -136,7 +137,7 @@ run_branches <- function(num_reps, ...) {
 
 test_escape <- function(df, d_thres, e_thresh){
   if(last_cumdetect_value(df) < d_thres) return(NA)
-  if(last_cuminfect_value(df)>e_thresh) {
+  if(last_cuminfect_value(df)>=e_thresh) {
     TRUE
   } else{
     FALSE
@@ -144,6 +145,10 @@ test_escape <- function(df, d_thres, e_thresh){
 }
 
 count_escapes <- function(x, d_thres, e_thresh){
+  ## Function to get probability of escape, if detecteds
+  ## are greater than the d_thres
+  ## x must be list of runs
+  
   escapes <- laply(x, test_escape, d_thres, e_thresh)
   numEscape <- sum(escapes, na.rm=T)
   numPossible <- sum(!is.na(escapes), na.rm=T)
@@ -153,11 +158,9 @@ count_escapes <- function(x, d_thres, e_thresh){
     numEscape/numPossible
   }
 }
-count_escapes(trials, d_thres, e_thresh)
 #####################################################################
 
 # Analysis functions for extracting various elements from the trials 
-# Get last recorded cumulative infections 
 last_cuminfect_value <- function(x) {
   row <- tail(x, 1) 
   value <- row[8]
@@ -167,7 +170,7 @@ all_last_cuminfect_values <- function(x) {
   return(unlist(laply(x, last_cuminfect_value)))
 }
 
-# Get the last number of detected cases 
+
 last_cumdetect_value <- function(x) {
   x[nrow(x), "Cum_Detects"]
 }
@@ -175,7 +178,6 @@ all_last_cumdetect_values <- function(x) {
   laply(x, last_cumdetect_value)
 }
 
-# Get the last Prevalence 
 last_instantInf_value <- function(x) {
   row <- tail(x, 1) 
   value <- row[7]
@@ -185,18 +187,7 @@ all_last_instantInf_values <- function(x) {
   return(unlist(laply(x, last_instantInf_value)))
 }
 
-# Get the last time stamp
-last_time_value <- function(x) {
-  row <- tail(x, 1) 
-  value <- row[1]
-  return(value)
-}
-all_last_time_values <- function(x) {
-  return(unlist(laply(x, last_time_value)))
-}
 
-last_times <- all_last_time_values(trials)
-hist(last_times)
 
 ## Set of functions to calculate given I have X cases, what is the distribution of cases I see 
 detection_rows <- function(x, detect_thres=d_thres) {
