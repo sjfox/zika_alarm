@@ -55,7 +55,7 @@ prob_symp <- 1
 incub_p <- 1
 dis_prob_symp <- .1
 dis_prob_asymp <- 0.00 
-intro_rate <- .000
+intro_rate <- 0.00
 
 trials <- run_branches(num_reps = 1000, prop_p, recov_p, incub_p, prob_symp, 
                        d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate)
