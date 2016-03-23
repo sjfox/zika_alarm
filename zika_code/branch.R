@@ -53,13 +53,13 @@ grid_hist <- ggplot(all_runs, aes(final_size)) + geom_histogram(binwidth = 20) +
 ggsave(filename = "../ExploratoryFigures/Final_size_hist.pdf",plot = grid_hist, width=16, height=10)
 
 
-prop_p <- 1.2/7  
+prop_p <- 1.7/7  
 recov_p <- 1.0/7
 d_thres <- 5
 e_thresh <- 150
 prob_symp <- 1
 incub_p <- 1
-dis_prob_symp <- .1
+dis_prob_symp <- .01
 dis_prob_asymp <- 0.00 
 intro_rate <- 0.00
 
@@ -70,8 +70,8 @@ count_escapes(trials, d_thres, e_thresh)
 
 
 
-escape_prob <- prob_ext(prop_p = prop_p,recov_p = recov_p, incub_p = incub_p, prob_symp = prob_symp, 
-         d_thres=d_thres,e_thresh = e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate, nsamples=100)
+
+
 escape_prob
 
 escape_underDoverE <- prob_underD.overE(prop_p = prop_p,recov_p = recov_p, incub_p = incub_p, prob_symp = prob_symp, 
@@ -84,14 +84,3 @@ mean.totalinfected <- rep(0, length(d_thres_seq))
 mean.currentinfected <- rep(0, length(d_thres_seq))
 
 
-for(i in 1:length(d_thres_seq)) {
-  d_thres = d_thres_seq[i]
-  at.detect <- all_detect_rows(trials)
-  hist(at.detect$Total_Infected, main = paste("Detection Threshold = ", d_thres, sep = ""), xlab = "Current Infected")
-  hist(at.detect$Cumulative_Infections, main = paste("Detection Threshold = ", d_thres, sep = ""), xlab = "Cumulative Infections")
-  mean.totalinfected[i] <- mean(at.detect$Total_Infected)
-  mean.currentinfected[i] <- mean(at.detect$Cumulative_Infections)
-}
-
-plot(d_thres_seq, mean.totalinfected, xlab = "Detection Threshold", ylab = "Mean Current Infecteds", main = "Given X cases at Threhsold, How Many Current Infecteds")
-plot(d_thres_seq, mean.currentinfected, xlab = "Detection Threshold", ylab = "Mean Cumulative Infections", main = "Given X cases at Threhsold, How Many Cumulative Infections")

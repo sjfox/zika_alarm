@@ -113,7 +113,7 @@ run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, d
     D = D + NewlyDisc # Cumulative Detected 
     
     CurrentInfecteds = UI + DI #Undiscovered and Discovered Infecteds 
-    if (CurrentInfecteds < 0) CurrentInfecteds = 0
+    #if (CurrentInfecteds < 0) CurrentInfecteds = 0
     I = I + ExitI
     
     #adding time step data 
@@ -207,7 +207,7 @@ prob_ext <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, dis
   while (i < nsamples) {
     record = run_branch(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate) #Run the simulation 
     Final.I = record[nrow(record),7]
-    Final.D = record[nrow(record),6] ## should 6 be changed to 5?
+    Final.D = record[nrow(record),6] ## should 6 be changed to 5? # no it's cumulative detection, instantaneous infectious
 
     if (Final.D < d_thres)  {
       next
