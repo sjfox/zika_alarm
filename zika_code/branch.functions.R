@@ -1,3 +1,48 @@
+run_branch_simple <- function(prop_p, recov_p, disc_p, d_thresh, e_thresh) {
+  UI = 1; DI = 0; D = 0
+  I = UI + DI
+  cumI = UI
+  time_record <- data.frame(matrix(data = c(I,D, cumI), ncol = 3))
+  colnames(time_record) <- c("I", "D", "cumI")
+  
+  while  (((I < e_thresh) & (I > 0)) | ((I > 0) & (D < d_thresh))) {
+    #while Number of infected is below epidemic threshold hold and more than 0 infected
+    # or while number of infecteds is above 0 and the number of detected is below threshold
+    
+    newDI_draws = runif(DI) #New discovered infected possibilities 
+    newDI_count = sum(newDI_draws < prop_p) #Number of new infected by detected individuals 
+    
+    decDI_draws = runif(DI) #Detected indivduals-will they recover?
+    decDI_count = sum(decDI_draws < recov_p)
+    
+    newUI_draws = runif(UI) #Number of possible new Undiscovred infecteds 
+    newUI_count =  sum(newUI_draws < prop_p)  #Number of new Infecteds 
+    
+    decUI_draws = runif(UI) #Undiscovered infecteds that stay infected
+    decUI_count = sum(decUI_draws < recov_p)
+    
+    disUI_draws = runif(UI)
+    disUI_count = sum(disUI_draws < disc_p)  #probability that undetected individuals are discovered 
+    
+    removeUI = sum((decUI_draws < recov_p) | (disUI_draws < disc_p)) 
+    
+    #Undiscovered infecteds can remove by being recovered or by being discovoered 
+    
+    removeUDI =  sum((decUI_draws < recov_p) & ( disUI_draws < disc_p))
+    
+    #remove undiscovered infecteds that are both no longer infected and were eventually discovered 
+    
+    UI = UI + newUI_count + newDI_count - removeUI 
+    #Undiscovered = previously undiscovered + newly infected by UI + newly infected by DI - either recovered or discovered 
+    DI = DI - decDI_count + disUI_count - removeUDI
+    #Detected = Detected + Recovered Individuals + Newly Detected - Previously UI that have been detected and Recovered 
+    D = D + disUI_count #Cumulatve Detected = those detected + newly detected
+    I = UI + DI #Undiscovered and Discovered Infected 
+    cumI = cumI + newUI_count + newDI_count
+    time_record <- rbind(time_record,c(I,D,cumI))
+  }
+  return(time_record)
+}
 
 # Kinds of counters:
 # UI - Undiscovered Infecteds, including UI_Symp and UI_Asymp
@@ -20,8 +65,6 @@
 
 run_branch <- function(params) {
   with(params,{
-    
-  
   UI = 1; DI = 0;  D = 0; newI = 0; IncI = 0 
   UI_Symp = 1; UI_Asymp = 0; DI_Symp = 0; DI_Asymp = 0 
   CurrentInfecteds = UI + DI
