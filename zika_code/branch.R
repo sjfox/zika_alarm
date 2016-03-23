@@ -20,10 +20,10 @@ recov_p <- 1.0/7
 d_thres <- 25
 e_thresh <- 300
 prob_symp <- 1
-incub_p <- 1
-dis_prob_symp <- .01
+incub_p <- 1/16.5 # Serial Incubation of 10-23 days from Brownstein, Taking the mean (16.5)
+dis_prob_symp <- 0.0246 # .16 chance of discovering over entire period so it's 
 dis_prob_asymp <- 0.00 
-intro_rate <- .000
+intro_rate <- .00
 
 
 
@@ -47,15 +47,6 @@ grid_hist <- ggplot(all_runs, aes(final_size)) + geom_histogram(binwidth = 20) +
 ggsave(filename = "../ExploratoryFigures/Final_size_hist.pdf",plot = grid_hist, width=16, height=10)
 
 
-prop_p <- 1.2/7  
-recov_p <- 1.0/7
-d_thres <- 5
-e_thresh <- 150
-prob_symp <- 1
-incub_p <- 1
-dis_prob_symp <- .1
-dis_prob_asymp <- 0.00 
-intro_rate <- 0.00
 
 trials <- run_branches(num_reps = 1000, prop_p, recov_p, incub_p, prob_symp, 
                        d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate)
@@ -63,9 +54,9 @@ trials <- run_branches(num_reps = 1000, prop_p, recov_p, incub_p, prob_symp,
 count_escapes(trials, d_thres, e_thresh)
 
 
-
 escape_prob <- prob_ext(prop_p = prop_p,recov_p = recov_p, incub_p = incub_p, prob_symp = prob_symp, 
          d_thres=d_thres,e_thresh = e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate, nsamples=100)
+
 escape_prob
 
 escape_underDoverE <- prob_underD.overE(prop_p = prop_p,recov_p = recov_p, incub_p = incub_p, prob_symp = prob_symp, 

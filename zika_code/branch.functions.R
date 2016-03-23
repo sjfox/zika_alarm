@@ -28,7 +28,7 @@ run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, d
   colnames(time_record) <- c("New_Exposed", "New_Infectious", "Intros", "New_Detections", "Cum_Detects", "Total_Infected", "Cumulative_Infections") 
   time_record$Total_Infected <- 1
   time_record$Cumulative_Infections <- 1
-  while  ( ((CurrentInfecteds > 0) & (D < d_thres))   |   ((CurrentInfecteds < e_thresh) & (CurrentInfecteds > 0)) ) { ## Is this correct? I think we want cumulative infections here
+  while  ( ((CurrentInfecteds > 0) & (D < d_thres))   |   ((I < e_thresh) & (CurrentInfecteds > 0)) ) { 
     
     #i = 1
     #for(i in 1:100) { 
@@ -113,7 +113,7 @@ run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, d
     D = D + NewlyDisc # Cumulative Detected 
     
     CurrentInfecteds = UI + DI #Undiscovered and Discovered Infecteds 
-    if (CurrentInfecteds < 0) CurrentInfecteds = 0
+    #if (CurrentInfecteds < 0) CurrentInfecteds = 0
     I = I + ExitI
     
     #adding time step data 
@@ -153,9 +153,11 @@ count_escapes <- function(x, d_thres, e_thresh){
     numEscape/numPossible
   }
 }
+count_escapes(trials, d_thres, e_thresh)
 #####################################################################
 
 # Analysis functions for extracting various elements from the trials 
+# Get last recorded cumulative infections 
 last_cuminfect_value <- function(x) {
   row <- tail(x, 1) 
   value <- row[8]
@@ -165,7 +167,7 @@ all_last_cuminfect_values <- function(x) {
   return(unlist(laply(x, last_cuminfect_value)))
 }
 
-
+# Get the last number of detected cases 
 last_cumdetect_value <- function(x) {
   x[nrow(x), "Cum_Detects"]
 }
@@ -173,6 +175,7 @@ all_last_cumdetect_values <- function(x) {
   laply(x, last_cumdetect_value)
 }
 
+# Get the last Prevalence 
 last_instantInf_value <- function(x) {
   row <- tail(x, 1) 
   value <- row[7]
@@ -182,7 +185,18 @@ all_last_instantInf_values <- function(x) {
   return(unlist(laply(x, last_instantInf_value)))
 }
 
+# Get the last time stamp
+last_time_value <- function(x) {
+  row <- tail(x, 1) 
+  value <- row[1]
+  return(value)
+}
+all_last_time_values <- function(x) {
+  return(unlist(laply(x, last_time_value)))
+}
 
+last_times <- all_last_time_values(trials)
+hist(last_times)
 
 ## Set of functions to calculate given I have X cases, what is the distribution of cases I see 
 detection_rows <- function(x, detect_thres=d_thres) {
