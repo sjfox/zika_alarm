@@ -28,8 +28,7 @@ run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, d
   colnames(time_record) <- c("New_Exposed", "New_Infectious", "Intros", "New_Detections", "Cum_Detects", "Total_Infected", "Cumulative_Infections") 
   time_record$Total_Infected <- 1
   time_record$Cumulative_Infections <- 1
-  
-  while  ( ((CurrentInfecteds > 0) & (D < d_thres))   |   ((CurrentInfecteds < e_thresh) & (CurrentInfecteds > 0)) ) {
+  while  ( ((CurrentInfecteds > 0) & (D < d_thres))   |   ((CurrentInfecteds < e_thresh) & (CurrentInfecteds > 0)) ) { ## Is this correct? I think we want cumulative infections here
     
     #i = 1
     #for(i in 1:100) { 
@@ -132,9 +131,28 @@ run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, d
 # Takes in all the parameters and replicates 
 run_branches <- function(num_reps, ...) {
   rlply(.n = num_reps, .expr = run_branch(...) ) 
+  
 }
 
+test_escape <- function(df, d_thres, e_thresh){
+  if(last_cumdetect_value(df) < d_thres) return(NA)
+  if(last_cuminfect_value(df)>e_thresh) {
+    TRUE
+  } else{
+    FALSE
+  }
+}
 
+count_escapes <- function(x, d_thres, e_thresh){
+  escapes <- laply(x, test_escape, d_thres, e_thresh)
+  numEscape <- sum(escapes, na.rm=T)
+  numPossible <- sum(!is.na(escapes), na.rm=T)
+  if(numPossible ==0) {
+    NA
+  }else {
+    numEscape/numPossible
+  }
+}
 #####################################################################
 
 # Analysis functions for extracting various elements from the trials 
@@ -149,12 +167,10 @@ all_last_cuminfect_values <- function(x) {
 
 
 last_cumdetect_value <- function(x) {
-  row <- tail(x, 1) 
-  value <- row[6]
-  return(value)
+  x[nrow(x), "Cum_Detects"]
 }
 all_last_cumdetect_values <- function(x) {
-  return(unlist(laply(x, last_cumdetect_value)))
+  laply(x, last_cumdetect_value)
 }
 
 last_instantInf_value <- function(x) {
@@ -191,7 +207,7 @@ prob_ext <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, dis
   while (i < nsamples) {
     record = run_branch(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate) #Run the simulation 
     Final.I = record[nrow(record),7]
-    Final.D = record[nrow(record),6]
+    Final.D = record[nrow(record),6] ## should 6 be changed to 5?
 
     if (Final.D < d_thres)  {
       next
