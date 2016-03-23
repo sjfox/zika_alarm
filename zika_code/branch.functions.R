@@ -137,7 +137,7 @@ run_branches <- function(num_reps, ...) {
 
 test_escape <- function(df, d_thres, e_thresh){
   if(last_cumdetect_value(df) < d_thres) return(NA)
-  if(last_cuminfect_value(df)>e_thresh) {
+  if(last_cuminfect_value(df)>=e_thresh) {
     TRUE
   } else{
     FALSE
