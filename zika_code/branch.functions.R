@@ -190,17 +190,22 @@ all_last_instantInf_values <- function(x) {
 
 
 ## Set of functions to calculate given I have X cases, what is the distribution of cases I see 
-detection_rows <- function(x, detect_thres=d_thres) {
+library(ggplot2)
+library(reshape2)
+library(scales)
+
+detection_rows <- function(x, detect_thres = d_thres) {
   detections <- x[,6]
   rows <- which(detections == detect_thres)
   reduced <- x[rows,]
   return(reduced)
 }
 
-all_detect_rows <- function(x, d_thres) {   # Function to return all rows in trials that match detection threshold
+all_detect_rows <- function(x, detect_thres) {   # Function to return all rows in trials that match detection threshold
  return(ldply(x, detection_rows))
 }
   
+please.work <- all_detect_rows(trials, detect_thres = 5)
 
 
 # Additional Post Processing Functions 
