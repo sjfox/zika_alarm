@@ -1,3 +1,48 @@
+run_branch_simple <- function(prop_p, recov_p, disc_p, d_thresh, e_thresh) {
+  UI = 1; DI = 0; D = 0
+  I = UI + DI
+  cumI = UI
+  time_record <- data.frame(matrix(data = c(I,D, cumI), ncol = 3))
+  colnames(time_record) <- c("I", "D", "cumI")
+  
+  while  (((I < e_thresh) & (I > 0)) | ((I > 0) & (D < d_thresh))) {
+    #while Number of infected is below epidemic threshold hold and more than 0 infected
+    # or while number of infecteds is above 0 and the number of detected is below threshold
+    
+    newDI_draws = runif(DI) #New discovered infected possibilities 
+    newDI_count = sum(newDI_draws < prop_p) #Number of new infected by detected individuals 
+    
+    decDI_draws = runif(DI) #Detected indivduals-will they recover?
+    decDI_count = sum(decDI_draws < recov_p)
+    
+    newUI_draws = runif(UI) #Number of possible new Undiscovred infecteds 
+    newUI_count =  sum(newUI_draws < prop_p)  #Number of new Infecteds 
+    
+    decUI_draws = runif(UI) #Undiscovered infecteds that stay infected
+    decUI_count = sum(decUI_draws < recov_p)
+    
+    disUI_draws = runif(UI)
+    disUI_count = sum(disUI_draws < disc_p)  #probability that undetected individuals are discovered 
+    
+    removeUI = sum((decUI_draws < recov_p) | (disUI_draws < disc_p)) 
+    
+    #Undiscovered infecteds can remove by being recovered or by being discovoered 
+    
+    removeUDI =  sum((decUI_draws < recov_p) & ( disUI_draws < disc_p))
+    
+    #remove undiscovered infecteds that are both no longer infected and were eventually discovered 
+    
+    UI = UI + newUI_count + newDI_count - removeUI 
+    #Undiscovered = previously undiscovered + newly infected by UI + newly infected by DI - either recovered or discovered 
+    DI = DI - decDI_count + disUI_count - removeUDI
+    #Detected = Detected + Recovered Individuals + Newly Detected - Previously UI that have been detected and Recovered 
+    D = D + disUI_count #Cumulatve Detected = those detected + newly detected
+    I = UI + DI #Undiscovered and Discovered Infected 
+    cumI = cumI + newUI_count + newDI_count
+    time_record <- rbind(time_record,c(I,D,cumI))
+  }
+  return(time_record)
+}
 
 # Kinds of counters:
 # UI - Undiscovered Infecteds, including UI_Symp and UI_Asymp
@@ -18,7 +63,8 @@
 # - we run out of infecteds
 # - e_thresh number of infecteds, and d_thresh number of discoveries
 
-run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate) {
+run_branch <- function(params) {
+  with(params,{
   UI = 1; DI = 0;  D = 0; newI = 0; IncI = 0 
   UI_Symp = 1; UI_Asymp = 0; DI_Symp = 0; DI_Asymp = 0 
   CurrentInfecteds = UI + DI
@@ -28,10 +74,7 @@ run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, d
   colnames(time_record) <- c("New_Exposed", "New_Infectious", "Intros", "New_Detections", "Cum_Detects", "Total_Infected", "Cumulative_Infections") 
   time_record$Total_Infected <- 1
   time_record$Cumulative_Infections <- 1
-  while  ( ((CurrentInfecteds > 0) & (D < d_thres))   |   ((CurrentInfecteds < e_thresh) & (CurrentInfecteds > 0)) ) { ## Is this correct? I think we want cumulative infections here
-    
-    #i = 1
-    #for(i in 1:100) { 
+  while  ( ((CurrentInfecteds > 0) & (D < d_thres))   |   ((I < e_thresh) & (CurrentInfecteds > 0)) ) { 
     #while Number of infected is below epidemic threshold hold and more than 0 infected
     # or while number of infecteds is above 0 and the number of detected is below threshold
     
@@ -93,7 +136,7 @@ run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, d
     ##### step 5  Updating final counters and time record ############      
     IncI = IncI + newI - ExitI # Incubated are the number there, plus new, minus those that left 
     
-    
+    ## Ask Lauren to run through these tomorrow
     removeUI_Symp = sum((recUI_Symp_draws  < recov_p) | ( dectSymp_draws < dis_prob_symp) )
     removeUDI_Symp = sum((recUI_Symp_draws  < recov_p) & ( dectSymp_draws < dis_prob_symp) )
     
@@ -118,12 +161,13 @@ run_branch <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, d
     
     #adding time step data 
     time_record <- rbind(time_record, c(newI, ExitI, intro_num, NewlyDisc, D , CurrentInfecteds, I))     
-    # i = i + 1
   }
   time <- data.frame(seq(1:nrow(time_record)))
   colnames(time) <- "time"
   time_record <- cbind(time, time_record)
+  
   return(time_record)
+  })
 }
 
 
@@ -136,7 +180,7 @@ run_branches <- function(num_reps, ...) {
 
 test_escape <- function(df, d_thres, e_thresh){
   if(last_cumdetect_value(df) < d_thres) return(NA)
-  if(last_cuminfect_value(df)>e_thresh) {
+  if(last_cuminfect_value(df)>=e_thresh) {
     TRUE
   } else{
     FALSE
@@ -144,6 +188,10 @@ test_escape <- function(df, d_thres, e_thresh){
 }
 
 count_escapes <- function(x, d_thres, e_thresh){
+  ## Function to get probability of escape, if detecteds
+  ## are greater than the d_thres
+  ## x must be list of runs
+  
   escapes <- laply(x, test_escape, d_thres, e_thresh)
   numEscape <- sum(escapes, na.rm=T)
   numPossible <- sum(!is.na(escapes), na.rm=T)
@@ -185,17 +233,22 @@ all_last_instantInf_values <- function(x) {
 
 
 ## Set of functions to calculate given I have X cases, what is the distribution of cases I see 
-detection_rows <- function(x, detect_thres=d_thres) {
+library(ggplot2)
+library(reshape2)
+library(scales)
+
+detection_rows <- function(x, detect_thres = d_thres) {
   detections <- x[,6]
   rows <- which(detections == detect_thres)
   reduced <- x[rows,]
   return(reduced)
 }
 
-all_detect_rows <- function(x, d_thres) {   # Function to return all rows in trials that match detection threshold
+all_detect_rows <- function(x, detect_thres) {   # Function to return all rows in trials that match detection threshold
  return(ldply(x, detection_rows))
 }
   
+please.work <- all_detect_rows(trials, detect_thres = 5)
 
 
 # Additional Post Processing Functions 
