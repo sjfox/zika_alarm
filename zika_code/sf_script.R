@@ -15,17 +15,17 @@ library(cowplot)
 # e_thresh -- total instantaneous I's that count as epidemic escape (not cumulative):
 
 #Parameters 
-branch_params <- function(prop_p = 1/7 , 
+branch_params <- function(prop_p = 1.7/7 , 
                           recov_p = 1.0/7,
                           d_thres = 5,
                           e_thresh = 300,
                           prob_symp = 1,
-                          incub_p = 1/16.5,
+                          incub_p = 1,
                           dis_prob_symp = 1,
                           dis_prob_asymp = 0.00 ,
-                          intro_rate = 0.000,
-                          disc_p = .1)
+                          intro_rate = 0.000)
   return(as.list(environment()))
+
 
 run_simple_branches <- function(num_reps, ...){
   rlply(.n = num_reps, .expr = run_branch_simple(...) )
@@ -37,15 +37,13 @@ getMaxCumI <- function(x){
 all_getMaxCumI <- function(x) {
   laply(x, getMaxCumI)
 }
-trials <- run_simple_branches(1000, prop_p=.5/7, recov_p=1/7, disc_p=.01, d_thresh=5, e_thresh=200)
+
+trials <- run_simple_branches(1000, prop_p=1.7/7, recov_p=1/7, disc_p=.01, d_thresh=5, e_thresh=200)
 final.sizes <- all_getMaxCumI(trials)
 hist(final.sizes, breaks=100)
 
-
-
-
-
 trials <- run_branches(num_reps = 1000, branch_params(prop_p=.5/7, dis_prob_symp = .01))
+
 p <- plot_final_sizes(trials)
 print(p)
 

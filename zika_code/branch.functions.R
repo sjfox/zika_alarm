@@ -65,102 +65,131 @@ run_branch_simple <- function(prop_p, recov_p, disc_p, d_thresh, e_thresh) {
 
 run_branch <- function(params) {
   with(params,{
-  UI = 1; DI = 0;  D = 0; newI = 0; IncI = 0 
-  UI_Symp = 1; UI_Asymp = 0; DI_Symp = 0; DI_Asymp = 0 
-  CurrentInfecteds = UI + DI
-  I = CurrentInfecteds
-  
-  time_record <- data.frame(matrix(data = 0, ncol = 7))
-  colnames(time_record) <- c("New_Exposed", "New_Infectious", "Intros", "New_Detections", "Cum_Detects", "Total_Infected", "Cumulative_Infections") 
-  time_record$Total_Infected <- 1
-  time_record$Cumulative_Infections <- 1
-  while  ( ((CurrentInfecteds > 0) & (D < d_thres))   |   ((I < e_thresh) & (CurrentInfecteds > 0)) ) { 
-    #while Number of infected is below epidemic threshold hold and more than 0 infected
-    # or while number of infecteds is above 0 and the number of detected is below threshold
-    
-    ######## Step 1 - Infection ##################
-    #Could potentially have 4 different rates here , but assuming that transmissibility determined by detected or not 
-    newDI_draws = runif(DI) #New infected by detected prop_p 
-    newDI_count = sum(newDI_draws < prop_p) # For Right now prop_p is the same re
-    
-    newUI_draws = runif(UI) #Number infected by Undetected  
-    newUI_count =  sum(newUI_draws < prop_p)  
-    
-    newI = newUI_count + newDI_count #New Infections (Exposed)
-    
-    ####### Step 2 - Exposed Period to Undetected Infectious ##########   
-    IncI_draws = runif(IncI) #Probability of Exiting Infectious Period
-    ExitI = sum(IncI_draws < incub_p) #Num Infectious 
-    
-    
-    # Symptomatic vs Asymptomatic
-    newSymp_draws = runif(ExitI)
-    newSymp_count = sum(newSymp_draws < prob_symp)
-    newAsymp_count = ExitI-newSymp_count
-    
-    #Potential Introduction
-    intro_prob = runif(1) #some possible number of events
-    intro_num = sum(intro_prob < intro_rate) #Number of Introductions 
-    intro_type_draw = runif(intro_num)
-    intro_type_Symp = sum(intro_type_draw < prob_symp)
-    intro_type_Asymp = intro_num - intro_type_Symp
-    
-    
-    #### step 3 Detection  ######################### 
-    # Detection of new Cases according to Symptomatic / Asymptomatic Probabilities  
-    dectSymp_draws = runif(UI_Symp) 
-    dectSymp_count = sum(dectSymp_draws < dis_prob_symp) 
-    
-    dectAsymp_draws = runif(UI_Asymp)
-    dectAsymp_count = sum(dectAsymp_draws < dis_prob_asymp)
-    
-    NewlyDisc = dectSymp_count + dectAsymp_count # Number of New Detecteds 
-    
-    
-    ###### step 4 Recovery  ##################
-    #Detected 
-    recDI_Symp_draws = runif(DI_Symp) #Detected Symptomatic indivduals-will they recover?
-    recDI_Symp_count = sum(recDI_Symp_draws < recov_p)
-    
-    recDI_Asymp_draws = runif(DI_Asymp) #Detected Asymptomatic indivduals-will they recover?
-    recDI_Asymp_count = sum(recDI_Asymp_draws < recov_p)
-    
-    
-    #Undetected 
-    recUI_Symp_draws = runif(UI_Symp) #Undetected Symptomatic indivduals-will they recover?
-    recUI_Symp_count = sum(recUI_Symp_draws < recov_p)
-    
-    recUI_Asymp_draws = runif(UI_Asymp) #Undetected Asymptomatic indivduals-will they recover?
-    recUI_Asymp_count = sum(recUI_Asymp_draws < recov_p)
-    
-    ##### step 5  Updating final counters and time record ############      
-    IncI = IncI + newI - ExitI # Incubated are the number there, plus new, minus those that left 
-    
-    ## Ask Lauren to run through these tomorrow
-    removeUI_Symp = sum((recUI_Symp_draws  < recov_p) | ( dectSymp_draws < dis_prob_symp) )
-    removeUDI_Symp = sum((recUI_Symp_draws  < recov_p) & ( dectSymp_draws < dis_prob_symp) )
-    
-    UI_Symp = UI_Symp + newSymp_count + intro_type_Symp - removeUI_Symp
-    DI_Symp = DI_Symp + dectSymp_count - removeUDI_Symp
-    
-    removeUI_Asymp = sum(( recUI_Asymp_draws  < recov_p) | ( dectAsymp_draws < dis_prob_asymp) )
-    removeUDI_Asymp = sum(( recUI_Asymp_draws  < recov_p) & ( dectAsymp_draws < dis_prob_asymp) )
-     
-    UI_Asymp = UI_Asymp + newAsymp_count + intro_type_Asymp - removeUI_Asymp
-    DI_Asymp = DI_Asymp + dectAsymp_count - removeUDI_Asymp
-
-    
-    UI = UI_Symp + UI_Asymp 
-    DI = DI_Symp + DI_Asymp
-   
-    D = D + NewlyDisc # Cumulative Detected 
-    
-    CurrentInfecteds = UI + DI #Undiscovered and Discovered Infecteds 
-    #if (CurrentInfecteds < 0) CurrentInfecteds = 0
-    I = I + ExitI
+    UI_Symp = 1; UI_Asymp = 0; DI_Symp = 0; DI_Asymp = 0 
+    UI = UI_Symp + UI_Asymp; DI = DI_Symp + DI_Asymp
+    D = 0  
+    incubationInfecteds = 0
+    I = UI + DI
+    cumI = UI
+    time_record <- data.frame(matrix(data = 0, ncol = 7))
+    colnames(time_record) <- c("New_Exposed", "New_Infectious", "Intros", "New_Detections", "Cum_Detects", "Total_Infected", "Cumulative_Infections") 
+    time_record$Total_Infected <- 1
+    time_record$Cumulative_Infections <- 1
+    while  (((I < e_thresh) & (I > 0)) | ((I > 0) & (D < d_thres))) {
+      #while Number of infected is below epidemic threshold hold and more than 0 infected
+      # or while number of infecteds is above 0 and the number of detected is below threshold
+            
+      ########################### First Introudction Rate
+      intro_draws = runif(1) #some possible number of events
+      intro_count = sum(intro_draws < intro_rate) #Number of Introductions 
+      intro_type_draw = runif(intro_count)
+      intro_Symp = sum(intro_type_draw < prob_symp)
+      intro_Asymp = intro_count-intro_Symp
+      
+      
+      ############################## INCUBATION
+      
+      leavingInc_draws = runif(incubationInfecteds)
+      leavingInc_count = sum(leavingInc_draws < incub_p)
+      
+      ############################## DETERMING ASYMP/SYMP
+      newUI_Symp_draws = runif(leavingInc_count)
+      newUI_Symp_count = sum(newUI_Symp_draws < prob_symp)
+      newUI_Asymp_count = leavingInc_count - newUI_Symp_count
+      
+      
+      ############################## INFECTION
+      
+      #Infection for Detected Individuals 
+      
+      newDI_draws = runif(DI) #New discovered infected possibilities 
+      newDI_count = sum(newDI_draws < prop_p) #Number of new infected by detected individuals 
+      
+      #newDI_Symp_draws = runif(newDI_count)
+      #newDI_Symp_count = sum(newDI_Symp_draws < prob_symp)
+      #newDI_Asymp_count = newDI_count - newDI_Symp_count
+      
+      # Recovering for Detected Symptomatic - Keep it separate so you know for future 
+      recoveredDI_Symp_draws = runif(DI_Symp) #Detected indivduals-will they recover?
+      recoveredDI_Symp_count = sum(recoveredDI_Symp_draws < recov_p)
+      
+      # Recovering for Detected Asymptomatic 
+      recoveredDI_Asymp_draws = runif(DI_Asymp) #Detected indivduals-will they recover?
+      recoveredDI_Asymp_count = sum(recoveredDI_Asymp_draws < recov_p)
+      
+      
+      #Innfection for Undetected Individuals 
+      newUI_draws = runif(UI) #Number of possible new Undiscovred infecteds 
+      newUI_count =  sum(newUI_draws < prop_p)  #Number of new Infecteds 
+      
+      #newUI_Symp_draws = runif(newUI_count)
+      #newUI_Symp_count = sum(newUI_Symp_draws < prob_symp)
+      #newUI_Asymp_count = newUI_count - newUI_Symp_count
+      
+      # Recovering for Undetected Symptomatic 
+      recoveredUI_Symp_draws = runif(UI_Symp) #Detected indivduals-will they recover?
+      recoveredUI_Symp_count = sum(recoveredDI_Symp_draws < recov_p)
+      
+      # Recovering for Undetected Asymptomatic 
+      recoveredUI_Asymp_draws = runif(UI_Asymp) #Detected indivduals-will they recover?
+      recoveredUI_Asymp_count = sum(recoveredUI_Asymp_draws < recov_p)
+      
+      ####################################################################
+      # DETECTION
+      
+      # Detection - Symptomatic 
+      discoveredUI_Symp_draws = runif(UI_Symp)
+      discoveredUI_Symp_count = sum(discoveredUI_Symp_draws < dis_prob_symp)  #probability that undetected individuals are discovered 
+      
+      # Detection - Asymptomatic 
+      discoveredUI_Asymp_draws = runif(UI_Asymp)
+      discoveredUI_Asymp_count = sum(discoveredUI_Asymp_draws < dis_prob_asymp)  #probability that undetected individuals are discovered 
+      
+      # Updating - UI- Undiscovered infecteds can remove by being recovered or by being discovoered 
+      removeUI_Symp = sum((recoveredUI_Symp_draws < recov_p) | (discoveredUI_Symp_draws < dis_prob_symp)) 
+      removeUI_Asymp = sum((recoveredUI_Asymp_draws < recov_p) | (discoveredUI_Asymp_draws < dis_prob_asymp)) 
+      
+      # remove undiscovered infecteds that are both no longer infected and were eventually discovered 
+      removeUDI_Symp =  sum((recoveredUI_Symp_draws < recov_p) & ( discoveredUI_Symp_draws < dis_prob_symp))
+      removeUDI_Asymp =  sum((recoveredUI_Asymp_draws < recov_p) & ( discoveredUI_Asymp_draws < dis_prob_asymp))
+      
+      #########################################################
+      # UPDATING 
+          
+      # Incubating
+      incubationInfecteds = incubationInfecteds +  newDI_count + newUI_count - leavingInc_count
+      
+      # Newly Exposed 
+      newEx = newUI_count + newDI_count
+      
+      # Newly Infectious
+      newInf = newUI_Symp_count + newUI_Asymp_count + intro_Asymp + intro_Symp  # or leaving inc+ intro 
+      cumI = cumI + newInf 
+          
+      # Newly and Cumlative Detected 
+      newlyDisc = discoveredUI_Asymp_count + discoveredUI_Symp_count
+      D = D + newlyDisc #Cumulatve Detected = those detected + newly detected
+      
+      #Undetected 
+      UI_Symp = UI_Symp + intro_Symp + newUI_Symp_count - removeUI_Symp
+      UI_Asymp = UI_Asymp + intro_Asymp  + newUI_Asymp_count - removeUI_Asymp
+      
+      UI = UI_Symp + UI_Asymp 
+      
+      # Detected 
+      
+      DI_Symp = DI_Symp + discoveredUI_Symp_count - recoveredDI_Symp_count - removeUDI_Symp
+      DI_Asymp = DI_Asymp + discoveredUI_Asymp_count - recoveredDI_Asymp_count - removeUDI_Asymp
+      
+      DI = DI_Symp + DI_Asymp
+      
+      #Detected = Detected + Recovered Individuals + Newly Detected - Previously UI that have been detected and Recovered       
+      I = UI + DI #Undiscovered and Discovered Infected 
+      
+      
     
     #adding time step data 
-    time_record <- rbind(time_record, c(newI, ExitI, intro_num, NewlyDisc, D , CurrentInfecteds, I))     
+    time_record <- rbind(time_record, c(newEx, newInf, intro_count, newlyDisc, D , I, cumI))     
   }
   time <- data.frame(seq(1:nrow(time_record)))
   colnames(time) <- "time"
@@ -243,13 +272,10 @@ detection_rows <- function(x, detect_thres = d_thres) {
   reduced <- x[rows,]
   return(reduced)
 }
-
 all_detect_rows <- function(x, detect_thres) {   # Function to return all rows in trials that match detection threshold
  return(ldply(x, detection_rows))
 }
   
-please.work <- all_detect_rows(trials, detect_thres = 5)
-
 
 # Additional Post Processing Functions 
 prob_ext <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate, nsamples=100) {
