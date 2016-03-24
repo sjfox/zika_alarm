@@ -158,14 +158,16 @@ run_branch <- function(params) {
       
       #########################################################
       # UPDATING 
-          
+      # Some of newly exposed are those infected by UI and DI will go straight 
+      # Newly Exposed 
+      newEx = newUI_count + newDI_count
+    
       # Incubating
       incubationInfecteds = incubationInfecteds +  newDI_count + newUI_count - leavingInc_count
       # previously incubation + new infections by DI and UI - those that are now infectious
       
-      # Newly Exposed 
-      newEx = newUI_count + newDI_count
-      # newly exposed are those infected by UI and DI 
+  
+   
       
       # Newly Infectious
       #newInf = newUI_Symp_count + newUI_Asymp_count + intro_Asymp + intro_Symp  # or leaving inc+ intro 

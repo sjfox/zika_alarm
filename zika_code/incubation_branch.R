@@ -7,7 +7,7 @@ branch_params <- function(prop_p = 1.7/7 ,
                           d_thres = 5,
                           e_thresh = 200,
                           prob_symp = 1,
-                          incub_p = 1,
+                          incub_rate = 1/16.5,
                           dis_prob_symp = 1,
                           dis_prob_asymp = 0.00 ,
                           intro_rate = 0.000,
@@ -27,7 +27,7 @@ run_branch_modified_inc <- function(params) {
     colnames(time_record) <- c("New_Exposed", "New_Infectious", "Intros", "New_Detections", "Cum_Detects", "Total_Infected", "Cumulative_Infections") 
     time_record$Total_Infected <- 1
     time_record$Cumulative_Infections <- 1
-    while  (((I < e_thresh) & (I > 0)) | ((I > 0) & (D < d_thres))) {
+    while  (((cumI < e_thresh) & ((I+incubationInfecteds) > 0)) | (((I+incubationInfecteds) > 0) & (D < d_thres))) {
       #while Number of infected is below epidemic threshold hold and more than 0 infected
       # or while number of infecteds is above 0 and the number of detected is below threshold
       
@@ -42,7 +42,7 @@ run_branch_modified_inc <- function(params) {
       ############################## INCUBATION
       
       leavingInc_draws = runif(incubationInfecteds) # Probabiity of leaving Incubation
-      leavingInc_count = sum(leavingInc_draws < incub_p) # Cout of those leaving incubation
+      leavingInc_count = sum(leavingInc_draws < incub_rate) # Cout of those leaving incubation
       
       ############################## DETERMING ASYMP/SYMP
       newUI_Symp_draws = runif(leavingInc_count) #New Symptomatic Infections based on leaving Inc
@@ -174,8 +174,4 @@ run_branch_modified_inc <- function(params) {
   })
 }
 
-trials.incubation <-  run_branches_inc(num_reps = 1000, branch_params(prop_p = 1.7/7, e_thresh = 200))
-trials.incubation[[1]]
-outbreak.detections.incubation <- all_last_cuminfect_values(trials.incubation) # Highest small case 31 
-hist(outbreak.detections.incubation, breaks = 100, main = "Complex Model", xlab = "Final Detection")
-
+trials.incubation <-  run_branches_inc(num_reps = 1000, branch_params(prop_p = 1/7, e_thresh = 500, incub_rate = 1, zeroInc_prob = 1))
