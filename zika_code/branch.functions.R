@@ -83,44 +83,47 @@ run_branch <- function(params) {
       intro_draws = runif(1) #some possible number of events
       intro_count = sum(intro_draws < intro_rate) #Number of Introductions 
       intro_type_draw = runif(intro_count)
-      intro_Symp = sum(intro_type_draw < prob_symp)
-      intro_Asymp = intro_count-intro_Symp
+      intro_Symp = sum(intro_type_draw < prob_symp) # Proportion of Symptomatic Introductions
+      intro_Asymp = intro_count-intro_Symp # Asym Into = Total Intro-symptomatic 
       
       
       ############################## INCUBATION
       
-      leavingInc_draws = runif(incubationInfecteds)
-      leavingInc_count = sum(leavingInc_draws < incub_p)
+      leavingInc_draws = runif(incubationInfecteds) # Probabiity of leaving Incubation
+      leavingInc_count = sum(leavingInc_draws < incub_p) # Cout of those leaving incubation
       
       ############################## DETERMING ASYMP/SYMP
-      newUI_Symp_draws = runif(leavingInc_count)
+      newUI_Symp_draws = runif(leavingInc_count) #New Symptomatic Infections based on leaving Inc
       newUI_Symp_count = sum(newUI_Symp_draws < prob_symp)
-      newUI_Asymp_count = leavingInc_count - newUI_Symp_count
+      newUI_Asymp_count = leavingInc_count - newUI_Symp_count # New Asymptomatic Infectiosn leaving Inc
       
       
       ############################## INFECTION
       
+      #Infection counts don't matter if they're done by symptomatic or asymptomatic individuals at this point
+      # becaue the rates are the same
+      
       #Infection for Detected Individuals 
       
-      newDI_draws = runif(DI) #New discovered infected possibilities 
-      newDI_count = sum(newDI_draws < prop_p) #Number of new infected by detected individuals 
+      newDI_draws = runif(DI) #New exposed possibilities 
+      newDI_count = sum(newDI_draws < prop_p) #Number of new exposed by detected individuals 
       
       #newDI_Symp_draws = runif(newDI_count)
       #newDI_Symp_count = sum(newDI_Symp_draws < prob_symp)
       #newDI_Asymp_count = newDI_count - newDI_Symp_count
       
-      # Recovering for Detected Symptomatic - Keep it separate so you know for future 
-      recoveredDI_Symp_draws = runif(DI_Symp) #Detected indivduals-will they recover?
-      recoveredDI_Symp_count = sum(recoveredDI_Symp_draws < recov_p)
+      # Recovering for Detected Symptomatic 
+      recoveredDI_Symp_draws = runif(DI_Symp) # Recovered possibilities for detected symptomatic
+      recoveredDI_Symp_count = sum(recoveredDI_Symp_draws < recov_p) # number of recovered DI_symp
       
       # Recovering for Detected Asymptomatic 
-      recoveredDI_Asymp_draws = runif(DI_Asymp) #Detected indivduals-will they recover?
+      recoveredDI_Asymp_draws = runif(DI_Asymp) #  Recovered possibilities for detected asymptomatic
       recoveredDI_Asymp_count = sum(recoveredDI_Asymp_draws < recov_p)
       
       
       #Innfection for Undetected Individuals 
-      newUI_draws = runif(UI) #Number of possible new Undiscovred infecteds 
-      newUI_count =  sum(newUI_draws < prop_p)  #Number of new Infecteds 
+      newUI_draws = runif(UI) # New exposed probabilities by Undiscovred infecteds 
+      newUI_count =  sum(newUI_draws < prop_p)  # Number of new Infecteds 
       
       #newUI_Symp_draws = runif(newUI_count)
       #newUI_Symp_count = sum(newUI_Symp_draws < prob_symp)
@@ -138,14 +141,14 @@ run_branch <- function(params) {
       # DETECTION
       
       # Detection - Symptomatic 
-      discoveredUI_Symp_draws = runif(UI_Symp)
-      discoveredUI_Symp_count = sum(discoveredUI_Symp_draws < dis_prob_symp)  #probability that undetected individuals are discovered 
-      
+      discoveredUI_Symp_draws = runif(UI_Symp)  #probability that undetected symptomatic individuals are discovered 
+      discoveredUI_Symp_count = sum(discoveredUI_Symp_draws < dis_prob_symp) 
+     
       # Detection - Asymptomatic 
-      discoveredUI_Asymp_draws = runif(UI_Asymp)
-      discoveredUI_Asymp_count = sum(discoveredUI_Asymp_draws < dis_prob_asymp)  #probability that undetected individuals are discovered 
+      discoveredUI_Asymp_draws = runif(UI_Asymp)  #probability that undetected asymptomatic  individuals are discovered 
+      discoveredUI_Asymp_count = sum(discoveredUI_Asymp_draws < dis_prob_asymp) 
       
-      # Updating - UI- Undiscovered infecteds can remove by being recovered or by being discovoered 
+      # Updating - UI- Undiscovered infecteds can be removed by being recovered or by being discovoered 
       removeUI_Symp = sum((recoveredUI_Symp_draws < recov_p) | (discoveredUI_Symp_draws < dis_prob_symp)) 
       removeUI_Asymp = sum((recoveredUI_Asymp_draws < recov_p) | (discoveredUI_Asymp_draws < dis_prob_asymp)) 
       
@@ -158,26 +161,31 @@ run_branch <- function(params) {
           
       # Incubating
       incubationInfecteds = incubationInfecteds +  newDI_count + newUI_count - leavingInc_count
+      # previously incubation + new infections by DI and UI - those that are now infectious
       
       # Newly Exposed 
       newEx = newUI_count + newDI_count
+      # newly exposed are those infected by UI and DI 
       
       # Newly Infectious
-      newInf = newUI_Symp_count + newUI_Asymp_count + intro_Asymp + intro_Symp  # or leaving inc+ intro 
+      #newInf = newUI_Symp_count + newUI_Asymp_count + intro_Asymp + intro_Symp  # or leaving inc+ intro 
+      newInf = leavingInc_count + intro_count
+      # newly infectious = those that have left incubation + intro counts 
       cumI = cumI + newInf 
           
-      # Newly and Cumlative Detected 
+      # Newly Detected = symptomatic and asymptomatic cases discovered
       newlyDisc = discoveredUI_Asymp_count + discoveredUI_Symp_count
-      D = D + newlyDisc #Cumulatve Detected = those detected + newly detected
       
-      #Undetected 
+      #Cumulatve Detected = those already detected + newly detected
+      D = D + newlyDisc 
+      
+      #Undetected = previously + those introduced + those leaving incuation - recovered or detected 
       UI_Symp = UI_Symp + intro_Symp + newUI_Symp_count - removeUI_Symp
       UI_Asymp = UI_Asymp + intro_Asymp  + newUI_Asymp_count - removeUI_Asymp
       
       UI = UI_Symp + UI_Asymp 
       
-      # Detected 
-      
+      # Detected = previously + discovered - recovered discovered - in one time were discovered/recovered
       DI_Symp = DI_Symp + discoveredUI_Symp_count - recoveredDI_Symp_count - removeUDI_Symp
       DI_Asymp = DI_Asymp + discoveredUI_Asymp_count - recoveredDI_Asymp_count - removeUDI_Asymp
       
@@ -185,8 +193,7 @@ run_branch <- function(params) {
       
       #Detected = Detected + Recovered Individuals + Newly Detected - Previously UI that have been detected and Recovered       
       I = UI + DI #Undiscovered and Discovered Infected 
-      
-      
+         
     
     #adding time step data 
     time_record <- rbind(time_record, c(newEx, newInf, intro_count, newlyDisc, D , I, cumI))     
