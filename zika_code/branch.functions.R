@@ -130,8 +130,8 @@ run_branch <- function(params) {
       #newUI_Asymp_count = newUI_count - newUI_Symp_count
       
       # Recovering for Undetected Symptomatic 
-      recoveredUI_Symp_draws = runif(UI_Symp) #Detected indivduals-will they recover?
-      recoveredUI_Symp_count = sum(recoveredDI_Symp_draws < recov_p)
+      recoveredUI_Symp_draws = runif(UI_Symp) 
+      recoveredUI_Symp_count = sum(recoveredUI_Symp_draws < recov_p)
       
       # Recovering for Undetected Asymptomatic 
       recoveredUI_Asymp_draws = runif(UI_Asymp) #Detected indivduals-will they recover?
@@ -387,7 +387,7 @@ plotheatmaps <- function(df, type, names, disc_value, R0) {
   title <- paste(title, collapse = "")
   
   p <- ggplot(df.m, aes(variable, names)) 
-  p <- p +  geom_tile(aes(fill = value), colour = "white") + theme_bw()+ scale_fill_gradient(low = "lightyellow",high = "red", name = "Frequency") +labs(x = type, y = "Detected Cases")
+  p <- p +  geom_tile(aes(fill = value), colour = "white") + theme_bw()+ scale_fill_gradient(low = "lightyellow",high = "red", name = "Frequency") +labs(x = type, y = "Detected Cases") + theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
   p <- p + theme(axis.title.x = element_text(size=15), axis.text.x  = element_text(size=9), axis.title.y = element_text(size=15), axis.text.y  = element_text(size=9) ) + ggtitle(title) + theme(plot.title = element_text(lineheight=.8, face="bold"))
   return(p)
   p
