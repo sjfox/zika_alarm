@@ -273,16 +273,19 @@ library(ggplot2)
 library(reshape2)
 library(scales)
 
-detection_rows <- function(x, detect_thres = d_thres) {
+## Set of functions to calculate given I have X cases, what is the distribution of cases I see 
+detection_rows <- function(x, detect_thres=d_thres) {
   detections <- x[,6]
   rows <- which(detections == detect_thres)
   reduced <- x[rows,]
   return(reduced)
 }
-all_detect_rows <- function(x, detect_thres) {   # Function to return all rows in trials that match detection threshold
- return(ldply(x, detection_rows))
+
+all_detect_rows <- function(x, d_thres) {   # Function to return all rows in trials that match detection threshold
+  return(ldply(x, detection_rows))
 }
-  
+
+
 
 # Additional Post Processing Functions 
 prob_ext <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate, nsamples=100) {
@@ -331,4 +334,63 @@ prob_underD.overE <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_th
   }
   return(escapes_prob)
 }
+
+
+
+
+##### Functions for generating the heat maps 
+name.generator <- function(R0, disc_value, type) {
+  filename.base <- paste(R0, disc_value, sep = "_")
+  filename.type <- paste(type, filename.base, sep = "_")
+  return(filename.type)
+} 
+
+
+set.cum.bins <- function(highest.thres, trials) {
+  highest.dect <- dect.cases[length(dect.cases)]
+  d_thres <- highest.thres
+  at.high.dect <- all_detect_rows(trials)
+  max.cum <- max(at.high.dect[,8])
+  max.bin <- max.cum + 25
+  bins <- seq(from = 0, to = max.bin, by = 25)
+  return(bins)
+}
+
+
+set.prev.bins <- function(highest.thres, trials) {
+  d_thres <- highest.thres
+  at.high.dect <- all_detect_rows(trials)
+  max.prev <- max(at.high.dect[,7])
+  max.bin <- max.prev + 5
+  bins <- seq(from = 0, to = max.bin, by = 5)
+  return(bins)
+}
+
+
+
+#Function to take the row and calculate proabilities for bins
+bin.frequency <- function(df, bins) {
+  df.cut <- cut(df, breaks = bins, right = FALSE)
+  df.freq = table(df.cut)
+  df.freq <- cbind(df.freq)
+  df.freq <- df.freq/sum(df.freq)
+  return(df.freq)
+}
+
+# Keep Things Ordered Here ording by a certain variable
+
+plotheatmaps <- function(df, type, names, disc_value, R0) {
+  df <- cbind(names, df)
+  df$names <- factor(df$names, levels = df$names[order(df$names)])
+  df.m <- melt(df)
+  title <- c("R0 = ", R0, " ; Detect Prob = ", disc_value)
+  title <- paste(title, collapse = "")
+  
+  p <- ggplot(df.m, aes(variable, names)) 
+  p <- p +  geom_tile(aes(fill = value), colour = "white") + theme_bw()+ scale_fill_gradient(low = "lightyellow",high = "red", name = "Frequency") +labs(x = type, y = "Detected Cases")
+  p <- p + theme(axis.title.x = element_text(size=15), axis.text.x  = element_text(size=9), axis.title.y = element_text(size=15), axis.text.y  = element_text(size=9) ) + ggtitle(title) + theme(plot.title = element_text(lineheight=.8, face="bold"))
+  return(p)
+  p
+}
+
 

@@ -28,6 +28,7 @@ branch_params <- function(prop_p = 1.7/7 ,
   return(as.list(environment()))
 
 # Average Run 
+
 trials <- run_branches(num_reps = 1000, branch_params())
 lastvalues <- all_last_cuminfect_values(trials)
 hist(lastvalues, breaks = 100)
