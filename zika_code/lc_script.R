@@ -47,8 +47,12 @@ plot(last_detect_values, lastvalues,  xlab = "Cumulative Detected", ylab =  "Cum
 ## Writing Functions for Plotting Heat Maps
 
 
-prop_range <- seq(from = .7/7, to = 1.7/7, by = 0.5/7) #Changed to =  2.0/7 for testing
-disc_range <- seq(from = 0.01, to = 0.11, by = .05) # Changed discover range to - 0.10
+
+
+# THIS WORKS FOR 
+prop_range <- seq(from = 1.7/7, to = 1.7/7, by = 0.1/7) 
+disc_range <- seq(from = 0.01, to = 0.01, by = .01) 
+
 
 for (m in 1:length(prop_range)) {
   print(paste("Starting Prop Range", m, "-"))
@@ -58,7 +62,7 @@ for (m in 1:length(prop_range)) {
     R0  = prop_range[m]*7
     
     #Running trials
-    trials <- run_branches(num_reps = 1000, branch_params(dis_prob_symp=disc_range[j], prop_p = prop_range[m]))
+    trials <- run_branches_inc(num_reps = 1000, branch_params(dis_prob_symp=disc_range[j], prop_p = prop_range[m]))
     lastdetected <- all_last_cumdetect_values(trials)
     max <- max(lastdetected)
     if (max >= 200) {
@@ -88,11 +92,15 @@ for (m in 1:length(prop_range)) {
     
     #Setting Up matrices 
     thres.matrix.prev <- data.frame(matrix(nrow = length(dect.cases), ncol = length(bins.prev)-1))
-    colnames(thres.matrix.prev) <- paste("< ", bins.prev[2:length(bins.prev)]); rownames(thres.matrix.prev) <- paste("Detected Cases = ", dect.cases)
+    colnames(thres.matrix.prev) <- paste("< ", bins.prev[2:length(bins.prev)]); rownames(thres.matrix.prev) <- paste("Detected Cases =", dect.cases)
     
     thres.matrix.cum <- data.frame(matrix(nrow = length(dect.cases), ncol = length(bins.cumulative)-1))
-    colnames(thres.matrix.cum) <- paste("<", bins.cumulative[2:length(bins.cumulative)]); rownames(thres.matrix.cum) <- paste("Detected Cases = ", dect.cases)
+    colnames(thres.matrix.cum) <- paste("<", bins.cumulative[2:length(bins.cumulative)]); rownames(thres.matrix.cum) <-  paste("Detected Cases =", dect.cases)
     
+    
+    #Matrix of prop vs detect threshold to store the number of cases detected threshold
+    matrix.cases.detection <- data.frame(matrix(nrow = length(disc_range), ncol = length(prop_range)))
+    colnames(matrix.cases.detection) <- prop_range; rownames(matrix.cases.detection) <- disc_range
     
     #Writing the values 
     for (i in 1:length(dect.cases)) {
@@ -103,8 +111,13 @@ for (m in 1:length(prop_range)) {
       
       thres.matrix.prev[i,] <- frequencies.prev
       thres.matrix.cum[i,] <- frequencies.cum
-    }
-    print("Calculated Frequencies")
+    }            
+      
+    #integer <- find_thres_cases(bins.prev, thres = 10, df=thres.matrix.prev, threshold_value=.9)
+   # integer.list[[i]] <- integer
+    
+      
+    #matrix.cases.detection[j,m] <- integer                     
     
     #Writing and saving the files - Not necessary to save all of these for now to check 
     filename.prev <- paste(name.generator(R0, disc_range[j], "Prev"), "csv", sep = ".")
