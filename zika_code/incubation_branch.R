@@ -27,7 +27,7 @@ run_branch_modified_inc <- function(params) {
     colnames(time_record) <- c("New_Exposed", "New_Infectious", "Intros", "New_Detections", "Cum_Detects", "Total_Infected", "Cumulative_Infections") 
     time_record$Total_Infected <- 1
     time_record$Cumulative_Infections <- 1
-    while  (((cumI < e_thresh) & ((I+incubationInfecteds) > 0)) | (((I+incubationInfecteds) > 0) & (D < d_thres))) {
+    while  (((I < e_thresh) & ((I+incubationInfecteds) > 0)) | (((I+incubationInfecteds) > 0) & (D < d_thres))) {
       #while Number of infected is below epidemic threshold hold and more than 0 infected
       # or while number of infecteds is above 0 and the number of detected is below threshold
       
@@ -174,4 +174,4 @@ run_branch_modified_inc <- function(params) {
   })
 }
 
-trials.incubation <-  run_branches_inc(num_reps = 1000, branch_params(prop_p = 1/7, e_thresh = 500, incub_rate = 1, zeroInc_prob = 1))
+#trials.incubation <-  run_branches_inc(num_reps = 1000, branch_params(prop_p = 1.7/7, e_thresh = 300, incub_rate = 1, zeroInc_prob = 1))
