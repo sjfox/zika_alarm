@@ -239,6 +239,8 @@ count_escapes <- function(x, d_thres, e_thresh){
     numEscape/numPossible
   }
 }
+
+count_escapes_vec <- Vectorize(count_escapes, vectorize.args = "d_thres")
 #####################################################################
 
 # Analysis functions for extracting various elements from the trials 
@@ -287,7 +289,21 @@ all_detect_rows <- function(x, d_thres) {   # Function to return all rows in tri
   return(ldply(x, detection_rows))
 }
 
-
+metro_areas <- list(dallas =c("Collin", "Dallas", "Denton", "Ellis", "Hoord", "Hunt", "Johnson", "Kaufman", "Parker", "Rockwall", "Somervell", "Tarrant", "Wise"),
+                    houston = c("Harris", "Fort Bend", "Montgomery", "Brazoria", "Galveston", "Liberty", "Waller", "Chambers", "Austin"),
+                    san_antonio = c("Atascosa", "Bandera", "Bexar", "Comal", "Guadalupe", "Kendall", "Medina", "Wilson"),
+                    austin = c("Bastrop", "Caldwell", "Hays", "Travis", "Williamson"),
+                    el_paso = c("El Paso", "Hudspeth"),
+                    mcallen = c("Hidalgo"),
+                    corpus_christi = c("Aransas", "Nueces", "San Patricio"),
+                    brownsville = c("Cameron"),
+                    killeen = c("Bell", "Coryell", "Lampasas"),
+                    beaumont = c("Hardin", "Jefferson", "Newton", "Orange"),
+                    lubbock = c("Crosby", "Lubbock", "Lynn"),
+                    laredo = c("Webb"),
+                    amarillo = c("Armstrong", "Carson", "Potter", "Randall"),
+                    waco = c("McLennan", "Falls"),
+                    college_station = c("Brazos", "Burleson", "Robertson"))
 
 # Additional Post Processing Functions 
 prob_ext <- function(prop_p, recov_p, incub_p, prob_symp, d_thres, e_thresh, dis_prob_asymp, dis_prob_symp, intro_rate, nsamples=100) {

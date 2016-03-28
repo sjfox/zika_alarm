@@ -173,5 +173,5 @@ run_branch_modified_inc <- function(params) {
     return(time_record)
   })
 }
-
-trials.incubation <-  run_branches_inc(num_reps = 1000, branch_params(prop_p = 1/7, e_thresh = 500, incub_rate = 1, zeroInc_prob = 1))
+# 
+# trials.incubation <-  run_branches_inc(num_reps = 1000, branch_params(prop_p = 1/7, e_thresh = 500, incub_rate = 1, zeroInc_prob = 1))
