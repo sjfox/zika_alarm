@@ -12,95 +12,60 @@ library(plyr)
 library(ggplot2)
 # Code I've written just testing things out-not worth saving in the main files 
 #Parameters 
+}
+
 branch_params <- function(prop_p = 1.7/7 , 
                           recov_p = 1.0/7,
                           d_thres = 5,
                           e_thresh = 200,
                           prob_symp = 1,
-                          incub_p = 1,
-                          dis_prob_symp = 1,
+                          incub_rate = 1/16.5,
+                          dis_prob_symp = 0.0246,
                           dis_prob_asymp = 0.00 ,
-                          intro_rate = 0.000)
+                          intro_rate = 0.000,
+                          zeroInc_prob = 6.825603e-08)
   return(as.list(environment()))
-
-last_infected <- all_last_instantInf_values(trials)
-end_cum_infected <- all_last_cuminfect_values(trials)
-last_cum_detected <- all_last_cumdetect_values(trials)
-
-sort(last_cum_detected)
-hist(end_cum_infected)
-
-detect.vs.cumulative <- cbind(last_cum_detected, end_cum_infected)
-
-
-#Plotting Preliminary Results
-lastvalues <- all_last_cuminfect_values(trials)
-hist(lastvalues, main = paste( "1000 Runs, R0 =", prop_p/recov_p, sep = ""), breaks = 10, ylim = c(1,1000))
-
-plot(last_infected, lastvalues)
-last_detect_values <- all_last_cumdetect_values(trials)
-hist(last_detect_values)
-plot(last_detect_values, lastvalues,  xlab = "Cumulative Detected", ylab =  "Cumulative Infected", main = "1000 Runs-Running until Instantaneous Infected > e_thres")
-
-
-
-## Writing Functions for Plotting Heat Maps
-
-
 
 
 # THIS WORKS FOR 
-prop_range <- seq(from = 1.7/7, to = 1.7/7, by = 0.1/7) 
-disc_range <- seq(from = 0.01, to = 0.01, by = .01) 
+prevalence.long <- data.frame()
+cumulative.long <- data.frame()
+disc_p <- seq(from = .01, to = .1, length.out = 3)
+disc_p <- .1
+prop_range <- seq(from = 1/7, to = 1.8/7, length.out = 4) 
+#disc_range <- seq(from =  0.1, to =  0.1, by = .1) 
+confidence.range <- seq(from = .6, to = .9, by = .1)
 
-
-for (m in 1:length(prop_range)) {
-  print(paste("Starting Prop Range", m, "-"))
-  
-  for (j in 1:length(disc_range)) {
+trials <- run_branches_inc(num_reps = 1000, branch_params(dis_prob_symp=.1, prop_p = 1.5/7, e_thresh = 500))
+lastdetected <- all_last_cumdetect_values(trials)
+R0 = 1.5
+disc_p = .1
+for (m in 1:length(prop_range)) {  
+  for (j in 1:length(confidence.range)) {
     
     R0  = prop_range[m]*7
-    
+    percent.discover <- round(1-((1-disc_p)^7), digits = 2)*100
+
     #Running trials
-    trials <- run_branches_inc(num_reps = 1000, branch_params(dis_prob_symp=disc_range[j], prop_p = prop_range[m]))
+    trials <- run_branches_inc(num_reps = 1000, branch_params(dis_prob_symp=disc_p, prop_p = prop_range[m], e_thresh = 500))
     lastdetected <- all_last_cumdetect_values(trials)
-    max <- max(lastdetected)
-    if (max >= 200) {
-      max = max * .1
-    } else if (max > 100) {
-      max = max*.25
-    } else if (max > 80 & max <= 100) {
-      max = max * 0.20
-    }  else if (max > 60 & max <= 80) {
-      max = max* 0.33
-    } else if (max > 30 & max <= 60) {
-       max = max * 0.5
-    } else max = max
+    
+    max <- set.max.bin(max(lastdetected)) 
     dect.cases <- seq(1:max)
         
-    print(paste("Finished Trials", j, sep = "-"))
-    
     #setting up bins to calculate frequencies 
-    d_thres <- dect.cases[length(dect.cases)] #Highest Number of Cases to Consider 
-    
+    d_thres <- dect.cases[length(dect.cases)] #Highest Number of Cases to Consider  
     bins.prev <- set.prev.bins(d_thres, trials)
     bins.cumulative <- set.cum.bins(d_thres, trials)
     
     #resetting d_thres for trials
-
     
-    
-    #Setting Up matrices 
+    #Setting Up matrices - Can automate this 
     thres.matrix.prev <- data.frame(matrix(nrow = length(dect.cases), ncol = length(bins.prev)-1))
-    colnames(thres.matrix.prev) <- paste("< ", bins.prev[2:length(bins.prev)]); rownames(thres.matrix.prev) <- paste("Detected Cases =", dect.cases)
+    colnames(thres.matrix.prev) <- bins.prev[2:length(bins.prev)]; rownames(thres.matrix.prev) <- paste("Detected Cases =", dect.cases)
     
     thres.matrix.cum <- data.frame(matrix(nrow = length(dect.cases), ncol = length(bins.cumulative)-1))
-    colnames(thres.matrix.cum) <- paste("<", bins.cumulative[2:length(bins.cumulative)]); rownames(thres.matrix.cum) <-  paste("Detected Cases =", dect.cases)
-    
-    
-    #Matrix of prop vs detect threshold to store the number of cases detected threshold
-    matrix.cases.detection <- data.frame(matrix(nrow = length(disc_range), ncol = length(prop_range)))
-    colnames(matrix.cases.detection) <- prop_range; rownames(matrix.cases.detection) <- disc_range
+    colnames(thres.matrix.cum) <- bins.cumulative[2:length(bins.cumulative)]; rownames(thres.matrix.cum) <-  paste("Detected Cases =", dect.cases)
     
     #Writing the values 
     for (i in 1:length(dect.cases)) {
@@ -113,31 +78,60 @@ for (m in 1:length(prop_range)) {
       thres.matrix.cum[i,] <- frequencies.cum
     }            
       
-    #integer <- find_thres_cases(bins.prev, thres = 10, df=thres.matrix.prev, threshold_value=.9)
-   # integer.list[[i]] <- integer
-    
-      
+    integer.prev <- find_thres_cases(bins.prev, thres = 10, df=thres.matrix.prev, threshold_value=confidence.range[j])
+    integer.cumulative <- find_thres_cases(bins = bins.cumulative, thres = 100, df = thres.matrix.cum, threshold_value = confidence.range[j])
+     
+    prevalence.long <- rbind(prevalence.long, cbind(disc_p=disc_p, prop_p=prop_range[m], confidence = confidence.range[j], cases = unname(integer.prev)))
+    cumulative.long <- rbind(cumulative.long, cbind(disc_p=disc_p, prop_p=prop_range[m], confidence = confidence.range[j], cases = unname(integer.cumulative)))
+  }
+}
+   #CODE FOR WRITING AND SAVING HEAT MAPS   
     #matrix.cases.detection[j,m] <- integer                     
     
     #Writing and saving the files - Not necessary to save all of these for now to check 
-    filename.prev <- paste(name.generator(R0, disc_range[j], "Prev"), "csv", sep = ".")
+    filename.prev <- paste(name.generator(R0, percent.discover, "Prev"), "csv", sep = ".")
     write.csv(x = thres.matrix.prev, file = filename.prev, row.names = TRUE)
     
-    filename.cum <- paste(name.generator(R0, disc_range[j], "Cumulative"), "csv", sep = ".")
-    write.csv(x = thres.matrix.cum, file = filename.cum, row.names = TRUE)
+    filename.cum <- paste(name.generator(R0, percent.discover, "Cumulative"), "csv", sep = ".")
+    #write.csv(x = thres.matrix.cum, file = filename.cum, row.names = TRUE)
     
     # Plotting Function to go here
-    prev.map <- plotheatmaps(thres.matrix.prev, type = "Prevalence", names = as.factor(dect.cases), R0 = R0, disc_value = disc_range[j])
-    filename.prev.map <- paste(name.generator(R0, disc_range[j], "Prev_Incubation"), "pdf", sep = ".")
-    ggsave(filename = filename.prev.map, plot = prev.map, width=14, height=9)
+    prev.map <- plotheatmaps(thres.matrix.prev, type = "Prevalence", names = as.factor(dect.cases), R0 = R0, percent.discover = percent.discover)
+    filename.prev.map <- paste(name.generator(R0, percent.discover, "Prev_Incubation"), "pdf", sep = ".")
+    #ggsave(filename = filename.prev.map, plot = prev.map, width=14, height=9)
     
     
-    cum.map <- plotheatmaps(thres.matrix.cum, type = "Cumulative", names = as.factor(dect.cases), R0 = R0, disc_value = disc_range[j])
-    filename.cum.map <- paste(name.generator(R0, disc_range[j], "Cumulative_Incubation"), "pdf", sep = ".")
+    cum.map <- plotheatmaps(thres.matrix.cum, type = "Cumulative", names = as.factor(dect.cases), R0 = R0, percent.discover = percent.discover)
+    filename.cum.map <- paste(name.generator(R0, percent.discover, "Cumulative_Incubation"), "pdf", sep = ".")
     ggsave(filename = filename.cum.map, plot = cum.map, width=14, height=9)
   } 
 }
 
+
+
+
+
+
+plot1 <- ggplot(prevalence.long, aes(prop_p, cases, color = as.factor(confidence))) + geom_line(size=2) + facet_wrap(~disc_p)+
+  scale_y_continuous(expand=c(0,0)) +
+  scale_color_brewer(palette="Set1") +
+  labs(x = "Daily Propogation Rate", y = "Detected Cases") +
+  theme(legend.text = element_text(size = 16)) +
+  guides(fill=guide_legend(title="Confidence Probability")) + 
+  ggtitle("Prevalence Threshold of 10 current cases")
+
+plot2 <- ggplot(cumulative.long, aes(prop_p, cases, color = as.factor(confidence))) + geom_line(size=2) + facet_wrap(~disc_p)+
+  scale_y_continuous(expand=c(0,0)) +
+  scale_color_brewer(palette="Set1") + 
+  labs(x = "Daily Propogation Rate", y = "Detected Cases") +
+  theme(legend.text = element_text(size = 16)) +
+  guides(fill=guide_legend(title="Confidence Probability")) + 
+  ggtitle("Cumulative threshold of 100 cases")
+
+
+
+plot1
+plot2
 
 
 
@@ -165,18 +159,3 @@ sorted.outbreak.size <- sort(outbreak.size.inc1)
 sorted.outbreak.size # Highest small case 50
 
 
-
-#outbreak.size.no.inc <- all_last_cuminfect_values(trials.no.inc) # Highest small case size was 6 
-#hist(outbreak.size.no.inc, breaks = 100)
-#hist(outbreak.size.no.inc, breaks = 100, ylim = c(0,100))
-#sorted.outbreak.size <- sort(outbreak.size.no.inc)
-#mean(sorted.outbreak.size)
-#sorted.outbreak.size 
-
-
-
-#outbreak.size.with <- all_last_cuminfect_values(trials.with) # Highest small case size was 
-#hist(outbreak.size.with, breaks = 100)
-#hist(outbreak.size.with, breaks = 100, ylim = c(0,500))
-#sorted.outbreak.size <- sort(outbreak.size.with)
-#sorted.outbreak.size[9000:10000] # Highest small case size is 43: This happens over 90% of the time 
