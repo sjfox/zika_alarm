@@ -463,14 +463,6 @@ scale_rnott <- function(relative, max) {
   return(relative.rnott) 
 }
 
-#### Run the threshold 
-threshold_rnott_analysis(1.7, .01)
-
-rnott = 1.7
-disc_prob = .01
-
-
-threshold_rnott_analysis(rnott = 1.7, disc_prob = .01, thres_cases = 10, threshold_value = .9)
 
 
 # THIS ISN"T WORKING-USE lc script 

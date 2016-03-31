@@ -36,8 +36,8 @@ getEscapebyD <- function(trials, e_thresh){
   return(data.frame(d_thresh=d, probEsc=esc_data))
 }
   
-discoveries <- seq(0.01, .95, length.out = 4)
-prop_ps <- seq(0.9, 1.3, by=.1)/7
+discoveries <- seq(0.01, .1, length.out = 2)
+prop_ps <- c(1, 1.2, 1.5)/7
 escape_data <- data.frame()
 for(disc_p in discoveries){
   for(prop in prop_ps){
@@ -46,12 +46,20 @@ for(disc_p in discoveries){
   }
 }
 escape_data$r_not <- escape_data$prop_p*7
-plot1 <- ggplot(escape_data, aes(d_thresh, probEsc, color = as.factor(r_not))) + geom_line(size=2) + facet_wrap(~disc_p)+
-  scale_y_continuous(expand=c(0,0)) +
-  scale_color_brewer(palette="Set1")
+
+plot1 <- ggplot(escape_data, aes(d_thresh, probEsc, color = as.factor(r_not))) + 
+  geom_line(size=1.5, aes(linetype=as.factor(disc_p))) + #facet_wrap(~disc_p)+
+  scale_y_continuous(expand=c(0.01,0.01)) +
+  scale_color_brewer(palette="Set1")+
+  theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank())+
+  labs(x = "Cumulative Number of Detected Cases", y = "Probability of an Epidemic", color = expression("R"[0]))+
+  guides(linetype= FALSE )
+
 print(plot1)
 
-ggsave(filename = "../ExploratoryFigures/d_thresh_plot.pdf", plot = plot1, width=10, height=8)
+save_plot(filename = "../ExploratoryFigures/d_thresh_plot.pdf", plot = plot1, base_aspect_ratio = 1.5)
+
+temp <- escape_data[which(escape_data$disc_p==.1), ]
 
 
 trials <- run_branches_inc(num_reps = 1000, branch_params(prop_p=1.1/7, dis_prob_symp = .8))
