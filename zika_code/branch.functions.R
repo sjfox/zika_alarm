@@ -289,6 +289,7 @@ all_detect_rows <- function(x, d_thres) {   # Function to return all rows in tri
   return(ldply(x, detection_rows))
 }
 
+
 metro_areas <- list(dallas =c("Collin", "Dallas", "Denton", "Ellis", "Hood", "Hunt", "Johnson", "Kaufman", "Parker", "Rockwall", "Somervell", "Tarrant", "Wise"),
                     houston = c("Harris", "Fort Bend", "Montgomery", "Brazoria", "Galveston", "Liberty", "Waller", "Chambers", "Austin"),
                     san_antonio = c("Atascosa", "Bandera", "Bexar", "Comal", "Guadalupe", "Kendall", "Medina", "Wilson"),
@@ -367,10 +368,11 @@ name.generator <- function(R0, disc_value, type) {
 set.cum.bins <- function(d_thres, trials) {
   at.high.dect <- all_detect_rows(trials)
   max.cum <- max(at.high.dect[,8])
-  max.bin <- max.cum + 25
-  beginning.bins <- seq(from = 0, to = 18, by = 2)
-  bins.1 <- seq(from = 20, to = max.bin, by = 20)
-  bins <- c(beginning.bins, bins.1)
+  max.bin <- max.cum + 10 # normally 25
+  #beginning.bins <- seq(from = 0, to = 18, by = 2) When I had higher resolution 
+  #bins.1 <- seq(from = 20, to = max.bin, by = 20)
+  #bins <- c(beginning.bins, bins.1)
+  bins <- seq(from = 0, to = max.bin, by = 10)
   return(bins)
 }
 
@@ -378,16 +380,14 @@ set.cum.bins <- function(d_thres, trials) {
 set.prev.bins <- function(d_thres, trials) {
   at.high.dect <- all_detect_rows(trials)
   max.prev <- max(at.high.dect[,7])
-  max.bin <- max.prev + 5
-  bins <- seq(from = 0, to = 9, by = 1)
-  if (max.bin > 10) {
-  bins.1 <- seq(from = 10, to = max.bin, by = 5)
-  bins <- c(bins, bins.1)
-  }
+  max.bin <- max.prev + 1
+  bins <- seq(from = 0, to = max.bin, by = 1)
+  #if (max.bin > 10) {
+  #bins.1 <- seq(from = 10, to = max.bin, by = 5)
+  #bins <- c(bins, bins.1)
+  #}
   return(bins)
 }
-
-
 
 #Function to take the row and calculate proabilities for bins
 bin.frequency <- function(df, bins) {
@@ -400,26 +400,33 @@ bin.frequency <- function(df, bins) {
 
 # Keep Things Ordered Here ording by a certain variable
 
-plotheatmaps <- function(df, type, names, percent.discover, R0) {
+plotheatmaps <- function(df, type, names, percent.discover, R0, max.infect) {
   df <- cbind(names, df)
   df$names <- factor(df$names, levels = df$names[order(df$names)])
   df.m <- melt(df)
-  #ylabtitle <- c("Cumulative", type, "")
-  #ylabtitle <- paste(title, collapse = "")
   
-  p <- ggplot(df.m, aes(as.factor(names), variable)) 
+  x.breaks.seq = seq(0, length(names), by = 2)
+  
+  if (type == "Cumulative") {
+    y.breaks.seq <- seq(0, max.infect+20, by = 20)
+    title = "Cumulative Total Cases"
+  } else {
+    y.breaks.seq <- seq(0, max.infect+5, by = 5)
+    title = "Current Infected Cases"
+  } 
+  
+  p <- ggplot(df.m, aes(as.factor(names), variable))
   p <- p + geom_tile(aes(fill = value), colour = "white") + 
     theme_bw()+ scale_fill_gradient(low = "lightyellow",high = "red", name = "Probability") + 
-    labs(x = "Cumulative Detected Cases", y = "Cumulative Total Cases") + 
-    theme(axis.text.x = element_text(vjust = 1, hjust=1))
-    
-  p <- p + theme(axis.title.x = element_text(size=16), axis.text.x= element_text(size=14))
-  p <- p + theme(axis.title.y = element_text(size=16), axis.text.y = element_text(size = 14)) + 
-    theme(legend.text=element_text(size=13))
+    labs(x = "Cumulative Detected Cases", y = title) + 
+    theme(axis.text.x = element_text(vjust = 1, hjust=1))    
+  p <- p + theme(axis.title.x = element_text(size=20), axis.text.x= element_text(size=14))
+  p <- p + theme(axis.title.y = element_text(size=20), axis.text.y = element_text(size = 14)) + 
+    theme(legend.text=element_text(size=14, margin = margin(), debug = FALSE), legend.title = element_text(size = 20)) +
+    scale_y_discrete(breaks = y.breaks.seq)+
+    scale_x_discrete(breaks = x.breaks.seq)
   return(p)
 }
-
-
 
 ## Function to find number of detected cases for X% sure is X or less
 find_thres_cases <- function(bins, thres_cases, df, threshold_value) {
@@ -441,23 +448,22 @@ find_thres_cases <- function(bins, thres_cases, df, threshold_value) {
       detection.thres <- which(col_sum == prob)
     }
   }
-  #return(list(thres.int = detection.thres, prob = prob))
-  return(detection.thres)
+  return(list(thres.int = detection.thres, prob = prob))
 }
 
 
 
 set.max.bin <- function(max) {
   if (max >= 200) {
-    max = round(max * .1)
+    max = round(max * .2)
   } else if (max > 100) {
-    max = round(max*.25)
+    max = round(max*.3)
   } else if (max > 80 & max <= 100) {
-    max = round(max * 0.20)
+    max = round(max * 0.40)
   }  else if (max > 60 & max <= 80) {
-    max = round(max* 0.33)
+    max = round(max* 0.5)
   } else if (max > 40 & max <= 60) {
-    max = round(max * 0.5)
+    max = round(max * 0.75)
   } else max = max
   return(max)
 }
@@ -470,5 +476,21 @@ scale_rnott <- function(relative, max) {
   return(relative.rnott) 
 }
 
+
+#Function to calculate discovery percentage 
+calculate.discover <- function(disc_p){
+  percent <- round(1-((1-disc_p)^7), digits = 2)*100
+  return(percent)
+} 
+
+
+cbind.all <- function (...) 
+{
+  nm <- list(...)
+  nm <- lapply(nm, as.matrix)
+  n <- max(sapply(nm, nrow))
+  do.call(cbind, lapply(nm, function(x) rbind(x, matrix(, n - 
+                                                          nrow(x), ncol(x)))))
+}
 
   
