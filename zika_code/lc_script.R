@@ -196,3 +196,24 @@ sorted.outbreak.size <- sort(outbreak.size.inc1)
 sorted.outbreak.size # Highest small case 50
 
 
+texas.county@data <- texas.county@data[,-1]
+writeOGR(texas.county, dsn = '.', layer = 'texas.county', driver = "ESRI Shapefile")
+
+
+
+texas.county.f <- fortify(texas.county, region = "ID")
+
+colnames(county.ids) <- c("X" ,"id", "rownames ",  "Geography", "Metro", "Cases")
+
+merge.texas.county <- merge(texas.county.f, county.ids, by = "id", all.x = TRUE)
+
+final.plot <- merge.texas.county[order(merge.texas.county$id),]
+
+p <- ggplot()+geom_polygon(data = final.plot, aes(x=long, y = lat, group = group, fill = Cases), color = "black", size = .25)+coord_map()
+p <- p+scale_fill_gradient(name = "Cases", limits = c(1,200), low = "red", high = "light yellow", na.value = "white", breaks = pretty_breaks(n = 10)) + theme_nothing(legend = TRUE)
+
+p<- p+labs(title = "Number of Detected Cases at which there's a 90% probabilty \n the outbreak is 10 current infetious cases or fewer") + theme(plot.title = element_text(size = 22))
+
+ggsave(filename = "Detected.10.9.pdf", plot = p, width=14, height=9)
+
+
