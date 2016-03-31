@@ -30,24 +30,25 @@ branch_params <- function(prop_p = 1.7/7 ,
 # THIS WORKS FOR 
 prevalence.long <- data.frame()
 cumulative.long <- data.frame()
-disc_p <- seq(from = .01, to = .1, length.out = 2)
 
-prop_range <- seq(from = 1.5/7, to = 1.5/7, length.out = 1) 
+
+
+
 #disc_range <- seq(from =  0.1, to =  0.1, by = .1) 
+
+
+
+
+prop_range <- seq(from = 1/7, to = 1.5/7, length.out = 2) 
+discover.range <- seq(from = .01, to = .1, length.out = 2)
 confidence.range <- seq(from = .6, to = .9, by = .1)
 
-trials <- run_branches_inc(num_reps = 1000, branch_params(dis_prob_symp=.01, prop_p = 1.5/7, e_thresh = 500))
-lastdetected <- all_last_cumdetect_values(trials)
-
-R0 = 1.5
-disc_p =.01
-
-for (prop_p in prop_range)) {  
-  for (confidence in confidence.range) {
+for (prop_p in prop_range) {  
+  for (disc_p in discover.range) {
     
     R0  = prop_p*7
     percent.discover <- calculate.discover(disc_p) 
-
+    
     #Running trials
     trials <- run_branches_inc(num_reps = 1000, branch_params(dis_prob_symp=disc_p, prop_p = prop_p, e_thresh = 500))
     lastdetected <- all_last_cumdetect_values(trials)
@@ -55,7 +56,7 @@ for (prop_p in prop_range)) {
     max <- set.max.bin(max(lastdetected)) 
     dect.cases.range <- seq(1:max)
     d_thres <- max
-        
+    
     #setting up bins to calculate frequencies 
     bins.prev <- set.prev.bins(d_thres, trials)
     bins.cumulative <- set.cum.bins(d_thres, trials)
@@ -64,9 +65,15 @@ for (prop_p in prop_range)) {
     thres.matrix.prev <- data.frame()
     thres.matrix.cum <- data.frame()
     
+    thres.matrix.prev <- data.frame(matrix(nrow = length(dect.cases.range), ncol = length(bins.prev)-1))
+    colnames(thres.matrix.prev) <- bins.prev[2:length(bins.prev)]; rownames(thres.matrix.prev) <- paste("Detected Cases =", dect.cases.range)
+    
+    thres.matrix.cum <- data.frame(matrix(nrow = length(dect.cases.range), ncol = length(bins.cumulative)-1))
+    colnames(thres.matrix.cum) <- bins.cumulative[2:length(bins.cumulative)]; rownames(thres.matrix.cum) <-  paste("Detected Cases =", dect.cases.range)
+    
     median.vec <- numeric()
     average.vec <- numeric()
-  
+    
     #Writing the values 
     # Could split this up into two analysis: average/median and frequencies 
     for (dect.case in dect.cases.range) {
@@ -76,49 +83,24 @@ for (prop_p in prop_range)) {
       median.vec <- c(median.vec, median(dataframe$Cumulative_Infections))
       average.vec <- c(average.vec, mean(dataframe$Cumulative_Infections))
       
-      frequencies.prev <- bin.frequency(dataframe[,7], bins.prev)
-      thres.matrix.prev <- cbind.all(thres.matrix.prev, frequencies.prev)
+      frequencies.prev <- bin.frequency(dataframe[,7], bins.prev) 
+      thres.matrix.prev[dect.case, ] <-frequencies.prev 
       
       frequencies.cum <- bin.frequency(dataframe[,8], bins.cumulative)
-      thres.matrix.cum <- data.frame(cbind.all(thres.matrix.cum, frequencies.cum))
-    }      
+      thres.matrix.cum[dect.case, ] <- frequencies.cum
+    }
     
-    #dect.case.median <- function(dect.case, d_thres) {
-    #  d_thres = dect.case
-    #  dataframe = all_detect_rows(trials)
-    #  median.vec <- median(dataframe$Cumulative_Infections)
-    #  return(median.vec)
-    #}
-    #dect.case.median(13)
- 
-     #dect.range.median.analysis(dect.cases.range)
-     
     
-     
-     #dect.range.median.analysis <- function(dect.cases.range) {
-    #  return(ddply(.data = dect.cases.range,.variables = dect.cases.range, .fun =  dect.case.median))
-    #}
-    
-    #  average.vec <- c(average.vec, mean(dataframe$Cumulative_Infections))
-      
-    #  frequencies.prev <- bin.frequency(dataframe[,7], bins.prev)
-    #  frequencies.cum <- bin.frequency(dataframe[,8], bins.cumulative)
-      
-     # summary <- list(median = median.vec, average = average.vec, frequencies.prev = frequencies.prev, frequencies.cum=frequencies.cum)
-    #  return(summary)
-    #}
-
-  
     
     # ANALYSIS FOR TRIGGER THRESHOLD
-    integer.prev <- find_thres_cases(bins.prev, thres = 10, df=thres.matrix.prev, threshold_value=confidence)
-    integer.cumulative <- find_thres_cases(bins = bins.cumulative, thres = 100, df = thres.matrix.cum, threshold_value = confidence)
-     
-    integer.cumulative <- find_thres_cases(bins = bins.cumulative, thres = 100, df = thres.matrix.cum, threshold_value = .1)
-    prevalence.long <- rbind(prevalence.long, cbind(disc_p=disc_p, prop_p=prop_p, confidence = confidence, cases = unname(integer.prev)))
-    cumulative.long <- rbind(cumulative.long, cbind(disc_p=disc_p, prop_p=prop_p, confidence = confidence, cases = unname(integer.cumulative)))
-  
-
+    #integer.prev <- find_thres_cases(bins.prev, thres = 10, df=thres.matrix.prev, threshold_value=confidence)
+    #integer.cumulative <- find_thres_cases(bins = bins.cumulative, thres = 100, df = thres.matrix.cum, threshold_value = confidence)
+    
+    # When only want to return the first
+    #prevalence.long <- rbind(prevalence.long, cbind(disc_p=disc_p, prop_p=prop_p, confidence = confidence, cases = unname(integer.prev)))
+    #cumulative.long <- rbind(cumulative.long, cbind(disc_p=disc_p, prop_p=prop_p, confidence = confidence, cases = unname(integer.cumulative)))
+    
+    
     # IF WANT TO WRITE AND SAVE             
     #Writing and saving the files - Not necessary to save all of these for now to check 
     #filename.prev <- paste(name.generator(R0, percent.discover, "Prev"), "csv", sep = ".")
@@ -128,25 +110,33 @@ for (prop_p in prop_range)) {
     #write.csv(x = thres.matrix.cum, file = filename.cum, row.names = TRUE)
     
     # FUNCTIONS FOR PLOTTING A PARTICULAR PARAMETER SET 
-    prev.map <- plotheatmaps(thres.matrix.prev, type = "Prevalence", names = as.factor(dect.cases.range), R0 = R0, percent.discover = percent.discover, max.infect = tail(bins.cumulative, 1))
-    filename.prev.map <- paste(name.generator(R0, percent.discover, "Prev_Incubation"), "pdf", sep = ".")
-    ggsave(filename = filename.prev.map, plot = prev.map, width=14, height=9)
+    prev.map <- plotheatmaps(thres.matrix.prev, type = "Prevalence", names = as.factor(dect.cases.range),
+                             R0 = R0, percent.discover = percent.discover, max.infect = tail(bins.prev, 1))
+    prev.map
+    #filename.prev.map <- paste(name.generator(R0, percent.discover, "Prev_Incubation"), "pdf", sep = ".")
+    #ggsave(filename = filename.prev.map, plot = prev.map, width=14, height=9)
     
-    cum.map <- plotheatmaps(thres.matrix.cum, type = "Cumulative", names = as.factor(dect.cases.range), R0 = R0, percent.discover = percent.discover, max.infect = tail(bins.cumulative, 1))
-    filename.cum.map <- paste(name.generator(R0, percent.discover, "Cumulative_Incubation"), "pdf", sep = ".")
-    ggsave(filename = filename.cum.map, plot = cum.map, width=14, height=9)
-    
-    middle.stats.average <- data.frame(cbind(dect.cases, average.vec))
-    plot.average <- ggplot(middle.stats.average, aes(dect.cases, average.vec))
-    plot.average = plot.average + geom_line(size = 2) + labs(x = "Cumulative Detected Cases", y = "Cumulative Total Cases") + theme(axis.title.y = element_text(size=20), axis.title.x = element_text(size = 20)) + 
-      scale_x_continuous(breaks = x.breaks.seq) +
-      scale_y_log10(breaks = c(1,5,10, 25,50,75, 100)) +  expand_limits(y=c(0, max = tail(bins.cumulative, 1)))
-    
-    plot.grid = plot_grid(cum.map, plot.average, labels = c("A", "B"), ncol = 1)
-    
-   } 
+    cum.map <- plotheatmaps(thres.matrix.cum, type = "Cumulative", names = as.factor(dect.cases.range),
+                            R0 = R0, percent.discover = percent.discover, max.infect = tail(bins.cumulative, 1))
+    cum.map
+  } 
 }
 
+
+
+
+    #filename.cum.map <- paste(name.generator(R0, percent.discover, "Cumulative_Incubation"), "pdf", sep = ".")
+    #ggsave(filename = filename.cum.map, plot = cum.map, width=14, height=9)
+    
+    #theme_set(theme_get() + theme(text=element_text(size=16)))
+    #theme_get()$text
+    #middle.stats.average <- data.frame(cbind(dect.cases.range, average.vec))
+    #plot.average <- ggplot(middle.stats.average, aes(dect.cases.range, average.vec))
+    #plot.average + geom_point()
+    #plot.average = plot.average + geom_line(size = 2) + labs(x = "Cumulative Detected Cases", y = "Average Cumulative Total Cases") 
+    
+    #plot.grid = plot_grid(cum.map, plot.average, labels = c("A", "B"), ncol = 1)+element_text(margin = margin(), debug = FALSE)    
+ 
 
 
 

@@ -380,7 +380,7 @@ set.cum.bins <- function(d_thres, trials) {
 set.prev.bins <- function(d_thres, trials) {
   at.high.dect <- all_detect_rows(trials)
   max.prev <- max(at.high.dect[,7])
-  max.bin <- max.prev + 5
+  max.bin <- max.prev + 1
   bins <- seq(from = 0, to = max.bin, by = 1)
   #if (max.bin > 10) {
   #bins.1 <- seq(from = 10, to = max.bin, by = 5)
@@ -401,29 +401,32 @@ bin.frequency <- function(df, bins) {
 # Keep Things Ordered Here ording by a certain variable
 
 plotheatmaps <- function(df, type, names, percent.discover, R0, max.infect) {
-  df.t <- data.frame(t(df))
-  df.t <- cbind(names, df.t)
-  df.t$names <- factor(df.t$names, levels = df.t$names[order(df.t$names)])
-  df.m <- melt(df.t)
+  df <- cbind(names, df)
+  df$names <- factor(df$names, levels = df$names[order(df$names)])
+  df.m <- melt(df)
   
-  if (type == "Cumulative") breaks.seq <- seq(0, max.infect, by = 20)
-  if (type == "Prevalence") breaks.seq <- seq(0, max.infect, by = 5)
-  breaks.seq <- round(breaks.seq)
+  x.breaks.seq = seq(0, length(names), by = 2)
+  
+  if (type == "Cumulative") {
+    y.breaks.seq <- seq(0, max.infect+20, by = 20)
+    title = "Cumulative Total Cases"
+  } else {
+    y.breaks.seq <- seq(0, max.infect+5, by = 5)
+    title = "Current Infected Cases"
+  } 
   
   p <- ggplot(df.m, aes(as.factor(names), variable))
   p <- p + geom_tile(aes(fill = value), colour = "white") + 
     theme_bw()+ scale_fill_gradient(low = "lightyellow",high = "red", name = "Probability") + 
-    labs(x = "Cumulative Detected Cases", y = "Cumulative Total Cases") + 
-    theme(axis.text.x = element_text(vjust = 1, hjust=1)) + 
-    scale_y_discrete(breaks.seq)
-    
+    labs(x = "Cumulative Detected Cases", y = title) + 
+    theme(axis.text.x = element_text(vjust = 1, hjust=1))    
   p <- p + theme(axis.title.x = element_text(size=20), axis.text.x= element_text(size=14))
   p <- p + theme(axis.title.y = element_text(size=20), axis.text.y = element_text(size = 14)) + 
-    theme(legend.text=element_text(size=14), legend.title = element_text(size = 20)) 
+    theme(legend.text=element_text(size=14, margin = margin(), debug = FALSE), legend.title = element_text(size = 20)) +
+    scale_y_discrete(breaks = y.breaks.seq)+
+    scale_x_discrete(breaks = x.breaks.seq)
   return(p)
 }
-p
-
 
 ## Function to find number of detected cases for X% sure is X or less
 find_thres_cases <- function(bins, thres_cases, df, threshold_value) {
@@ -445,23 +448,22 @@ find_thres_cases <- function(bins, thres_cases, df, threshold_value) {
       detection.thres <- which(col_sum == prob)
     }
   }
-  #return(list(thres.int = detection.thres, prob = prob))
-  return(list= c(detection.thres, prob))
+  return(list(thres.int = detection.thres, prob = prob))
 }
 
 
 
 set.max.bin <- function(max) {
   if (max >= 200) {
-    max = round(max * .1)
+    max = round(max * .2)
   } else if (max > 100) {
-    max = round(max*.25)
+    max = round(max*.3)
   } else if (max > 80 & max <= 100) {
-    max = round(max * 0.20)
+    max = round(max * 0.40)
   }  else if (max > 60 & max <= 80) {
-    max = round(max* 0.33)
+    max = round(max* 0.5)
   } else if (max > 40 & max <= 60) {
-    max = round(max * 0.5)
+    max = round(max * 0.75)
   } else max = max
   return(max)
 }
