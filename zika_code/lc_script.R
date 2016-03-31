@@ -30,83 +30,122 @@ branch_params <- function(prop_p = 1.7/7 ,
 # THIS WORKS FOR 
 prevalence.long <- data.frame()
 cumulative.long <- data.frame()
-disc_p <- seq(from = .01, to = .1, length.out = 3)
-disc_p <- .1
-prop_range <- seq(from = 1/7, to = 1.8/7, length.out = 4) 
+disc_p <- seq(from = .01, to = .1, length.out = 2)
+
+prop_range <- seq(from = 1.5/7, to = 1.5/7, length.out = 1) 
 #disc_range <- seq(from =  0.1, to =  0.1, by = .1) 
 confidence.range <- seq(from = .6, to = .9, by = .1)
 
-trials <- run_branches_inc(num_reps = 1000, branch_params(dis_prob_symp=.1, prop_p = 1.5/7, e_thresh = 500))
+trials <- run_branches_inc(num_reps = 1000, branch_params(dis_prob_symp=.01, prop_p = 1.5/7, e_thresh = 500))
 lastdetected <- all_last_cumdetect_values(trials)
+
 R0 = 1.5
-disc_p = .1
-for (m in 1:length(prop_range)) {  
-  for (j in 1:length(confidence.range)) {
+disc_p =.01
+
+for (prop_p in prop_range)) {  
+  for (confidence in confidence.range) {
     
-    R0  = prop_range[m]*7
-    percent.discover <- round(1-((1-disc_p)^7), digits = 2)*100
+    R0  = prop_p*7
+    percent.discover <- calculate.discover(disc_p) 
 
     #Running trials
-    trials <- run_branches_inc(num_reps = 1000, branch_params(dis_prob_symp=disc_p, prop_p = prop_range[m], e_thresh = 500))
+    trials <- run_branches_inc(num_reps = 1000, branch_params(dis_prob_symp=disc_p, prop_p = prop_p, e_thresh = 500))
     lastdetected <- all_last_cumdetect_values(trials)
     
     max <- set.max.bin(max(lastdetected)) 
-    dect.cases <- seq(1:max)
+    dect.cases.range <- seq(1:max)
+    d_thres <- max
         
     #setting up bins to calculate frequencies 
-    d_thres <- dect.cases[length(dect.cases)] #Highest Number of Cases to Consider  
     bins.prev <- set.prev.bins(d_thres, trials)
     bins.cumulative <- set.cum.bins(d_thres, trials)
     
-    #resetting d_thres for trials
+    #Setting Up data frames and vectors to store 
+    thres.matrix.prev <- data.frame()
+    thres.matrix.cum <- data.frame()
     
-    #Setting Up matrices - Can automate this 
-    thres.matrix.prev <- data.frame(matrix(nrow = length(dect.cases), ncol = length(bins.prev)-1))
-    colnames(thres.matrix.prev) <- bins.prev[2:length(bins.prev)]; rownames(thres.matrix.prev) <- paste("Detected Cases =", dect.cases)
-    
-    thres.matrix.cum <- data.frame(matrix(nrow = length(dect.cases), ncol = length(bins.cumulative)-1))
-    colnames(thres.matrix.cum) <- bins.cumulative[2:length(bins.cumulative)]; rownames(thres.matrix.cum) <-  paste("Detected Cases =", dect.cases)
-    
+    median.vec <- numeric()
+    average.vec <- numeric()
+  
     #Writing the values 
-    for (i in 1:length(dect.cases)) {
-      d_thres <- dect.cases[i]
+    # Could split this up into two analysis: average/median and frequencies 
+    for (dect.case in dect.cases.range) {
+      d_thres <- dect.case
       dataframe <- all_detect_rows(trials) # takes already whatever the current thresholds 
+      
+      median.vec <- c(median.vec, median(dataframe$Cumulative_Infections))
+      average.vec <- c(average.vec, mean(dataframe$Cumulative_Infections))
+      
       frequencies.prev <- bin.frequency(dataframe[,7], bins.prev)
+      thres.matrix.prev <- cbind.all(thres.matrix.prev, frequencies.prev)
+      
       frequencies.cum <- bin.frequency(dataframe[,8], bins.cumulative)
-      
-      thres.matrix.prev[i,] <- frequencies.prev
-      thres.matrix.cum[i,] <- frequencies.cum
-    }            
-      
-    integer.prev <- find_thres_cases(bins.prev, thres = 10, df=thres.matrix.prev, threshold_value=confidence.range[j])
-    integer.cumulative <- find_thres_cases(bins = bins.cumulative, thres = 100, df = thres.matrix.cum, threshold_value = confidence.range[j])
+      thres.matrix.cum <- data.frame(cbind.all(thres.matrix.cum, frequencies.cum))
+    }      
+    
+    #dect.case.median <- function(dect.case, d_thres) {
+    #  d_thres = dect.case
+    #  dataframe = all_detect_rows(trials)
+    #  median.vec <- median(dataframe$Cumulative_Infections)
+    #  return(median.vec)
+    #}
+    #dect.case.median(13)
+ 
+     #dect.range.median.analysis(dect.cases.range)
      
-    prevalence.long <- rbind(prevalence.long, cbind(disc_p=disc_p, prop_p=prop_range[m], confidence = confidence.range[j], cases = unname(integer.prev)))
-    cumulative.long <- rbind(cumulative.long, cbind(disc_p=disc_p, prop_p=prop_range[m], confidence = confidence.range[j], cases = unname(integer.cumulative)))
-  }
-}
-   #CODE FOR WRITING AND SAVING HEAT MAPS   
-    #matrix.cases.detection[j,m] <- integer                     
     
+     
+     #dect.range.median.analysis <- function(dect.cases.range) {
+    #  return(ddply(.data = dect.cases.range,.variables = dect.cases.range, .fun =  dect.case.median))
+    #}
+    
+    #  average.vec <- c(average.vec, mean(dataframe$Cumulative_Infections))
+      
+    #  frequencies.prev <- bin.frequency(dataframe[,7], bins.prev)
+    #  frequencies.cum <- bin.frequency(dataframe[,8], bins.cumulative)
+      
+     # summary <- list(median = median.vec, average = average.vec, frequencies.prev = frequencies.prev, frequencies.cum=frequencies.cum)
+    #  return(summary)
+    #}
+
+  
+    
+    # ANALYSIS FOR TRIGGER THRESHOLD
+    integer.prev <- find_thres_cases(bins.prev, thres = 10, df=thres.matrix.prev, threshold_value=confidence)
+    integer.cumulative <- find_thres_cases(bins = bins.cumulative, thres = 100, df = thres.matrix.cum, threshold_value = confidence)
+     
+    integer.cumulative <- find_thres_cases(bins = bins.cumulative, thres = 100, df = thres.matrix.cum, threshold_value = .1)
+    prevalence.long <- rbind(prevalence.long, cbind(disc_p=disc_p, prop_p=prop_p, confidence = confidence, cases = unname(integer.prev)))
+    cumulative.long <- rbind(cumulative.long, cbind(disc_p=disc_p, prop_p=prop_p, confidence = confidence, cases = unname(integer.cumulative)))
+  
+
+    # IF WANT TO WRITE AND SAVE             
     #Writing and saving the files - Not necessary to save all of these for now to check 
-    filename.prev <- paste(name.generator(R0, percent.discover, "Prev"), "csv", sep = ".")
-    write.csv(x = thres.matrix.prev, file = filename.prev, row.names = TRUE)
+    #filename.prev <- paste(name.generator(R0, percent.discover, "Prev"), "csv", sep = ".")
+    #write.csv(x = thres.matrix.prev, file = filename.prev, row.names = TRUE)
     
-    filename.cum <- paste(name.generator(R0, percent.discover, "Cumulative"), "csv", sep = ".")
+    #filename.cum <- paste(name.generator(R0, percent.discover, "Cumulative"), "csv", sep = ".")
     #write.csv(x = thres.matrix.cum, file = filename.cum, row.names = TRUE)
     
-    # Plotting Function to go here
-    prev.map <- plotheatmaps(thres.matrix.prev, type = "Prevalence", names = as.factor(dect.cases), R0 = R0, percent.discover = percent.discover)
+    # FUNCTIONS FOR PLOTTING A PARTICULAR PARAMETER SET 
+    prev.map <- plotheatmaps(thres.matrix.prev, type = "Prevalence", names = as.factor(dect.cases.range), R0 = R0, percent.discover = percent.discover, max.infect = tail(bins.cumulative, 1))
     filename.prev.map <- paste(name.generator(R0, percent.discover, "Prev_Incubation"), "pdf", sep = ".")
-    #ggsave(filename = filename.prev.map, plot = prev.map, width=14, height=9)
+    ggsave(filename = filename.prev.map, plot = prev.map, width=14, height=9)
     
-    
-    cum.map <- plotheatmaps(thres.matrix.cum, type = "Cumulative", names = as.factor(dect.cases), R0 = R0, percent.discover = percent.discover)
+    cum.map <- plotheatmaps(thres.matrix.cum, type = "Cumulative", names = as.factor(dect.cases.range), R0 = R0, percent.discover = percent.discover, max.infect = tail(bins.cumulative, 1))
     filename.cum.map <- paste(name.generator(R0, percent.discover, "Cumulative_Incubation"), "pdf", sep = ".")
     ggsave(filename = filename.cum.map, plot = cum.map, width=14, height=9)
-  } 
+    
+    middle.stats.average <- data.frame(cbind(dect.cases, average.vec))
+    plot.average <- ggplot(middle.stats.average, aes(dect.cases, average.vec))
+    plot.average = plot.average + geom_line(size = 2) + labs(x = "Cumulative Detected Cases", y = "Cumulative Total Cases") + theme(axis.title.y = element_text(size=20), axis.title.x = element_text(size = 20)) + 
+      scale_x_continuous(breaks = x.breaks.seq) +
+      scale_y_log10(breaks = c(1,5,10, 25,50,75, 100)) +  expand_limits(y=c(0, max = tail(bins.cumulative, 1)))
+    
+    plot.grid = plot_grid(cum.map, plot.average, labels = c("A", "B"), ncol = 1)
+    
+   } 
 }
-
 
 
 
@@ -128,10 +167,18 @@ plot2 <- ggplot(cumulative.long, aes(prop_p, cases, color = as.factor(confidence
   guides(fill=guide_legend(title="Confidence Probability")) + 
   ggtitle("Cumulative threshold of 100 cases")
 
+middle.stats.m <- melt(middle.stats)
+
+x.breaks.seq <- seq(0,25,1)
+y.breaks.seq <- seq(0,60,10)
 
 
-plot1
-plot2
+
+plot.average
+
+middle.stats.median <- data.frame(cbind(dect.cases, median.vec))
+plot.median <- ggplot(middle.stats.median, aes(dect.cases, median.vec))
+plot.median + geom_line(size = 2)
 
 
 
