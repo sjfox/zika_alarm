@@ -477,24 +477,20 @@ scale_rnott <- function(relative, max) {
   return(relative.rnott) 
 }
 
-<<<<<<< HEAD
-=======
-
-#Function to calculate discovery percentage 
+# Function to calculate discovery percentage 
 calculate.discover <- function(disc_p){
   percent <- round(1-((1-disc_p)^7), digits = 2)*100
   return(percent)
 } 
 
->>>>>>> 7b0bdf5d6ab7bb629c77435ed57632ad3f5cec03
 
-cbind.all <- function (...) 
-{
-  nm <- list(...)
-  nm <- lapply(nm, as.matrix)
-  n <- max(sapply(nm, nrow))
-  do.call(cbind, lapply(nm, function(x) rbind(x, matrix(, n - 
-                                                          nrow(x), ncol(x)))))
-}
+# cbind.all <- function (...) 
+# {
+#   nm <- list(...)
+#   nm <- lapply(nm, as.matrix)
+#   n <- max(sapply(nm, nrow))
+#   do.call(cbind, lapply(nm, function(x) rbind(x, matrix(, n - 
+#                                                           nrow(x), ncol(x)))))
+# }
 
   
