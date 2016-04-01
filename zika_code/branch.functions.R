@@ -429,16 +429,16 @@ plotheatmaps <- function(df, type, names, percent.discover, R0, max.infect) {
 }
 
 ## Function to find number of detected cases for X% sure is X or less
-find_thres_cases <- function(bins, thres_cases, df, threshold_value) {
+find_thres_cases <- function(bins, threshold.cases, df, confidence.value) {
   df.t <- t(df)
-  if(max(bins) < thres_cases) {
+  if(max(bins) < threshold.cases) {
     detection.thres <- min(bins)
   }
   else {
-    marker <- which(bins == thres_cases)-1
+    marker <- which(bins == threshold.cases)-1
     df.t <- df.t[1:marker,]
     col_sum <- colSums(x = df.t)  
-    detection.thres.candidates <- which(col_sum > threshold_value)
+    detection.thres.candidates <- which(col_sum > confidence.value)
     
     if (length(detection.thres.candidates) == 0) {
       prob = max(col_sum) 
@@ -448,7 +448,8 @@ find_thres_cases <- function(bins, thres_cases, df, threshold_value) {
       detection.thres <- which(col_sum == prob)
     }
   }
-  return(list(thres.int = detection.thres, prob = prob))
+  return(case.trigger = detection.thres)
+  #return(list(thres.int = detection.thres, prob = prob))
 }
 
 
