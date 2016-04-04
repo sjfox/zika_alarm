@@ -6,6 +6,11 @@ if(grepl('tacc', Sys.info()['nodename'])) setwd('/home1/02958/sjf826/zika_alarm/
 if(grepl('meyerslab', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
 if(grepl('laurencastro', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
 
+# county <- read.csv("../county_data.csv")
+# 
+# hist(county$HabitatSuitability, breaks=100)
+# county[which.max(county$HabitatSuitability),]
+
 sapply(c('branch.functions.R','plot.functions.R', 'incubation_branch.R'), source)
 library(plyr)
 library(cowplot)
@@ -16,17 +21,28 @@ library(cowplot)
 # e_thresh -- total instantaneous I's that count as epidemic escape (not cumulative):
 
 #Parameters 
-branch_params <- function(prop_p = 1.7/7 , 
+branch_params <- function(#r_not = 1.1,
+                          infBoxes = 1,
+                          incBoxes = 1,
+                          prop_p = 1.7/7 , 
                           recov_p = 1.0/7,
                           d_thres = 5,
-                          e_thresh = 200,
+                          e_thresh = 500,
                           prob_symp = 1,
                           incub_rate = 1/16.5,
-                          dis_prob_symp = 1,
+                          dis_prob_symp = .01,
                           dis_prob_asymp = 0.00 ,
-                          intro_rate = 0.000,
-                          zeroInc_prob = 6.825603e-08)
+                          intro_rate = 0.000)
   return(as.list(environment()))
+
+
+trials <- run_branches_inc(num_reps = 1000, branch_params(prop_p = 1.8/7))
+plot_final_sizes(trials)
+
+
+
+
+
 
 
 
@@ -37,7 +53,7 @@ getEscapebyD <- function(trials, e_thresh){
 }
   
 discoveries <- seq(0.01, .1, length.out = 2)
-prop_ps <- c(1, 1.2, 1.5)/7
+prop_ps <- c(1.2)/7
 escape_data <- data.frame()
 for(disc_p in discoveries){
   for(prop in prop_ps){
