@@ -6,7 +6,7 @@ if(grepl('tacc', Sys.info()['nodename'])) setwd('/home1/02958/sjf826/zika_alarm/
 if(grepl('meyerslab', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
 if(grepl('laurencastro', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
 
-
+library(plyr)
 args <- (commandArgs(TRUE)) ## load arguments from R CMD BATCH
 
 ## Needs 
