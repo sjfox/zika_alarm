@@ -19,11 +19,12 @@ if(length(args)>0)  { ## Then cycle through each element of the list and evaluat
 
 source("incubation_branch.R")
 
+#Parameters 
 branch_params <- function(r_not = 1.1,
-                          infBoxes = 6,
+                          infBoxes = 3,
                           incBoxes = 6,
-                          recov_p = 0.6071267,
-                          incub_rate = 0.5777811,
+                          recov_p = 0.3040571/(3/infBoxes),
+                          incub_rate = 0.583917,
                           prop_p =  r_not*recov_p/infBoxes, 
                           d_thres = 5,
                           e_thresh = 500,
@@ -32,6 +33,7 @@ branch_params <- function(r_not = 1.1,
                           dis_prob_asymp = 0.00 ,
                           intro_rate = 0.000)
 return(as.list(environment()))
+
 
 params <- branch_params(r_not=desired_Rnot, dis_prob_symp = disc_prob, intro_rate = intro_rate )
 

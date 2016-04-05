@@ -6,10 +6,12 @@ if(grepl('tacc', Sys.info()['nodename'])) setwd('/home1/02958/sjf826/zika_alarm/
 if(grepl('meyerslab', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
 if(grepl('laurencastro', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
 
+r_nots <- c(seq(0.8, 2, by=0.05), seq(2.2, 3, by=.5))
 
-r_nots <- seq(0.8, 2, by=0.05)
-disc_probs <- c(0.01, .1)
-intro_rates <- c(0.0, 0.001, .01, .1)
+## Want total discovery rates of 5%, 10%, 50%, 90%
+disc_probs <- c(0.0052, 0.011, 0.068, 0.21) ## Change
+
+intro_rates <- c(0.0, .01, 0.3, 1, 1.92)
 
 sink('../launcher/run_branches.txt')
 for(r_not in r_nots){

@@ -22,10 +22,10 @@ library(cowplot)
 
 #Parameters 
 branch_params <- function(r_not = 1.1,
-                          infBoxes = 6,
+                          infBoxes = 3,
                           incBoxes = 6,
-                          recov_p = 0.6071267,
-                          incub_rate = 0.5777811,
+                          recov_p = 0.3040571/(3/infBoxes),
+                          incub_rate = 0.583917,
                           prop_p =  r_not*recov_p/infBoxes, 
                           d_thres = 5,
                           e_thresh = 500,
@@ -36,14 +36,13 @@ branch_params <- function(r_not = 1.1,
   return(as.list(environment()))
 
 
-trials <- run_branches_inc(num_reps = 1000, branch_params(r_not=1.9))
+trials <- run_branches_inc(num_reps = 500, branch_params(r_not=.8))
 plot_final_sizes(trials)
 
+temp <- all_last_cuminfect_values(trials)
 
-
-
-
-
+load("../zika_sims_0.85_0.1_0.Rdata")
+plot_final_sizes(trials)
 
 
 getEscapebyD <- function(trials, e_thresh){
@@ -90,33 +89,36 @@ ggsave(filename = "../ExploratoryFigures/r0_0.2_disc_0.01_hist.pdf", plot = p, w
 ###################################################
 ## Determining incubation period boxes and infectious period boxes
 ## simulate distributions
-incubation_time <- function(nboxes, prob){
-  box = 1
-  t = 0 
-  while(box <= nboxes){
-    if(runif(1) < prob){
-      box = box+1
-    }
-    t = t + 1
-  }
-  t
-}
-rincubation <- function(num_reps, ...) {
-  raply(.n = num_reps, .expr = incubation_time(...) ) 
-}
+# incubation_time <- function(nboxes, prob){
+#   box = 1
+#   t = 0
+#   while(box <= nboxes){
+#     if(runif(1) < prob){
+#       box = box+1
+#     }
+#     t = t + 1
+#   }
+#   t
+# }
+# rincubation <- function(num_reps, ...) {
+#   raply(.n = num_reps, .expr = incubation_time(...) )
+# }
 
-fitDist <- function(prob, size, median) {
+fitDist <- function(prob, size, mean) {
   draws <- rnbinom(n=100000, size = size, prob = prob) + size
-  median - median(draws)
+  mean - mean(draws)
 }
 
+## Look at weibull distribution from lessler 
+qweibull(c(0.025, 0.5, 0.975), shape=1.97, scale=10.87)
+hist(rweibull(100000, shape=1.97, scale=10.87), breaks=100)
 
-## First fit the weibell viral clearance distribution
+## First fit the weibll viral clearance distribution
 ## Lessler et al biorxiv key times paper
-## median = 9.88, cI : 6.9 - 21.4
-n_boxes <- 6
-infectious_best_fit <- uniroot(f = fitDist, interval = c(0.001,.999), size= n_boxes, median=9.88)
-infectious_times <- rincubation(100000, n_boxes, infectious_best_fit$root)
+## mean = 9.88, cI : 
+n_boxes <- 3
+infectious_best_fit <- uniroot(f = fitDist, interval = c(0.001,.999), size= n_boxes, mean=9.88)
+infectious_times <- rnbinom(100000, size = n_boxes, prob = infectious_best_fit$root) + n_boxes
 hist(infectious_times, breaks=50)
 quantile(infectious_times, c(.025, .5, .975))
 
@@ -137,7 +139,7 @@ hist(incubation_times+infectious_times/2, breaks=100, xlim=c(0,45))
 infectious_best_fit$root
 incubation_best_fit$minimum
 
-
+mean(infectious_times)
 
 
 
