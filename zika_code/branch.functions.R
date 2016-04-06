@@ -442,10 +442,12 @@ find_thres_cases <- function(bins, threshold.cases, df, confidence.value) {
     
     if (length(detection.thres.candidates) == 0) {
       prob = max(col_sum) 
-      detection.thres <- which(col_sum == prob) 
+      detection.thres <- which(col_sum == prob)
+      detection.thres <- min(detection.thres) # If there's multiple that have the same 
     } else {
       prob <- min(col_sum[detection.thres.candidates])
       detection.thres <- which(col_sum == prob)
+      detection.thres <- min(detection.thres) #If there's multiple that have the same 
     }
   }
   return(case.trigger = detection.thres)

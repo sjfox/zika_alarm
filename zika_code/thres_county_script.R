@@ -17,10 +17,16 @@ require(rgeos)
 require(rgdal)
 require(raster)
 require(plyr)
-require(ggthemes)
 
 # 1 County Data
 # However we want to scale R0 right now using a log 
+# Found mean of the habitat suitability and then calculated scaled R0 based on that 
+habitat_range = ddply(county.ids, .variables = 'Metro', summarise, mean(HabitatSuitability))
+habitat_range = habitat_range[-16,]
+habitat_max = max(habitat_range$..1)
+
+habitat_range$scaledrnott = habitat_range$..1/habitat_max * 2.5
+
 test.R0s$logrelative <- log(test.R0s$RelativeR0+1)
 max.relativeR0 = max(test.R0s$logrelative)
 test.R0s$scaledrnott = test.R0s$logrelative/max.relativeR0 * 1.5
@@ -36,9 +42,9 @@ colnames(R0_range) = c("MetroArea", "meanR0")
 #
 
 disc_p = .0246
-confidence = .7
-threshold.prevalence = 20
-threshold.cumulative = 100
+confidence = .8
+threshold.prevalence = 10
+threshold.cumulative = 50
 prevalence.long <- data.frame()
 cumulative.long <- data.frame()
 
@@ -125,58 +131,60 @@ for (i in 1:nrow(prevalence.long)) {
   county.ids$Prev.Cases[indices] = prevalence.long$cases[i]
   county.ids$Cum.Cases[indices] = cumulative.long$cases[i]
 }
-     
 texas.county.f <- fortify(texas.county, region = "ID")
 merge.texas.county <- merge(texas.county.f, county.ids, by = "id", all.x = TRUE)
 final.plot <- merge.texas.county[order(merge.texas.county$id),]
 
-# Decide which type you want to lot
 
-plot_county_threshold(final.plot, type = "Cumulative", confidence = .7, case.threshold = 100)
+
+
+# Decide which type you want to lot
+plot_county_threshold(final.plot, type = "Cumulative", confidence = .8, case.threshold = 50)
+plot_county_threshold(final.plot, type = "Prevalence", confidence = .8, case.threshold = 10)
 
 plot_county_threshold <- function(shp, type, confidence, case.threshold) {
   ## Requires the results to be already fotified with shape file
   if (type == "Prevalence") {
-    grey_county <- shp[which(shp$Prev_Cases==0),]
-    actual_county <- shp[which(shp$Prev_Cases!=0 | is.na(shp$Prev_Cases)),]
-    case.type = "Prev_Cases"
-    case.min <- min(shp$Prev_Cases[shp$Prev_Cases != 0], na.rm = TRUE)
-    case.max <- max(shp$Prev_Cases, na.rm = TRUE)
-    unique.cases <- unique(actual_county_prev$Prev_Cases, na.rm = TRUE)
+    grey_county <- shp[which(shp$Prev.Cases==0),]
+    actual_county <- shp[which(shp$Prev.Cases!=0 | is.na(shp$Prev.Cases)),]
+    case.type = "Prev.Cases"
+    case.min <- min(shp$Prev.Cases[shp$Prev.Cases != 0], na.rm = TRUE)
+    case.max <- max(shp$Prev.Cases, na.rm = TRUE)
+    unique.cases <- unique(actual_county$Prev.Cases, na.rm = TRUE)
     
     title = c("Max Cumulative Detected Cases to be ", confidence*100, "% certain \n the outbreak currently is fewer than", case.threshold, "infections")
     title = paste(title, sep="", collapse=" ")
   } else {
-    grey_county<- shp[which(shp$Cum_Cases==0),]
-    actual_county <- shp[which(shp$Cum_Cases!=0 | is.na(shp$Cum_Cases)),]
-    case.type = "Cum_Cases"
-    case.min <- min(shp$Cum_Cases[shp$Cum_Cases != 0], na.rm = TRUE)
-    case.max <- max(shp$Cum_Cases, na.rm = TRUE)
-    unique.cases <- unique(actual_county_cum$Cum_Cases, na.rm = TRUE)
+    grey_county<- shp[which(shp$Cum.Cases==0),]
+    actual_county <- shp[which(shp$Cum.Cases!=0 | is.na(shp$Cum.Cases)),]
+    case.type = "Cum.Cases"
+    case.min <- min(shp$Cum.Cases[shp$Cum.Cases != 0], na.rm = TRUE)
+    case.max <- max(shp$Cum.Cases, na.rm = TRUE)
+    unique.cases <- unique(actual_county$Cum.Cases, na.rm = TRUE)
     
-    title = c("Max Cumulative Detected Cases to be ", confidence*100, "% certain \n the outbreak currently is fewer than", case.threshold, "infections")
+    title = c("Max Cumulative Detected Cases to be ", confidence*100, "% certain \n the outbreak currently is fewer than", case.threshold, "total infections")
     title = paste(title, sep="", collapse=" ")
   }
 
-    plot <- ggplot()+geom_polygon(data = actual_county_prev, aes_string(x="long", y = "lat", group = "group", fill = case.type), color = "black", size = .25)+coord_map() +
+    plot <- ggplot()+geom_polygon(data = actual_county, aes_string(x="long", y = "lat", group = "group", fill = case.type), color = "black", size = .25)+coord_map() +
       scale_fill_gradient(name = "Cases", limits = c((case.min-1) ,(case.max+1)), low = "red", high = "yellow",  
                           na.value = "white", guide = "colorbar", breaks = pretty_breaks(n = length(unique.cases))) + 
       labs(title = title) + theme(plot.title = element_text(size = 22)) +
-      geom_polygon(data=grey_county_prev, aes(x=long, y = lat, group = group), fill="grey", color = "black", size = .25, inherit.aes = FALSE)
+      geom_polygon(data=grey_county, aes(x=long, y = lat, group = group), fill="grey", color = "black", size = .25, inherit.aes = FALSE)
   return(plot)
 }
 
 
 ### Save this to make sure everything is working 
-grey_county_cum <- final.plot[which(final.plot$Cum_Cases==0),]
-actual_county_cum <- final.plot[which(final.plot$Cum_Cases!=0 | is.na(final.plot$Cum_Cases)),]
+grey_county_prev <- final.plot[which(final.plot$Prev.Cases==0),]
+actual_county_prev <- final.plot[which(final.plot$Prev.Cases!=0 | is.na(final.plot$Prev.Cases)),]
 
-cumulative.plot <- ggplot()+geom_polygon(data = actual_county_cum, aes(x=long, y = lat, group = group, fill = Cum_Cases), color = "black", size = .25)+coord_map() +
-   scale_fill_gradient(name = "Cases", limits = c(min(cumulative.long$cases[cumulative.long$cases != 0])-1 , max(cumulative.long$cases)+1), low = "red", high = "yellow",  
+prevalence.plot <- ggplot()+geom_polygon(data = actual_county_prev, aes(x=long, y = lat, group = group, fill = Prev.Cases), color = "black", size = .25)+coord_map() +
+   scale_fill_gradient(name = "Cases", limits = c((case.min-1) , (case.max+1)), low = "red", high = "yellow",  
                         na.value = "white", guide = "colorbar", breaks = pretty_breaks(length(unique(cumulative.long$cases)))) + 
-  labs(title = "Max Cumulative Detected Cases to be 70% certain \n the outbreak is smaller than 100 cumulative infections") + 
+  labs(title = "Max Cumulative Detected Cases to be 80% certain \n the number of current infections is les than 20") + 
   theme(plot.title = element_text(size = 22)) +
-  geom_polygon(data=grey_county_cum, aes(x=long, y = lat, group = group), fill="grey", color = "black", size = .25, inherit.aes = FALSE)
+  geom_polygon(data=grey_county_prev, aes(x=long, y = lat, group = group), fill="grey", color = "black", size = .25, inherit.aes = FALSE)
 
 
 

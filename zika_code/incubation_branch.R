@@ -15,6 +15,7 @@ branch_params <- function(prop_p = 1.7/7 ,
   return(as.list(environment()))
 
 
+
 run_branch_modified_inc <- function(params) {
   with(params,{
     UI_Symp = 1; UI_Asymp = 0; DI_Symp = 0; DI_Asymp = 0 
