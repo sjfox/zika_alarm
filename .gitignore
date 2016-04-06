@@ -1,2 +1,5 @@
 *.pdf
 *.png
+*.Rdata
+*.Rproj.user
+*.Rout

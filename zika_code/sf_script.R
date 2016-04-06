@@ -6,7 +6,12 @@ if(grepl('tacc', Sys.info()['nodename'])) setwd('/home1/02958/sjf826/zika_alarm/
 if(grepl('meyerslab', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
 if(grepl('laurencastro', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
 
-sapply(c('branch.functions.R','plot.functions.R', 'incubation_branch.R'), source)
+# county <- read.csv("../county_data.csv")
+# 
+# hist(county$HabitatSuitability, breaks=100)
+# county[which.max(county$HabitatSuitability),]
+
+sapply(c('branch.functions.R','plot.functions.R', 'incubation_branch.R', 'analyze_saved_sims.R'), source)
 library(plyr)
 library(cowplot)
 # prop_p -- probability an I infects a new individual in a time period: how to determine this? 
@@ -16,18 +21,43 @@ library(cowplot)
 # e_thresh -- total instantaneous I's that count as epidemic escape (not cumulative):
 
 #Parameters 
-branch_params <- function(prop_p = 1.7/7 , 
-                          recov_p = 1.0/7,
+branch_params <- function(r_not = 1.1,
+                          infBoxes = 3,
+                          incBoxes = 6,
+                          recov_p = 0.3040571/(3/infBoxes),
+                          incub_rate = 0.583917,
+                          prop_p =  r_not*recov_p/infBoxes, 
                           d_thres = 5,
-                          e_thresh = 200,
+                          e_thresh = 500,
                           prob_symp = 1,
-                          incub_rate = 1/16.5,
-                          dis_prob_symp = 1,
+                          dis_prob_symp = .01,
                           dis_prob_asymp = 0.00 ,
-                          intro_rate = 0.000,
-                          zeroInc_prob = 6.825603e-08)
+                          intro_rate = 0.000)
   return(as.list(environment()))
 
+dir_path <- "~/projects/zika_alarm/data/first_runs/"
+save_path <- "~/projects/zika_alarm/data/"
+
+save_final_sizes(dir_path, save_path)
+
+
+r_nots <- c(0.9, 1.2, 1.8)
+intro_rate <- c(0.3)
+disc_prob <- c(0.011)
+
+get_vec_of_files(dir_path, r_nots,  disc_prob, intro_rate)
+
+
+files <- paste("zika_sims", r_nots, intro_rate, disc_prob, sep="_")
+list.files(path=dir_path, pattern="*0.9_0.011_0.3.Rdata", full.names=T, recursive=FALSE)
+
+trials <- run_branches_inc(num_reps = 500, branch_params(r_not=.8))
+plot_final_sizes(trials)
+
+temp <- all_last_cuminfect_values(trials)
+
+load("../zika_sims_0.85_0.1_0.Rdata")
+plot_final_sizes(trials)
 
 
 getEscapebyD <- function(trials, e_thresh){
@@ -36,8 +66,8 @@ getEscapebyD <- function(trials, e_thresh){
   return(data.frame(d_thresh=d, probEsc=esc_data))
 }
   
-discoveries <- seq(0.01, .95, length.out = 4)
-prop_ps <- seq(0.9, 1.3, by=.1)/7
+discoveries <- seq(0.01, .1, length.out = 2)
+prop_ps <- c(1.2)/7
 escape_data <- data.frame()
 for(disc_p in discoveries){
   for(prop in prop_ps){
@@ -46,12 +76,20 @@ for(disc_p in discoveries){
   }
 }
 escape_data$r_not <- escape_data$prop_p*7
-plot1 <- ggplot(escape_data, aes(d_thresh, probEsc, color = as.factor(r_not))) + geom_line(size=2) + facet_wrap(~disc_p)+
-  scale_y_continuous(expand=c(0,0)) +
-  scale_color_brewer(palette="Set1")
+
+plot1 <- ggplot(escape_data, aes(d_thresh, probEsc, color = as.factor(r_not))) + 
+  geom_line(size=1.5, aes(linetype=as.factor(disc_p))) + #facet_wrap(~disc_p)+
+  scale_y_continuous(expand=c(0.01,0.01)) +
+  scale_color_brewer(palette="Set1")+
+  theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank())+
+  labs(x = "Cumulative Number of Detected Cases", y = "Probability of an Epidemic", color = expression("R"[0]))+
+  guides(linetype= FALSE )
+
 print(plot1)
 
-ggsave(filename = "../ExploratoryFigures/d_thresh_plot.pdf", plot = plot1, width=10, height=8)
+save_plot(filename = "../ExploratoryFigures/d_thresh_plot.pdf", plot = plot1, base_aspect_ratio = 1.5)
+
+temp <- escape_data[which(escape_data$disc_p==.1), ]
 
 
 trials <- run_branches_inc(num_reps = 1000, branch_params(prop_p=1.1/7, dis_prob_symp = .8))
@@ -64,17 +102,3 @@ ggsave(filename = "../ExploratoryFigures/r0_0.2_disc_0.01_hist.pdf", plot = p, w
 
 
 
-# run_simple_branches <- function(num_reps, ...){
-#   rlply(.n = num_reps, .expr = run_branch_simple(...) )
-# }
-# 
-# getMaxCumI <- function(x){
-#   return(x$cumI[nrow(x)])
-# }
-# all_getMaxCumI <- function(x) {
-#   laply(x, getMaxCumI)
-# }
-# 
-# trials <- run_simple_branches(1000, prop_p=.85/7, recov_p=1/7, disc_p=.01, d_thresh=5, e_thresh=200)
-# final.sizes <- all_getMaxCumI(trials)
-# hist(final.sizes, breaks=100)
