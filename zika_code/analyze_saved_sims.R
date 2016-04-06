@@ -1,7 +1,16 @@
 
-
-
-
+get_vec_of_files <- function(dir_path, r_nots, disc_probs, intro_rates){
+  data_files <- c()
+  for(r_not in r_nots){
+    for(intro_rate in intro_rates){
+      for(disc_prob in disc_probs){
+        pattern <- paste0("*", paste(r_not,  disc_prob, intro_rate, sep="_"), ".Rdata")
+        data_files <- c(data_files, list.files(path=dir_path, pattern=pattern, full.names=T, recursive=FALSE))
+      }
+    }
+  }
+  data_files
+}
 
 save_final_sizes <- function(dirPath, saveLoc, saveResults=TRUE){
   data.files <- list.files(path=dirPath, pattern="*.Rdata", full.names=T, recursive=FALSE)

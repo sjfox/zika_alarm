@@ -45,6 +45,9 @@ r_nots <- c(0.9, 1.2, 1.8)
 intro_rate <- c(0.3)
 disc_prob <- c(0.011)
 
+get_vec_of_files(dir_path, r_nots,  disc_prob, intro_rate)
+
+
 files <- paste("zika_sims", r_nots, intro_rate, disc_prob, sep="_")
 list.files(path=dir_path, pattern="*0.9_0.011_0.3.Rdata", full.names=T, recursive=FALSE)
 
