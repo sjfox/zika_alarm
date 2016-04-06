@@ -38,56 +38,24 @@ branch_params <- function(r_not = 1.1,
 dir_path <- "~/projects/zika_alarm/data/first_runs/"
 save_path <- "~/projects/zika_alarm/data/"
 
-save_final_sizes(dir_path, save_path)
+# save_final_sizes(dir_path, save_path)
 
+r_nots <- c(0.8, 1.2)
+disc_probs <- c(0.011, 0.068)
+intro_rates <- c(0, .01, 0.3, 1.92)
 
-r_nots <- c(0.9, 1.2, 1.8)
-intro_rate <- c(0.3)
-disc_prob <- c(0.011)
+test <- get_escape_prob_by_d(dir_path, r_nots, disc_probs, intro_rates)
 
-get_vec_of_files(dir_path, r_nots,  disc_prob, intro_rate)
-
-
-files <- paste("zika_sims", r_nots, intro_rate, disc_prob, sep="_")
-list.files(path=dir_path, pattern="*0.9_0.011_0.3.Rdata", full.names=T, recursive=FALSE)
-
-trials <- run_branches_inc(num_reps = 500, branch_params(r_not=.8))
-plot_final_sizes(trials)
-
-temp <- all_last_cuminfect_values(trials)
-
-load("../zika_sims_0.85_0.1_0.Rdata")
-plot_final_sizes(trials)
-
-
-getEscapebyD <- function(trials, e_thresh){
-  d <- 0:50
-  esc_data <- count_escapes_vec(trials, d, e_thresh)
-  return(data.frame(d_thresh=d, probEsc=esc_data))
-}
-  
-discoveries <- seq(0.01, .1, length.out = 2)
-prop_ps <- c(1.2)/7
-escape_data <- data.frame()
-for(disc_p in discoveries){
-  for(prop in prop_ps){
-    trials <- run_branches_inc(num_reps = 1000, branch_params(prop_p=prop, dis_prob_symp = disc_p))
-    escape_data <- rbind(escape_data, cbind(disc_p=disc_p, prop_p=prop, getEscapebyD(trials, branch_params()$e_thresh)))   
-  }
-}
-escape_data$r_not <- escape_data$prop_p*7
-
-plot1 <- ggplot(escape_data, aes(d_thresh, probEsc, color = as.factor(r_not))) + 
-  geom_line(size=1.5, aes(linetype=as.factor(disc_p))) + #facet_wrap(~disc_p)+
+plot1 <- ggplot(test, aes(d_thresh, prob_esc, color = as.factor(r_not))) + 
+  geom_line(size=1, aes(linetype=as.factor(disc_prob))) + facet_wrap(~intro_rate)+
   scale_y_continuous(expand=c(0.01,0.01)) +
   scale_color_brewer(palette="Set1")+
   theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank())+
   labs(x = "Cumulative Number of Detected Cases", y = "Probability of an Epidemic", color = expression("R"[0]))+
-  guides(linetype= FALSE )
+  guides(linetype= FALSE)
 
 print(plot1)
-
-save_plot(filename = "../ExploratoryFigures/d_thresh_plot.pdf", plot = plot1, base_aspect_ratio = 1.5)
+save_plot(filename = "../ExploratoryFigures/saved_d_thresh.pdf", plot = plot1, base_aspect_ratio = 1.5)
 
 temp <- escape_data[which(escape_data$disc_p==.1), ]
 
@@ -102,3 +70,22 @@ ggsave(filename = "../ExploratoryFigures/r0_0.2_disc_0.01_hist.pdf", plot = p, w
 
 
 
+
+# get_rows_final_sizes <- function(final_sizes, r_nots, disc_probs, intro_rates){
+#   final_sizes[which(final_sizes$r_not %in% r_nots & final_sizes$disc_prob %in% disc_probs & final_sizes$intro_rate %in% intro_rates), ]
+# }
+# load("../data/final_sizes.Rdata")
+# r_nots <- c(0.8, 1.2)
+# disc_probs <- c(0.011)
+# intro_rates <- c(0, .01, 0.3, 1.92)
+# 
+# temp <- get_rows_final_sizes(final_sizes, r_nots, disc_probs, intro_rates)
+# 
+# final_plot <- ggplot(temp, aes(cumI)) + geom_histogram(bins=100)+
+#   facet_grid(intro_rate~r_not, scales = "free_y") + 
+#   scale_y_continuous(expand=c(0,0)) + 
+#   scale_x_continuous(expand=c(0,0))+
+#   labs(x = "Final Epidemic Sizes")
+# save_plot(filename = "../ExploratoryFigures/final_sizes.pdf", plot = final_plot, base_height = 10, base_width = 12)
+# 
+# 
