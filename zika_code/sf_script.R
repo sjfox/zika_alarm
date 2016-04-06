@@ -11,7 +11,7 @@ if(grepl('laurencastro', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zik
 # hist(county$HabitatSuitability, breaks=100)
 # county[which.max(county$HabitatSuitability),]
 
-sapply(c('branch.functions.R','plot.functions.R', 'incubation_branch.R'), source)
+sapply(c('branch.functions.R','plot.functions.R', 'incubation_branch.R', 'analyze_saved_sims.R'), source)
 library(plyr)
 library(cowplot)
 # prop_p -- probability an I infects a new individual in a time period: how to determine this? 
@@ -35,6 +35,18 @@ branch_params <- function(r_not = 1.1,
                           intro_rate = 0.000)
   return(as.list(environment()))
 
+dir_path <- "~/projects/zika_alarm/data/first_runs/"
+save_path <- "~/projects/zika_alarm/data/"
+
+save_final_sizes(dir_path, save_path)
+
+
+r_nots <- c(0.9, 1.2, 1.8)
+intro_rate <- c(0.3)
+disc_prob <- c(0.011)
+
+files <- paste("zika_sims", r_nots, intro_rate, disc_prob, sep="_")
+list.files(path=dir_path, pattern="*0.9_0.011_0.3.Rdata", full.names=T, recursive=FALSE)
 
 trials <- run_branches_inc(num_reps = 500, branch_params(r_not=.8))
 plot_final_sizes(trials)
