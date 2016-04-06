@@ -34,6 +34,8 @@ run_branch_modified_inc <- function(params) {
       ########################### First Introudction Rate
       intro_draws = runif(1) #some possible number of events
       intro_count = sum(intro_draws < intro_rate) #Number of Introductions 
+      intro_count = rpois(1, intro_rate)
+      
       intro_type_draw = runif(intro_count)
       intro_Symp = sum(intro_type_draw < prob_symp) # Proportion of Symptomatic Introductions
       intro_Asymp = intro_count-intro_Symp # Asym Into = Total Intro-symptomatic 
@@ -57,8 +59,7 @@ run_branch_modified_inc <- function(params) {
       
       #Infection for Detected Individuals 
       
-      newDI_draws = runif(DI) #New exposed possibilities 
-      newDI_count = sum(newDI_draws < prop_p) #Number of new exposed by detected individuals 
+      newDI_count = rpois(DI, lambda = prop_p)
       
       zeroInc_DI_draws = runif(newDI_count)
       zeroInc_DI_count = sum(zeroInc_DI_draws < zeroInc_prob)
@@ -78,9 +79,8 @@ run_branch_modified_inc <- function(params) {
       
       
       #Innfection for Undetected Individuals 
-      newUI_draws = runif(UI) # New exposed probabilities by Undiscovred infecteds 
-      newUI_count =  sum(newUI_draws < prop_p)  # Number of new Infecteds 
-      
+      newUI_count = rpois(UI, lambda = prop_p)
+         
       zeroInc_UI_draws = runif(newUI_count)
       zeroInc_UI_count = sum(zeroInc_UI_draws < zeroInc_prob)
       
