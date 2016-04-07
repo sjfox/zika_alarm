@@ -12,7 +12,7 @@ library(plyr)
 library(ggplot2)
 # Code I've written just testing things out-not worth saving in the main files 
 #Parameters 
-}
+
 
 branch_params <- function(prop_p = 1.7/7 , 
                           recov_p = 1.0/7,
@@ -170,30 +170,7 @@ middle.stats.median <- data.frame(cbind(dect.cases, median.vec))
 plot.median <- ggplot(middle.stats.median, aes(dect.cases, median.vec))
 plot.median + geom_line(size = 2)
 
-
-
-####### Comparing histograms of outbreak size with and without incubation period
-trials.simple<- run_simple_branches(10000, prop_p=1.7/7, recov_p=1/7, disc_p=.01, d_thresh=5, e_thresh=200)
-#trials.no.inc <- run_branches_noinc(num_reps = 1000, branch_params())
-trials.incubation <-  run_branches(num_reps = 10000, branch_params(prop_p = 1.7/7, e_thresh = 200, incub_p = 1/15.5))
-#trials.with <- run_branches(num_reps = 1000, branch_params(incub_p = 1/16.5))
-
-par(mfrow = c(1,2))
-final.sizes <- all_getMaxCumI(trials.simple)
-hist(final.sizes, breaks=100,  main = "Simple Model", xlab = "Final Size")
-hist(final.sizes, breaks=100, ylim = c(0,2000), main = "Simple Model-Close Up", xlab = "Final Size")
-median(final.sizes)
-mean(final.sizes)
-sort(final.sizes) # Largest outbreak is 52
-
-
-outbreak.detections.incubation <- all_last_cumdetect_values(trials.incubation) # Highest small case 31 
-hist(outbreak.detections.incubation, breaks = 100, main = "Complex Model", xlab = "Final Detection")
-hist(outbreak.detections.incubation, breaks = 100, ylim = c(0,200), main = "Complex Model - Close Up", xlab = "Outbreak Detections")
-mean(outbreak.size.inc1)
-median(outbreak.size.inc1)
-sorted.outbreak.size <- sort(outbreak.size.inc1)
-sorted.outbreak.size # Highest small case 50
-
-
+############################################
+dir_path <- "~/Documents/zika_alarm/data/first_runs/"
+save_path <- "~/Doucments/zika_alarm/data"
 

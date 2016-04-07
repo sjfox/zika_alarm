@@ -58,15 +58,17 @@ library(reshape2)
 library(scales)
 
 ## Set of functions to calculate given I have X cases, what is the distribution of cases I see 
-detection_rows <- function(x, detect_thres=d_thres) {
-  detections <- x[,6]
-  rows <- which(detections == detect_thres)
-  reduced <- x[rows,]
+detection_rows <- function(trial, threshold) {
+  detections <- trial[,6]
+  rows <- which(detections == threshold)
+  reduced <- trial[rows,]
   return(reduced)
 }
 
-all_detect_rows <- function(x, d_thres) {   # Function to return all rows in trials that match detection threshold
-  return(ldply(x, detection_rows))
+# Function to return all rows in trials that match detection threshold
+all_detect_rows <- function(trials, threshold) {
+  all_rows_detection = ldply(.data = trials, .fun = detection_rows, threshold = threshold) 
+  return(all_rows_detection)
 }
 
 
@@ -145,9 +147,9 @@ name.generator <- function(R0, disc_value, type) {
 } 
 
 
-set.cum.bins <- function(d_thres, trials) {
-  at.high.dect <- all_detect_rows(trials)
-  max.cum <- max(at.high.dect[,8])
+set.cum.bins <- function(max.cum) {
+  #at.high.dect <- all_detect_rows(trials)
+  #max.cum <- max(at.high.dect[,8])
   max.bin <- max.cum + 10 # normally 25
   #beginning.bins <- seq(from = 0, to = 18, by = 2) When I had higher resolution 
   #bins.1 <- seq(from = 20, to = max.bin, by = 20)
@@ -157,9 +159,9 @@ set.cum.bins <- function(d_thres, trials) {
 }
 
 
-set.prev.bins <- function(d_thres, trials) {
-  at.high.dect <- all_detect_rows(trials)
-  max.prev <- max(at.high.dect[,7])
+set.prev.bins <- function(max.prev) {
+  #at.high.dect <- all_detect_rows(trials)
+  #max.prev <- max(at.high.dect[,7])
   max.bin <- max.prev + 1
   bins <- seq(from = 0, to = max.bin, by = 1)
   #if (max.bin > 10) {

@@ -21,12 +21,8 @@ require(ggthemes)
 
 # 1 County Data
 # However we want to scale R0 right now using a log 
-test.R0s$logrelative <- log(test.R0s$RelativeR0+1)
-max.relativeR0 = max(test.R0s$logrelative)
-test.R0s$scaledrnott = test.R0s$logrelative/max.relativeR0 * 1.5
-
-
-
+# Done in R0 script-will stay the same 
+# If wanted to do it by metro area 
 R0_range = ddply(test.R0s,.variables = 'MetroArea', summarise, mean(scaledrnott))
 colnames(R0_range) = c("MetroArea", "meanR0")
 
@@ -35,77 +31,177 @@ colnames(R0_range) = c("MetroArea", "meanR0")
 # Will separate this into running the trials for each R0 and then for each list calculate the value....
 #
 
-disc_p = .0246
-confidence = .7
-threshold.prevalence = 20
+# Will want to read in here the different files 
+#disc_p = .0246
+confidence = .9
+threshold.prevalence = 25
 threshold.cumulative = 100
-prevalence.long <- data.frame()
-cumulative.long <- data.frame()
 
 
-#trials_R0 <- function(df) {
-#  prop_p = df[,2]/7
-#  MetroArea = df[,1]/7
-#  trials <-run_branches_inc(num_reps = 1000, branch_params(prop_p = prop_p))
-#  return(trials)
-#}
+#Chosen for analysis 
+r_nots <- c(0.9, 1.2, 1.4, 1.6, 1.8, 2, 2.2)
+intro_rate <- c(0.3)
+disc_prob <- c(0.011, 0.21, 0.0052, 0.068)
+dir_path <- "~/Documents/zika_alarm/data/first_runs/"
+dirPaths = get_vec_of_files(dir_path, r_nots,  disc_prob, intro_rate)
+saveLoc  <- "~/Documents/zika_alarm/data/"
 
-# Try this for step 1 
-#trials.list <- dlply(R0_range, .variables = 'MetroArea', trials_R0)
-# This may work but suppppppper slow 
+debug(threshold_R0)
 
-for (i in 1:nrow(R0_range)) {
-    prop_p  = R0_range$meanR0[i] / 7
-    MetroArea = R0_range$MetroArea[i]
-    percent.discover <- calculate.discover(disc_p)
+calculate_threshold <- threshold_R0(dir_path = dir_path, saveLoc = saveLoc, saveResults = FALSE, r_nots = r_nots,
+             intro_rate = intro_rate, disc_prob = disc_prob, confidence = confidence,
+             threshold.prevalence = threshold.prevalence, threshold.cumulative = threshold.cumulative)
+
+
+threshold_R0 <- function(dir_path, saveLoc, saveResults=TRUE, r_nots, intro_rate, disc_prob, 
+                         confidence, threshold.prevalence, threshold.cumulative) {
+  
+  dirPaths = get_vec_of_files(dir_path, r_nots,  disc_prob, intro_rate)
+  
+  
+  calculate_threshold <- adply(.data = dirPaths, .margins = 1, .fun = function (x) {
+    load(x)
     
-    #Running trials
-    trials <-
-      run_branches_inc(num_reps = 1000, branch_params(
-        dis_prob_symp = disc_p, prop_p = prop_p, e_thresh = 500
-      ))
+    max.cumulative <- max(all_last_cuminfect_values(trials))
+    max.prev <- max(all_last_instantInf_values(trials))
+    
+    
     lastdetected <- all_last_cumdetect_values(trials)
-    
     max <- set.max.bin(max(lastdetected))
     dect.cases.range <- seq(1:max)
-    d_thres <- max
+    
+    
+    #splits up trials into detection 
+    trials_by_detection <- alply(.data = dect.cases.range, .margins = 1, function (x) {
+      d_thres = as.numeric(x)
+      dataframe <- all_detect_rows(trials, threshold = d_thres )      
+      return(dataframe)
+    })
     
     #setting up bins to calculate frequencies
-    bins.prev <- set.prev.bins(d_thres, trials)
-    bins.cumulative <- set.cum.bins(d_thres, trials)
+    bins.prev <- set.prev.bins(max.prev)
+    bins.cumulative <- set.cum.bins(max.cumulative)
+    
+    average.cumulative <- laply(.data = trials_by_detection, function (x) {
+      mean.cumulative <- mean(x[,8])
+      return(mean.cumulative)
+    })
+    
+    median.cumulative <- laply(.data = trials_by_detection, function (x) {
+      median.cum <- median(x[,8])
+      return(median.cum)
+    })
+    
+    
+    average.prevalence <- laply(.data = trials_by_detection, function (x) {
+      mean.prevalence <- mean(x[,7])
+      return(mean.prevalence)
+    })
+    
+    median.prevalence <- laply(.data = trials_by_detection, function (x) {
+      median.prevalence <- median(x[,7])
+    })
+    
+    
+    #Frequency Calculations 
+    frequency.cumulative <- ldply(.data = trials_by_detection, function (x) {
+      frequency = bin.frequency(x[,8], bins.cumulative)
+      frequency = as.data.frame(matrix(frequency, nrow=1))
+      return(frequency)
+    })
+    
+    frequency.prevalence <- ldply(.data = trials_by_detection, function (x) {
+      frequency = unname(bin.frequency(x[,7], bins.prev))
+      frequency = as.data.frame(matrix(frequency, nrow=1))
+      return(frequency)
+    })
+    
+    #Clean UP 
+    colnames(frequency.prevalence) <- bins.prev; rownames(frequency.prevalence) <- dect.cases.range
+    colnames(frequency.cumulative) <- bins.cumulative; rownames(frequency.cumulative) <- dect.cases.range
+    
+    frequency.prevalence <- frequency.prevalence[,-1]
+    frequency.cumulative <- frequency.cumulative[,-1]
+    
+    
+    # ANALYSIS FOR TRIGGER THRESHOLD
+    integer.prev <- unname(find_thres_cases(bins.prev,  threshold.cases = threshold.prevalence, df=frequency.prevalence, confidence.value = confidence))
+    integer.cumulative <- unname(find_thres_cases(bins = bins.cumulative, threshold.cases = threshold.cumulative, df = frequency.cumulative,
+                                                  confidence.value = confidence))
+    parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate, confidence, threshold.prevalence, threshold.cumulative)  
+    cbind(as.data.frame(matrix(parms,ncol=6)), integer.prev, integer.cumulative)
+  })
+  
+  # Save the results or simply return them
+  if(saveResults){
+    save( list = c('calculate_threshold'), file = file.path(saveLoc, paste0("calculate_threshold.Rdata")))  
+  } else {
+    calculate_threshold
+  }
+}
+
+saveLoc <- "~/Documents/zika_alarm/data/"
+save( list = c('calculate_threshold'), file = paste(saveLoc, "calculate_threshold.6.Rdata"))
+
+
+saveLoc
+#for (i in 1:nrow(R0_range)) {
+#    prop_p  = R0_range$meanR0[i] / 7
+ #   MetroArea = R0_range$MetroArea[i]
+  #  percent.discover <- calculate.discover(disc_p)
+    
+    #Running trials
+ #   trials <-
+#      run_branches_inc(num_reps = 1000, branch_params(
+#        dis_prob_symp = disc_p, prop_p = prop_p, e_thresh = 500
+#      ))
+ #   lastdetected <- all_last_cumdetect_values(trials)
+    
+  #  max <- set.max.bin(max(lastdetected))
+   # dect.cases.range <- seq(1:max)
+   # d_thres <- max
+    
+    #setting up bins to calculate frequencies
+  #  bins.prev <- set.prev.bins(d_thres, trials)
+  #  bins.cumulative <- set.cum.bins(d_thres, trials)
     
     #Setting Up data frames and vectors to store
-    thres.matrix.prev <-data.frame(matrix(nrow = length(dect.cases.range), ncol = length(bins.prev) - 1))
-    colnames(thres.matrix.prev) <-bins.prev[2:length(bins.prev)]; rownames(thres.matrix.prev) <-paste("Detected Cases =", dect.cases.range)
+    #thres.matrix.prev <-data.frame(matrix(nrow = length(dect.cases.range), ncol = length(bins.prev) - 1))
+    #colnames(thres.matrix.prev) <-bins.prev[2:length(bins.prev)]; rownames(thres.matrix.prev) <-paste("Detected Cases =", dect.cases.range)
     
-    thres.matrix.cum <-data.frame(matrix(nrow = length(dect.cases.range), ncol = length(bins.cumulative) - 1))
-    colnames(thres.matrix.cum) <- bins.cumulative[2:length(bins.cumulative)]; rownames(thres.matrix.cum) <-paste("Detected Cases =", dect.cases.range)
+    #thres.matrix.cum <-data.frame(matrix(nrow = length(dect.cases.range), ncol = length(bins.cumulative) - 1))
+    #colnames(thres.matrix.cum) <- bins.cumulative[2:length(bins.cumulative)]; rownames(thres.matrix.cum) <-paste("Detected Cases =", dect.cases.range)
     
     
     #Writing the values
     # Could split this up into two analysis: average/median and frequencies
-    for (dect.case in dect.cases.range) {
-      d_thres <- dect.case
-      dataframe <-
-        all_detect_rows(trials) # takes already whatever the current thresholds
+    #for (dect.case in dect.cases.range) {
+     # d_thres <- dect.case
+      #dataframe <-
+       # all_detect_rows(trials) # takes already whatever the current thresholds
       
-      frequencies.prev <- bin.frequency(dataframe[,7], bins.prev)
-      thres.matrix.prev[dect.case,] <- frequencies.prev
+      #frequencies.prev <- bin.frequency(dataframe[,7], bins.prev)
+      #thres.matrix.prev[dect.case,] <- frequencies.prev
       
-      frequencies.cum <-
-        bin.frequency(dataframe[,8], bins.cumulative)
-      thres.matrix.cum[dect.case,] <- frequencies.cum
-    }
+      #frequencies.cum <-
+       # bin.frequency(dataframe[,8], bins.cumulative)
+      #thres.matrix.cum[dect.case,] <- frequencies.cum
+  #  }
     
     # ANALYSIS FOR TRIGGER THRESHOLD
-    integer.prev <- find_thres_cases(bins.prev,  threshold.cases= threshold.prevalence, df=thres.matrix.prev, confidence.value = confidence)
-    integer.cumulative <- find_thres_cases(bins = bins.cumulative, threshold.cases = threshold.cumulative, df = thres.matrix.cum, confidence.value = confidence)
+    #integer.prev <- find_thres_cases(bins.prev,  threshold.cases= threshold.prevalence, df=thres.matrix.prev, confidence.value = confidence)
+    #integer.cumulative <- find_thres_cases(bins = bins.cumulative, threshold.cases = threshold.cumulative, df = thres.matrix.cum, confidence.value = confidence)
     
    
     # When only want to return the first
-    prevalence.long <- rbind(prevalence.long, cbind(id = MetroArea, disc_p=disc_p, R0=prop_p*7, confidence = confidence, cases = unname(integer.prev)))
-    cumulative.long <- rbind(cumulative.long, cbind(id = MetroArea, disc_p=disc_p, R0=prop_p*7, confidence = confidence, cases = unname(integer.cumulative)))
-} 
+    #prevalence.long <- rbind(prevalence.long, cbind(id = MetroArea, disc_p=disc_p, R0=prop_p*7, confidence = confidence, cases = unname(integer.prev)))
+    #cumulative.long <- rbind(cumulative.long, cbind(id = MetroArea, disc_p=disc_p, R0=prop_p*7, confidence = confidence, cases = unname(integer.cumulative)))
+#} 
+
+
+
+
+
 
 
 
