@@ -1,28 +1,4 @@
-test_escape <- function(df, d_thres, e_thresh){
-  if(last_cumdetect_value(df) < d_thres) return(NA)
-  if(last_cuminfect_value(df)>=e_thresh) {
-    TRUE
-  } else{
-    FALSE
-  }
-}
 
-count_escapes <- function(x, d_thres, e_thresh){
-  ## Function to get probability of escape, if detecteds
-  ## are greater than the d_thres
-  ## x must be list of runs
-  
-  escapes <- laply(x, test_escape, d_thres, e_thresh)
-  numEscape <- sum(escapes, na.rm=T)
-  numPossible <- sum(!is.na(escapes), na.rm=T)
-  if(numPossible ==0) {
-    NA
-  }else {
-    numEscape/numPossible
-  }
-}
-
-count_escapes_vec <- Vectorize(count_escapes, vectorize.args = "d_thres")
 #####################################################################
 
 # Analysis functions for extracting various elements from the trials 
@@ -50,6 +26,9 @@ all_last_instantInf_values <- function(x) {
   return(unlist(laply(x, last_instantInf_value)))
 }
 
+max_prevalence <- function(x){
+  return(max(x[,"Total_Infected"]))
+}
 
 
 ## Set of functions to calculate given I have X cases, what is the distribution of cases I see 
@@ -214,7 +193,7 @@ plotheatmaps <- function(df, type, names, percent.discover, R0, max.infect) {
 find_thres_cases <- function(bins, threshold.cases, df, confidence.value) {
   df.t <- t(df)
   if(max(bins) < threshold.cases) {
-    detection.thres <- min(bins)
+    detection.thres <- 'NA'
   }
   else {
     marker <- which(bins == threshold.cases)-1
@@ -224,10 +203,12 @@ find_thres_cases <- function(bins, threshold.cases, df, confidence.value) {
     
     if (length(detection.thres.candidates) == 0) {
       prob = max(col_sum) 
-      detection.thres <- which(col_sum == prob) 
+      detection.thres <- which(col_sum == prob)
+      detection.thres <- min(detection.thres) # If there's multiple that have the same 
     } else {
       prob <- min(col_sum[detection.thres.candidates])
       detection.thres <- which(col_sum == prob)
+      detection.thres <- min(detection.thres) #If there's multiple that have the same 
     }
   }
   return(case.trigger = detection.thres)
