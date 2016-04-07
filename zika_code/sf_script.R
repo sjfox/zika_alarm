@@ -40,9 +40,9 @@ save_path <- "~/projects/zika_alarm/data/"
 
 # save_final_sizes(dir_path, save_path)
 
-r_nots <- c(0.8, 1.2)
+r_nots <- c(0.9, 1, 1.2)
 disc_probs <- c(0.011, 0.068)
-intro_rates <- c(0, .01, 0.3, 1.92)
+intro_rates <- c(.01, .3)
 
 test <- get_escape_prob_by_d(dir_path, r_nots, disc_probs, intro_rates)
 
