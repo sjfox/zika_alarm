@@ -37,26 +37,26 @@ R0_metro = R0_metro[-16,]
 # Will want to read in here the different files 
 #disc_p = .0246
 confidence = .8
-threshold.prevalence = 25
-threshold.cumulative = 100
+threshold.prevalence = 10
+threshold.cumulative = 80
 
 
 #Chosen for analysis 
-r_nots <- c(0.9, 1.2, 1.4, 1.6, 1.8, 2, 2.2)
+r_nots <- c(0.9, 1.1, 1.2, 1.3)
 intro_rate <- c(0.3)
-disc_prob <- c(0.011, 0.21, 0.0052, 0.068)
-dir_path <- "~/Documents/zika_alarm/data/"
-dirPaths = get_vec_of_files(dir_path, r_nots,  disc_prob, intro_rate)
+disc_prob <- c(0.011)
+dir_path <- "~/Documents/zika_alarm/data/first_runs/"
+#dirPaths = get_vec_of_files(dir_path, r_nots,  disc_prob, intro_rate)
 saveLoc  <- "~/Documents/zika_alarm/data/"
 
 debug(threshold_R0)
 
 calculate_threshold <- threshold_R0(dir_path = dir_path, saveLoc = saveLoc, saveResults = FALSE, r_nots = r_nots,
-             intro_rate = intro_rate, disc_prob = disc_prob, confidence = confidence,
-             threshold.prevalence = threshold.prevalence, threshold.cumulative = threshold.cumulative)
+                                    type = "frequency", intro_rate = intro_rate, disc_prob = disc_prob, confidence = confidence,
+                                    threshold.prevalence = threshold.prevalence, threshold.cumulative = threshold.cumulative)
 
 
-threshold_R0 <- function(dir_path, saveLoc, saveResults=TRUE, r_nots, intro_rate, disc_prob, 
+threshold_R0 <- function(dir_path, saveLoc, saveResults=TRUE, r_nots, intro_rate, disc_prob,type, 
                          confidence, threshold.prevalence, threshold.cumulative) {
   
   dirPaths = get_vec_of_files(dir_path, r_nots,  disc_prob, intro_rate)
@@ -65,14 +65,13 @@ threshold_R0 <- function(dir_path, saveLoc, saveResults=TRUE, r_nots, intro_rate
   calculate_threshold <- adply(.data = dirPaths, .margins = 1, .fun = function (x) {
     load(x)
     
-    max.cumulative <- max(all_last_cuminfect_values(trials))
-    max.prev <- max(all_last_instantInf_values(trials))
+    #max.cumulative <- max(all_last_cuminfect_values(trials))
+    #max.prev <- max(all_last_instantInf_values(trials))
     
     
     lastdetected <- all_last_cumdetect_values(trials)
     max <- set.max.bin(max(lastdetected))
     dect.cases.range <- seq(1:max)
-    
     
     #splits up trials into detection 
     trials_by_detection <- alply(.data = dect.cases.range, .margins = 1, function (x) {
@@ -81,47 +80,63 @@ threshold_R0 <- function(dir_path, saveLoc, saveResults=TRUE, r_nots, intro_rate
       return(dataframe)
     })
     
-    #setting up bins to calculate frequencies
-    bins.prev <- set.prev.bins(max.prev)
-    bins.cumulative <- set.cum.bins(max.cumulative)
-    
-    average.cumulative <- laply(.data = trials_by_detection, function (x) {
-      mean.cumulative <- mean(x[,8])
-      return(mean.cumulative)
-    })
-    
-    average.prevalence <- laply(.data = trials_by_detection, function (x) {
-      mean.prevalence <- mean(x[,7])
-      return(mean.prevalence)
-    })
-    
-    #Frequency Calculations 
-    frequency.cumulative <- ldply(.data = trials_by_detection, function (x) {
-      frequency = bin.frequency(x[,8], bins.cumulative)
-      frequency = as.data.frame(matrix(frequency, nrow=1))
-      return(frequency)
-    })
-    
-    frequency.prevalence <- ldply(.data = trials_by_detection, function (x) {
-      frequency = unname(bin.frequency(x[,7], bins.prev))
-      frequency = as.data.frame(matrix(frequency, nrow=1))
-      return(frequency)
-    })
-    
-    #Clean UP 
-    colnames(frequency.prevalence) <- bins.prev; rownames(frequency.prevalence) <- dect.cases.range
-    colnames(frequency.cumulative) <- bins.cumulative; rownames(frequency.cumulative) <- dect.cases.range
-    
-    frequency.prevalence <- frequency.prevalence[,-1]
-    frequency.cumulative <- frequency.cumulative[,-1]
-    
-    
-    # ANALYSIS FOR TRIGGER THRESHOLD
-    integer.prev <- unname(find_thres_cases(bins.prev,  threshold.cases = threshold.prevalence, df=frequency.prevalence, confidence.value = confidence))
-    integer.cumulative <- unname(find_thres_cases(bins = bins.cumulative, threshold.cases = threshold.cumulative, df = frequency.cumulative,
-                                                  confidence.value = confidence))
-    parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate, confidence, threshold.prevalence, threshold.cumulative)  
-    cbind(as.data.frame(matrix(parms,ncol=6)), integer.prev, integer.cumulative)
+    if(type == "average") {
+      average.cumulative <- ldply(.data = trials_by_detection, function (x) {
+        mean.cumulative <- mean(x[,8])
+        return(mean.cumulative)
+      })
+      
+      median.cumulative <- ldply(.data = trials_by_detection, function (x) {
+        median.cumulative <- median(x[,8])
+        return(median.cumulative)
+      })
+      
+      average.prevalence <- ldply(.data = trials_by_detection, function (x) {
+        mean.prevalence <- mean(x[,7])
+        return(mean.prevalence)
+      })
+      
+      median.prevalence <- ldply(.data = trials_by_detection, function (x) {
+        median.prevalence <- median(x[,7])
+        return(median.prevalence)
+      })
+      
+      
+      parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate) 
+      cbind(as.data.frame(matrix(parms,ncol=3)), dect.cases.range, average.cumulative[,2], average.prevalence[,2], median.cumulative[,2], median.prevalence[,2])
+    } else {
+      #setting up bins to calculate frequencies
+      bins.prev <- set.prev.bins(max.prev)
+      bins.cumulative <- set.cum.bins(max.cumulative)    
+      
+      #Frequency Calculations 
+      frequency.cumulative <- ldply(.data = trials_by_detection, function (x) {
+        frequency = bin.frequency(x[,8], bins.cumulative)
+        frequency = as.data.frame(matrix(frequency, nrow=1))
+        return(frequency)
+      })
+      
+      frequency.prevalence <- ldply(.data = trials_by_detection, function (x) {
+        frequency = unname(bin.frequency(x[,7], bins.prev))
+        frequency = as.data.frame(matrix(frequency, nrow=1))
+        return(frequency)
+      })
+      
+      # Clean UP 
+      colnames(frequency.prevalence) <- bins.prev; rownames(frequency.prevalence) <- dect.cases.range
+      colnames(frequency.cumulative) <- bins.cumulative; rownames(frequency.cumulative) <- dect.cases.range
+      
+      frequency.prevalence <- frequency.prevalence[,-1]
+      frequency.cumulative <- frequency.cumulative[,-1]
+      
+      
+      # ANALYSIS FOR TRIGGER THRESHOLD
+      integer.prev <- unname(find_thres_cases(bins.prev,  threshold.cases = threshold.prevalence, df=frequency.prevalence, confidence.value = confidence))
+      integer.cumulative <- unname(find_thres_cases(bins = bins.cumulative, threshold.cases = threshold.cumulative, df = frequency.cumulative,
+                                                    confidence.value = confidence))
+      parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate, confidence, threshold.prevalence, threshold.cumulative) 
+      cbind(as.data.frame(matrix(parms,ncol=6)), unname(integer.prev), unname(integer.cumulative))
+    }
   })
   
   # Save the results or simply return them
@@ -135,64 +150,34 @@ threshold_R0 <- function(dir_path, saveLoc, saveResults=TRUE, r_nots, intro_rate
 saveLoc <- "~/Documents/zika_alarm/data/"
 save( list = c('calculate_threshold'), file = paste(saveLoc, "calculate_threshold.8.Rdata"))
 
+colnames(calculate_threshold) <- c("Run", "R0", "Dect", "Intro", "DectCases", "Avg.Cum", "Avg.Prev", "Med.Cum", "Med.Prev")
+detection.m <- melt(data = calculate_threshold, id.vars = c("R0", "Dect", "Intro", "DectCases"), measure.vars = c("Avg.Cum", "Avg.Prev","Med.Cum", "Med.Prev")) 
+head(detection.m)
+
+indices = which(detection.m$variable == "Avg.Prev")
+indices = which(detection.m$variable == "Avg.Prev" | detection.m$variable == "Avg.Cum")
+detection.avg = detection.m[indices, ]
+
+breaks = c(1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100, 200,300)
+plot1 <- ggplot(detection.avg, aes(DectCases, value, color = as.factor(Dect))) + 
+  geom_line(size=1.5, aes(linetype = as.factor(R0))) + facet_grid(~Intro) +
+  scale_color_brewer(palette="Set1", guide_legend(title = "Daily Detection Rate")) + scale_y_log10(breaks = breaks) + 
+  labs(x = "Cumulative Number of Detected Cases", y = "Total Current Cases") +
+  guides(linetype=FALSE)
 
 
-# for (i in 1:nrow(R0_range)) {
-#    prop_p  = R0_range$meanR0[i] / 7
-#    MetroArea = R0_range$MetroArea[i]
-#    percent.discover <- calculate.discover(disc_p)
-    
-    #Running trials
-#   trials <-
-#     run_branches_inc(num_reps = 1000, branch_params(
-#        dis_prob_symp = disc_p, prop_p = prop_p, e_thresh = 500
-#      ))
-#     lastdetected <- all_last_cumdetect_values(trials)
-    
-#   max <- set.max.bin(max(lastdetected))
-#   dect.cases.range <- seq(1:max)
-#   d_thres <- max
-    
-#   setting up bins to calculate frequencies
-#   bins.prev <- set.prev.bins(d_thres, trials)
-#   bins.cumulative <- set.cum.bins(d_thres, trials)
-    
-#   Setting Up data frames and vectors to store
-#   thres.matrix.prev <-data.frame(matrix(nrow = length(dect.cases.range), ncol = length(bins.prev) - 1))
-#   colnames(thres.matrix.prev) <-bins.prev[2:length(bins.prev)]; rownames(thres.matrix.prev) <-paste("Detected Cases =", dect.cases.range)
-    
-#   thres.matrix.cum <-data.frame(matrix(nrow = length(dect.cases.range), ncol = length(bins.cumulative) - 1))
-#   colnames(thres.matrix.cum) <- bins.cumulative[2:length(bins.cumulative)]; rownames(thres.matrix.cum) <-paste("Detected Cases =", dect.cases.range)
-    
-# Writing the values
-# Could split this up into two analysis: average/median and frequencies
-#   for (dect.case in dect.cases.range) {
-#     d_thres <- dect.case
-#     dataframe <-
-#     all_detect_rows(trials) # takes already whatever the current thresholds
-      
-#     frequencies.prev <- bin.frequency(dataframe[,7], bins.prev)
-#     thres.matrix.prev[dect.case,] <- frequencies.prev
-      
-#     frequencies.cum <-
-#     bin.frequency(dataframe[,8], bins.cumulative)
-#     thres.matrix.cum[dect.case,] <- frequencies.cum
-#     }
-    
-# ANALYSIS FOR TRIGGER THRESHOLD
-#   integer.prev <- find_thres_cases(bins.prev,  threshold.cases= threshold.prevalence, df=thres.matrix.prev, confidence.value = confidence)
-#   integer.cumulative <- find_thres_cases(bins = bins.cumulative, threshold.cases = threshold.cumulative, df = thres.matrix.cum, confidence.value = confidence)
-    
-   
-# When only want to return the first
-#   prevalence.long <- rbind(prevalence.long, cbind(id = MetroArea, disc_p=disc_p, R0=prop_p*7, confidence = confidence, cases = unname(integer.prev)))
-#   cumulative.long <- rbind(cumulative.long, cbind(id = MetroArea, disc_p=disc_p, R0=prop_p*7, confidence = confidence, cases = unname(integer.cumulative)))
-#   } 
+#theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank()) +
+  +
+
+  
+
+  
+
+ 
+  
 
 
-
-
-# 3  Mapping Output onto Texas
+# 3  Mapping Output onto Texas-Need Different Outcomes 
 setwd('..'); setwd('TexasCountyShapeFiles')
 texas.county <- readShapeSpatial('texas.county.shp', proj4string = CRS("+proj=longlat +datum=WGS84"))
 setwd('../zika_code/')
@@ -203,16 +188,18 @@ county_ids$Cum.Cases <- NA
 
 #Merging the R0 with the final shapefile 
 # Put desired Target Threshold 
-unique(calculate_threshold$V2)
-desired_dect = 0.0110
+unique(calculate_threshold$V1)
+
 
 #Collects Only the Triggers You're Interested In 
+desired_dect = 0.0110; desired_intro = .3
+
 triggers <- ddply(.data = calculate_threshold, .(V1), function (x) {
-  row = x[,3] == desired_dect
+  row = which(x[,3] == desired_dect & x[,4] == desired_intro)
   return(x[row,])
 })
 
-# Merges The Data With the County DAta for Plotting 
+# Merges The Data With the County Data for Plotting By R0 
 for (i in 1:nrow(triggers)) {
   indices = which(triggers[i,2] == county_ids$R0_round) 
   county_ids$Prev.Cases[indices] = triggers[i, 8]
@@ -285,6 +272,11 @@ cumulative.plot <- ggplot()+geom_polygon(data = actual_county_cum, aes(x=long, y
 
 calculate_threshold.m <- melt(calculate_threshold, id.vars = c("V1", "V2"), measure.vars = c("integer.prev", "integer.cumulative"))
 
+
+#middle.stats.average <- data.frame(cbind(dect.cases.range, average.vec))
+#plot.average <- ggplot(middle.stats.average, aes(dect.cases.range, average.vec))
+#plot.average + geom_point()
+#plot.average = plot.average + geom_line(size = 2) + labs(x = "Cumulative Detected Cases", y = "Average Cumulative Total Cases")
 
 plot1 <- ggplot(calculate_threshold.m, aes(V1, value, color = variable)) + 
   geom_line(size=1.5, aes(linetype = as.factor(V2))) + facet_grid(~V2) +
