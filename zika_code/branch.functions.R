@@ -40,7 +40,7 @@ library(scales)
 detection_rows <- function(trial, threshold) {
   detections <- trial[,6]
   rows <- which(detections == threshold)
-  reduced <- trial[rows,]
+  reduced <- trial[rows[1],]
   return(reduced)
 }
 
