@@ -193,7 +193,7 @@ plotheatmaps <- function(df, type, names, percent.discover, R0, max.infect) {
 find_thres_cases <- function(bins, threshold.cases, df, confidence.value) {
   df.t <- t(df)
   if(max(bins) < threshold.cases) {
-    detection.thres <- 'NA'
+    detection.thres <- NA
   }
   else {
     marker <- which(bins == threshold.cases)-1

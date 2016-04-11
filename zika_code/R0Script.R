@@ -19,6 +19,22 @@ projection(world.aegypti) <- CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,
 world.cut <- crop(world.aegypti, extent(texas.county))
 perkins.tx <- mask(world.cut, texas.county)
 
+castro.tx_raw <- read.asc("aedes_aegypti_avg.asc")
+castro.tx_raw <- raster.from.asc(castro.tx_raw)
+plot(castro.tx_raw)
+
+plot(log(castro.tx_raw))
+
+castro.tx_raw <- crop(castro.tx_raw, extent(texas.county))
+castro.tx_raw <- mask(castro.tx_raw, texas.county)
+cellStats(x = castro.tx_raw, stat = "sum")
+
+castro.mean_raw <- mean.county(raster = castro.tx_raw, shapefile = texas.county, name = "habitat.castro")
+
+castro.mosquito <- -log(1-castro.mean)
+
+
+
 
 # Calculating Mosquito Abundance
 mosquito.occurrence <- mean.county(raster = perkins.tx, shapefile = texas.county, name = "occurrence")
@@ -27,61 +43,86 @@ mosquito.abundance <- -log(1-mosquito.occurrence)
 #already on the county_ids
 county_ids$mosquito.abundance <- mosquito.abundance ; colnames(county_ids$mosquito.abundance) <- ""
 
-mosquito_range = ddply(county_ids,.variables = 'Metro', summarise, mean(mosquito.abundance))
-mosquito_range = mosquito_range[-16, ]
-colnames(mosquito_range) = c("MetroArea", "mosquito.abundance")
+
+
+### SEPARATING RO INTO METRO AREAS 
+mosquito_abundance = ddply(county_ids,.variables = 'Metro', summarise, mean(mosquito.abundance))
+mosquito_abundance = mosquito_abundance[-16, ]
+colnames(mosquito_abundance) = c("MetroArea", "mosquito.abundance")
+
 
 GDP_metro= ddply(.data = county_ids, .variables = 'Metro', summarise, mean(GDP_capita))
 GDP_metro = GDP_metro[-16, ]
 
 
 # Calculating Ranges of GDP to set Ranges of Multiplication Factor 
-GDPrange <- range(log(county_ids$GDP_capita))
 GDP <- log(county_ids$GDP_capita)-10
+logMF <- -1.7-(.3/1)*GDP
+MF <- exp(logMF)
+m.to.h.full <- MF * county_ids$mosquito.abundance
+m.to.h.castro <- MF * castro.mosquito
 
-GDP_log <- log(GDP_metro$..1)-10
+county_ids$m.to.h.full <- m.to.h.full
+county_ids$m.to.h.castro <- m.to.h.castro
 
-MF = -(1.7+.5/1.5*GDP_log)
-metro_MF <- exp(MF)
-m.to.h.metro <- mosquito_range$mosquito.abundance*metro_MF
+GDP_metro <- log(GDP_metro$..1)-10
+
+logMF = -1.7 - (.3/1)*(GDP_metro)
+
+metro_MF <- exp(logMF)
+
+m.to.h.metro <- mosquito_abundance$mosquito.abundance*metro_MF
+
+
+
 metro <- seq(1:15)
 m.t.h.metro <- data.frame(cbind(metro, m.to.h.metro))
 
-#Assign the Highest MF to the lowest GDP County 
-county_ids$MF <- exp(MF)
-
-m.to.h <- county_ids$mosquito.abundance*county_ids$MF 
-
 ##### Function to calculate R0 
-calculateR0 <- function(df, m.to.h) {
+calculateR0 <- function(metro, m.to.h) {
   mos.hum.transmission = .4
   c_over_r = 3.5
   alpha = .67
   mos.mortality = 1/25
   ext.incub = 5
-  R0 = c_over_r * (m.to.h.metro*mos.hum.transmission*alpha^2*
+  R0 = c_over_r * (m.to.h.castro*mos.hum.transmission*alpha^2*
                    exp(-mos.mortality*ext.incub))/mos.mortality
-  df = cbind(df, R0)
+  metro = cbind(metro, R0)
   return(df)
 }
 
-R0_metro<- data.frame(cbind(metro, R0))
-colnames(R0_metro) <- 
-
-county_ids <- calculateR0(df = county_ids, m.to.h)
 
 
-colnames(county_ids)[10] <- "R0"
-county_ids$R0
-hist(county_ids$R0)
+metroR0 <- cbind(metro, R0)
 
-
-#Mering Metro Area
+#Merging Metro Area
 county_ids$MetroR0 <- NA
-for (i in 1:nrow(R0_metro)) {
-  indices = which(county_ids$Metro == R0_metro$Metro[i])
-  county_ids$MetroR0[indices] <- R0_metro$..1[i]
+
+
+for (i in 1:nrow(metroR0)) {
+  indices = which(county_ids$Metro == metroR0[i,1])
+  county_ids$MetroR0[indices] <- metroR0[i,2]
 }
+
+
+indices = which(is.na(county_ids$Metro)) 
+county_ids[indices, 13] <- county_ids[indices, 11]
+county_ids$metro_round <- round(county_ids$MetroR0, digits = 1)
+
+#### Plotting 
+
+#Importation
+county_ids$castro_R0 <- R0
+county_ids$castro_combined <- R0 * county_ids$probability
+
+relativeR0 <- castro.mean_raw/as.data.frame(county_ids$Population.Proportion)
+county_ids$relativeR0 <- NA
+
+county_ids <- cbind(county_ids, relativeR0)
+
+
+
+county_ids$raw_combined <- county_ids$probability * county_ids$habitat.castro
 
 
 texas.county.f <- fortify(texas.county, region = "ID")
@@ -89,7 +130,14 @@ merge.texas.county <- merge(texas.county.f, county_ids, by = "id", all.x = TRUE)
 final.plot <- merge.texas.county[order(merge.texas.county$id),]
 
 
-plot <- ggplot()+geom_polygon(data = final.plot, aes_string(x="long", y = "lat", group = "group", fill = "MetroR0" ), color = "black", size = .25)+coord_map() +
-  scale_fill_gradient2(name = "R0", limits = c(0,2), low = "yellow", midpoint = 1, mid = "red" ,high = "dark red",  na.value = "white")
- plot
+plot <- ggplot()+geom_polygon(data = final.plot, aes(x=long, y = lat, group = group, fill = raw_combined), color = "black", size = .25) + 
+  coord_map() +   scale_fill_gradient(name = "R0*Importation", low = "yellow", high = "red")
+  #scale_fill_gradient2(name = "R0", low = "yellow", midpoint = 1, mid = "red" ,high = "dark red",  na.value = "white")
+
+  
+plot
+ 
+
+plot
+sort(unique(county_ids$metro_round))
   
