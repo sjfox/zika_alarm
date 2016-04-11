@@ -46,9 +46,9 @@ threshold.cumulative = 80
 
 
 #Chosen for analysis 
-r_nots <- c(0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.5, 1.6, 1.9)
+r_nots <- c(1.1) # 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.5, 1.6, 1.9)
 intro_rate <- c(0.3)
-disc_prob <- c(0.0052)
+disc_prob <- c(0.068)
 dir_path <- "~/Documents/zika_alarm/data/first_runs/"
 dirPaths = get_vec_of_files(dir_path, r_nots,  disc_prob, intro_rate)
 saveLoc  <- "~/Documents/zika_alarm/data/"
@@ -70,13 +70,12 @@ threshold_R0 <- function(dir_path, saveLoc, saveResults=TRUE, r_nots, intro_rate
     load(x)
     
     max.cumulative <- max(all_last_cuminfect_values(trials))
-    max.prev <- max(all_last_instantInf_values(trials))
+    max.prev <- max(all_max_prevalence(trials))
     
     
     lastdetected <- all_last_cumdetect_values(trials)
     max <- set.max.bin(max(lastdetected))
     dect.cases.range <- seq(1:max)
-    
     
     
     
@@ -228,7 +227,7 @@ final.plot <- merge.texas.county[order(merge.texas.county$id),]
 
 # Decide which type you want to plot
 
-plot <- ggplot()+geom_polygon(data = final.plot, aes_string(x="long", y = "lat", group = "group", fill = "Cum.Cases" ), color = "black", size = .25)+coord_map() +
+plot <- ggplot()+geom_polygon(data = final.plot, aes_string(x="long", y = "lat", group = "group", fill = "Cum.Cases" ), color = "black", size = .25)+ coord_map() +
   scale_fill_gradient(name = "Detected Cases", low = "red", high = "yellow",  na.value = "white", breaks = pretty_breaks(n = 5)) + 
   theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank())
 plot

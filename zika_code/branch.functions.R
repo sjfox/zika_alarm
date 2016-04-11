@@ -29,6 +29,9 @@ all_last_instantInf_values <- function(x) {
 max_prevalence <- function(x){
   return(max(x[,"Total_Infected"]))
 }
+all_max_prevalence <- function(x) {
+  return(unlist(laply(x, max_prevalence)))
+}
 
 
 ## Set of functions to calculate given I have X cases, what is the distribution of cases I see 
@@ -197,14 +200,15 @@ find_thres_cases <- function(bins, threshold.cases, df, confidence.value) {
   }
   else {
     marker <- which(bins == threshold.cases)-1
-    df.t <- df.t[1:marker,]
+    df.t <- df.t[1:marker,] # Cut 
     col_sum <- colSums(x = df.t)  
     detection.thres.candidates <- which(col_sum > confidence.value)
     
     if (length(detection.thres.candidates) == 0) {
       prob = max(col_sum) 
-      detection.thres <- which(col_sum == prob)
-      detection.thres <- min(detection.thres) # If there's multiple that have the same 
+      #detection.thres <- which(col_sum == prob)
+      #detection.thres <- min(detection.thres) # If there's multiple that have the same 
+      detection.thres <- 0
     } else {
       prob <- min(col_sum[detection.thres.candidates])
       detection.thres <- which(col_sum == prob)
