@@ -38,4 +38,4 @@ params <- branch_params(r_not=desired_Rnot, dis_prob_symp = disc_prob, intro_rat
 
 trials <- run_branches_inc(num_reps = 10000, params)
 
-save(list = c("trials", "params"), file = paste0("../../workfolder/data/zika/", "zika_sims_", desired_Rnot, "_", disc_prob, "_", intro_rate, ".Rdata"))
+save(list = c("trials", "params"), file = paste0("../../workfolder/data/zika_intros/", "zika_sims_", desired_Rnot, "_", disc_prob, "_", intro_rate, ".Rdata"))
