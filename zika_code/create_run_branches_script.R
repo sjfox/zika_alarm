@@ -6,7 +6,7 @@ if(grepl('tacc', Sys.info()['nodename'])) setwd('/home1/02958/sjf826/zika_alarm/
 if(grepl('meyerslab', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
 if(grepl('laurencastro', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
 
-r_nots <- seq(0.1, 1.9, by=0.1)
+r_nots <- seq(0.1, 2, by=0.1)
 
 ## Want total discovery rates of 5%, 10%, 15%, 25%, 50% 
 disc_probs <- c(0.0052, 0.011, 0.01635, .0287i, 0.068) 
