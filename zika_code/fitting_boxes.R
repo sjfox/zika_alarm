@@ -30,7 +30,7 @@ hist(rweibull(100000, shape=1.97, scale=10.87), breaks=100)
 ## mean = 9.88, cI : 
 n_boxes <- 3
 infectious_best_fit <- uniroot(f = fitDist, interval = c(0.001,.999), size= n_boxes, mean=9.88)
-infectious_times <- rnbinom(100000, size = n_boxes, prob = infectious_best_fit$root) + n_boxes
+infectious_times <- rnbinom(1000000, size = n_boxes, prob = infectious_best_fit$root) + n_boxes
 hist(infectious_times, breaks=50)
 quantile(infectious_times, c(.025, .5, .975))
 
@@ -38,13 +38,15 @@ quantile(infectious_times, c(.025, .5, .975))
 ## Use the serial interval from brownstein paper
 ## 10-23 days 
 fitDistBoth <- function(prob, size, min, max, infectious_times) {
-  draws <- rnbinom(n=100000, size = size, prob = prob) + size
+  draws <- rnbinom(n=1000000, size = size, prob = prob) + size
   qs <- quantile((draws+infectious_times/2), probs = c(.025, .975))
   sum(qs - c(min,max))^2
 }
 inc_boxes = 6
 incubation_best_fit <- optimize(f = fitDistBoth, interval = c(0.001,.999), size= inc_boxes, min=10, max=23, infectious_times=infectious_times)
-incubation_times <- rnbinom(n = 100000, size = inc_boxes, prob = incubation_best_fit$minimum) + inc_boxes
+incubation_times <- rnbinom(n = 1000000, size = inc_boxes, prob = incubation_best_fit$minimum) + inc_boxes
+mean(incubation_times)
+quantile((incubation_times), probs = c(.025, .5, .975))
 quantile((incubation_times+infectious_times/2), probs = c(.025, .5, .975))
 hist(incubation_times+infectious_times/2, breaks=100, xlim=c(0,45))
 

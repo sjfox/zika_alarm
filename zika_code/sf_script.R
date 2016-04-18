@@ -40,9 +40,9 @@ save_path <- "~/projects/zika_alarm/data/"
 
 # save_final_sizes(dir_path, save_path)
 
-r_nots <- c(0.9, 1, 1.2)
+r_nots <- c(0.9, 1.1, 1.5)
 disc_probs <- c(0.011, 0.068)
-intro_rates <- c(.01, .3)
+intro_rates <- c(.01, 0.05, 0.1, .3)
 
 test <- get_escape_prob_by_d(dir_path, r_nots, disc_probs, intro_rates)
 
@@ -55,18 +55,16 @@ plot1 <- ggplot(test, aes(d_thresh, prob_esc, color = as.factor(r_not))) +
   guides(linetype= FALSE)
 
 print(plot1)
-save_plot(filename = "../ExploratoryFigures/saved_d_thresh.pdf", plot = plot1, base_aspect_ratio = 1.5)
-
-temp <- escape_data[which(escape_data$disc_p==.1), ]
+save_plot(filename = "../ExploratoryFigures/epi_prob_by_detected.pdf", plot = plot1, base_aspect_ratio = 1.5)
 
 
-trials <- run_branches_inc(num_reps = 1000, branch_params(prop_p=1.1/7, dis_prob_symp = .8))
 
-p <- plot_final_sizes(trials)
-print(p)
-count_escapes(trials, 5, 300)
 
-ggsave(filename = "../ExploratoryFigures/r0_0.2_disc_0.01_hist.pdf", plot = p, width=6, height=5)
+######################################
+## Plot maps of Texas
+
+
+
 
 
 
