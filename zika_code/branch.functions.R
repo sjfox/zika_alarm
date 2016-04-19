@@ -11,23 +11,22 @@ all_last_cuminfect_values <- function(x) {
 
 
 last_cumdetect_value <- function(x) {
-  x[nrow(x), "Cum_Detects"]
+  x[nrow(x), "Cum_Detections"]
 }
 all_last_cumdetect_values <- function(x) {
   laply(x, last_cumdetect_value)
 }
 
 last_instantInf_value <- function(x) {
-  row <- tail(x, 1) 
-  value <- row[7]
-  return(value)
+  x[nrow(x), "Total_Infections"] 
 }
 all_last_instantInf_values <- function(x) {
   return(unlist(laply(x, last_instantInf_value)))
 }
 
+
 max_prevalence <- function(x){
-  return(max(x[,"Total_Infected"]))
+  return(max(x[,"Total_Infections"]))
 }
 all_max_prevalence <- function(x) {
   return(unlist(laply(x, max_prevalence)))
@@ -41,7 +40,7 @@ library(scales)
 
 ## Set of functions to calculate given I have X cases, what is the distribution of cases I see 
 detection_rows <- function(trial, threshold) {
-  detections <- trial[,6]
+  detections <- trial[,"Cum_Detections"]
   rows <- which(detections == threshold)
   reduced <- trial[rows[1],]
   return(reduced)
