@@ -85,7 +85,7 @@ calculateR0 <- function(metro, m.to.h) {
   alpha = .67
   mos.mortality = 1/25
   ext.incub = 5
-  R0 = c_over_r * (m.to.h.castro*mos.hum.transmission*alpha^2*
+  R0 = c_over_r * (m.to.h.metro*mos.hum.transmission*alpha^2*
                    exp(-mos.mortality*ext.incub))/mos.mortality
   metro = cbind(metro, R0)
   return(df)
@@ -93,7 +93,7 @@ calculateR0 <- function(metro, m.to.h) {
 
 
 
-metroR0 <- cbind(metro, R0)
+metroR0 <-metro
 
 #Merging Metro Area
 county_ids$MetroR0 <- NA
@@ -108,6 +108,7 @@ for (i in 1:nrow(metroR0)) {
 indices = which(is.na(county_ids$Metro)) 
 county_ids[indices, 13] <- county_ids[indices, 11]
 county_ids$metro_round <- round(county_ids$MetroR0, digits = 1)
+write.csv(county_ids, file = "county_ids.csv")
 
 #### Plotting 
 
@@ -130,14 +131,20 @@ merge.texas.county <- merge(texas.county.f, county_ids, by = "id", all.x = TRUE)
 final.plot <- merge.texas.county[order(merge.texas.county$id),]
 
 
-plot <- ggplot()+geom_polygon(data = final.plot, aes(x=long, y = lat, group = group, fill = raw_combined), color = "black", size = .25) + 
-  coord_map() +   scale_fill_gradient(name = "R0*Importation", low = "yellow", high = "red")
-  #scale_fill_gradient2(name = "R0", low = "yellow", midpoint = 1, mid = "red" ,high = "dark red",  na.value = "white")
+plot <- ggplot()+geom_polygon(data = final.plot, aes(x=long, y = lat, group = group, fill = metro_round), color = "black", size = .25) + 
+  coord_map() + 
+  scale_fill_gradient2(name = "R0", low = "yellow", midpoint = 1, mid = "red" ,high = "dark red",  na.value = "white") +
+  theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank()) +
+  labs(x=NULL, y = NULL)+
+  theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(), line = element_blank()) 
+  #geom_polygon(data=lamb_county, aes(x=long, y = lat, group = group), fill="grey", color = "black", size = .25, inherit.aes = FALSE)
 
-  
 plot
+
+#lamb_county <- final.plot[which(final.plot$rownames == 141),]
+  
  
 
-plot
+
 sort(unique(county_ids$metro_round))
   

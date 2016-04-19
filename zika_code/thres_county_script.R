@@ -35,30 +35,45 @@ R0_metro = R0_metro[-16,]
 
 
 #2 Take in R0 values and calculate the trigger number based on an epidemic threshold and confidence level
-# Will separate this into running the trials for each R0 and then for each list calculate the value....
 
 
-# Will want to read in here the different files 
+######## Case Scenarios
+
+#Best Case
+# High Detect - .068 = 50%
+# Low Intro - .01 = .9 cases over 90 days 
+
+# Average Case
+# Detection around Symptomatic - .011 = 10%
+# Medium Intro (Harris County) - .1 (11 cases over 90 days)
+
+# Worse Cast
+# Low Detection - 0.0052 = 5%
+# High Intro (State-Wide ) .3 = 27 cases over 90 days
 
 confidence = .8
-threshold.prevalence = 10
-threshold.cumulative = 80
+threshold.prevalence = 20
+threshold.cumulative = 100
 
 
 #Chosen for analysis 
-r_nots <- c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1, 1.3, 1.5, 1.6, 1.9) 
-intro_rate <- c(0.3)
-intro_rate <- c(.01, .1, 0.3)
-disc_prob <- c( 0.011)
-disc_prob <- c(0.068)
-#r_nots <- c(0.9)
-#intro_rate <- c(.01)
-#disc_prob <- (0.011, 0.068)
-dir_path <- "~/Documents/zika_alarm/data/second_runs/"
+# Trigger Analysis 
+r_nots <- c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.3, 1.5, 1.6, 1.9) 
+r_nots <- c(1.5)
+disc_prob <- c( 0.068)
+intro_rate <- c(0.01)
+
+
+#Average Analysis
+#r_nots <- c(0.9, 1.5)
+#intro_rate <- c(.01, .1, 0.3)
+#disc_prob <- c( 0.011, 0.068)
+
+
+dir_path <- "~/Documents/zika_alarm/data/second_runs"
 dirPaths = get_vec_of_files(dir_path, r_nots,  disc_prob, intro_rate)
 saveLoc  <- "~/Documents/zika_alarm/data/"
 
-debug(threshold_R0)
 
 calculate_threshold <- threshold_R0(dir_path = dir_path, saveLoc = saveLoc, saveResults = FALSE, r_nots = r_nots,
                                     type = "average", intro_rate = intro_rate, disc_prob = disc_prob, confidence = confidence,
@@ -72,11 +87,12 @@ threshold_R0 <- function(dir_path, saveLoc, saveResults=TRUE, r_nots, intro_rate
   dirPaths = get_vec_of_files(dir_path, r_nots, disc_prob, intro_rate)
 
 
-  calculate_threshold_trigger_doubleworst <- adply(.data = dirPaths, .margins = 1, .expand = TRUE, .fun = function (x) {
+  trigger_worst <- adply(.data = dirPaths, .margins = 1, .expand = TRUE, .fun = function (x) {
     load(x)
     
     max.cumulative <- max(all_last_cuminfect_values(trials))
-    max.prev <- max(all_last_instantInf_values(trials))
+    max.prev <- max(all_max_prevalence(trials))
+    
     
     lastdetected <- all_last_cumdetect_values(trials)
     max <- set.max.bin(max(lastdetected))
@@ -174,7 +190,7 @@ threshold_R0 <- function(dir_path, saveLoc, saveResults=TRUE, r_nots, intro_rate
 
 
 saveLoc <- "~/Documents/zika_alarm/data/"
-save( list = c('calculate_threshold_trigger_doubleworst'), file = paste(saveLoc, "trigger_doubleworst.Rdata"))
+save(list = c('trigger_worst'), file = paste(saveLoc, "trigger_worst.Rdata"))
 
 
 sd <- calculate_threshold_avg_sd[,6:7]
@@ -196,25 +212,49 @@ detection.m <- cbind(detection.m, error.m[,5:6])
 head(detection.m)
 
 # If want to split the Results to certain detection values and if plotting Prevalence versus Cumulative 
-indices = which(detection.m$variable == "Avg.Prev"  & (detection.m$R0 == 0.9 | detection.m$R0 == 1.5))
+indices = which(detection.m$variable == "Avg.Prev"  & (detection.m$R0 == 0.9 | detection.m$R0 == 1.5) & (detection.m$Intro != 0.1))
 indices = which(detection.m$variable == "Avg.Prev") 
 detection.avg = detection.m[indices, ]
 
 max(detection.avg$value)
 max(detection.avg$DectCases)
-breaks = c(1,5,10,20,30,40,50,60, 70, 80,90,100) #, 200, 300,400,500) #, 200, 300, 400, 500) # Set according to max of value + se
-breaks_x = seq(from = 0, to = 60, by = 5)
+breaks = c(1,5,10,20,30,40,50,70, 100) #, 200, 300,400,500) #, 200, 300, 400, 500) # Set according to max of value + se
+breaks_x = seq(from = 0, to = 50, by = 10)
 
-plot1 <- ggplot(detection.avg, aes(DectCases, value, fill = as.factor(Dect),color = as.factor(Dect), group=interaction(as.factor(Dect), R0)))  + 
+plot1 <- ggplot(detection.avg, aes(DectCases, value, fill = as.factor(Dect), color = as.factor(Dect), group=interaction(as.factor(Dect), R0)))  + 
   geom_line(size=1.5, aes(linetype = as.factor(R0))) + facet_grid(~Intro) +
   geom_ribbon(aes(ymin = value-SE, ymax=value+SE), alpha=.2, color = NA) + 
   scale_y_log10(breaks = breaks)  +
-  scale_color_brewer(palette="Set1", guide_legend(title = "Daily Detection Rate")) +
-  scale_fill_brewer(palette="Set1", guide_legend(title = "Daily Detection Rate")) +
+  scale_color_brewer(palette="Set1", guide = FALSE) +
+  scale_fill_brewer(palette="Set1", guide_legend(title = "Detection \n Rate"), labels = c("10%", "50%")) +
   scale_x_continuous(name = "Cumulative Number of Detected Cases", breaks = breaks_x, limits = c(0,60)) +
-  labs(y = "Expected Total Current Cases", linetype = expression("R"[0])) 
+  theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank()) +
+  theme(axis.title.y = element_text(size=20), axis.text.y = element_text(size = 14)) + 
+  theme(axis.title.x = element_text(size=20), axis.text.x= element_text(size=14)) +
+  labs(y = "Expected Total Current Cases", linetype = expression("R"[0])) +
+  theme(legend.text=element_text(size=14, margin = margin(), debug = FALSE), legend.title = element_text(size = 20)) 
 plot1
 
+
+plot_trial <- ggplot(detection.avg, aes(DectCases, value, fill = as.factor(R0), color = as.factor(R0), group=interaction(as.factor(Dect), R0)))  + 
+  geom_line(size=1.5, aes(linetype = as.factor(Dect))) + facet_grid(~Intro) +
+  geom_ribbon(aes(ymin = value-SE, ymax=value+SE), alpha=.2, color = NA) + 
+  scale_y_log10(breaks = breaks)  +
+  scale_color_brewer(palette = "Set1", guide = FALSE, direction = -1) +
+  scale_fill_brewer(palette="Set1", guide_legend(title = "R0"), direction = -1) +
+  scale_x_continuous(name = "Cumulative Number of Detected Cases", breaks = breaks_x, limits = c(0,60)) +
+  theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank()) +
+  theme(axis.title.y = element_text(size=20), axis.text.y = element_text(size = 14)) + 
+  theme(axis.title.x = element_text(size=20), axis.text.x= element_text(size=14)) +
+  labs(y = "Expected Total Current Cases", linetype = "Detection \n Rate") +
+  theme(legend.text=element_text(size=14, margin = margin(), debug = FALSE), legend.title = element_text(size = 20)) + 
+#
+plot_trial
+
+
+
+color = c("red", "blue"),
+, labels = c("10%", "50%"))
 head(detection.avg)
 
 ### WHEN JUST TESTING PLOTING OF ONE 
@@ -230,7 +270,7 @@ plot1
 
 
 
-#theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank()) +
+#
 
 
   
@@ -247,8 +287,8 @@ texas.county <- readShapeSpatial('texas.county.shp', proj4string = CRS("+proj=lo
 setwd('../zika_code/')
 
 # Need to read in county ids 
-county_ids$Prev.Cases <- NA
-county_ids$Cum.Cases <- NA
+county_ids$Prev.Cases.worst <- NA
+county_ids$Cum.Cases.worst <- NA
 
 #Merging the R0 with the final shapefile 
 # Put desired Target Threshold 
@@ -266,32 +306,81 @@ triggers <- ddply(.data = calculate_threshold, .(V1), function (x) {
 # Merges The Data With the County Data for Plotting By R0 
 
 
-for (i in 1:nrow(calculate_threshold_trigger_worst)) {
-  indices = which(calculate_threshold_trigger_doubleworst[i,2] == county_ids$metro_round) 
-  county_ids$Prev.Cases[indices] = calculate_threshold_trigger_doubleworst[i, 8]
-  county_ids$Cum.Cases[indices] = calculate_threshold_trigger_doubleworst[i,9]
+for (i in 1:nrow(trigger_worst)) {
+  indices = which(trigger_worst[i,2] == county_ids$metro_round) 
+  county_ids$Prev.Cases.worst[indices] = trigger_worst[i, 8 ]
+  county_ids$Cum.Cases.worst[indices] = trigger_worst[i,9]
 }
      
-county_ids$Prev.Cases <- as.numeric(county_ids$Prev.Cases)
-county_ids$Cum.Cases <- as.numeric(county_ids$Cum.Cases)
+county_ids$Prev.Cases.worst <- as.numeric(county_ids$Prev.Cases.worst)
+county_ids$Cum.Cases.worst <- as.numeric(county_ids$Cum.Cases.worst)
 
 texas.county.f <- fortify(texas.county, region = "ID")
 merge.texas.county <- merge(texas.county.f, county_ids, by = "id", all.x = TRUE)
 final.plot <- merge.texas.county[order(merge.texas.county$id),]
-
+save(list = c('final.plot'), file = paste(saveLoc, "Avg_Worst_Plot.Rdata"))
 # Decide which type you want to plot
 
-plot <- ggplot()+geom_polygon(data = final.plot, aes_string(x="long", y = "lat", group = "group", fill = "Cum.Cases" ),
-                              color = "black", size = .25)+coord_map() +
+legend_breaks <- round(seq(0, 40, 8 ))
+
+p1.leg <- ggplot(data = final.plot, aes_string("long", "lat", "group", fill = "Prev.Cases.avg")) + geom_polygon() 
+
+plotworst <- ggplot()+geom_polygon(data = final.plot, aes_string(x="long", y = "lat", group = "group", fill = "Prev.Cases.worst" ),
+                              color = "black", size = .25) + coord_map() +
   scale_fill_gradient(name = "Detected Cases", low = "red", high = "yellow", 
-                      na.value = "grey", breaks = pretty_breaks(n = 5)) #
- # theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank())
-plot
+                      na.value = "grey", breaks = legend_breaks) + #pretty_breaks(n = length(legend_breaks))) +
+  theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank()) +
+  theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(), line = element_blank()) +
+  labs(x=NULL, y = NULL) +
+  theme(legend.position = "bottom") +
+  theme(legend.text=element_text(size=14, margin = margin(), debug = FALSE), legend.title = element_text(size = 20)) +
+  theme(legend.key.size =  unit(0.5, "in")) 
+
+
+plotavg <- ggplot()+geom_polygon(data = final.plot, aes_string(x="long", y = "lat", group = "group", fill = "Prev.Cases.avg" ),
+                                   color = "black", size = .25) + coord_map() +
+  scale_fill_gradient(name = "Detected Cases", low = "red", high = "yellow", 
+                      na.value = "grey", breaks = legend_breaks) + #pretty_breaks(n = length(legend_breaks))) +
+  theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank()) +
+  theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(), line = element_blank()) +
+  labs(x=NULL, y = NULL) +
+  theme(legend.position = "none")
+  #theme(legend.position = "right") +
+  #theme(legend.text=element_text(size=14, margin = margin(), debug = FALSE), legend.title = element_text(size = 20)) +
+  #theme(legend.key.size =  unit(0.5, "in")) 
+
+
+g_legend<-function(a.gplot){
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)}
+
+mylegend<-g_legend(plotworst)
+
+tmp <- arrangeGrob(plotavg + theme(legend.position = "none"), plotworst + 
+                     theme(legend.position = "none"), layout_matrix = matrix(c(1, 2), nrow = 1))
+
+p3 <- grid.arrange(tmp, mylegend, nrow= 1 ) #, heights = unit.c(unit(1, "npc") - lheight, lheight))
+
+p3 <- grid.arrange(arrangeGrob(plotavg + theme(legend.position="none"),
+                               plotworst + theme(legend.position="none"),
+                               nrow=1),
+                   mylegend, nrow=2,heights=c(10, 1))
+
+
+
+
+plotavg
+library(gridExtra)
+grid.arrange(arrangeGrob(arrangeGrob(plotavg, plotworst), mylegend, ncol =3, widths = c(3/7, 3/7, 1/7)))
+
+
+#plot_grid(plotavg, plotworst, labels = c("A", "B"), ncol = 1)
 
 
 
 plot_county_threshold(final.plot, type = "Cumulative", confidence = .7, case.threshold = 100)
-
 plot_county_threshold <- function(shp, type, confidence, case.threshold) {
   ## Requires the results to be already fotified with shape file
   if (type == "Prevalence") {
@@ -326,7 +415,10 @@ plot_county_threshold <- function(shp, type, confidence, case.threshold) {
 
 
 ### Save this to make sure everything is working 
+lamb_county <- final.plot[which(final.plot$Geography == "Lamb County, Texas"),]
 grey_county_cum <- final.plot[which(final.plot$Cum_Cases==0),]
+
+
 actual_county_cum <- final.plot[which(final.plot$Cum_Cases!=0 | is.na(final.plot$Cum_Cases)),]
 
 cumulative.plot <- ggplot()+geom_polygon(data = actual_county_cum, aes(x=long, y = lat, group = group, fill = Cum_Cases), color = "black", size = .25)+coord_map() +

@@ -211,14 +211,32 @@ find_thres_cases <- function(bins, threshold.cases, df, confidence.value) {
       detection.thres <- 0
     } else {
       prob <- min(col_sum[detection.thres.candidates])
-      detection.thres <- which(col_sum == prob)
-      detection.thres <- min(detection.thres) #If there's multiple that have the same 
+      if (round(prob, digits = 2) == 1) {
+        detection.thres <- NA
+      } else {
+        detection.thres.multiple <- which(col_sum == prob)
+        detection.thres <- min(detection.thres.multiple) #If there's multiple that have the same 
+      }
     }
   }
   return(case.trigger = detection.thres)
   #return(list(thres.int = detection.thres, prob = prob))
 }
 
+
+
+frequency_threshold <- function(bins, threshold.cases, df) {
+  df.t <- t(df)
+  if(max(bins) < threshold.cases) {
+    detection.thres <- NA
+  }
+  else {
+    marker <- which(bins == threshold.cases)-1
+    df.t <- df.t[1:marker,] # Cut 
+    col_sum <- colSums(x = df.t)  
+    return(col_sum) 
+  }
+}
 
 
 set.max.bin <- function(max) {
