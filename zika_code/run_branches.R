@@ -26,8 +26,7 @@ branch_params <- function(r_not = 1.1,
                           recov_p = 0.3040571/(3/infBoxes),
                           incub_rate = 0.583917,
                           prop_p =  r_not*recov_p/infBoxes, 
-                          d_thres = 5,
-                          e_thresh = 500,
+                          e_thresh = 1000,
                           prob_symp = 1,
                           dis_prob_symp = .01,
                           dis_prob_asymp = 0.00 ,
@@ -39,4 +38,4 @@ params <- branch_params(r_not=desired_Rnot, dis_prob_symp = disc_prob, intro_rat
 
 trials <- run_branches_inc(num_reps = 10000, params)
 
-save(list = c("trials", "params"), file = paste0("../../workfolder/data/zika/", "zika_sims_", desired_Rnot, "_", disc_prob, "_", intro_rate, ".Rdata"))
+save(list = c("trials", "params"), file = paste0("../../workfolder/data/zika_intros/", "zika_sims_", desired_Rnot, "_", disc_prob, "_", intro_rate, ".Rdata"))
