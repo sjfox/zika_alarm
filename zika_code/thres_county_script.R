@@ -198,16 +198,10 @@ saveLoc <- "~/Documents/zika_alarm/data/"
 save(list = c('calculate_threshold'), file = paste(saveLoc, "calculate_threshold_1000.Rdata"))
 
 
-sd <- calculate_threshold_avg_sd[,6:7]
-full_threshold <- cbind(calculate_threshold, sd)
-head(full_threshold)
-
 
 colnames(calculate_threshold) <- c("Run", "R0", "Dect", "Intro", "DectCases",
                                    "Avg.Cum",  "avg.cum.sd", "Avg.Prev","avg.prev.sd")
 
-
-head(full_threshold)
 
 # Going from wide format to long format : combining the average value with error bars 
 detection.m <- melt(data = full_threshold, id.vars = c("R0", "Dect", "Intro", "DectCases"), measure.vars = c("Avg.Cum", "Avg.Prev" ))

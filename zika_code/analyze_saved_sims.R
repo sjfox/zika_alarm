@@ -190,41 +190,34 @@ get_prob_below_threshold <- function(trials, f, threshold, type="all", max_detec
 #########################################################
 ## Lauren functions
 
-calculate_expect_vs_detect <- function(dir_path, r_nots, intro_rate, disc_prob) {
+
+calculate_expect_vs_detect_local <- function(dir_path, r_nots, intro_rate, disc_prob) {
   dirPaths = get_vec_of_files(dir_path, r_nots, disc_prob, intro_rate)
   calculate_average_sd <- adply(.data = dirPaths, .margins = 1, .expand = TRUE, .fun = function (x) {
     load(x)
-    
-    max.cumulative <- max(all_last_cuminfect_values(trials))
-    max.prev <- max(all_max_prevalence(trials))
-    
-    lastdetected <- all_last_cumdetect_values(trials)
-    max <- set.max.bin(max(lastdetected))
-    dect.cases.range <- seq(1:max)
-    
-    #splits up trials into detection 
-    trials_by_detection <- alply(.data = dect.cases.range, .margins = 1, function (x) {
-      d_thres = as.numeric(x)
-      dataframe <- all_detect_rows(trials, threshold = d_thres ) 
-      dataframe = na.omit(dataframe)
-      return(dataframe)
-    })    
-    average.cumulative <- ldply(.data = trials_by_detection, function (x) {
-      mean.cumulative <- mean(x[,"Cumulative_Infections"])
-      sd.cumulative <- sd(x[,"Cumulative_Infections"])
-      return(c(mean.cumulative, sd.cumulative))
-    })
-    average.prevalence <- ldply(.data = trials_by_detection, function (x) {
-      mean.prevalence <- mean(x[,"Total_Infections"])
-      sd.prevalence<- sd(x[,"Total_Infections"])
-      return(c(mean.prevalence, sd.prevalence))   
-    })
+    detection.df <- get_prev_by_detects_all(trials, localprev_by_localdetects)
+    average.prevalence <- ddply(.data = detection.df, .variables = "detected", summarize, mean(prevalence), sd(prevalence)) 
     parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate) 
-    result <- cbind(as.data.frame(matrix(parms,ncol=3)), dect.cases.range, 
-                    average.cumulative[,2], average.cumulative[, 3], average.prevalence[,2], average.prevalence[,3])
-    return(result)    
+    result <- cbind(as.data.frame(matrix(parms,ncol=3)), average.prevalence)
+    return(result)
   })
 }
+
+calculate_expect_vs_detect_total <- function(dir_path, r_nots, intro_rate, disc_prob) {
+  dirPaths = get_vec_of_files(dir_path, r_nots, disc_prob, intro_rate)
+  calculate_average_sd <- adply(.data = dirPaths, .margins = 1, .expand = TRUE, .fun = function (x) {
+    load(x)
+    detection.df <- get_prev_by_detects_all(trials, totalprev_by_totaldetects)
+    average.prevalence <- ddply(.data = detection.df, .variables = "detected", summarize, mean(prevalence), sd(prevalence)) 
+    parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate) 
+    result <- cbind(as.data.frame(matrix(parms,ncol=3)), average.prevalence)
+    return(result)
+  })
+}
+
+
+
+
 
 
 
