@@ -37,6 +37,7 @@ cumulative.long <- data.frame()
 #disc_range <- seq(from =  0.1, to =  0.1, by = .1) 
 
 
+test.infections <- all_second_current_infections(trials)
 
 
 prop_range <- seq(from = 1/7, to = 1.5/7, length.out = 2) 
@@ -174,3 +175,58 @@ plot.median + geom_line(size = 2)
 dir_path <- "~/Documents/zika_alarm/data/first_runs/"
 save_path <- "~/Doucments/zika_alarm/data"
 
+r_nots <- c(1.5)
+disc_prob <- c( 0.068)
+intro_rate <- c(0.01)
+
+
+
+debug(calculate_frequency_threshold)
+test.frequency <- calculate_frequency_threshold(dir_path = dir_path, intro_rate = intro_rate, r_nots = r_nots, disc_prob = disc_prob, threshold.cumulative = 100, threshold.prevalence = 20)
+
+debug(calculate_expect_vs_detect)
+
+average.2 <- calculate_expect_vs_detect(dir_path, r_nots, intro_rate, disc_prob)
+
+browser(calculate_expect_vs_detect(dir_path, r_nots, intro_rate, disc_prob))
+
+
+
+
+calculate_expect_vs_detect <- function(dir_path, r_nots, intro_rate, disc_prob) {
+  dirPaths = get_vec_of_files(dir_path, r_nots, disc_prob, intro_rate)
+  calculate_average_sd <- adply(.data = dirPaths, .margins = 1, .expand = TRUE, .fun = function (x) {
+    load(x)
+    
+  # Get Data frame With Only First Instance Of Any New Cumulative Detections
+    detection_dataframe <- ldply(.data = trials, .fun = function(x) {
+      detections <- x[ ,"Cum_Detections"] # For Each Trial Get List of Introductions
+      unique.detections <- unique(detections)
+      indicies <- aaply(.data = unique.detections, .margins = 1, function(y) { # For each detection value:
+        rows <- which(x[ ,"Cum_Detections"] == y)
+        index <- rows[1]
+        return(index) #Return the first time it appears 
+      })
+      first_detection <- x[indicies, ]  #Subset whole trial by the first time a new detection appears 
+      return(first_detection)
+    })
+  
+    average.cumulative <- ddply(.data = detection_dataframe, .variables = "Cum_Detections", function (x) {
+      mean.cumulative <- mean(x[,"Cumulative_Infections"])
+      sd.cumulative <- sd(x[,"Cumulative_Infections"])
+      return(c(mean.cumulative, sd.cumulative))
+    })
+    
+    average.prevalence <- ddply(.data = selected_dataframe, .variables = "Cum_Detections", function (x) {
+      mean.prevalence <- mean(x[,"Total_Infections"])
+      sd.prevalence<- sd(x[,"Total_Infections"])
+      return(c(mean.prevalence, sd.prevalence))   
+    })
+    
+    parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate) 
+    result <- cbind(as.data.frame(matrix(parms,ncol=3)), average.cumulative, average.prevalence)
+    return(result)
+  })
+}
+
+tail(selected_dataframe)

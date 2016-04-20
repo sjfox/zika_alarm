@@ -108,7 +108,6 @@ calculate_expect_vs_detect <- function(dir_path, r_nots, intro_rate, disc_prob) 
     max.cumulative <- max(all_last_cuminfect_values(trials))
     max.prev <- max(all_max_prevalence(trials))
     
-    
     lastdetected <- all_last_cumdetect_values(trials)
     max <- set.max.bin(max(lastdetected))
     dect.cases.range <- seq(1:max)
@@ -235,8 +234,7 @@ calculate_surveillance_triggers <- function(dir_path,r_nots, intro_rate, disc_pr
     frequency.prevalence <- frequency.prevalence[,-1]
     frequency.cumulative <- frequency.cumulative[,-1]
     
-    #return(list(cumulative = frequency.cumulative, current = frequency.prevalence))
-   
+
     integer.prev <- unname(find_thres_cases(bins.prev,  threshold.cases = threshold.prevalence, df=frequency.prevalence, 
                                             confidence.value = confidence))
     integer.cumulative <- unname(find_thres_cases(bins = bins.cumulative, threshold.cases = threshold.cumulative, df = frequency.cumulative,

@@ -59,6 +59,7 @@ threshold.cumulative = 100
 #Chosen for analysis 
 # Trigger Analysis 
 r_nots <- c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.3, 1.5, 1.6, 1.9) 
+
 r_nots <- c(1.5, 1.1, 0.9)
 disc_prob <- c( 0.068, 0.011)
 intro_rate <- c(0.01, 0.1, 0.3)
@@ -70,14 +71,14 @@ intro_rate <- c(0.01, 0.1, 0.3)
 #disc_prob <- c( 0.011, 0.068)
 
 
-dir_path <- "~/Documents/zika_alarm/data/second_runs"
+dir_path <- "~/Documents/zika_alarm/data/introductions/"
 dirPaths = get_vec_of_files(dir_path, r_nots,  disc_prob, intro_rate)
 saveLoc  <- "~/Documents/zika_alarm/data/"
 
 
-calculate_threshold <- threshold_R0(dir_path = dir_path, saveLoc = saveLoc, saveResults = FALSE, r_nots = r_nots,
-                                    type = "average", intro_rate = intro_rate, disc_prob = disc_prob, confidence = confidence,
-                                    threshold.prevalence = threshold.prevalence, threshold.cumulative = threshold.cumulative)
+#calculate_threshold <- threshold_R0(dir_path = dir_path, saveLoc = saveLoc, saveResults = FALSE, r_nots = r_nots,
+#                                    type = "average", intro_rate = intro_rate, disc_prob = disc_prob, confidence = confidence,
+#                                    threshold.prevalence = threshold.prevalence, threshold.cumulative = threshold.cumulative)
 
 
 threshold_R0 <- function(dir_path, saveLoc, saveResults=TRUE, r_nots, intro_rate, disc_prob, type, 
@@ -87,7 +88,7 @@ threshold_R0 <- function(dir_path, saveLoc, saveResults=TRUE, r_nots, intro_rate
   dirPaths = get_vec_of_files(dir_path, r_nots, disc_prob, intro_rate)
 
 
-  calculate_threshold <- adply(.data = dirPaths, .margins = 1, .expand = TRUE, .fun = function (x) {
+  calculate_average <- adply(.data = dirPaths, .margins = 1, .expand = TRUE, .fun = function (x) {
     load(x)
     
     max.cumulative <- max(all_last_cuminfect_values(trials))
