@@ -59,9 +59,9 @@ threshold.cumulative = 100
 #Chosen for analysis 
 # Trigger Analysis 
 r_nots <- c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.3, 1.5, 1.6, 1.9) 
-r_nots <- c(1.5)
-disc_prob <- c( 0.068)
-intro_rate <- c(0.01)
+r_nots <- c(1.5, 1.1, 0.9)
+disc_prob <- c( 0.068, 0.011)
+intro_rate <- c(0.01, 0.1, 0.3)
 
 
 #Average Analysis
@@ -87,7 +87,7 @@ threshold_R0 <- function(dir_path, saveLoc, saveResults=TRUE, r_nots, intro_rate
   dirPaths = get_vec_of_files(dir_path, r_nots, disc_prob, intro_rate)
 
 
-  trigger_worst <- adply(.data = dirPaths, .margins = 1, .expand = TRUE, .fun = function (x) {
+  calculate_threshold <- adply(.data = dirPaths, .margins = 1, .expand = TRUE, .fun = function (x) {
     load(x)
     
     max.cumulative <- max(all_last_cuminfect_values(trials))
@@ -106,42 +106,42 @@ threshold_R0 <- function(dir_path, saveLoc, saveResults=TRUE, r_nots, intro_rate
       return(dataframe)
     })    
     
-    #average.cumulative <- ldply(.data = trials_by_detection, function (x) {
-    #  mean.cumulative <- mean(x[,8])
-    #  sd.cumulative <- sd(x[,8])
-     # return(mean.cumulative)
-     # return(c(mean.cumulative, sd.cumulative))
-    #})
-   # print(average.cumulative)
+    average.cumulative <- ldply(.data = trials_by_detection, function (x) {
+      mean.cumulative <- mean(x[,"Cumulative_Infections"])
+      sd.cumulative <- sd(x[,"Cumulative_Infections"])
+    # return(mean.cumulative)
+     return(c(mean.cumulative, sd.cumulative))
+    })
+    # print(average.cumulative)
     
     #print(average.cumulative)
-    # median.cumulative <- ldply(.data = trials_by_detection, function (x) {
-    #  median.cumulative <- median(x[,8])
+     #median.cumulative <- ldply(.data = trials_by_detection, function (x) {
+     # median.cumulative <- median(x[,"Cumulative_Infections])
     # return(median.cumulative)
     #})
     
-    #average.prevalence <- ldply(.data = trials_by_detection, function (x) {
-     # mean.prevalence <- mean(x[,7])
-      #sd.prevalence<- sd(x[,7])
-      #return(mean.prevalence)
-      #return(c(mean.prevalence, sd.prevalence))   
-    #})
-   #print(average.prevalence)
+    average.prevalence <- ldply(.data = trials_by_detection, function (x) {
+     mean.prevalence <- mean(x[,"Total_Infections"])
+    sd.prevalence<- sd(x[,"Total_Infections"])
+    #return(mean.prevalence)
+    return(c(mean.prevalence, sd.prevalence))   
+    })
+    #print(average.prevalence)
     
     #}
     
     #median.prevalence <- ldply(.data = trials_by_detection, function (x) {
-    # median.prevalence <- median(x[,7])
+    # median.prevalence <- median(x[,"Total_Infections])
     #return(median.prevalence)
     #})   
-   # parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate) 
+    parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate) 
     #print(parms)
-    #result <- cbind(as.data.frame(matrix(parms,ncol=3)), dect.cases.range, average.cumulative[, 3], 
-                    #average.prevalence[,3])
-  # print(result)
-   # return(result)    
-  #})
-  
+    result <- cbind(as.data.frame(matrix(parms,ncol=3)), dect.cases.range, 
+                    average.cumulative[,2], average.cumulative[, 3], average.prevalence[,2], average.prevalence[,3])
+    # print(result)
+    return(result)    
+    })
+    
     #, median.cumulative[,2], median.prevalence[,2])
     
     
@@ -151,13 +151,13 @@ threshold_R0 <- function(dir_path, saveLoc, saveResults=TRUE, r_nots, intro_rate
     
     #Frequency Calculations 
     frequency.cumulative <- ldply(.data = trials_by_detection, function (x) {
-      frequency = bin.frequency(x[,8], bins.cumulative)
+      frequency = bin.frequency(x[,"Cumulative_Infections"], bins.cumulative)
       frequency = as.data.frame(matrix(frequency, nrow=1))
       return(frequency)
     })
     
     frequency.prevalence <- ldply(.data = trials_by_detection, function (x) {
-      frequency = unname(bin.frequency(x[,7], bins.prev))
+      frequency = unname(bin.frequency(x[,"Total_Infections"], bins.prev))
       frequency = as.data.frame(matrix(frequency, nrow=1))
       return(frequency)
     })
@@ -170,11 +170,15 @@ threshold_R0 <- function(dir_path, saveLoc, saveResults=TRUE, r_nots, intro_rate
     frequency.cumulative <- frequency.cumulative[,-1]
     
     # ANALYSIS FOR TRIGGER THRESHOLD
-    integer.prev <- unname(find_thres_cases(bins.prev,  threshold.cases = threshold.prevalence, df=frequency.prevalence, confidence.value = confidence))
-    integer.cumulative <- unname(find_thres_cases(bins = bins.cumulative, threshold.cases = threshold.cumulative, df = frequency.cumulative,
-    confidence.value = confidence))
-    parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate, confidence, threshold.prevalence, threshold.cumulative) 
-    cbind(as.data.frame(matrix(parms,ncol=6)), unname(integer.prev), unname(integer.cumulative))
+    #integer.prev <- unname(find_thres_cases(bins.prev,  threshold.cases = threshold.prevalence, df=frequency.prevalence, confidence.value = confidence))
+    #integer.cumulative <- unname(find_thres_cases(bins = bins.cumulative, threshold.cases = threshold.cumulative, df = frequency.cumulative,
+    #confidence.value = confidence))
+    threshold.frequency.prev <- frequency_threshold(bins = bins.prev,threshold.cases = threshold.prevalence, df = frequency.prevalence)
+    threshold.frequency.cum <- frequency_threshold(bins = bins.cumulative, threshold.cases = threshold.cumulative, df = frequency.cumulative)
+    #parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate, confidence, threshold.prevalence, threshold.cumulative) 
+    parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate, threshold.prevalence, threshold.cumulative)
+    
+    cbind(as.data.frame(matrix(parms,ncol=5)),dect.cases.range, threshold.frequency.prev, threshold.frequency.cum)
   })
 
 
@@ -190,7 +194,7 @@ threshold_R0 <- function(dir_path, saveLoc, saveResults=TRUE, r_nots, intro_rate
 
 
 saveLoc <- "~/Documents/zika_alarm/data/"
-save(list = c('trigger_worst'), file = paste(saveLoc, "trigger_worst.Rdata"))
+save(list = c('calculate_threshold'), file = paste(saveLoc, "calculate_threshold_1000.Rdata"))
 
 
 sd <- calculate_threshold_avg_sd[,6:7]
@@ -198,8 +202,9 @@ full_threshold <- cbind(calculate_threshold, sd)
 head(full_threshold)
 
 
-colnames(full_threshold) <- c("Run", "R0", "Dect", "Intro", "DectCases",
-                                   "Avg.Cum",  "Avg.Prev", "avg.cum.sd","avg.prev.sd")
+colnames(calculate_threshold) <- c("Run", "R0", "Dect", "Intro", "DectCases",
+                                   "Avg.Cum",  "avg.cum.sd", "Avg.Prev","avg.prev.sd")
+
 
 head(full_threshold)
 
@@ -212,70 +217,32 @@ detection.m <- cbind(detection.m, error.m[,5:6])
 head(detection.m)
 
 # If want to split the Results to certain detection values and if plotting Prevalence versus Cumulative 
-indices = which(detection.m$variable == "Avg.Prev"  & (detection.m$R0 == 0.9 | detection.m$R0 == 1.5) & (detection.m$Intro != 0.1))
+indices = which(detection.m$variable == "Avg.Prev"  & (detection.m$R0 == 0.9 | detection.m$R0 == 1.5) & (detection.m$Intro == 0.3))
 indices = which(detection.m$variable == "Avg.Prev") 
 detection.avg = detection.m[indices, ]
 
 max(detection.avg$value)
 max(detection.avg$DectCases)
-breaks = c(1,5,10,20,30,40,50,70, 100) #, 200, 300,400,500) #, 200, 300, 400, 500) # Set according to max of value + se
-breaks_x = seq(from = 0, to = 50, by = 10)
+breaks = c(1,5,10,20,30,40,50, 100, 500) #, 200, 300,400,500) #, 200, 300, 400, 500) # Set according to max of value + se
+breaks_x = seq(from = 0, to = 30, by = 10)
 
-plot1 <- ggplot(detection.avg, aes(DectCases, value, fill = as.factor(Dect), color = as.factor(Dect), group=interaction(as.factor(Dect), R0)))  + 
-  geom_line(size=1.5, aes(linetype = as.factor(R0))) + facet_grid(~Intro) +
-  geom_ribbon(aes(ymin = value-SE, ymax=value+SE), alpha=.2, color = NA) + 
-  scale_y_log10(breaks = breaks)  +
-  scale_color_brewer(palette="Set1", guide = FALSE) +
-  scale_fill_brewer(palette="Set1", guide_legend(title = "Detection \n Rate"), labels = c("10%", "50%")) +
-  scale_x_continuous(name = "Cumulative Number of Detected Cases", breaks = breaks_x, limits = c(0,60)) +
-  theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank()) +
-  theme(axis.title.y = element_text(size=20), axis.text.y = element_text(size = 14)) + 
-  theme(axis.title.x = element_text(size=20), axis.text.x= element_text(size=14)) +
-  labs(y = "Expected Total Current Cases", linetype = expression("R"[0])) +
-  theme(legend.text=element_text(size=14, margin = margin(), debug = FALSE), legend.title = element_text(size = 20)) 
-plot1
 
 
 plot_trial <- ggplot(detection.avg, aes(DectCases, value, fill = as.factor(R0), color = as.factor(R0), group=interaction(as.factor(Dect), R0)))  + 
-  geom_line(size=1.5, aes(linetype = as.factor(Dect))) + facet_grid(~Intro) +
+  geom_line(size=1.5, aes(linetype = as.factor(Dect))) + #facet_grid(~Intro) +
   geom_ribbon(aes(ymin = value-SE, ymax=value+SE), alpha=.2, color = NA) + 
   scale_y_log10(breaks = breaks)  +
   scale_color_brewer(palette = "Set1", guide = FALSE, direction = -1) +
   scale_fill_brewer(palette="Set1", guide_legend(title = "R0"), direction = -1) +
-  scale_x_continuous(name = "Cumulative Number of Detected Cases", breaks = breaks_x, limits = c(0,60)) +
+  scale_x_continuous(name = "Cumulative Number of Detected Cases", breaks = breaks_x, limits = c(0,30)) +
   theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank()) +
-  theme(axis.title.y = element_text(size=20), axis.text.y = element_text(size = 14)) + 
-  theme(axis.title.x = element_text(size=20), axis.text.x= element_text(size=14)) +
+  theme(axis.title.y = element_text(size=28), axis.text.y = element_text(size = 22)) + 
+  theme(axis.title.x = element_text(size=28), axis.text.x= element_text(size=22)) +
   labs(y = "Expected Total Current Cases", linetype = "Detection \n Rate") +
-  theme(legend.text=element_text(size=14, margin = margin(), debug = FALSE), legend.title = element_text(size = 20)) + 
+  theme(legend.text=element_text(size=22, margin = margin(), debug = FALSE), legend.title = element_text(size = 28)) #+ 
 #
 plot_trial
 
-
-
-color = c("red", "blue"),
-, labels = c("10%", "50%"))
-head(detection.avg)
-
-### WHEN JUST TESTING PLOTING OF ONE 
-plot1 <- ggplot(detection.avg, aes(DectCases, value)) + 
-  geom_line(size=1.5) +
-  geom_errorbar(aes(ymin = value-SE, ymax=value+SE), width = .1) +
-  scale_color_brewer(palette="Set1", guide_legend(title = "Daily Detection Rate")) +
-  #scale_y_log10(breaks = breaks) + 
-  scale_x_continuous(name = "Cumulative Number of Detected Cases", breaks = breaks_x, limits = c(0,60)) +
-  labs(y = "Total Current Cases", linetype = expression("R"[0])) 
-plot1
-
-
-
-
-#
-
-
-  
-
-  
 
  
   
@@ -321,7 +288,7 @@ final.plot <- merge.texas.county[order(merge.texas.county$id),]
 save(list = c('final.plot'), file = paste(saveLoc, "Avg_Worst_Plot.Rdata"))
 # Decide which type you want to plot
 
-legend_breaks <- round(seq(0, 40, 8 ))
+legend_breaks <- round(seq(0, 40, 8))
 
 p1.leg <- ggplot(data = final.plot, aes_string("long", "lat", "group", fill = "Prev.Cases.avg")) + geom_polygon() 
 
@@ -350,6 +317,8 @@ plotavg <- ggplot()+geom_polygon(data = final.plot, aes_string(x="long", y = "la
   #theme(legend.key.size =  unit(0.5, "in")) 
 
 
+#Funtion to extract one legend 
+library(gridExtra)
 g_legend<-function(a.gplot){
   tmp <- ggplot_gtable(ggplot_build(a.gplot))
   leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
@@ -367,16 +336,7 @@ p3 <- grid.arrange(arrangeGrob(plotavg + theme(legend.position="none"),
                                plotworst + theme(legend.position="none"),
                                nrow=1),
                    mylegend, nrow=2,heights=c(10, 1))
-
-
-
-
-plotavg
-library(gridExtra)
-grid.arrange(arrangeGrob(arrangeGrob(plotavg, plotworst), mylegend, ncol =3, widths = c(3/7, 3/7, 1/7)))
-
-
-#plot_grid(plotavg, plotworst, labels = c("A", "B"), ncol = 1)
+plot_grid(plotavg, plotworst, labels = c("A", "B"), ncol = 1)
 
 
 
