@@ -4,7 +4,7 @@ get_vec_of_files <- function(dir_path, r_nots, disc_probs, intro_rates){
   for(r_not in r_nots){
     for(intro_rate in intro_rates){
       for(disc_prob in disc_probs){
-        pattern <- paste0("*", paste(r_not,  disc_prob, intro_rate, sep="_"), ".Rdata")
+        pattern <- paste0("*_", paste(r_not,  disc_prob, intro_rate, sep="_"), ".Rdata")  
         data_files <- c(data_files, list.files(path=dir_path, pattern=pattern, full.names=T, recursive=FALSE))
       }
     }
@@ -53,9 +53,9 @@ get_parms <- function(path){
 ####################################################
 ## Functions for getting escape probability by detection threshold
 test_escape <- function(df, d_thres, e_thresh, prev_thresh=20){
-  if(last_cumdetect_value(df) < d_thres) return(NA)
+  if(last_cumdetect_local_value(df) < d_thres) return(NA)
   if(last_cuminfect_value(df)>=e_thresh) {
-    if(max_prevalence(df) > prev_thresh){
+    if(max_nonintro_prevalence(df) > prev_thresh){
       TRUE  
     } else{
       FALSE
@@ -88,7 +88,7 @@ calc_escape_prob_by_d <- function(trials, e_thresh){
   return(data.frame(d_thresh=d, prob_esc=esc_data))
 }
 
-get_escape_prob_by_d <- function(dir_path, r_nots, disc_probs, intro_rates, e_thresh=500){
+get_escape_prob_by_d <- function(dir_path, r_nots, disc_probs, intro_rates, e_thresh=1000){
   data.files <- get_vec_of_files(dir_path, r_nots,  disc_probs, intro_rates)
   ldply(data.files, function(x) {
     load(x)
@@ -101,7 +101,87 @@ get_escape_prob_by_d <- function(dir_path, r_nots, disc_probs, intro_rates, e_th
 
 
 
+#############################################
+## Get porbability below thresholds by detection functions
 
+localprev_by_localdetects <- function(df){
+  ## Takes in a data frame trials, and for each
+  ## First instance of a new local detection, returns the local prevalence
+  
+  all_detects <- cum_detect_local(df)
+  unique_detects <- unique(all_detects)
+  ## Only  interested in maximum of 100 detections
+  unique_detects <- unique_detects[unique_detects<=100]
+  
+  matches <- match(unique_detects, all_detects)
+  data.frame(detected = unique_detects, prevalence = prevalence_local(df)[matches])
+}
 
+totalprev_by_localdetects <- function(df){
+  ## Takes in a data frame trials, and for each
+  ## First instance of a new local detection, returns the total prevalence
+  
+  all_detects <- cum_detect_local(df)
+  unique_detects <- unique(all_detects)
+  ## Only  interested in maximum of 100 detections
+  unique_detects <- unique_detects[unique_detects<=100]
+  
+  matches <- match(unique_detects, all_detects)
+  data.frame(detected = unique_detects, prevalence=prevalence_total(df)[matches])
+}
 
+totalprev_by_totaldetects <- function(df){
+  ## Takes in a data frame trials, and for each
+  ## First instance of a new local detection, returns the total prevalence
+  
+  all_detects <- cum_detect_total(df)
+  unique_detects <- unique(all_detects)
+  ## Only  interested in maximum of 100 detections
+  unique_detects <- unique_detects[unique_detects<=100]
+  
+  matches <- match(unique_detects, all_detects)
+  data.frame(detected = unique_detects, prevalence=prevalence_total(df)[matches])
+}
+
+localprev_by_totaldetects <- function(df){
+  ## Takes in a data frame trials, and for each
+  ## First instance of a new local detection, returns the total prevalence
+  
+  all_detects <- cum_detect_total(df)
+  unique_detects <- unique(all_detects)
+  ## Only  interested in maximum of 100 detections
+  unique_detects <- unique_detects[unique_detects<=100]
+  
+  matches <- match(unique_detects, all_detects)
+  data.frame(detected = unique_detects, prevalence=prevalence_local(df)[matches])
+}
+
+get_prev_by_detects_all <- function(x, f){
+  ## Returns data frame of all prevalence by detections for all trials
+  ldply(x, f)
+}
+
+freq_below_thresh <- function(df, detected, threshold){
+  ## Takes in dataframe of all prevalence by detect
+  ## Returns a single frequency of times that
+  ## prevalence for a specific detection criteria is below a threshold
+  rows <- which(df[,"detected"] == detected)
+  if(length(rows)==0){
+    return(NA)
+  }
+  sum(df[rows, "prevalence"] < threshold)/ length(rows)
+}
+freq_below_thresh_vec <- Vectorize(freq_below_thresh, vectorize.args = "detected")
+
+get_prob_below_threshold <- function(trials, f, threshold, type="all", max_detect=50){
+  ## Returns the probability in a given set of trials that the prevalence is below
+  ## a specified threshold when X number of cases have been detected
+  
+  detected <- seq(0,max_detect)
+  
+  data <- get_prev_by_detects_all(trials, f)
+  
+  probs <- freq_below_thresh_vec(data, detected, threshold)
+  return(data.frame(detected=detected, prob_below=probs))
+}
 
