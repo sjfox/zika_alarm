@@ -60,6 +60,14 @@ all_max_nonintro_prevalence <- function(x) {
 }
 
 
+
+### Calculate Secondary Transmitted Detections for whole time series
+
+### Calculate Secondary Transmitted Cases for whole time series 
+
+
+## Calculate Secondary Cumulative Cases for whole time series 
+
 ## Set of functions to calculate given I have X cases, what is the distribution of cases I see 
 library(ggplot2)
 library(reshape2)
@@ -67,7 +75,7 @@ library(scales)
 
 ## Set of functions to calculate given I have X cases, what is the distribution of cases I see 
 detection_rows <- function(trial, threshold) {
-  detections <- trial[,6]
+  detections <- trial[,"Cum_Detections"]
   rows <- which(detections == threshold)
   reduced <- trial[rows[1],]
   return(reduced)
