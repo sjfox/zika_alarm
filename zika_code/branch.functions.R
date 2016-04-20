@@ -9,6 +9,20 @@ all_last_cuminfect_values <- function(x) {
   return(unlist(laply(x, last_cuminfect_value)))
 }
 
+last_cuminfect_local_value <- function(x) {
+  x[nrow(x), "Cumulative_Infections"] - x[nrow(x), "Cumulative_Intro_Infections"]
+}
+all_last_cuminfect_local_values <- function(x) {
+  return(unlist(laply(x, last_cuminfect_local_value)))
+}
+
+last_cuminfect_intro_value <- function(x) {
+  x[nrow(x), "Cumulative_Intro_Infections"]
+}
+all_last_cuminfect_intro_values <- function(x) {
+  return(unlist(laply(x, last_cuminfect_intro_value)))
+}
+
 ## Get last prevalence
 last_infectious_value <- function(x) {
   x[nrow(x), "Total_Infections"]
@@ -59,6 +73,30 @@ all_max_nonintro_prevalence <- function(x) {
   return(unlist(laply(x, max_nonintro_prevalence)))
 }
 
+cum_infect_local <- function(x){
+  ## Returns column of cumulative local infections
+  x[, "Cumulative_Infections"] - x[, "Cumulative_Intro_Infections"]
+}
+
+cum_detect_local <- function(x){
+  ## Returns column of cumulative local detections
+  x[, "Cum_Detections"] - x[, "Cum_Intro_Detections"]
+}
+
+cum_detect_total <- function(x){
+  ## Returns column of cumulative total detections
+  x[, "Cum_Detections"]
+}
+
+prevalence_local <- function(x){
+  ## Returns column of local prevalence
+  x[, "Total_Infections"] - x[, "Total_Intro_Infections"]
+}
+
+prevalence_total <- function(x){
+  ## Returns column of local prevalence
+  x[, "Total_Infections"]
+}
 
 ### Calculate Secondary Transmitted Detections for whole time series
 calculate_second_detections <- function(x) {
@@ -320,8 +358,7 @@ scale_rnott <- function(relative, max) {
 
 # Function to calculate discovery percentage 
 calculate.discover <- function(disc_p){
-  percent <- round(1-((1-disc_p)^7), digits = 2)*100
-  return(percent)
+  round(1-((1-disc_p)^7), digits = 2)*100
 } 
 
 
