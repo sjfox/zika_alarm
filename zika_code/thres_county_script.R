@@ -76,132 +76,6 @@ dirPaths = get_vec_of_files(dir_path, r_nots,  disc_prob, intro_rate)
 saveLoc  <- "~/Documents/zika_alarm/data/"
 
 
-#calculate_threshold <- threshold_R0(dir_path = dir_path, saveLoc = saveLoc, saveResults = FALSE, r_nots = r_nots,
-#                                    type = "average", intro_rate = intro_rate, disc_prob = disc_prob, confidence = confidence,
-#                                    threshold.prevalence = threshold.prevalence, threshold.cumulative = threshold.cumulative)
-
-
-threshold_R0 <- function(dir_path, saveLoc, saveResults=TRUE, r_nots, intro_rate, disc_prob, type, 
-                         confidence, threshold.prevalence, threshold.cumulative) {
-  
- 
-  dirPaths = get_vec_of_files(dir_path, r_nots, disc_prob, intro_rate)
-
-
-  calculate_average <- adply(.data = dirPaths, .margins = 1, .expand = TRUE, .fun = function (x) {
-    load(x)
-    
-    max.cumulative <- max(all_last_cuminfect_values(trials))
-    max.prev <- max(all_max_prevalence(trials))
-    
-    
-    lastdetected <- all_last_cumdetect_values(trials)
-    max <- set.max.bin(max(lastdetected))
-    dect.cases.range <- seq(1:max)
-    
-    #splits up trials into detection 
-    trials_by_detection <- alply(.data = dect.cases.range, .margins = 1, function (x) {
-      d_thres = as.numeric(x)
-      dataframe <- all_detect_rows(trials, threshold = d_thres ) 
-      dataframe = na.omit(dataframe)
-      return(dataframe)
-    })    
-    
-    average.cumulative <- ldply(.data = trials_by_detection, function (x) {
-      mean.cumulative <- mean(x[,"Cumulative_Infections"])
-      sd.cumulative <- sd(x[,"Cumulative_Infections"])
-    # return(mean.cumulative)
-     return(c(mean.cumulative, sd.cumulative))
-    })
-    # print(average.cumulative)
-    
-    #print(average.cumulative)
-     #median.cumulative <- ldply(.data = trials_by_detection, function (x) {
-     # median.cumulative <- median(x[,"Cumulative_Infections])
-    # return(median.cumulative)
-    #})
-    
-    average.prevalence <- ldply(.data = trials_by_detection, function (x) {
-     mean.prevalence <- mean(x[,"Total_Infections"])
-    sd.prevalence<- sd(x[,"Total_Infections"])
-    #return(mean.prevalence)
-    return(c(mean.prevalence, sd.prevalence))   
-    })
-    #print(average.prevalence)
-    
-    #}
-    
-    #median.prevalence <- ldply(.data = trials_by_detection, function (x) {
-    # median.prevalence <- median(x[,"Total_Infections])
-    #return(median.prevalence)
-    #})   
-    parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate) 
-    #print(parms)
-    result <- cbind(as.data.frame(matrix(parms,ncol=3)), dect.cases.range, 
-                    average.cumulative[,2], average.cumulative[, 3], average.prevalence[,2], average.prevalence[,3])
-    # print(result)
-    return(result)    
-    })
-    
-    #, median.cumulative[,2], median.prevalence[,2])
-    
-    
-    #setting up bins to calculate frequencies
-    bins.prev <- set.prev.bins(max.prev)
-    bins.cumulative <- set.cum.bins(max.cumulative)    
-    
-    #Frequency Calculations 
-    frequency.cumulative <- ldply(.data = trials_by_detection, function (x) {
-      frequency = bin.frequency(x[,"Cumulative_Infections"], bins.cumulative)
-      frequency = as.data.frame(matrix(frequency, nrow=1))
-      return(frequency)
-    })
-    
-    frequency.prevalence <- ldply(.data = trials_by_detection, function (x) {
-      frequency = unname(bin.frequency(x[,"Total_Infections"], bins.prev))
-      frequency = as.data.frame(matrix(frequency, nrow=1))
-      return(frequency)
-    })
-    
-    # Clean UP 
-    colnames(frequency.prevalence) <- bins.prev; rownames(frequency.prevalence) <- dect.cases.range
-    colnames(frequency.cumulative) <- bins.cumulative; rownames(frequency.cumulative) <- dect.cases.range
-    
-    frequency.prevalence <- frequency.prevalence[,-1]
-    frequency.cumulative <- frequency.cumulative[,-1]
-    
-    # ANALYSIS FOR TRIGGER THRESHOLD
-    #integer.prev <- unname(find_thres_cases(bins.prev,  threshold.cases = threshold.prevalence, df=frequency.prevalence, confidence.value = confidence))
-    #integer.cumulative <- unname(find_thres_cases(bins = bins.cumulative, threshold.cases = threshold.cumulative, df = frequency.cumulative,
-    #confidence.value = confidence))
-    threshold.frequency.prev <- frequency_threshold(bins = bins.prev,threshold.cases = threshold.prevalence, df = frequency.prevalence)
-    threshold.frequency.cum <- frequency_threshold(bins = bins.cumulative, threshold.cases = threshold.cumulative, df = frequency.cumulative)
-    #parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate, confidence, threshold.prevalence, threshold.cumulative) 
-    parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate, threshold.prevalence, threshold.cumulative)
-    
-    cbind(as.data.frame(matrix(parms,ncol=5)),dect.cases.range, threshold.frequency.prev, threshold.frequency.cum)
-  })
-
-
-    # Save the results or simply return them
-    if(saveResults){
-      save( list = c('calculate_threshold'), file = file.path(saveLoc, paste0("calculate_threshold.Rdata")))  
-    } else {
-  
-    calculate_threshold
-  }
-}
-
-
-
-saveLoc <- "~/Documents/zika_alarm/data/"
-save(list = c('calculate_threshold'), file = paste(saveLoc, "calculate_threshold_1000.Rdata"))
-
-
-
-colnames(calculate_threshold) <- c("Run", "R0", "Dect", "Intro", "DectCases",
-                                   "Avg.Cum",  "avg.cum.sd", "Avg.Prev","avg.prev.sd")
-
 
 # Going from wide format to long format : combining the average value with error bars 
 detection.m <- melt(data = full_threshold, id.vars = c("R0", "Dect", "Intro", "DectCases"), measure.vars = c("Avg.Cum", "Avg.Prev" ))
@@ -247,10 +121,12 @@ plot_trial
 setwd('..'); setwd('TexasCountyShapeFiles')
 texas.county <- readShapeSpatial('texas.county.shp', proj4string = CRS("+proj=longlat +datum=WGS84"))
 setwd('../zika_code/')
+county_ids <- read.csv(file = "~/Documents/zika_alarm/county_ids.csv")
+
 
 # Need to read in county ids 
-county_ids$Prev.Cases.worst <- NA
-county_ids$Cum.Cases.worst <- NA
+county_ids$Prev.Cases <- NA
+county_ids$Cum.Cases <- NA
 
 #Merging the R0 with the final shapefile 
 # Put desired Target Threshold 
@@ -266,7 +142,6 @@ triggers <- ddply(.data = calculate_threshold, .(V1), function (x) {
 })
 
 # Merges The Data With the County Data for Plotting By R0 
-
 
 for (i in 1:nrow(trigger_worst)) {
   indices = which(trigger_worst[i,2] == county_ids$metro_round) 

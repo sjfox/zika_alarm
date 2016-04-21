@@ -171,16 +171,14 @@ freq_below_thresh <- function(df, detected, threshold){
   }
   sum(df[rows, "prevalence"] < threshold)/ length(rows)
 }
+
 freq_below_thresh_vec <- Vectorize(freq_below_thresh, vectorize.args = "detected")
 
 get_prob_below_threshold <- function(trials, f, threshold, type="all", max_detect=50){
   ## Returns the probability in a given set of trials that the prevalence is below
-  ## a specified threshold when X number of cases have been detected
-  
-  detected <- seq(0,max_detect)
-  
-  data <- get_prev_by_detects_all(trials, f)
-  
+  ## a specified threshold when X number of cases have been detected 
+  detected <- seq(0,max_detect) 
+  data <- get_prev_by_detects_all(trials, f) 
   probs <- freq_below_thresh_vec(data, detected, threshold)
   return(data.frame(detected=detected, prob_below=probs))
 }
@@ -189,8 +187,6 @@ get_prob_below_threshold <- function(trials, f, threshold, type="all", max_detec
 
 #########################################################
 ## Lauren functions
-
-
 calculate_expect_vs_detect_local <- function(dir_path, r_nots, intro_rate, disc_prob) {
   dirPaths = get_vec_of_files(dir_path, r_nots, disc_prob, intro_rate)
   calculate_average_sd <- adply(.data = dirPaths, .margins = 1, .expand = TRUE, .fun = function (x) {
@@ -217,112 +213,67 @@ calculate_expect_vs_detect_total <- function(dir_path, r_nots, intro_rate, disc_
 
 
 
-
-
-
-
-# Calculate the Probability of Exceeding a specified number of cases 
-calculate_frequency_threshold <- function(dir_path,r_nots, intro_rate, disc_prob, threshold.cumulative, threshold.prevalence) {
-  dirPaths = get_vec_of_files(dir_path, r_nots, disc_prob, intro_rate)
-  frequency_at_threshold <- adply(.data = dirPaths, .margins = 1, .expand = TRUE, .fun = function (x) {
-    load(x)
-    max.cumulative <- max(all_last_cuminfect_values(trials))
-    max.prev <- max(all_max_prevalence(trials))
-    lastdetected <- all_last_cumdetect_values(trials)
-    max <- set.max.bin(max(lastdetected))
-    dect.cases.range <- seq(1:max)
-    
-    #splits up trials into detection 
-    trials_by_detection <- alply(.data = dect.cases.range, .margins = 1, function (x) {
-      d_thres = as.numeric(x)
-      dataframe <- all_detect_rows(trials, threshold = d_thres ) 
-      dataframe = na.omit(dataframe)
-      return(dataframe)
-    })    
-    
-    #setting up bins to calculate frequencies
-    bins.prev <- set.prev.bins(max.prev)
-    bins.cumulative <- set.cum.bins(max.cumulative)    
-    
-    #Frequency Calculations 
-    frequency.cumulative <- ldply(.data = trials_by_detection, function (x) {
-      frequency = bin.frequency(x[,"Cumulative_Infections"], bins.cumulative)
-      frequency = as.data.frame(matrix(frequency, nrow=1))
-      return(frequency)
-    })
-    
-    frequency.prevalence <- ldply(.data = trials_by_detection, function (x) {
-      frequency = unname(bin.frequency(x[,"Total_Infections"], bins.prev))
-      frequency = as.data.frame(matrix(frequency, nrow=1))
-      return(frequency)
-    })
-    # Clean UP 
-    colnames(frequency.prevalence) <- bins.prev; rownames(frequency.prevalence) <- dect.cases.range
-    colnames(frequency.cumulative) <- bins.cumulative; rownames(frequency.cumulative) <- dect.cases.range
-    frequency.prevalence <- frequency.prevalence[,-1]
-    frequency.cumulative <- frequency.cumulative[,-1]
-    
-    #return(list(cumulative = frequency.cumulative, current = frequency.prevalence))
-    # calculate frequency at specified threshold 
-    threshold.frequency.prev <- frequency_threshold(bins = bins.prev,threshold.cases = threshold.prevalence, df = frequency.prevalence)
-    threshold.frequency.cum <- frequency_threshold(bins = bins.cumulative, threshold.cases = threshold.cumulative, df = frequency.cumulative)
-    
-    parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate, threshold.prevalence, threshold.cumulative)
-    cbind(as.data.frame(matrix(parms,ncol=5)),dect.cases.range, threshold.frequency.prev, threshold.frequency.cum)
-  })
-  return(frequency_at_threshold)
+#### Calculate Frequency Distributions For Each Number of Detected Cases
+freq_at_detect <- function(df, detected) {
+  ## Takes in dataframe of all prevalence by detect
+  ## Returns a single frequency of 
+  ## prevalence for a specific detection 
+  rows <- which(df[,"detected"] == detected)
+  if(length(rows)==0){
+    return(NA)
+  }
+  table.rows <- df[rows,]  
+  frequency <- count(table.rows, vars = c("detected", "prevalence"))
+  frequency.dis <- frequency$freq/sum(frequency$freq)
+  frequency$freq <- frequency.dis
+  frequency
 }
 
-# functin to calculate the trigger based on a specificed number of cases and risk tolerance level 
-calculate_surveillance_triggers <- function(dir_path,r_nots, intro_rate, disc_prob, threshold.cumulative, threshold.prevalence) {
+freq_at_detect_vec <- Vectorize(freq_at_detect, vectorize.args = "detected", SIMPLIFY = FALSE)
+
+get_freq_at_detect <- function(trials, f, type = "all", max_detect=50) {
+  ## Returns the frequency distribution of actual cases in a given set of trials for each detection
+  detected <- seq(0,max_detect)  
+  data <- get_prev_by_detects_all(trials, f)
+  freq.ds <- freq_at_detect_vec(data, detected)
+  return(freq.ds)
+}
+
+
+## Function to get all surveillance for all R0s 
+calculate_all_triggers <- function(dir_path, r_nots, intro_rate, disc_prob,threshold, confidence) {
   dirPaths = get_vec_of_files(dir_path, r_nots, disc_prob, intro_rate)
-  triggers_threshold <- adply(.data = dirPaths, .margins = 1, .expand = TRUE, .fun = function (x) {
+  calculate_triggers <- adply(.data = dirPaths, .margins = 1, .expand = TRUE, .fun = function (x) {
     load(x)
-    max.cumulative <- max(all_last_cuminfect_values(trials))
-    max.prev <- max(all_max_prevalence(trials))
-    lastdetected <- all_last_cumdetect_values(trials)
-    max <- set.max.bin(max(lastdetected))
-    dect.cases.range <- seq(1:max)
+    trigger <- get_surveillance_trigger(trials, f = totalprev_by_totaldetects, threshold, confidence, max_detect = 100)
+    parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate) 
+    result <- cbind(as.data.frame(matrix(parms,ncol=3)), threshold, confidence, trigger)
+    return(result)
+  })
+}
   
-    #splits up trials into detection 
-    trials_by_detection <- alply(.data = dect.cases.range, .margins = 1, function (x) {
-      d_thres = as.numeric(x)
-      dataframe <- all_detect_rows(trials, threshold = d_thres ) 
-      dataframe = na.omit(dataframe)
-      return(dataframe)
-    })    
-    
-    #setting up bins to calculate frequencies
-    bins.prev <- set.prev.bins(max.prev)
-    bins.cumulative <- set.cum.bins(max.cumulative)    
-    
-    #Frequency Calculations 
-    frequency.cumulative <- ldply(.data = trials_by_detection, function (x) {
-      frequency = bin.frequency(x[,"Cumulative_Infections"], bins.cumulative)
-      frequency = as.data.frame(matrix(frequency, nrow=1))
-      return(frequency)
-    })
-    
-    frequency.prevalence <- ldply(.data = trials_by_detection, function (x) {
-      frequency = unname(bin.frequency(x[,"Total_Infections"], bins.prev))
-      frequency = as.data.frame(matrix(frequency, nrow=1))
-      return(frequency)
-    })
-    
-    # Clean UP 
-    colnames(frequency.prevalence) <- bins.prev; rownames(frequency.prevalence) <- dect.cases.range
-    colnames(frequency.cumulative) <- bins.cumulative; rownames(frequency.cumulative) <- dect.cases.range
-    frequency.prevalence <- frequency.prevalence[,-1]
-    frequency.cumulative <- frequency.cumulative[,-1]
-    
+r_nots <- .2; intro_rate = .01; disc_prob = .011
+load(dirPaths)
 
-    integer.prev <- unname(find_thres_cases(bins.prev,  threshold.cases = threshold.prevalence, df=frequency.prevalence, 
-                                            confidence.value = confidence))
-    integer.cumulative <- unname(find_thres_cases(bins = bins.cumulative, threshold.cases = threshold.cumulative, df = frequency.cumulative,
-                                                  confidence.value = confidence))
-    parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate, confidence, threshold.prevalence, threshold.cumulative) 
-    cbind(as.data.frame(matrix(parms,ncol=6)), dect.cases.range, integer.prev, integer.cumulative)
-  })
-  return(triggers_threshold)
+get_surveillance_trigger <- function(trials, f, threshold, confidence, type="all", max_detect=100){
+  ## Returns the max number of detected cases based on
+  ## a specified threshold when X number of cases have been detected 
+  ## and a tolerance for being X sure
+  detected <- seq(0,max_detect) 
+  data <- get_prev_by_detects_all(trials, f=totalprev_by_totaldetects) 
+  probs <- freq_below_thresh_vec(data, detected, threshold=20)
+  threshold.probs <- probs - confidence
+  threshold.positive <- threshold.probs[which(threshold.probs > 0)]
+  if (length(threshold.positive) == 0) { 
+    # All were negatives
+    threshold = 0
+  } else if (threshold.positive[length(threshold.positive)] == (1-confidence)) { 
+    # Were always above 1 
+    threshold = NA
+  } else 
+    threshold <- length(threshold.positive)
+  return(threshold)
 }
+
+
 
