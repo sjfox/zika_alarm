@@ -22,6 +22,7 @@ perkins.tx <- mask(world.cut, texas.county)
 castro.tx_raw <- read.asc("aedes_aegypti_avg.asc")
 castro.tx_raw <- raster.from.asc(castro.tx_raw)
 plot(castro.tx_raw)
+texas
 
 plot(log(castro.tx_raw))
 
@@ -30,6 +31,10 @@ castro.tx_raw <- mask(castro.tx_raw, texas.county)
 cellStats(x = castro.tx_raw, stat = "sum")
 
 castro.mean_raw <- mean.county(raster = castro.tx_raw, shapefile = texas.county, name = "habitat.castro")
+
+castro.county <- sum.county(raster = castro.tx, shapefile = texas.county, name = "mosquito.county")
+
+
 
 castro.mosquito <- -log(1-castro.mean)
 
@@ -115,28 +120,29 @@ county_ids$metro_round <- round(county_ids$MetroR0, digits = 1)
 county_ids$castro_R0 <- R0
 county_ids$castro_combined <- R0 * county_ids$probability
 
-relativeR0 <- castro.mean_raw/as.data.frame(county_ids$Population.Proportion)
-county_ids$relativeR0 <- NA
-
-county_ids <- cbind(county_ids, relativeR0)
-
+county_ids <- cbind(county_ids, castro.county)
+county_ids$relativeR0 <-county_ids$mosquito.county/county_ids$Population.Proportion
+county_ids$Combined.Castro <- county_ids$relativeR0*county_ids$probability
 
 
 county_ids$raw_combined <- county_ids$probability * county_ids$habitat.castro
+
+
 
 
 texas.county.f <- fortify(texas.county, region = "ID")
 merge.texas.county <- merge(texas.county.f, county_ids, by = "id", all.x = TRUE)
 final.plot <- merge.texas.county[order(merge.texas.county$id),]
 
-
-plot <- ggplot()+geom_polygon(data = final.plot, aes(x=long, y = lat, group = group, fill = raw_combined), color = "black", size = .25) + 
-  coord_map() +   scale_fill_gradient(name = "R0*Importation", low = "yellow", high = "red")
-  #scale_fill_gradient2(name = "R0", low = "yellow", midpoint = 1, mid = "red" ,high = "dark red",  na.value = "white")
-
+hist(county_ids$Combined.Castro, breaks = 100)
+breaks <- c(seq(from = 0, to = .1, by =  .01), .2, .3, .4)
+plot <- ggplot()+geom_polygon(data = final.plot, aes(x=long, y = lat, group = group, fill = Combined.Castro), color = "black", size = .25) + 
+  coord_map() +   scale_fill_gradient(name = "Combined", low = "yellow", high = "red")
   
+  #scale_fill_gradient2(name = "R0", low = "yellow", midpoint = 1, mid = "red" ,high = "dark red",  na.value = "white")
 plot
  
+sort(unique(county_ids$relativeR0))
 
 plot
 sort(unique(county_ids$metro_round))

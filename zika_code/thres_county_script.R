@@ -47,10 +47,12 @@ threshold.cumulative = 80
 
 #Chosen for analysis 
 r_nots <- c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.1, 1.3, 1.5, 1.6, 1.9) 
+r_nots <- 1.5
 intro_rate <- c(0.3)
+intro_rate <- 0.1
 intro_rate <- c(.01, .1, 0.3)
 disc_prob <- c( 0.011)
-disc_prob <- c(0.068)
+disc_prob <- 0.068
 #r_nots <- c(0.9)
 #intro_rate <- c(.01)
 #disc_prob <- (0.011, 0.068)
@@ -76,7 +78,7 @@ threshold_R0 <- function(dir_path, saveLoc, saveResults=TRUE, r_nots, intro_rate
     load(x)
     
     max.cumulative <- max(all_last_cuminfect_values(trials))
-    max.prev <- max(all_last_instantInf_values(trials))
+    max.prev <- max(all_max_prevalence(trials)) 
     
     lastdetected <- all_last_cumdetect_values(trials)
     max <- set.max.bin(max(lastdetected))

@@ -30,6 +30,9 @@ max_prevalence <- function(x){
   return(max(x[,"Total_Infected"]))
 }
 
+all_max_prevalence <- function(x) {
+  return(unlist(laply(x, max_prevalence)))
+}
 
 ## Set of functions to calculate given I have X cases, what is the distribution of cases I see 
 library(ggplot2)
@@ -142,7 +145,7 @@ set.prev.bins <- function(max.prev) {
   #at.high.dect <- all_detect_rows(trials)
   #max.prev <- max(at.high.dect[,7])
   max.bin <- max.prev + 1
-  bins <- seq(from = 0, to = max.bin, by = 1)
+  bins <- seq(from = 0, to = max.bin, by = 2)
   #if (max.bin > 10) {
   #bins.1 <- seq(from = 10, to = max.bin, by = 5)
   #bins <- c(bins, bins.1)
@@ -163,31 +166,40 @@ bin.frequency <- function(df, bins) {
 
 plotheatmaps <- function(df, type, names, percent.discover, R0, max.infect) {
   df <- cbind(names, df)
+  df.insert <- df[1:28,1:17]
   df$names <- factor(df$names, levels = df$names[order(df$names)])
+  df.insert$names <- factor(df.insert$names, levels = df.insert$names[order(df.insert$names)])
+  df.m.insert <- melt(df.insert)
   df.m <- melt(df)
   
   x.breaks.seq = seq(0, length(names), by = 2)
+  x.breaks.seq = seq(0, 28, by = 2)
   
   if (type == "Cumulative") {
     y.breaks.seq <- seq(0, max.infect+20, by = 20)
+
     title = "Cumulative Total Cases"
   } else {
-    y.breaks.seq <- seq(0, max.infect+5, by = 5)
+    y.breaks.seq <- seq(0, max.infect, by = 5)
+    y.breaks.insert <- seq(0, 30, by = 2)
     title = "Current Infected Cases"
   } 
   
-  p <- ggplot(df.m, aes(as.factor(names), variable))
+  p <- ggplot(df.m.insert, aes(as.factor(names), variable))
   p <- p + geom_tile(aes(fill = value), colour = "white") + 
     theme_bw()+ scale_fill_gradient(low = "lightyellow",high = "red", name = "Probability") + 
-    labs(x = "Cumulative Detected Cases", y = title) + 
-    theme(axis.text.x = element_text(vjust = 1, hjust=1))    
-  p <- p + theme(axis.title.x = element_text(size=20), axis.text.x= element_text(size=14))
-  p <- p + theme(axis.title.y = element_text(size=20), axis.text.y = element_text(size = 14)) + 
+    labs(x = "Cumulative Detected Cases", y = "") + 
+    theme(axis.text.x = element_text(vjust = 1, hjust=1)) +
+    theme(axis.title.x = element_text(size=20), axis.text.x= element_text(size=14)) + 
+    theme(axis.title.y = element_text(size=20), axis.text.y = element_text(size = 14)) + 
     theme(legend.text=element_text(size=14, margin = margin(), debug = FALSE), legend.title = element_text(size = 20)) +
-    scale_y_discrete(breaks = y.breaks.seq)+
+    scale_y_discrete(breaks = y.breaks.insert) +
     scale_x_discrete(breaks = x.breaks.seq)
   return(p)
 }
+
+which(as.numeric(df.m$variable) < 30 )
+df.m.insert <- df.m[as.numeric(df.m$variable) < 30, ]
 
 ## Function to find number of detected cases for X% sure is X or less
 find_thres_cases <- function(bins, threshold.cases, df, confidence.value) {
