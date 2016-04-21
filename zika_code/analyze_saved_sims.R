@@ -252,8 +252,6 @@ calculate_all_triggers <- function(dir_path, r_nots, intro_rate, disc_prob,thres
   })
 }
   
-r_nots <- .2; intro_rate = .01; disc_prob = .011
-load(dirPaths)
 
 get_surveillance_trigger <- function(trials, f, threshold, confidence, type="all", max_detect=100){
   ## Returns the max number of detected cases based on
@@ -265,10 +263,10 @@ get_surveillance_trigger <- function(trials, f, threshold, confidence, type="all
   threshold.probs <- probs - confidence
   threshold.positive <- threshold.probs[which(threshold.probs > 0)]
   if (length(threshold.positive) == 0) { 
-    # All were negatives
+    # All were negatives-already took off
     threshold = 0
-  } else if (threshold.positive[length(threshold.positive)] == (1-confidence)) { 
-    # Were always above 1 
+  } else if (threshold.positive[length(threshold.positive)] == (1-confidence) & is.na(threshold.probs[length(threshold.positive) + 1]))  { 
+    # Never Hit Threshold 
     threshold = NA
   } else 
     threshold <- length(threshold.positive)
