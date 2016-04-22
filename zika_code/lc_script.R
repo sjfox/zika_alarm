@@ -10,9 +10,9 @@ if(grepl('laurencastro', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zik
 sapply(c('branch.functions.R','plot.functions.R', 'analyze_saved_sims.R'), source)
 library(plyr)
 library(ggplot2)
+dir_path <- "~/Documents/zika_alarm/data/introductions_runs/"
 # Code I've written just testing things out-not worth saving in the main files 
 #Parameters 
-
 
 
 
@@ -23,10 +23,8 @@ cum.map <- plotheatmaps(thres.matrix.cum, type = "Cumulative", names = as.factor
 
 
 
- 
-
 ############################################
-dir_path <- "~/Documents/zika_alarm/data/introductions_runs/"
+
 save_path <- "~/Doucments/zika_alarm/data"
 
 r_nots <- c(1.9, 1.1, 0.8)
@@ -95,8 +93,11 @@ load(dirPaths)
 ###### Calculate Surveillance For R0s 
 r_nots <- c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.3, 1.5, 1.6, 1.9) 
 disc_prob <- c( 0.068, 0.011)
-intro_rate <- c(0.01, 0.1, 0.3)
+intro_rate <- c(0.01, 0.1)
 
+r_nots <- 1.0
+disc_prob <- .068
+intro_rate <- .3
 #Calculate the triggers  
 
 r0.triggers <- calculate_all_triggers(dir_path, r_nots = r_nots, intro_rate = intro_rate, 
@@ -114,22 +115,29 @@ texas.county <- readShapeSpatial('texas.county.shp', proj4string = CRS("+proj=lo
 setwd('../zika_code/')
 county_ids <- read.csv(file = "~/Documents/zika_alarm/county_ids.csv")
 
-
-
+county_reduced <- county_ids$id
+county_reduced <- data.frame(cbind(county_reduced, county_ids$metro_round))
+colnames(county_reduced) <- c("id", "metro_round")
 
 
 #Calculate Only triggers interested in
 # Base Case 
 county_ids$Prev.Cases <- NA
 
+
+county_reduced$Prev.Cases.1 <- NA
+county_reduced$Prev.Cases.2 <- NA
+
+
+
 #BaseLine
 desired_dect = 0.0110; desired_intro = .1
 #Good Detect Bad Intro
 desired_dect = 0.0680; desired_intro = .3
 #Bad Detect Good Intro
-desired_dect = 0.011; desired_intro = .1
+desired_dect = 0.0680; desired_intro = .1
 #Worst
-desired_dect = 0.0110; desired_intro = .3
+desired_dect = 0.0110; desired_intro = .01
 
 
 triggers <- ddply(.data = r0.triggers, .variables = "r0", function (x) {
@@ -137,22 +145,41 @@ triggers <- ddply(.data = r0.triggers, .variables = "r0", function (x) {
   return(x[row,])
 })
 
+r0.triggers
 # Merges The Data With the County Data for Plotting By R0 
 for (i in 1:nrow(triggers)) {
   indices = which(triggers[i,"r0"] == county_ids$metro_round) 
   county_ids$Prev.Cases[indices] = triggers[i,"trigger" ]
 }
 
-county_ids$Prev.Cases <- as.numeric(county_ids$Prev.Cases)
+for (i in 1:nrow(triggers)) {
+  indices = which(triggers[i,"r0"] == county_reduced$metro_round) 
+  county_reduced$Prev.Cases.2[indices] = triggers[i,"trigger"]
+}
+
+county_reduced$Prev.Cases.1 <- as.numeric(county_reduced$Prev.Cases.1)
+county.m <- melt(data = county_reduced, id.vars = "id", measure.vars = c("Prev.Cases.1", "Prev.Cases.2"))
 
 texas.county.f <- fortify(texas.county, region = "ID")
 merge.texas.county <- merge(texas.county.f, county_ids, by = "id", all.x = TRUE)
+merge.texas.county <- merge(texas.county.f, county.m, by = "id", all.x = TRUE)
+
 final.plot <- merge.texas.county[order(merge.texas.county$id),]
+head(final.plot)
 
 
 #Actual plotting 
 max(r0.triggers[,"trigger"], na.rm = TRUE)
 legend_breaks <- round(seq(0, 100, 10))
+
+plot.trial <- ggplot(final.plot, aes(x=long, y = lat)) +
+  geom_polygon(data = final.plot, aes(group = group, fill = value)) +
+  facet_wrap(~variable)+
+  scale_x_continuous("", breaks=NULL) + 
+  scale_y_continuous("", breaks=NULL)
+
+ggsave
+
 plotworst <- ggplot()+geom_polygon(data = final.plot, aes_string(x="long", y = "lat", group = "group", fill = "Prev.Cases"),
                                    color = "black", size = .25) + coord_map() +
   scale_fill_continuous(name = "Detected \n Cases", low = "red", high = "yellow", 
@@ -163,6 +190,9 @@ plotworst <- ggplot()+geom_polygon(data = final.plot, aes_string(x="long", y = "
   theme(legend.position = "right") +
   theme(legend.text=element_text(size=14, margin = margin(), debug = FALSE), legend.title = element_text(size = 20)) +
   theme(legend.key.size =  unit(0.3, "in")) 
+
+
+plot.r0 <- ggplot()+geom_line(data = r0.triggers, aes(r0, trigger))+facet_grid(detect ~ intro)
 
 plotworst
 plot.badintro_gooddetect

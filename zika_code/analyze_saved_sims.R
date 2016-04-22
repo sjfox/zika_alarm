@@ -252,9 +252,6 @@ calculate_all_triggers <- function(dir_path, r_nots, intro_rate, disc_prob,thres
   })
 }
   
-r_nots <- .2; intro_rate = .01; disc_prob = .011
-load(dirPaths)
-
 get_surveillance_trigger <- function(trials, f, threshold, confidence, type="all", max_detect=100){
   ## Returns the max number of detected cases based on
   ## a specified threshold when X number of cases have been detected 
