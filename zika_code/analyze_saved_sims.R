@@ -276,19 +276,22 @@ calculate_all_triggers <- function(dir_path, r_nots, intro_rate, disc_prob,thres
 }
   
 
+
+
 get_surveillance_trigger <- function(trials, f, threshold, confidence, type="all", max_detect=100){
   ## Returns the max number of detected cases based on
   ## a specified threshold when X number of cases have been detected 
   ## and a tolerance for being X sure
   detected <- seq(0,max_detect) 
   data <- get_prev_by_detects_all(trials, f=totalprev_by_totaldetects) 
-  probs <- freq_below_thresh_vec(data, detected, threshold=20)
+  probs <- freq_below_thresh_vec(data, detected, threshold)
   threshold.probs <- probs - confidence
   threshold.positive <- threshold.probs[which(threshold.probs > 0)]
   if (length(threshold.positive) == 0) { 
     # All were negatives-already took off
     threshold = 0
-  } else if (threshold.positive[length(threshold.positive)] == (1-confidence) & is.na(threshold.probs[length(threshold.positive) + 1]))  { 
+  } else if (threshold.positive[length(threshold.positive)] == (1-confidence) & 
+             (is.na(threshold.probs[length(threshold.positive) + 1]) | (1-confidence)))  { 
     # Never Hit Threshold 
     threshold = NA
   } else 

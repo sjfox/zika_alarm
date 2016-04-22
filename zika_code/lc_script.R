@@ -116,7 +116,7 @@ county_ids <- read.csv(file = "~/Documents/zika_alarm/county_ids.csv")
 
 #Calculate Only triggers interested in
 # Base Case 
-county_ids$Prev.Cases <- NA
+county_plot$constant.import <- NA
 
 #BaseLine
 desired_dect = 0.011; desired_intro = .1
@@ -135,21 +135,22 @@ triggers <- ddply(.data = r0.triggers, .variables = "r0", function (x) {
 
 # Merges The Data With the County Data for Plotting By R0 
 for (i in 1:nrow(triggers)) {
-  indices = which(triggers[i,"r0"] == county_ids$metro_round) 
-  county_ids$Prev.Cases[indices] = triggers[i,"trigger" ]
+  indices = which(county_plot$metro_round == triggers[i,"r0"]) 
+  county_plot$constant.import[indices] = triggers[i,"trigger" ]
 }
 
-county_ids$Prev.Cases <- as.numeric(county_ids$Prev.Cases)
+county_plot$constant.import <- as.numeric(county_plot$constant.import)
 
 texas.county.f <- fortify(texas.county, region = "ID")
-merge.texas.county <- merge(texas.county.f, county_ids, by = "id", all.x = TRUE)
+merge.texas.county <- merge(texas.county.f, county_plot, by = "id", all.x = TRUE)
 final.plot <- merge.texas.county[order(merge.texas.county$id),]
 
 
 #Actual plotting 
 max(r0.triggers[,"trigger"], na.rm = TRUE)
 legend_breaks <- round(seq(0, 55, 10))
-plotworst <- ggplot()+geom_polygon(data = final.plot, aes_string(x="long", y = "lat", group = "group", fill = "Prev.Cases"),
+
+plot.constant <- ggplot()+geom_polygon(data = final.plot, aes_string(x="long", y = "lat", group = "group", fill = "constant.import"),
                                    color = "black", size = .25) + coord_map() +
   scale_fill_continuous(name = "Detected \n Cases", low = "red", high = "yellow", 
                       na.value = "grey") + #+ pretty_breaks(n = length(legend_breaks)) +
@@ -159,6 +160,8 @@ plotworst <- ggplot()+geom_polygon(data = final.plot, aes_string(x="long", y = "
   theme(legend.position = "right") +
   theme(legend.text=element_text(size=14, margin = margin(), debug = FALSE), legend.title = element_text(size = 20)) +
   theme(legend.key.size =  unit(0.3, "in")) 
+
+ggsave(filename = "plot.constant.pdf", plot.constant, width = 4, height = 4, unit = "in")
 
 plotworst
 plot.baddetect_goodintro
