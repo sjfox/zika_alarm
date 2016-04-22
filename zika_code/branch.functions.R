@@ -358,7 +358,7 @@ scale_rnott <- function(relative, max) {
 
 # Function to calculate discovery percentage 
 calculate.discover <- function(disc_p){
-  round(1-((1-disc_p)^7), digits = 2)*100
+  round(1-((1-disc_p)^9.88), digits = 2)*100
 } 
 
 

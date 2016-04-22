@@ -21,52 +21,88 @@ library(cowplot)
 # e_thresh -- total instantaneous I's that count as epidemic escape (not cumulative):
 
 #Parameters 
-branch_params <- function(r_not = 1.1,
+branch_params <- function(r_not = 0.9,
                           infBoxes = 3,
                           incBoxes = 6,
                           recov_p = 0.3040571/(3/infBoxes),
                           incub_rate = 0.583917,
                           prop_p =  r_not*recov_p/infBoxes, 
-                          d_thres = 5,
-                          e_thresh = 500,
+                          e_thresh = 1000,
                           prob_symp = 1,
                           dis_prob_symp = .01,
                           dis_prob_asymp = 0.00 ,
                           intro_rate = 0.000)
   return(as.list(environment()))
 
-dir_path <- "~/projects/zika_alarm/data/first_runs/"
+dir_path <- "~/projects/zika_alarm/data/sep_intros/"
 save_path <- "~/projects/zika_alarm/data/"
+fig_path <- "~/projects/zika_alarm/ExploratoryFigures/"
 
-# save_final_sizes(dir_path, save_path)
-
-r_nots <- c(0.9, 1.1, 1.5)
-disc_probs <- c(0.011, 0.068)
-intro_rates <- c(.01, 0.05, 0.1, .3)
-
-test <- get_escape_prob_by_d(dir_path, r_nots, disc_probs, intro_rates)
-
-plot1 <- ggplot(test, aes(d_thresh, prob_esc, color = as.factor(r_not))) + 
-  geom_line(size=1, aes(linetype=as.factor(disc_prob))) + facet_wrap(~intro_rate)+
-  scale_y_continuous(expand=c(0.01,0.01)) +
-  scale_color_brewer(palette="Set1")+
-  theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank())+
-  labs(x = "Cumulative Number of Detected Cases", y = "Probability of an Epidemic", color = expression("R"[0]))+
-  guides(linetype= FALSE)
-
-print(plot1)
-save_plot(filename = "../ExploratoryFigures/epi_prob_by_detected.pdf", plot = plot1, base_aspect_ratio = 1.5)
+load(get_vec_of_files(dir_path, 1.2, .068, 0.1))
 
 
+# plot_final_sizes(trials)
+# plot_intro_final_sizes(trials)
+# plot_local_final_sizes(trials)
+# plot_max_nonintro_prevalences(trials)
+# plot_max_prevalences(trials)
+
+get_prev_by_detects_plot <- function(dir_path, r_nots, disc_probs, intro_rates){
+  data.files <- get_vec_of_files(dir_path, r_nots, disc_probs, intro_rates)
+  ldply(data.files, function(x) {
+    load(x)
+    parms <- get_parms(x)
+    prevalences <- get_prev_by_detects_all(trials, f=totalprev_by_totaldetects)  
+    
+    prevalences <- ddply(prevalences, .(detected), .fun = function(x){ 
+                      quants <-  quantile(x = x$prevalence, probs = c(0.5, 0.25, 0.75), names=FALSE) 
+                      data.frame(median=quants[1], min = quants[2], max = quants[3])
+                    })
+    cbind(as.data.frame(parms), prevalences)
+  })  
+}
+
+r_nots <- c(0.9, 1.3)
+disc_probs <- c(0.011, 0.0287)
+intros <- 0.1
+prev_plot_data <- get_prev_by_detects_plot(dir_path, r_nots = r_nots, disc_probs = disc_probs, intro_rates = intros)
+prev_plot <- plot_prevalences(prev_plot_data)
+# print(prev_plot)  
 
 
-######################################
-## Plot maps of Texas
 
 
 
 
 
+
+
+
+
+
+
+
+
+# ######### Supplemental figures
+### Porbability below threshold graph
+thresholds <- c(25)
+r_nots <- c(0.9, 1.1, 1.3)
+disc_probs <- c(0.011,.0287, 0.068)
+intro_rates <- c(.05, 0.3)
+temp <- get_prob_below_plot(dir_path, thresholds, r_nots, disc_probs, intro_rates)
+
+prob_below <- plot_prob_below(temp)
+save_plot(paste0(fig_path, "probability_below_supplemental.pdf"),prob_below, base_height = 5, base_aspect_ratio = 2)
+
+### Epidemic probability graph
+# r_nots <- c(0.9, 1, 1.3)
+# disc_probs <- c(0.011, 0.0287, 0.068)
+# intro_rates <- c(.05, 0.1)
+# temp <- get_epidemic_prob_plot(dir_path, prev_threshold = 25, cum_threshold = 1000, r_nots, disc_probs, intro_rates)
+# 
+# epi_plot <- plot_epidemic_prob(temp)
+# save_plot(paste0(fig_path, "epi_prob_supplemental.pdf"),epi_plot, base_height = 5, base_aspect_ratio = 1.7)
+# 
 
 
 # get_rows_final_sizes <- function(final_sizes, r_nots, disc_probs, intro_rates){
@@ -87,3 +123,36 @@ save_plot(filename = "../ExploratoryFigures/epi_prob_by_detected.pdf", plot = pl
 # save_plot(filename = "../ExploratoryFigures/final_sizes.pdf", plot = final_plot, base_height = 10, base_width = 12)
 # 
 # 
+
+
+# example <- get_vec_of_files(dir_path, 1.1, 0.011, .1)
+# load(example)
+# plotDat <- trials[[3]]
+# plotDat <- melt(plotDat, id.vars = c("time"), measure.vars = c("New_Detections","New_Infectious"))
+# plotDat <- plotDat[plotDat$time<100, ]
+# plotDat$variable <- ifelse(plotDat$variable=="New_Detections", "Newly Detected", "Newly Infectious")
+# ts_plot <- ggplot(plotDat, aes(time, y=value, fill=variable)) + geom_bar(stat="identity", position="dodge") +
+#   theme_cowplot() %+replace% theme(legend.position=c(0.2,0.8))+
+#   scale_y_continuous(expand=c(0.0,0.0))+
+#   scale_x_continuous(expand=c(0.03,0.05))+
+#   scale_fill_manual(values=c("black", "grey")) + 
+#   scale_color_manual(values=c("black", "grey")) + 
+#   labs(x = "Time (days)", y="Individuals", color = "", fill="") 
+# print(ts_plot)
+# save_plot(filename = "../ExploratoryFigures/ex_ts_bars.pdf", plot = ts_plot, base_height=2, base_aspect_ratio = 2.8)
+# 
+# plotDat <- trials[[3]]
+# plotDat <- melt(plotDat, id.vars = c("time"), measure.vars = c("Cum_Detects", "Cumulative_Infections"))
+# plotDat <- plotDat[plotDat$time<100, ]
+# plotDat$min_val <- ifelse(plotDat$variable=="Cum_Detects", 0, NA)
+# plotDat$min_val[which(is.na(plotDat$min_val))] <- plotDat$value[which(is.na(plotDat$min_val))-nrow(plotDat)/2]
+# plotDat$variable <- ifelse(plotDat$variable=="Cum_Detects", "Detected Cases", "Undetected Cases")
+# ts_plot <- ggplot(plotDat, aes(time, ymax=value,ymin=min_val,  fill=variable)) + geom_ribbon() +
+#   theme_cowplot() %+replace% theme(legend.position=c(0.2,0.8))+
+#   scale_y_continuous(expand=c(0.01,0.01))+
+#   scale_x_continuous(expand=c(0.03,0.05))+
+#   scale_fill_manual(values=c("black", "grey")) + 
+#   labs(x = "Time (days)", y="Individuals", color = "", fill="") 
+# print(ts_plot)
+# 
+# save_plot(filename = "../ExploratoryFigures/ex_ts.pdf", plot = ts_plot, base_height=2, base_aspect_ratio = 2.8)
