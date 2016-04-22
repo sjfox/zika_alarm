@@ -52,21 +52,21 @@ get_parms <- function(path){
 
 ####################################################
 ## Functions for getting escape probability by detection threshold
-cumcases_by_detects <- function(df){
+cumcases_by_detects <- function(df, max_detect=100){
   ## Takes in a data frame trials, and for each
   ## First instance of a new local detection, returns the total prevalence
   
   all_detects <- cum_detect_total(df)
   unique_detects <- unique(all_detects)
   ## Only  interested in maximum of 100 detections
-  unique_detects <- unique_detects[unique_detects<=100]
+  unique_detects <- unique_detects[unique_detects<=max_detect]
   
   data.frame(detected = unique_detects, cum_infections = last_cuminfect_value(df), max_prevalence = max_prevalence(df))
 }
 
-get_cumcases_by_detects_all <- function(x){
+get_cumcases_by_detects_all <- function(x, max_detect=100){
   ## Returns data frame of all prevalence by detections for all trials
-  ldply(x, cumcases_by_detects)
+  ldply(x, cumcases_by_detects, max_detect)
 }
 
 
@@ -90,7 +90,7 @@ get_epidemic_prob_by_d <- function(trials, prev_threshold, cum_threshold, max_de
   
   detected <- seq(0, max_detect)
   
-  data <- get_cumcases_by_detects_all(trials)
+  data <- get_cumcases_by_detects_all(trials, max_detect = max_detect)
 
   probs <- freq_above_thresh_vec(data, detected, cum_threshold, prev_threshold)
   return(data.frame(detected=detected, prob_epidemic=probs))
@@ -138,14 +138,14 @@ get_epidemic_prob_plot <- function(dir_path, prev_threshold, cum_threshold, r_no
 # }  
 
 
-totalprev_by_totaldetects <- function(df){
+totalprev_by_totaldetects <- function(df, max_detect){
   ## Takes in a data frame trials, and for each
   ## First instance of a new local detection, returns the total prevalence
   
   all_detects <- cum_detect_total(df)
   unique_detects <- unique(all_detects)
   ## Only  interested in maximum of 100 detections
-  unique_detects <- unique_detects[unique_detects<=100]
+  unique_detects <- unique_detects[unique_detects<=max_detect]
   
   matches <- match(unique_detects, all_detects)
   data.frame(detected = unique_detects, prevalence=prevalence_total(df)[matches])
@@ -164,9 +164,9 @@ totalprev_by_totaldetects <- function(df){
 #   data.frame(detected = unique_detects, prevalence=prevalence_local(df)[matches])
 # }
 
-get_prev_by_detects_all <- function(x, f){
+get_prev_by_detects_all <- function(x, f, max_detect=100){
   ## Returns data frame of all prevalence by detections for all trials
-  ldply(x, f)
+  ldply(x, f, max_detect)
 }
 
 freq_below_thresh <- function(df, detected, threshold){
@@ -206,6 +206,21 @@ get_prob_below_plot <- function(dir_path, thresholds, r_nots, disc_probs, intro_
   })  
 }
 
+
+get_prev_by_detects_plot <- function(dir_path, r_nots, disc_probs, intro_rates){
+  data.files <- get_vec_of_files(dir_path, r_nots, disc_probs, intro_rates)
+  ldply(data.files, function(x) {
+    load(x)
+    parms <- get_parms(x)
+    prevalences <- get_prev_by_detects_all(trials, f=totalprev_by_totaldetects)  
+    
+    prevalences <- ddply(prevalences, .(detected), .fun = function(x){ 
+      quants <-  quantile(x = x$prevalence, probs = c(0.5, 0.25, 0.75), names=FALSE) 
+      data.frame(median=quants[1], min = quants[2], max = quants[3])
+    })
+    cbind(as.data.frame(parms), prevalences)
+  })  
+}
 
 
 #########################################################
@@ -266,35 +281,69 @@ get_freq_at_detect <- function(trials, f, type = "all", max_detect=50) {
 ## Function to get all surveillance for all R0s 
 calculate_all_triggers <- function(dir_path, r_nots, intro_rate, disc_prob,threshold, confidence) {
   dirPaths = get_vec_of_files(dir_path, r_nots, disc_prob, intro_rate)
-  calculate_triggers <- adply(.data = dirPaths, .margins = 1, .expand = TRUE, .fun = function (x) {
+  ldply(dirPaths, function(x) {
     load(x)
-    trigger <- get_surveillance_trigger(trials, f = totalprev_by_totaldetects, threshold, confidence, max_detect = 100)
-    parms <- c(params$r_not, params$dis_prob_symp, params$intro_rate) 
-    result <- cbind(as.data.frame(matrix(parms,ncol=3)), threshold, confidence, trigger)
-    return(result)
+    trigger <- get_surveillance_trigger(trials, threshold, confidence, max_detect = 200)
+    parms <- get_parms(x)
+    cbind(parms, data.frame(threshold=threshold, confidence=confidence, trigger=trigger))
   })
 }
   
 
-get_surveillance_trigger <- function(trials, f, threshold, confidence, type="all", max_detect=100){
+get_surveillance_trigger <- function(trials, threshold, confidence, max_detect=200){
   ## Returns the max number of detected cases based on
   ## a specified threshold when X number of cases have been detected 
   ## and a tolerance for being X sure
-  detected <- seq(0,max_detect) 
-  data <- get_prev_by_detects_all(trials, f=totalprev_by_totaldetects) 
-  probs <- freq_below_thresh_vec(data, detected, threshold=20)
-  threshold.probs <- probs - confidence
-  threshold.positive <- threshold.probs[which(threshold.probs > 0)]
-  if (length(threshold.positive) == 0) { 
+  detected <- seq(0, max_detect) 
+  data <- get_prev_by_detects_all(x = trials, f=totalprev_by_totaldetects, max_detect = max_detect) 
+  probs <- freq_below_thresh_vec(data, detected, threshold=threshold)
+  # threshold.probs <- probs - confidence
+  # threshold.positive <- threshold.probs[threshold.probs > 0]
+  temp <- which(probs < confidence)
+  
+  if (is.na(temp[1])) { 
     # All were negatives-already took off
-    threshold = 0
-  } else if (threshold.positive[length(threshold.positive)] == (1-confidence) & is.na(threshold.probs[length(threshold.positive) + 1]))  { 
-    # Never Hit Threshold 
     threshold = NA
-  } else 
-    threshold <- length(threshold.positive)
+  } else if (temp[1]==1)  { 
+    # Never Hit Threshold 
+    threshold = 0
+  } else {
+    ## subtract 2, because 1 due to detecteds starting at 0, second due to finding
+    ## the first match for being less than 0.8, and we want match just before 0.8
+    threshold <- temp[1] - 2
+  }
   return(threshold)
 }
 
 
+## Function to get all surveillance for all R0s 
+calculate_all_epidemics <- function(dir_path, r_nots, intro_rate, disc_prob, threshold, confidence) {
+  dirPaths = get_vec_of_files(dir_path, r_nots, disc_prob, intro_rate)
+  ldply(dirPaths, function(x) {
+    load(x)
+    trigger <- get_epidemic_trigger(trials, threshold, confidence, max_detect = 200)
+    parms <- get_parms(x)
+    cbind(parms, data.frame(threshold=threshold, confidence=confidence, trigger=trigger))
+  })
+}
 
+
+get_epidemic_trigger <- function(trials, threshold, confidence, max_detect=200){
+  ## Returns the max number of detected cases based on
+  ## a specified threshold when X number of cases have been detected 
+  ## and a tolerance for being X sure
+  detected <- seq(0, max_detect) 
+  data <- get_epidemic_prob_by_d(trials = trials, prev_threshold = 25, cum_threshold = 1000, max_detect = max_detect) 
+  temp <- which(data$prob_epidemic >= confidence)
+  if (is.na(temp[1])) { 
+    # Never hit the threshold
+    threshold = NA
+  } else if (temp[1]==1)  { 
+    # hit threshold right away
+    threshold = 0
+  } else {
+    ## subtract 2, because 1 due to detecteds starting at 0
+    threshold <- temp[1] - 1
+  }
+  return(threshold)
+}

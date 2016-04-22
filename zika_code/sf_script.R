@@ -38,8 +38,21 @@ dir_path <- "~/projects/zika_alarm/data/sep_intros/"
 save_path <- "~/projects/zika_alarm/data/"
 fig_path <- "~/projects/zika_alarm/ExploratoryFigures/"
 
-load(get_vec_of_files(dir_path, 1.2, .068, 0.1))
+load(get_vec_of_files(dir_path, 1.2, .068, 0.05))
 
+get_epidemic_trigger(trials, 25, 0.8)
+
+get_surveillance_trigger(trials, 25, 0.8)
+
+r_nots <- seq(1, 1.9, by=0.1)
+intros <- c(0.05, .1,.3)
+det_probs <- c(0.011, 0.0287)
+test <- calculate_all_epidemics(dir_path, r_nots, intros, det_probs, 25, 0.8)
+
+test <- calculate_all_triggers(dir_path, r_nots, intro_rate = intros, disc_prob = det_probs, threshold = 20, confidence = 0.8)
+
+ggplot(test, aes(r_not, trigger, linetype=as.factor(disc_prob), color=as.factor(intro_rate))) + 
+  geom_line() + scale_y_log10()
 
 # plot_final_sizes(trials)
 # plot_intro_final_sizes(trials)
@@ -47,20 +60,7 @@ load(get_vec_of_files(dir_path, 1.2, .068, 0.1))
 # plot_max_nonintro_prevalences(trials)
 # plot_max_prevalences(trials)
 
-get_prev_by_detects_plot <- function(dir_path, r_nots, disc_probs, intro_rates){
-  data.files <- get_vec_of_files(dir_path, r_nots, disc_probs, intro_rates)
-  ldply(data.files, function(x) {
-    load(x)
-    parms <- get_parms(x)
-    prevalences <- get_prev_by_detects_all(trials, f=totalprev_by_totaldetects)  
-    
-    prevalences <- ddply(prevalences, .(detected), .fun = function(x){ 
-                      quants <-  quantile(x = x$prevalence, probs = c(0.5, 0.25, 0.75), names=FALSE) 
-                      data.frame(median=quants[1], min = quants[2], max = quants[3])
-                    })
-    cbind(as.data.frame(parms), prevalences)
-  })  
-}
+
 
 r_nots <- c(0.9, 1.3)
 disc_probs <- c(0.011, 0.0287)
@@ -71,8 +71,7 @@ prev_plot <- plot_prevalences(prev_plot_data)
 
 
 
-
-
+get_prob_below_threshold(trials, totalprev_by_totaldetects, 25, max_detect = 100)
 
 
 

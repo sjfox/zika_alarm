@@ -60,7 +60,7 @@ plot_prob_below <- function(df){
 }
 
 
-plot_prob_below <- function(df){
+plot_epidemic_prob <- function(df){
   df$disc_prob <- calculate.discover(df$disc_prob)
   ggplot(df, aes(detected, prob_epidemic, color = as.factor(r_not))) +
     geom_line(size=1, aes(linetype=as.factor(disc_prob))) + facet_wrap(~intro_rate)+
@@ -72,6 +72,25 @@ plot_prob_below <- function(df){
     labs(x = "Cumulative Number of Detected Cases", 
          y = "Probability of an Epidemic", 
          color = expression("R"[0]), 
+         linetype= "Detection \nProbability")
+}
+
+plot_prevalences <- function(df){
+  
+  df$disc_prob <- calculate.discover(df$disc_prob)
+  
+  ggplot(df, aes(detected, median, color=as.factor(r_not), linetype=as.factor(disc_prob), fill=as.factor(r_not))) + 
+    geom_line(size=1)+
+    geom_ribbon(aes(ymax=max, ymin=min), alpha=0.1)+
+    scale_y_log10(expand=c(0.01,0.01))+
+    scale_x_continuous(expand=c(0.01,0.01), limits=c(0,50))+
+    scale_color_brewer(palette="Set1", direction = -1)+
+    scale_fill_brewer(palette="Set1", direction=-1)+
+    guides(linetype=guide_legend(override.aes=list(fill=NA)))+
+    labs(x = "Cumulative Number of Detected Cases", 
+         y = "Current Prevalence (log scale)", 
+         color = expression("R"[0]), 
+         fill = expression("R"[0]), 
          linetype= "Detection \nProbability")
 }
 
