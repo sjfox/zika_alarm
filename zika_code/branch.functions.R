@@ -65,7 +65,7 @@ all_max_prevalence <- function(x) {
   return(unlist(laply(x, max_prevalence)))
 }
 
-## Find the max non introducedprevalence
+## Find the max non introduced prevalence
 max_nonintro_prevalence <- function(x){
   return(max(x[,"Total_Infections"]-x[,"Total_Intro_Infections"]))
 }
@@ -98,13 +98,35 @@ prevalence_total <- function(x){
   x[, "Total_Infections"]
 }
 
-
 ### Calculate Secondary Transmitted Detections for whole time series
+calculate_second_detections <- function(x) {
+  second_detections <- x[,"Cum_Detections"] - x[,"Cum_Intro_Detections"]
+  x <- cbind(x, second_detections)
+  return(x)
+}
+
+all_second_detections <- function(x) {
+  return(llply(x, calculate_second_detections))
+}
 
 ### Calculate Secondary Transmitted Cases for whole time series 
+calculate_second_prevalence <- function(x) {
+  second_infections <- x[,"Total_Infections"] - x[,"Total_Intro_Infections"]
+  x <- cbind(x, second_infections)
+  return(x)
+}
+
+all_second_current_infections <- function(x) {
+  return(llply(x, calculate_second_prevalence))
+}
+
+
 
 
 ## Calculate Secondary Cumulative Cases for whole time series 
+
+
+
 
 ## Set of functions to calculate given I have X cases, what is the distribution of cases I see 
 library(ggplot2)
