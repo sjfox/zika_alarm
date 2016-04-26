@@ -38,17 +38,63 @@ dir_path <- "~/projects/zika_alarm/data/sep_intros/"
 save_path <- "~/projects/zika_alarm/data/"
 fig_path <- "~/projects/zika_alarm/ExploratoryFigures/"
 
+prevalence <- 25
+confidence <- seq(0.5, 0.95, by=0.05)
+
+save_calc_epidemic_triggers <- function(dir_path, save_path, threshold, confidences){
+  r_nots <- seq(0.1, 2, by=0.1)
+  disc_probs <- c(0.0052, 0.011, 0.01635, .0287, 0.068) 
+  intro_rates <- c(0.0, 0.01, 0.05, 0.1, 0.2, 0.3)
+  epidemic_triggers <- as.data.frame(t(calculate_all_epidemics_vec(dir_path = dir_path, r_nots = r_nots, 
+                                                                   intro_rate = intro_rates, disc_prob = disc_probs, 
+                                                                   threshold = threshold, confidence=confidences)))
+  save( list = c('epidemic_triggers'), file = file.path(save_path, paste0("epidemic_triggers.Rdata")))  
+}
+
+save_calc_prev_triggers <- function(dir_path, save_path, threshold, confidences){
+  r_nots <- seq(0.1, 2, by=0.1)
+  disc_probs <- c(0.0052, 0.011, 0.01635, .0287, 0.068) 
+  intro_rates <- c(0.0, 0.01, 0.05, 0.1, 0.2, 0.3)
+  prevalence_triggers <- as.data.frame(t(calculate_all_triggers_vec(dir_path = dir_path, r_nots = r_nots, 
+                                                                    intro_rate = intro_rates, disc_prob = disc_probs, 
+                                                                   threshold = threshold, confidence=confidences)))
+  save( list = c('prevalence_triggers'), file = file.path(save_path, paste0("prevalence_triggers.Rdata")))  
+}
+
+
+save_calc_epidemic_triggers(dir_path, save_path, threshold=prevalence, confidences = confidence)
+save_calc_prev_triggers(dir_path, save_path, threshold=prevalence, confidences = confidence)
+
 load(get_vec_of_files(dir_path, 1.2, .068, 0.05))
 
 get_epidemic_trigger(trials, 25, 0.8)
 
 get_surveillance_trigger(trials, 25, 0.8)
+# load("/Users/spencerfox/projects/zika_alarm/data/epidemic_triggers.Rdata")
+# 
+# get_trigger_data <- function(df, rnot, intro, disc, threshold, confidence){
+#   df[which(df$r_not%in%rnot & df$intro_rate %in% intro & df$disc_prob%in%disc  & df$threshold %in% threshold & df$confidence %in% confidence),]
+# }
+# 
+# 
+# test <- data.frame(r_not = unlist(epidemic_triggers$r_not), 
+#                    disc_prob=unlist(epidemic_triggers$disc_prob), 
+#                    intro_rate = unlist(epidemic_triggers$intro_rate),
+#                    threshold=unlist(epidemic_triggers$threshold),
+#                    confidence= unlist(epidemic_triggers$confidence),
+#                    trigger= unlist(epidemic_triggers$trigger))
+# 
+# epi_triggers <- test
+# save( list = c('epi_triggers'), file = file.path(save_path, paste0("epi_triggers.Rdata")))
 
+temp <- get_trigger_data(test, 0.9, 0.1, 0.0287, 25, confidence)
+temp
+calculate_all_epidemics(dir_path, 0.9, 0.1, 0.0287, 25, 0.8)
 
-
-
-
-
+load(get_vec_of_files(dir_path, 0.9, 0.0287, 0.1))
+plot_final_sizes(trials)
+plot_intro_final_sizes(trials)
+plot_max_prevalences(trials)
 
 
 print(prev_trigger_plot)
@@ -147,7 +193,7 @@ save_plot(paste0(fig_path, "probability_below_supplemental.pdf"),prob_below, bas
 # 
 # 
 
-
+################ Figure 1, understanding the overarching question!
 example <- get_vec_of_files(dir_path, 1.1, 0.011, .1)
 load(example)
 

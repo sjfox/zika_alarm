@@ -43,6 +43,14 @@ plot_max_prevalences <- function(x){
     labs(x = "Max TOTAL prevalence")
 }
 
+plot_detections <- function(x){
+  final.sizes <- all_last_cumdetect_values(x)
+  qplot(final.sizes, geom="histogram", bins=50) +
+    scale_y_continuous(expand=c(0,0)) + 
+    scale_x_continuous(expand=c(0,0))+
+    labs(x = "Detections")
+}
+
 plot_prob_below <- function(df){
   df$disc_prob <- calculate.discover(df$disc_prob)
   ggplot(df, aes(detected, prob_below, linetype=as.factor(disc_prob), color = as.factor(r_not))) + 
@@ -87,7 +95,7 @@ plot_prevalences <- function(df){
     scale_color_brewer(palette="Set1", direction = -1)+
     scale_fill_brewer(palette="Set1", direction=-1)+
     guides(linetype=guide_legend(override.aes=list(fill=NA)))+
-    labs(x = "Cumulative Number of Detected Cases", 
+    labs(x = "Cumulative Detected Cases", 
          y = "Current Prevalence (log scale)", 
          color = expression("R"[0]), 
          fill = expression("R"[0]), 

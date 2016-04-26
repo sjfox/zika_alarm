@@ -288,7 +288,9 @@ calculate_all_triggers <- function(dir_path, r_nots, intro_rate, disc_prob,thres
     cbind(parms, data.frame(threshold=threshold, confidence=confidence, trigger=trigger))
   })
 }
-  
+
+calculate_all_triggers_vec <- Vectorize(calculate_all_triggers, vectorize.args="confidence")
+
 
 get_surveillance_trigger <- function(trials, threshold, confidence, max_detect=200){
   ## Returns the max number of detected cases based on
@@ -327,6 +329,8 @@ calculate_all_epidemics <- function(dir_path, r_nots, intro_rate, disc_prob, thr
   })
 }
 
+calculate_all_epidemics_vec <- Vectorize(calculate_all_epidemics, vectorize.args="confidence")
+
 
 get_epidemic_trigger <- function(trials, threshold, confidence, max_detect=200){
   ## Returns the max number of detected cases based on
@@ -346,4 +350,56 @@ get_epidemic_trigger <- function(trials, threshold, confidence, max_detect=200){
     threshold <- temp[1] - 1
   }
   return(threshold)
+}
+
+#############################
+## Get saved trigger data
+#############################
+get_trigger_data <- function(rnot, intro, disc, threshold, confidence, type="prevalence"){
+  ## type should equal "prevalence" or "epidemic"
+  ## Gets saved trigger data, and returns data from requested runs
+  if(type=="prevalence"){
+    load("../data/prev_triggers.Rdata")
+    df <- prev_triggers
+  } else{
+    load("../data/epi_triggers.Rdata")
+    df <- epi_triggers
+  }
+  df[which(df$r_not%in%rnot & df$intro_rate %in% intro & df$disc_prob%in%disc  & df$threshold %in% threshold & df$confidence %in% confidence),]
+}
+
+convert_trigger_data <- function(df){
+  ## Converts output of running all trigger runs to a dataframe of
+  ## specific format
+  
+  data.frame(r_not = unlist(df$r_not),
+           disc_prob=unlist(df$disc_prob),
+           intro_rate = unlist(df$intro_rate),
+           threshold=unlist(df$threshold),
+           confidence= unlist(df$confidence),
+           trigger= unlist(df$trigger))
+}
+
+save_calc_epidemic_triggers <- function(dir_path, save_path, threshold, confidences){
+  ## CAlculates and saves all epidemic probability triggers
+  r_nots <- seq(0.1, 2, by=0.1)
+  disc_probs <- c(0.0052, 0.011, 0.01635, .0287, 0.068) 
+  intro_rates <- c(0.0, 0.01, 0.05, 0.1, 0.2, 0.3)
+  epidemic_triggers <- as.data.frame(t(calculate_all_epidemics_vec(dir_path = dir_path, r_nots = r_nots, 
+                                                                   intro_rate = intro_rates, disc_prob = disc_probs, 
+                                                                   threshold = threshold, confidence=confidences)))
+  epidemic_triggers <- convert_trigger_data(epidemic_triggers)
+  save( list = c('epidemic_triggers'), file = file.path(save_path, paste0("epidemic_triggers.Rdata")))  
+}
+
+save_calc_prev_triggers <- function(dir_path, save_path, threshold, confidences){
+  ## Calculates and saves all prevalence triggers
+  r_nots <- seq(0.1, 2, by=0.1)
+  disc_probs <- c(0.0052, 0.011, 0.01635, .0287, 0.068) 
+  intro_rates <- c(0.0, 0.01, 0.05, 0.1, 0.2, 0.3)
+  prevalence_triggers <- as.data.frame(t(calculate_all_triggers_vec(dir_path = dir_path, r_nots = r_nots, 
+                                                                    intro_rate = intro_rates, disc_prob = disc_probs, 
+                                                                    threshold = threshold, confidence=confidences)))
+  prevalence_triggers <- convert_trigger_data(prevalence_triggers)
+  save( list = c('prevalence_triggers'), file = file.path(save_path, paste0("prevalence_triggers.Rdata")))  
 }
