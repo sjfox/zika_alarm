@@ -10,7 +10,7 @@ if(grepl('laurencastro', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zik
 dirPath <- "../../workfolder/data/zika_all/"
 
 data.files <- list.files(path=dirPath, pattern="*.Rdata", full.names=T, recursive=FALSE)
-sink('trigger_calc.txt')
+sink('../launcher/trigger_calc.txt')
 for(file in data.files){
   startCmd <- "R CMD BATCH '--no-restore --no-save --args"
   fileCmd <- paste0(' data.file="', file, '"')
@@ -20,3 +20,4 @@ for(file in data.files){
   cat(full_cmd)               # add command
   cat('\n')              # add new line
 }
+sink()
