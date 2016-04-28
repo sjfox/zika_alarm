@@ -363,7 +363,15 @@ get_trigger_data <- function(rnot, intro, disc, threshold, confidence){
   df[which(df$r_not%in%rnot & df$intro_rate %in% intro & df$disc_prob%in%disc  & df$threshold %in% threshold & df$confidence %in% confidence),]  
 }
 
-
+combine_triggers <- function(dir_path, save_path) {
+  ## Function that combines TACC trigger data output into one file
+  data.files <- list.files(path=dir_path, pattern="*.Rdata", full.names=T, recursive=FALSE)
+  all_triggers <- ldply(data.files, function(x) {
+    load(x)
+    triggers
+  })
+  save(list = c("all_triggers"), file = paste0(save_path, "all_triggers.Rdata"))
+}
 
 
 
