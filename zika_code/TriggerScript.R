@@ -19,11 +19,8 @@ library(plyr)
 
 
 #### Read in file with county R0 and Texas shape file
-county_plot <- read.csv("~/Documents/zika_alarm/csvs/county_plot.csv")
-setwd('..'); setwd('TexasCountyShapeFiles')
-texas.county <- readShapeSpatial('texas.county.shp', proj4string = CRS("+proj=longlat +datum=WGS84"))
-setwd('../zika_code/')
-
+county_plot <- read.csv("../csvs/county_plot.csv")
+texas.county <- readShapeSpatial('../TexasCountyShapeFiles/texas.county.shp', proj4string = CRS("+proj=longlat +datum=WGS84"))
 
 ## Melt R0
 county_plot.m <- melt(data = county_plot, id.vars = c("id", "Geography", "R0_round", "importation_probability"), 
