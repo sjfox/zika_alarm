@@ -18,16 +18,16 @@ library(cowplot)
 
 
 #### Read in file with county R0 and Texas shape file
-county_plot <- read.csv("../csvs/county_plot.csv")
+county_plot <- read.csv("../csvs/county_master.csv")
 texas.county <- readShapeSpatial('../TexasCountyShapeFiles/texas.county.shp', proj4string = CRS("+proj=longlat +datum=WGS84"))
 
 ## Melt R0
-county_plot.m <- melt(data = county_plot, id.vars = c("id", "Geography", "metro_round", "importation_probability"), 
+county_plot.m <- melt(data = county_plot, id.vars = c("id", "Geography", "rnott.metro", "importation_probability"), 
                       measure.vars = c("importation.current", "importation.projected", "importation.worse.projected"))
-colnames(county_plot.m) <- c("id", "geography", "metro_round", "importation_probability", "scenario", "import.rate")
+colnames(county_plot.m) <- c("id", "geography", "rnott.expected", "importation_probability", "scenario", "import.rate")
 
 ### Calculate Surveillance Triggers For R0s and Import Rates 
-rnots <- sort(unique(county_plot.m$metro_round))
+rnots <- sort(unique(county_plot.m$rnott.expected))
 import.rates <- sort(unique(county_plot.m$import.rate))
 
 triggers <- get_trigger_data(rnots, intro = import.rates,
@@ -35,7 +35,7 @@ triggers <- get_trigger_data(rnots, intro = import.rates,
 
 #### Match R0/Import Rate with Trigger
 county_plot.m <- merge(x = county_plot.m, y = triggers[,c("r_not", "intro_rate", "prev_trigger")], 
-                       by.x=c("metro_round", "import.rate"), by.y=c("r_not", "intro_rate"), all.x=TRUE, sort=FALSE)
+                       by.x=c("rnott.expected", "import.rate"), by.y=c("r_not", "intro_rate"), all.x=TRUE, sort=FALSE)
 
 
 #### Fortifying Data to ShapeFile for ggplot 

@@ -6,168 +6,143 @@ library(sp)
 library(maptools)
 
 
-
 # Cutting World Layer to Texas
-setwd(dir = "Downloads/")
-world.aegypti <- raster("aegypti.tif.ovr")
+county_master <- read.csv("../csvs/county_master.csv")
+world.aegypti <- raster("~/Downloads/aegypti.tif.ovr")
 bb <- extent(-180, 180, -90, 90)
 extent(world.aegypti) <- bb
 world.aegypti <- setExtent(world.aegypti, bb, keepres=TRUE)
 projection(world.aegypti) <- CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs")
 
-
 world.cut <- crop(world.aegypti, extent(texas.county))
 perkins.tx <- mask(world.cut, texas.county)
-
-castro.tx_raw <- read.asc("aedes_aegypti_avg.asc")
-castro.tx_raw <- raster.from.asc(castro.tx_raw)
-plot(castro.tx_raw)
-
-plot(log(castro.tx_raw))
-
-castro.tx_raw <- crop(castro.tx_raw, extent(texas.county))
-castro.tx_raw <- mask(castro.tx_raw, texas.county)
-cellStats(x = castro.tx_raw, stat = "sum")
-
-castro.mean_raw <- mean.county(raster = castro.tx_raw, shapefile = texas.county, name = "habitat.castro")
-
-castro.mosquito <- -log(1-castro.mean)
-
-
 
 
 # Calculating Mosquito Abundance
 mosquito.occurrence <- mean.county(raster = perkins.tx, shapefile = texas.county, name = "occurrence")
 mosquito.abundance <- -log(1-mosquito.occurrence)
+mosquito.abundance <- as.numeric(mosquito.abundance)
+county_master$mosquito.abundance <- mosquito.abundance
 
-#already on the county_ids
-county_ids$mosquito.abundance <- mosquito.abundance ; colnames(county_ids$mosquito.abundance) <- ""
 
-
+mosquito_abundance.metro = ddply(county_master,.variables = 'Metro', summarise, mean(mosquito.abundance))
+mosquito_abundance.metro <- mosquito_abundance.metro[-16,]
+GDP_metro = ddply(.data = county_master, .variables = 'Metro', summarise, mean(GDP))
+GDP_metro <- GDP_metro[-16,]
 
 # Calculating Ranges of GDP to set Ranges of Multiplication Factor 
-
-# First calculate the R0 for each county
-GDP <- log(county_ids$GDP_capita)-10
-#logMF <- -1.5-(.5/1)*GDP #High
-logMF <- -1.7-(.3/1)*GDP #Expected
-#logMF <- -1.9-(.3/1.5)*GDP #Low 
-
-MF <- exp(logMF)
-m.to.h.full <- MF * r0_low$mosquito.abundance
-
-county_ids$m.to.h.full <- m.to.h.full
-r0_expected$m.to.h.full <- m.to.h.full
+GDP <- log(county_master$GDP)-10
+logMF.high <- -1-(.3/1)*GDP #High
+logMF.expected <- -1.7-(.3/1)*GDP #Expected
+logMF.low <- -2.1-(.3/1)*GDP #Low 
+logMF.high.slope <- -1-(1/1)*GDP
 
 
-### SEPARATING RO INTO METRO AREAS 
-#When calculating the metro R0 
-mosquito_abundance.metro = ddply(r0_high,.variables = 'Metro', summarise, mean(mosquito.abundance))
-mosquito_abundance.metro = mosquito_abundance[-16, ]
-colnames(mosquito_abundance.metro) = c("MetroArea", "mosquito.abundance")
+MF.high <- exp(logMF.high)
+MF.expected <- exp(logMF.expected)
+MF.low <- exp(logMF.low)
+MF.high.slope <- exp(logMF.high.slope)
+
+mosquito.high <- MF.high * mosquito.abundance
+mosquito.low <- MF.low * mosquito.abundance
+mosquito.expected <- MF.expected * mosquito.abundance
+mosquito.high.slope <- MF.high.slope * mosquito.abundance
 
 
-GDP_metro = ddply(.data = r0_low, .variables = 'Metro', summarise, mean(GDP_capita))
-GDP_metro = GDP_metro[-16, ]
+GDP <- log(GDP_metro$..1)-10
+logMF.metro <- -1.7-(.3/1)*GDP
+MF.metro <- exp(logMF.metro)
+mosquito.metro <- MF.metro * mosquito_abundance.metro$..1
+
+##### Calculate R0 
+mos.hum.transmission = .4
+c_over_r = 3.5
+alpha = .67
+mos.mortality = 1/25 
+ext.incub = 5
 
 
-GDP_metro <- log(GDP_metro$..1)-10
-logMF.metro = -1.7 - (.3/1)*(GDP_metro)
-metro_MF <- exp(logMF.metro)
-m.to.h.metro <- mosquito_abundance.metro$mosquito.abundance*metro_MF
+#RNOTT SCENARIOS 
+rnott.expected <- c_over_r *(mosquito.expected * mos.hum.transmission*alpha^2*
+                                     exp(-mos.mortality*ext.incub))/mos.mortality
+
+rnott.high = c_over_r * (mosquito.high*mos.hum.transmission*alpha^2*
+                                 exp(-mos.mortality*ext.incub))/mos.mortality
+
+rnott.low = c_over_r * (mosquito.low*mos.hum.transmission*alpha^2*
+                                exp(-mos.mortality*ext.incub))/mos.mortality
+rnott.high.slope = c_over_r * (mosquito.high.slope*mos.hum.transmission*alpha^2*
+                                 exp(-mos.mortality*ext.incub))/mos.mortality
+
+rnott.metro = c_over_r * (mosquito.metro*mos.hum.transmission*alpha^2*
+                            exp(-mos.mortality*ext.incub))/mos.mortality
 metro <- seq(1:15)
-m.t.h.metro <- data.frame(cbind(metro, m.to.h.metro))
+metro.rnott <- cbind(metro, round(rnott.metro, digits = 1)); colnames(metro.rnott) <- c("metro", "rnott.metro")
+county_master<- merge(x = county_master, y = metro.rnott[,c("metro", "rnott.metro")], 
+                       by.x="Metro", by.y="metro", all.x=TRUE, sort=FALSE)
+
+indices = which(is.na(county_master$Metro)) 
+county_master[indices, "rnott.metro"] <- county_master[indices, "rnott.expected.round"]
 
 
 
-
-##### Function to calculate R0 
-calculateR0 <- function(metro, m.to.h) {
-  mos.hum.transmission = .4
-  c_over_r = 3.5
-  alpha = .67
-  mos.mortality = 1/31 # changing this to 31 
-  ext.incub = 5
-  R0 = c_over_r * (m.to.h.metro*mos.hum.transmission*alpha^2*
-                   exp(-mos.mortality*ext.incub))/mos.mortality
-  metro = cbind(metro, R0)
-  return(df)
-}
-
-r0_expected$R0 <- R0
-
-metroR0 <-metro
-r0_expected$MetroR0 <- NA
-
-#Merging Metro Area
-county_ids$MetroR0 <- NA
-
-
-for (i in 1:nrow(metroR0)) {
-  indices = which(r0_expected$Metro == metroR0[i,1])
-  r0_expected$MetroR0[indices] <- metroR0[i,2]
-}
-
-
-indices = which(is.na(county_ids$Metro)) 
-indices = which(is.na(r0_expected$Metro))
-county_ids[indices, 13] <- county_ids[indices, 11]
-r0_expected[indices, "MetroR0"] <- r0_expected[indices, "R0"]
-county_ids$metro_round <- round(county_ids$MetroR0, digits = 1)
-r0_expected$MetroR0_round <- round(r0_expected$MetroR0, digits = 1)
-
-write.csv(r0_low, file = "r0_expected.csv")
+#### Combining to make dataframe of all R0s
+county_master$rnott.expected <- NA; county_master$rnott.expected <- rnott.expected
+county_master$rnott.low <- NA; county_master$rnott.low <- rnott.low
+county_master$rnott.high <- NA; county_master$rnott.high <- rnott.high
+county_master$rnott.high.slope <- NA; county_master$rnott.high.slope <- rnott.high.slope
+county_master$rnott.expected.round <- round(county_master$rnott.expected, digits = 1)
+unique(sort(county_master$rnott.expected.round))
+write.csv(county_master, file= "../csvs/county_master.csv")
 
 
 #### Plotting 
-#comparing R0s 
-r0_compare <- data.frame(cbind(r0_expected$Old_id, r0_expected$id, r0_expected$rownames, r0_expected$MetroR0_round, 
-                    r0_low$MetroR0_round, r0_high$MetroR0_round))
-colnames(r0_compare) <- c("old_id", "id", "rownames", "expectedR0", "lowR0", "highR0")
+fig_path <- "../ExploratoryFigures/"
 
-#Importation When comparing to Castro suitability maps
-#county_ids$castro_R0 <- R0
-#county_ids$castro_combined <- R0 * county_ids$probability
-
-#relativeR0 <- castro.mean_raw/as.data.frame(county_ids$Population.Proportion)
-#county_ids$relativeR0 <- NA
-
-#county_ids <- cbind(county_ids, relativeR0)
+texas.county <- readShapeSpatial('../TexasCountyShapeFiles/texas.county.shp', proj4string = CRS("+proj=longlat +datum=WGS84"))
+rnott_plot.m <- melt(data = county_master, id.vars = c("id", "Geography"), measure.vars = c("rnott.expected", "rnott.low", "rnott.high", "rnott.high.slope"))
+colnames(rnott_plot.m) <- c("id", "Geography", "rnott.scenario", "rnott")
 
 
-
-#county_ids$raw_combined <- county_ids$probability * county_ids$habitat.castro
-
-hist(r0_compare$highR0); max(r0_compare$highR0)
-hist(r0_compare$lowR0)
-hist(r0_compare$expectedR0)
-breaks = seq(0,3,1)
+#breaks = seq(0,3,1)
 texas.county.f <- fortify(texas.county, region = "ID")
-merge.texas.county <- merge(texas.county.f, county_plot, by = "id", all.x = TRUE)
-merge.texas.county <- merge(texas.county.f, r0_compare, by = "id", all.x = TRUE)
-final.plot <- merge.texas.county[order(merge.texas.county$id),]
+merge.texas.county <- merge(texas.county.f, rnott_plot.m, by = "id", all.x = TRUE)
+rnott.data <- merge.texas.county[order(merge.texas.county$id),]
+cols <- rev(heat.colors(length(breaks.rnott)))
 
-breaks = seq(from = 0, to = 2, by = .2)
-plot <- ggplot()+geom_polygon(data = final.plot, aes(x=long, y = lat, group = group, fill = R0_round), color = "black", size = .25) + 
-  coord_map() + 
-  scale_fill_gradient2(name = expression("R"[0]), low = "yellow", mid = "red",
-                      high = "dark red",  midpoint = 1, na.value = "white", breaks = breaks, limits = c(0,2)) +
-  theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank()) +
-  labs(x=NULL, y = NULL) +
-  theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(), line = element_blank()) +
-  theme(legend.position = "right") +
-  theme(legend.text=element_text(size=12, margin = margin(), debug = FALSE), legend.title = element_text(size = 18)) +
-  theme(legend.key.size =  unit(0.5, "in")) 
-  #geom_polygon(data=lamb_county, aes(x=long, y = lat, group = group), fill="grey", color = "black", size = .25, inherit.aes = FALSE)
+breaks.rnott <- seq(from = 0, to = 4, by = 1)
+labels <- c(rnott.expected = "Expected", rnott.low = "Low", rnott.high = "High", rnott.high.slope = "Mixed")
+sp + facet_grid(. ~ sex, labeller=labeller(sex = labels))
 
-plot
-
-
-sort(r0_compare$expectedR0)
-#lamb_county <- final.plot[which(final.plot$rownames == 141),]
+plot.rnott <- ggplot(rnott.data, aes(x=long, y = lat)) +
+    geom_polygon(data = rnott.data, aes(group = group, fill = rnott), color = "black", size = .25) +
+    facet_wrap(~rnott.scenario, nrow = 2, dir = "h", labeller = labeller(rnott.scenario = labels)) +
+    scale_x_continuous("", breaks=NULL) + 
+    scale_y_continuous("", breaks=NULL) + 
+    scale_fill_gradient(name = expression("R"[0]), low = "yellow", high = "red") +
+    theme_cowplot() + theme(strip.background = element_blank()) + 
+    theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(), line = element_blank()) +
+    theme(legend.position = "right") +
+    theme(legend.text=element_text(size=12, margin = margin(), debug = FALSE), legend.title = element_text(size = 18)) +
+    theme(legend.key.size =  unit(0.5, "in")) 
   
- 
+save_plot(filename = paste0(fig_path, "supplement_R0.pdf"), plot = plot.rnott, base_height = 8, base_aspect_ratio = 1.1)  
 
 
-sort(unique(county_ids$metro_round))
-  
+
+
+########### script to test the id of a county
+county.test <- read.csv("../csvs/county_test.csv")
+texas.county.f <- fortify(texas.county, region = "ID")
+merge.texas.county <- merge(texas.county.f, county_master, by = "id", all.x = TRUE)
+test.plot <- merge.texas.county[order(merge.texas.county$id),]
+
+test.sub.county <- test.plot[test.plot$Geography == "Medina County, Texas", ]
+
+
+plot <- ggplot(test.plot, aes(x = long, y = lat)) + geom_polygon(data = test.plot, aes(group = group, fill = "red"), color = "black", size = .25)
+layer <- plot + geom_polygon(data =test.sub.county, aes(x = long, y = lat, group = group, fill = "grey"))
+save_plot(filename = paste0(fig_path, "testing_id.pdf"), plot = layer, base_height = 8, base_aspect_ratio = 1.1)
+
+
+    
