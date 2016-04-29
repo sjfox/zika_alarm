@@ -23,9 +23,7 @@ cum.map <- plotheatmaps(thres.matrix.cum, type = "Cumulative", names = as.factor
 
 
 
- 
-
-############################################
+#############################################
 dir_path <- "~/Documents/zika_alarm/data/introductions/"
 save_path <- "~/Doucments/zika_alarm/data"
 
@@ -172,7 +170,6 @@ plotbaseline
 combined <- plot_grid(plotbaseline, plot.baddetect_goodintro, 
           plot.gooddetect_badintro, plotworst, labels = c("A", "B", "C", "D"))
 
-r0.triggers
 
 
 
@@ -180,8 +177,7 @@ r0.triggers
 
 
 
-
-
-
+############
+get_trigger_data(rnot = 0.9, intro=0.59 , disc = .05050, threshold = 15, confidence = .5)
 
 
