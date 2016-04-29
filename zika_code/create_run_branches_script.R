@@ -12,10 +12,10 @@ run_type <- "importations"
 ## Calculated by total discovery probability = (1-(1-daily_prob)^9.88)
 disc_probs <- c(0.0052, 0.011, 0.01635, 0.0224, 0.0505) 
 if(run_type== "importations"){
-  imports <- read.csv("../data/importations.csv")
-  current_combos <- as.character(unique(interaction(imports$metro_round, imports$current,sep = "_")))
-  projected_combos <- as.character(unique(interaction(imports$metro_round, imports$projected,sep = "_")))
-  projected_worst_combos <- as.character(unique(interaction(imports$metro_round, imports$projected.worst,sep = "_")))
+  imports <- read.csv("../csvs/county_plot.csv")
+  current_combos <- as.character(unique(interaction(imports$R0_round, imports$importation.current,sep = "_")))
+  projected_combos <- as.character(unique(interaction(imports$R0_round, imports$importation.projected,sep = "_")))
+  projected_worst_combos <- as.character(unique(interaction(imports$R0_round, imports$importation.worse.projected,sep = "_")))
   
   all_combos <- unique(c(current_combos, projected_combos, projected_worst_combos))
   
