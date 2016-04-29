@@ -9,13 +9,13 @@ if(grepl('laurencastro', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zik
 
 sapply(c('branch.functions.R','plot.functions.R', 'analyze_saved_sims.R'), source)
 library(plyr)
-library(ggplot2)
 library(maptools)
 library(ggplot2)
 library(rgeos)
 library(rgdal)
 library(raster)
 library(plyr)
+library(cowplot)
 
 
 #### Read in file with county R0 and Texas shape file
@@ -35,18 +35,12 @@ triggers <- get_trigger_data(rnots, intro = import.rates, disc = 0.0224, thresho
 
 
 #### Match R0/Import Rate with Trigger
-
-county_plot.m$trigger <- NA
-for (i in 1:nrow(triggers)) {
-  indices = which((county_plot.m$R0_round == triggers[i,"r_not"]) & 
-                    (county_plot.m$import.rate== triggers[i, "intro_rate"])) 
-  county_plot.m$trigger[indices] = triggers[i,"prev_trigger"]
-}
-county_plot.m$trigger <- as.numeric(county_plot.m$trigger)
-
+county_plot.m <- merge(x = county_plot.m, y = triggers[,c("r_not", "intro_rate", "prev_trigger")], 
+              by.x=c("R0_round", "import.rate"), by.y=c("r_not", "intro_rate"), all.x=TRUE, sort=FALSE)
 
 #### Fortifying Data to ShapeFile for ggplot 
 texas.county.f <- fortify(texas.county, region = "ID")
+texas.county.f$id <- as.numeric(texas.county.f$id)
 merge.texas.county <- merge(texas.county.f, county_plot.m, by = "id", all.x = TRUE)
 final.plot <- merge.texas.county[order(merge.texas.county$id),]
 final.plot$import.type <- factor(final.plot$scenario, 
@@ -54,8 +48,6 @@ final.plot$import.type <- factor(final.plot$scenario,
 
 
 #Actual plotting 
-library(cowplot)
-
 #### Importation Probability Map 
 import.breaks <- seq(from = 0, to = .15, by = .015)
 plot.importation <- ggplot(final.plot, aes(x = long, y = lat)) +
@@ -64,32 +56,30 @@ plot.importation <- ggplot(final.plot, aes(x = long, y = lat)) +
   scale_y_continuous("", breaks=NULL) + 
   scale_fill_continuous(name = "Importation \n Probability \n", low = "light yellow", high = "red", 
                         na.value = "grey", breaks = import.breaks) +
-  theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank()) +
-  theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(), line = element_blank()) +
-  labs(x=NULL, y = NULL) +
-  theme(legend.position = "left") +
-  theme(legend.text=element_text(size=12, margin = margin(), debug = FALSE), legend.title = element_text(size = 18)) +
-  theme(legend.key.size =  unit(0.5, "in")) 
+  theme_cowplot() %+replace% theme(legend.position = "left", legend.key.size =  unit(0.5, "in") )+
+  labs(x=NULL, y = NULL) 
 
+print(plot.importation)
 
 
 ###### Trigger Maps, Faceted by Scenario 
-breaks.trigger = seq(from = 0, to = max(final.plot$trigger,na.rm=TRUE), by = 10)
+breaks.trigger = seq(from = 0, to = max(final.plot$prev_trigger,na.rm=TRUE), by = 10)
 plot.trial <- ggplot(final.plot, aes(x=long, y = lat)) +
-  geom_polygon(data = final.plot, aes(group = group, fill = trigger), color = "black", size = .25) +
+  geom_polygon(data = final.plot, aes(group = group, fill = prev_trigger), color = "black", size = .25) +
   facet_wrap(~scenario, nrow = 2, dir = "h") +
   scale_x_continuous("", breaks=NULL) + 
   scale_y_continuous("", breaks=NULL) + 
-  scale_fill_continuous(name = "Surveillance \n Trigger \n", low = "red", high = "yellow", 
+  scale_fill_continuous(name = "Surveillance \n Trigger \n", low = "red", high = "grey", 
                         na.value = "grey", breaks = breaks.trigger) +
-  theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank()) +
-  theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(), line = element_blank()) +
-  labs(x=NULL, y = NULL) +
-  theme(legend.position = "right") +
-  theme(legend.text=element_text(size=12, margin = margin(), debug = FALSE), legend.title = element_text(size = 18)) +
-  theme(legend.key.size =  unit(0.5, "in")) 
+  theme_cowplot() %+replace% theme(strip.background=element_blank(),
+                                   strip.text.x = element_blank(), 
+                                   legend.key.size =  unit(0.5, "in") )+
+  labs(x=NULL, y = NULL) 
+  
+print(plot.trial)
 
-ggsave(plot.trial, filename = "importation2.pdf", height = 7, width = 8, units = "in")
+
+save_plot(plot.trial, filename = "importation2.pdf", height = 7, width = 8, units = "in")
 
 
 

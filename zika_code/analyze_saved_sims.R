@@ -359,6 +359,7 @@ get_trigger_data <- function(rnot, intro, disc, threshold, confidence){
   ## type should equal "prevalence" or "epidemic"
   ## Gets saved trigger data, and returns data from requested runs
   load("../data/all_triggers.Rdata")
+  browser()
   df <- all_triggers
   df[which(df$r_not%in%rnot & df$intro_rate %in% intro & df$disc_prob%in%disc  & df$threshold %in% threshold & df$confidence %in% confidence),]  
 }

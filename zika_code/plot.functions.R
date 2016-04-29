@@ -85,13 +85,13 @@ plot_epidemic_prob <- function(df){
 
 plot_prevalences <- function(df){
   
-  df$disc_prob <- calculate.discover(df$disc_prob)
+  df$disc_prob <- paste0(calculate.discover(df$disc_prob), "%")
   
   ggplot(df, aes(detected, median, color=as.factor(r_not), linetype=as.factor(disc_prob), fill=as.factor(r_not))) + 
     geom_line(size=1)+
     geom_ribbon(aes(ymax=max, ymin=min), alpha=0.1)+
-    scale_y_log10(expand=c(0.01,0.01))+
-    scale_x_continuous(expand=c(0.01,0.01), limits=c(0,50))+
+    scale_y_log10(expand=c(0.01,0.01), limits=c(1,100), breaks = c(5,10,25,50,100))+
+    scale_x_continuous(expand=c(0.01,0.01), limits=c(0,30))+
     scale_color_brewer(palette="Set1", direction = -1)+
     scale_fill_brewer(palette="Set1", direction=-1)+
     guides(linetype=guide_legend(override.aes=list(fill=NA)))+
@@ -115,8 +115,10 @@ plot_dots <- function(dir_path, r_nots, disc_probs, intros){
   dots <- dotplot_data(dir_path, r_nots, disc_probs, intros)
   ggplot(dots, aes(r_not, max_prev)) + facet_wrap(~intro_rate, nrow=1)+ 
     geom_point(position="jitter", shape=20,alpha=0.5) + geom_hline(yintercept=20, color="red") +
+    theme_cowplot() %+replace% theme(strip.background=element_rect(fill=NULL, color="black", size=0.5, linetype=1))+
     scale_y_continuous(expand=c(0.01,0.01))+
     scale_x_continuous(expand=c(0.01,0.01))+
+    panel_border(size=0.5, colour="black") +
     labs(x = expression("R"[0]), y= "Maximum Total Infectious")
 }
 

@@ -35,69 +35,11 @@ branch_params <- function(r_not = 0.9,
   return(as.list(environment()))
 
 dir_path <- "~/projects/zika_alarm/data/sep_intros/"
+trigger_dir_path <- "~/projects/zika_alarm/data/sep_intros_triggers/"
 save_path <- "~/projects/zika_alarm/data/"
 fig_path <- "~/projects/zika_alarm/ExploratoryFigures/"
 
-prevalence <- 25
-confidence <- seq(0.5, 0.95, by=0.05)
-
-save_calc_epidemic_triggers <- function(dir_path, save_path, threshold, confidences){
-  r_nots <- seq(0.1, 2, by=0.1)
-  disc_probs <- c(0.0052, 0.011, 0.01635, .0287, 0.068) 
-  intro_rates <- c(0.0, 0.01, 0.05, 0.1, 0.2, 0.3)
-  epidemic_triggers <- as.data.frame(t(calculate_all_epidemics_vec(dir_path = dir_path, r_nots = r_nots, 
-                                                                   intro_rate = intro_rates, disc_prob = disc_probs, 
-                                                                   threshold = threshold, confidence=confidences)))
-  save( list = c('epidemic_triggers'), file = file.path(save_path, paste0("epidemic_triggers.Rdata")))  
-}
-
-save_calc_prev_triggers <- function(dir_path, save_path, threshold, confidences){
-  r_nots <- seq(0.1, 2, by=0.1)
-  disc_probs <- c(0.0052, 0.011, 0.01635, .0287, 0.068) 
-  intro_rates <- c(0.0, 0.01, 0.05, 0.1, 0.2, 0.3)
-  prevalence_triggers <- as.data.frame(t(calculate_all_triggers_vec(dir_path = dir_path, r_nots = r_nots, 
-                                                                    intro_rate = intro_rates, disc_prob = disc_probs, 
-                                                                   threshold = threshold, confidence=confidences)))
-  save( list = c('prevalence_triggers'), file = file.path(save_path, paste0("prevalence_triggers.Rdata")))  
-}
-
-
-save_calc_epidemic_triggers(dir_path, save_path, threshold=prevalence, confidences = confidence)
-save_calc_prev_triggers(dir_path, save_path, threshold=prevalence, confidences = confidence)
-
-load(get_vec_of_files(dir_path, 1.2, .068, 0.05))
-
-get_epidemic_trigger(trials, 25, 0.8)
-
-get_surveillance_trigger(trials, 25, 0.8)
-# load("/Users/spencerfox/projects/zika_alarm/data/epidemic_triggers.Rdata")
-# 
-# get_trigger_data <- function(df, rnot, intro, disc, threshold, confidence){
-#   df[which(df$r_not%in%rnot & df$intro_rate %in% intro & df$disc_prob%in%disc  & df$threshold %in% threshold & df$confidence %in% confidence),]
-# }
-# 
-# 
-# test <- data.frame(r_not = unlist(epidemic_triggers$r_not), 
-#                    disc_prob=unlist(epidemic_triggers$disc_prob), 
-#                    intro_rate = unlist(epidemic_triggers$intro_rate),
-#                    threshold=unlist(epidemic_triggers$threshold),
-#                    confidence= unlist(epidemic_triggers$confidence),
-#                    trigger= unlist(epidemic_triggers$trigger))
-# 
-# epi_triggers <- test
-# save( list = c('epi_triggers'), file = file.path(save_path, paste0("epi_triggers.Rdata")))
-
-temp <- get_trigger_data(test, 0.9, 0.1, 0.0287, 25, confidence)
-temp
-calculate_all_epidemics(dir_path, 0.9, 0.1, 0.0287, 25, 0.8)
-
-load(get_vec_of_files(dir_path, 0.9, 0.0287, 0.1))
-plot_final_sizes(trials)
-plot_intro_final_sizes(trials)
-plot_max_prevalences(trials)
-
-
-print(prev_trigger_plot)
+# load(get_vec_of_files(dir_path, 1.2, .068, 0.05))
 # plot_final_sizes(trials)
 # plot_intro_final_sizes(trials)
 # plot_local_final_sizes(trials)
@@ -105,46 +47,68 @@ print(prev_trigger_plot)
 # plot_max_prevalences(trials)
 
 
+######### Combine triggers after a tacc run/download
+# combine_triggers(trigger_dir_path, save_path)
+
+
+get_trigger_data(1, 0.3, 0.011, 20, c(0.5,0.7,0.6,0.8))
+
+
+
+
+
+
+################################
+## Code to Make Figure 2
+################################
 ##### Panel A
 r_nots <- c(0.9, 1.3)
-disc_probs <- c(0.011, 0.0287)
-intros <- 0.1
+disc_probs <- c(0.011, 0.0224)
+intros <- 0.1 ## Harris county has 0.129, but this close
 prev_plot_data <- get_prev_by_detects_plot(dir_path, r_nots = r_nots, disc_probs = disc_probs, intro_rates = intros)
 prev_plot <- plot_prevalences(prev_plot_data)
-# print(prev_plot)  
+print(prev_plot)  
 
 ##### Panel B
-r_nots <- seq(0.5, 1.9, by=0.1)
+r_nots <- c(0.8, 0.85, seq(0.9, 1.2, by=0.01), 1.25, seq(1.3, 2, by=0.1))
 intros <- c(0.01, .1)
-det_probs <- c(0.011, 0.0287)
+det_probs <- c(0.011, 0.0224)
 
-prev_triggers <- calculate_all_triggers(dir_path, r_nots, intro_rate = intros, disc_prob = det_probs, threshold = 25, confidence = 0.8)
-prev_triggers$trigger <- ifelse(is.na(prev_triggers$trigger), Inf, prev_triggers$trigger)
+prev_triggers <- get_trigger_data(r_nots, intros, det_probs, threshold=20, confidence=0.8)
+prev_triggers$prev_trigger <- ifelse(is.na(prev_triggers$prev_trigger), Inf, prev_triggers$prev_trigger)
 
-prev_trigger_plot <- ggplot(prev_triggers, aes(r_not, trigger, linetype=as.factor(disc_prob), color=as.factor(intro_rate))) + 
+## Remove outlier from low trigger data ( few runs, and so not infinity solely due to stochasticity)
+prev_triggers$prev_trigger[which(prev_triggers$prev_trigger!=Inf & prev_triggers$intro_rate==0.01 & prev_triggers$r_not<.93)] <- Inf
+prev_trigger_plot <- ggplot(prev_triggers, aes(r_not, prev_trigger, linetype=as.factor(disc_prob), color=as.factor(intro_rate))) + 
   geom_line(size=1) + scale_y_continuous(expand=c(0.01,0.01), limits=c(1,150))+
-  scale_x_continuous(expand=c(0.01,0.01), limits=c(0.9,1.9))+
+  scale_x_continuous(expand=c(0.01,0.01), limits=c(0.9,1.6))+
   scale_color_manual(values=c("Grey", "Black"))+
   theme_cowplot()%+replace% theme(legend.position="none")+
   labs(x = expression("R"[0]), 
        y = "Prevalence Trigger", 
        color = "Importation\nRate", 
        linetype= "Detection \nProbability")
-
+print(prev_trigger_plot)
 ######## Panel C
-epi_triggers <- calculate_all_epidemics(dir_path, r_nots, intros, det_probs, 25, 0.80)
-epi_triggers$trigger <- ifelse(is.na(epi_triggers$trigger), Inf, epi_triggers$trigger)
-epi_triggers$disc_prob <- calculate.discover(epi_triggers$disc_prob)
+epi_triggers <- prev_triggers
+epi_triggers$epi_trigger <- ifelse(is.na(epi_triggers$epi_trigger), Inf, epi_triggers$epi_trigger)
+epi_triggers$disc_prob <- paste0(calculate.discover(epi_triggers$disc_prob), "%")
 
-epi_prob_plot <- ggplot(epi_triggers, aes(r_not, trigger, linetype=as.factor(disc_prob), color=as.factor(intro_rate))) + 
-  geom_line(size=1) + scale_y_continuous(expand=c(0.01,0.01), limits=c(1,150))+
-  scale_x_continuous(expand=c(0.01,0.01), limits=c(0.9,1.4))+
+## Remove outlier from low trigger data ( few runs, and so not infinity solely due to stochasticity)
+epi_triggers$epi_trigger[which(epi_triggers$epi_trigger!=Inf & epi_triggers$intro_rate==0.01 & epi_triggers$r_not<.93)] <- Inf
+
+epi_prob_plot <- ggplot(epi_triggers, aes(r_not, epi_trigger, linetype=as.factor(disc_prob), color=as.factor(intro_rate))) + 
+  geom_line(size=1) + scale_y_continuous(expand=c(0.01,0.01))+
+  scale_x_continuous(expand=c(0.01,0.01), limits=c(0.9,1.3))+
   scale_color_manual(values=c("Grey", "Black"))+
   labs(x = expression("R"[0]), 
        y = "Future Epidemic Trigger", 
        color = "Importation\nRate", 
        linetype= "Detection \nProbability")
+print(epi_prob_plot)
 
+################
+# Print out the panels all together and gridded
 figure2_panels <- plot_grid(prev_plot, prev_trigger_plot, epi_prob_plot, labels=c("A", "B", "C"), nrow = 1, rel_widths = c(1.2,1,1.2))
 save_plot(paste0(fig_path, "figure2_panels.pdf"), figure2_panels, base_height = 4, base_aspect_ratio = 3)
 
@@ -154,14 +118,14 @@ save_plot(paste0(fig_path, "figure2_panels.pdf"), figure2_panels, base_height = 
 
 # ######### Supplemental figures
 ### Porbability below threshold graph
-thresholds <- c(25)
-r_nots <- c(0.9, 1.1, 1.3)
-disc_probs <- c(0.011,.0287, 0.068)
-intro_rates <- c(.05, 0.3)
-temp <- get_prob_below_plot(dir_path, thresholds, r_nots, disc_probs, intro_rates)
-
-prob_below <- plot_prob_below(temp)
-save_plot(paste0(fig_path, "probability_below_supplemental.pdf"),prob_below, base_height = 5, base_aspect_ratio = 2)
+# thresholds <- c(25)
+# r_nots <- c(0.9, 1.1, 1.3)
+# disc_probs <- c(0.011,.0287, 0.068)
+# intro_rates <- c(.05, 0.3)
+# temp <- get_prob_below_plot(dir_path, thresholds, r_nots, disc_probs, intro_rates)
+# 
+# prob_below <- plot_prob_below(temp)
+# save_plot(paste0(fig_path, "probability_below_supplemental.pdf"),prob_below, base_height = 5, base_aspect_ratio = 2)
 
 ### Epidemic probability graph
 # r_nots <- c(0.9, 1, 1.3)
@@ -193,93 +157,83 @@ save_plot(paste0(fig_path, "probability_below_supplemental.pdf"),prob_below, bas
 # 
 # 
 
-################ Figure 1, understanding the overarching question!
-example <- get_vec_of_files(dir_path, 1.1, 0.011, .1)
-load(example)
-
-## Data for growing epidemic
-plotDat <- trials[[7]]
-plotDat <- melt(plotDat, id.vars = c("time"), measure.vars = c("New_Detections", "Total_Infections"))
-plotDat <- plotDat[plotDat$time<100, ]
-plotDat$variable <- ifelse(plotDat$variable=="Total_Infections", "Prevalence", "New Detections")
-## Data for dying outbreak
-plotDat2 <- trials[[13]]
-plotDat2 <- melt(plotDat2, id.vars = c("time"), measure.vars = c("New_Detections", "Total_Infections"))
-plotDat2 <- plotDat2[plotDat2$time<100, ]
-plotDat2$variable <- ifelse(plotDat2$variable=="Total_Infections", "Prevalence", "New Detections")
-
-plotDat <- rbind(cbind(plotDat, outbreak="Epidemic"), cbind(plotDat2, outbreak="Outbreak"))
-plotDat <- plotDat[plotDat$time<75, ]
-
-ind <- which(plotDat$variable=="Prevalence")
-detects <- plotDat[-ind,]
-ts_plot <- ggplot(plotDat[ind,], aes(time, value, color=outbreak, fill=outbreak)) + geom_line(size=1) +
-  geom_bar(data=detects, aes(time, value), position="dodge",stat="identity", width = 2)+
-  theme_cowplot() %+replace% theme(legend.position=c(0.2,0.8))+
-  scale_y_continuous(expand=c(0.01,0.01))+
-  scale_x_continuous(expand=c(0.03,0.05))+
-  scale_color_manual(values=c("red", "black"), guide=FALSE) +
-  scale_fill_manual(values=c("red", "black")) +
-  labs(x = "Time (days)", y="Individuals", fill="", color = "", linetype="")
-print(ts_plot)
-# save_plot(filename = "../ExploratoryFigures/new_ts.pdf", plot = ts_plot, base_height=3, base_aspect_ratio = 2)
-
-
+#####################################################
+#### Figure 1, understanding the overarching question!
+#####################################################
 get_symp <- function(n){
   sum(sample(c("symp", "asymp"), n, prob = c(0.15, 0.85), replace = T) =="symp")  
 }
 
 set.seed(808)
-zoom_data <- trials[[7]]
-zoom_data <- zoom_data[zoom_data$time <75,]
-zoom_data$Symptomatic <- cumsum(sapply(zoom_data$New_Infection, get_symp))
-zoom_data$Asymptomatic <- zoom_data$Cumulative_Infections-zoom_data$Symptomatic
+head(trials[[5]], n = 100)$Cumulative_Infections
+zoom_data <- trials[[5]]
+zoom_data <- zoom_data[zoom_data$time <=125,]
+zoom_data$Symptomatic <- sapply(zoom_data$Total_Infections, get_symp)
+zoom_data$Asymptomatic <- zoom_data$Total_Infections-zoom_data$Symptomatic
 zoom_data$min_asymp <- zoom_data$Symptomatic
 zoom_data$min_symp <- 0
-zoom_melt <- melt(zoom_data, id.vars = c("time"), measure.vars = c("Cumulative_Infections", "Symptomatic"))
-zoom_melt$variable <- ifelse(zoom_melt$variable=="Cumulative_Infections", "Asymptomatic", "Symptomatic")
+zoom_melt <- melt(zoom_data, id.vars = c("time"), measure.vars = c("Total_Infections", "Symptomatic"))
+zoom_melt$variable <- ifelse(zoom_melt$variable=="Total_Infections", "Asymptomatic", "Symptomatic")
 zoom_melt$mins <- c(zoom_data$min_asymp, zoom_data$min_symp)
 arrow_data <- data.frame(time=zoom_data$time[which(zoom_data$New_Intro!=0)])
-arrow_data$yval <- zoom_data$Cumulative_Infections[which(zoom_data$New_Intro!=0)]
+arrow_data$yval <- zoom_data$Total_Infections[which(zoom_data$New_Intro!=0)]
+det_arrow_data <- data.frame(time=zoom_data$time[which(zoom_data$New_Detections!=0)])
+det_arrow_data$yval <- zoom_data$Total_Infections[which(zoom_data$New_Detections!=0)]
 
 zoom_plot <- ggplot(zoom_melt, aes(x=time, ymax=value, ymin=mins, color=variable, fill=variable)) + geom_ribbon()+
-  geom_segment(data=arrow_data, aes(x=time, xend=time, y=yval+8, yend=yval), 
-               arrow = arrow(length = unit(0.03, "npc")), color="green", size=1.5,inherit.aes=FALSE)+
-  theme_cowplot() %+replace% theme(legend.position=c(0.2,0.6))+
-  scale_y_continuous(expand=c(0.01,0.01))+
-  scale_x_continuous(expand=c(0.03,0.05))+
+  geom_segment(data=arrow_data, aes(x=time, xend=time, y=yval+1.5, yend=yval), 
+               arrow = arrow(length = unit(0.05, "npc"), angle = 35), color="red", size=1, inherit.aes=FALSE)+
+  geom_vline(data=det_arrow_data, aes(xintercept=time), linetype=2, color="red")+ 
+  theme_cowplot() %+replace% theme(legend.position="none")+
+  scale_y_continuous(expand=c(0.0,0.0))+
+  scale_x_continuous(expand=c(0.01,0.01),limits=c(0,120))+
   scale_color_manual(values=c("black", "grey"), guide=FALSE) +
   scale_fill_manual(values=c("black", "grey")) +
-  labs(x = "Time (days)", y="Individuals", fill="")
+  labs(x = "Time (days)", y="Infections", fill="")
 print(zoom_plot)
 
-zoom_data <- trials[[13]]
-zoom_data <- zoom_data[zoom_data$time <75,]
-zoom_data$Symptomatic <- cumsum(sapply(zoom_data$New_Infection, get_symp))
-zoom_data$Asymptomatic <- zoom_data$Cumulative_Infections-zoom_data$Symptomatic
+ind <- which(all_last_cuminfect_values(trials) > 20 & all_last_cuminfect_values(trials) <30)
+##  8 may work
+zoom_data <- trials[[ind[9]]]
+# zoom_data <- zoom_data[zoom_data$time <=75,]
+zoom_data$Symptomatic <- sapply(zoom_data$Total_Infections, get_symp)
+zoom_data$Asymptomatic <- zoom_data$Total_Infections-zoom_data$Symptomatic
 zoom_data$min_asymp <- zoom_data$Symptomatic
 zoom_data$min_symp <- 0
-zoom_melt <- melt(zoom_data, id.vars = c("time"), measure.vars = c("Cumulative_Infections", "Symptomatic"))
-zoom_melt$variable <- ifelse(zoom_melt$variable=="Cumulative_Infections", "Asymptomatic", "Symptomatic")
+zoom_melt <- melt(zoom_data, id.vars = c("time"), measure.vars = c("Total_Infections", "Symptomatic"))
+zoom_melt$variable <- ifelse(zoom_melt$variable=="Total_Infections", "Asymptomatic", "Symptomatic")
 zoom_melt$mins <- c(zoom_data$min_asymp, zoom_data$min_symp)
 arrow_data <- data.frame(time=zoom_data$time[which(zoom_data$New_Intro!=0)])
-arrow_data$yval <- zoom_data$Cumulative_Infections[which(zoom_data$New_Intro!=0)]
+arrow_data$yval <- zoom_data$Total_Infections[which(zoom_data$New_Intro!=0)]
+det_arrow_data <- data.frame(time=zoom_data$time[which(zoom_data$New_Detections!=0)])
+det_arrow_data$yval <- zoom_data$Total_Infections[which(zoom_data$New_Detections!=0)]
+
+ylims <- ggplot_build(zoom_plot)$panel$ranges[[1]]$y.range
+
 zoom_plot2 <- ggplot(zoom_melt, aes(x=time, ymax=value, ymin=mins, color=variable, fill=variable)) + geom_ribbon()+
-  geom_segment(data=arrow_data, aes(x=time, xend=time, y=yval+3, yend=yval), 
-               arrow = arrow(length = unit(0.05, "npc")), color="green", size=1.5,inherit.aes=FALSE)+
-  theme_cowplot() %+replace% theme(legend.position="none")+
-  scale_y_continuous(expand=c(0.01,0.01))+
-  scale_x_continuous(expand=c(0.03,0.05), limits=c(0,74))+
+  geom_segment(data=arrow_data, aes(x=time, xend=time, y=yval+1.5, yend=yval), 
+               arrow = arrow(length = unit(0.05, "npc"), angle = 35), color="red", size=1, inherit.aes=FALSE)+
+  geom_vline(data=det_arrow_data, aes(xintercept=time), linetype=2, color="red")+ 
+  theme_cowplot() %+replace% theme(legend.position=c(0.9,.8))+ 
+  scale_y_continuous(expand=c(0.001,0.001), limits = c(0,ylims[2]))+
+  scale_x_continuous(expand=c(0.01,0.01), limits=c(0,120))+
   scale_color_manual(values=c("black", "grey"), guide=FALSE) +
   scale_fill_manual(values=c("black", "grey")) +
-  labs(x = "Time (days)", y="Individuals", fill="", color = "", linetype="")
+  labs(x = "Time (days)", y="Infections", fill="")
 print(zoom_plot2)
 
 
 all_ts <- ggdraw() +
-  draw_plot(ts_plot, 0, 0, .5, 1) +
-  draw_plot(zoom_plot, 0.5, 0.5, .5, .5) +
-  draw_plot(zoom_plot2, 0.5, 0, .5, .5) +
-  draw_plot_label(c("A", "B", "C",  "Outbreak", "Epidemic"), c(0, 0.5, 0.5, 0.65, 0.65), c(1, 1, 0.5,0.5,1), size = 15, color=c(rep("black", 4),"red") )
+  draw_plot(zoom_plot2, x =  0,y =  0.5,width =  1,height =  0.5) +
+  draw_plot(zoom_plot, x =  0,y =  0,width =  1, height = .5) +
+  draw_plot_label(c("A", "B"), c(0, 0), c(1, 0.5), size = 15)
 
-save_plot(filename = "../ExploratoryFigures/all_ts.pdf", plot = all_ts, base_height=4, base_aspect_ratio = 2)
+save_plot(filename = "../ExploratoryFigures/all_ts2.pdf", plot = all_ts, base_height=4, base_aspect_ratio = 1.8)
+
+# ## Supplementary choosing threshold plot -- should be 20
+# r_nots <- c(0.8, 0.9, 1, 1.1, 1.2)
+# disc_probs <- c(0.011)
+# intros <- c(0.01, 0.1, 0.3)
+# threshold_plot <- plot_dots(dir_path, r_nots, disc_probs, intros)
+# save_plot(paste0(fig_path, "threshold_plot.pdf"), threshold_plot, base_height = 4, base_aspect_ratio = 1.8)
+
