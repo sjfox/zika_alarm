@@ -9,13 +9,13 @@ if(grepl('laurencastro', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zik
 
 sapply(c('branch.functions.R','plot.functions.R', 'analyze_saved_sims.R'), source)
 library(plyr)
-library(ggplot2)
 library(maptools)
-library(ggplot2)
 library(rgeos)
 library(rgdal)
 library(raster)
 library(plyr)
+library(cowplot)
+
 
 #### Read in file with county R0 and Texas shape file
 county_plot <- read.csv("../csvs/county_plot.csv")
@@ -34,14 +34,8 @@ triggers <- get_trigger_data(rnots, intro = import.rates,
                              disc = 0.0224, threshold = 20, confidence = .8)
 
 #### Match R0/Import Rate with Trigger
-
-county_plot.m$trigger <- NA
-for (i in 1:nrow(triggers)) {
-  indices = which((county_plot.m$metro_round == triggers[i,"r_not"]) & 
-                    (county_plot.m$import.rate== triggers[i, "intro_rate"])) 
-  county_plot.m$trigger[indices] = triggers[i,"prev_trigger"]
-}
-county_plot.m$trigger <- as.numeric(county_plot.m$trigger)
+county_plot.m <- merge(x = county_plot.m, y = triggers[,c("r_not", "intro_rate", "prev_trigger")], 
+                       by.x=c("metro_round", "import.rate"), by.y=c("r_not", "intro_rate"), all.x=TRUE, sort=FALSE)
 
 
 #### Fortifying Data to ShapeFile for ggplot 
@@ -54,28 +48,21 @@ final.plot$import.type <- factor(final.plot$scenario,
 
 
 
-#Actual plotting 
-library(cowplot)
 
 ###### Trigger Maps, Faceted by Scenario 
-breaks.trigger = seq(from = 0, to = max(final.plot$trigger,na.rm=TRUE), by = 10)
+breaks.trigger = seq(from = 0, to = max(final.plot$prev_trigger,na.rm=TRUE), by = 20)
 plot.trial <- ggplot(final.plot, aes(x=long, y = lat)) +
-  geom_polygon(data = final.plot, aes(group = group, fill = trigger), color = "black", size = .25) +
+  geom_polygon(data = final.plot, aes(group = group, fill = prev_trigger), color = "black", size = .25) +
   facet_wrap(~scenario, nrow = 2, dir = "h") +
   scale_x_continuous("", breaks=NULL) + 
   scale_y_continuous("", breaks=NULL) + 
-  scale_fill_continuous(name = "Surveillance \n Trigger \n", low = "red", high = "yellow", 
+  scale_fill_continuous(name = "Surveillance \nTrigger \n", low = "red", high = "yellow", 
                         na.value = "grey", breaks = breaks.trigger) +
-  #theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank()) +
-  theme_bw() + 
-  theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(), line = element_blank()) +
-  labs(x=NULL, y = NULL) +
-  theme(legend.position = "left") +
-  theme(legend.text=element_text(size=12, margin = margin(), debug = FALSE), legend.title = element_text(size = 18)) +
-  theme(legend.key.size =  unit(0.5, "in")) 
-
-ggsave(filename = "../ExploratoryFigures/figure3_triggers.pdf", plot = plot.trial) #, base_height = 4, base_aspect_ratio = 3)
-#ggsave(plot.trial, filename = "importation2.pdf", height = 7, width = 8, units = "in")
+  theme_cowplot() %+replace% theme(strip.background=element_blank(),
+                                   strip.text.x = element_blank(),
+                                   legend.key.size =  unit(0.5, "in")) 
+## Plot just trigger maps
+save_plot(filename = "../ExploratoryFigures/figure3_triggers.pdf", plot = plot.trial, base_height = 8, base_aspect_ratio = 1.3)
 
 
 #### Importation Probability Map 
@@ -84,25 +71,25 @@ import.plot <- merge.texas.county[order(merge.texas.county$id),]
 head(import.plot)
 
 
-import.breaks <- seq(from = 0, to = .15, by = .03)
-
 plot.importation <- ggplot(import.plot, aes(x = long, y = lat)) +
   geom_polygon(data = import.plot, aes(group = group, fill = importation_probability), color = "black", size = .25) +
   scale_x_continuous("", breaks=NULL) + 
   scale_y_continuous("", breaks=NULL) + 
-  scale_fill_continuous(name = "Import \n Probability \n", low = "light yellow", high = "red", 
-                        na.value = "grey", breaks = import.breaks) +
-  #theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank()) +
-  theme_bw() + theme(strip.background=element_blank(),strip.text.x = element_blank()) +
-  theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(), line = element_blank()) +
-  labs(x=NULL, y = NULL) +
-  theme(legend.position = c(0.3, 0.015), legend.direction="horizontal") +
-  theme(legend.text=element_text(size=16, margin = margin(), debug = FALSE), 
-        legend.title = element_text(size = 20)) +
-  theme(legend.key.size =  unit(0.5, "in")) 
-plot.importation
-ggsave(filename = "../ExploratoryFigures/figure3_importaton.pdf", plot = plot.importation,
-       height = 5, width = 5.5, units = "in") #, base_height = 4, base_aspect_ratio = 3)
+  scale_fill_continuous(name = "Import \nProbability", low = "light yellow", high = "red", 
+                        na.value = "grey", breaks= c(0,0.03, 0.06,0.09, 0.12)) +
+  theme_cowplot() %+replace% theme(strip.background=element_blank(),
+                                   strip.text.x = element_blank(),
+                                   legend.key.width =  unit(0.5, "in"),
+                                   legend.position = c(0.15, 0.8)) 
 
+## Plot just importations
+save_plot(filename = "../ExploratoryFigures/figure3_importation.pdf", plot = plot.importation, base_height = 4, base_aspect_ratio = 1.3)
+
+
+# fig3_all <- ggdraw() +
+#   draw_plot(plot.trial, x =  0,y =  0, width =  1,height =  1) +
+#   draw_plot_label(c("A", "B", "C", "D"), c(0, 0.45, 0, 0.45), c(1, 1, 0.5, 0.5), size = 20)
+# 
+# save_plot(filename = "../ExploratoryFigures/figure3_combined.pdf", plot = fig3_all, base_height = 8, base_aspect_ratio = 1.3)
 
 
