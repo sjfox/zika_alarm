@@ -95,5 +95,18 @@ plot.trial <- ggplot(final.plot, aes(x=long, y = lat)) +
 ggsave(plot.trial, filename = "importation2.pdf", height = 7, width = 8, units = "in")
 
 
-
+breaks.trigger = seq(from = 0, to = max(final.plot$trigger,na.rm=TRUE), by = 10)
+plot.worse.projected <- ggplot(subset(final.plot, scenario %in% "importation.worse.projected"), aes(x=long, y = lat)) +
+  geom_polygon(data = final.plot, aes(group = group, fill = trigger), color = "black", size = .25) +
+  #facet_wrap(~scenario, nrow = 2, dir = "h") +
+  scale_x_continuous("", breaks=NULL) + 
+  scale_y_continuous("", breaks=NULL) + 
+  scale_fill_continuous(name = "Surveillance \n Trigger \n", low = "red", high = "yellow", 
+                        na.value = "grey", breaks = breaks.trigger) +
+  theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank()) +
+  theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(), line = element_blank()) +
+  labs(x=NULL, y = NULL) +
+  theme(legend.position = "right") +
+  theme(legend.text=element_text(size=12, margin = margin(), debug = FALSE), legend.title = element_text(size = 18)) +
+  theme(legend.key.size =  unit(0.5, "in")) 
 

@@ -143,18 +143,21 @@ hist(r0_compare$lowR0)
 hist(r0_compare$expectedR0)
 breaks = seq(0,3,1)
 texas.county.f <- fortify(texas.county, region = "ID")
-merge.texas.county <- merge(texas.county.f, county_ids, by = "id", all.x = TRUE)
+merge.texas.county <- merge(texas.county.f, county_plot, by = "id", all.x = TRUE)
 merge.texas.county <- merge(texas.county.f, r0_compare, by = "id", all.x = TRUE)
 final.plot <- merge.texas.county[order(merge.texas.county$id),]
 
-
-plot <- ggplot()+geom_polygon(data = final.plot, aes(x=long, y = lat, group = group, fill = highR0), color = "black", size = .25) + 
+breaks = seq(from = 0, to = 2, by = .2)
+plot <- ggplot()+geom_polygon(data = final.plot, aes(x=long, y = lat, group = group, fill = R0_round), color = "black", size = .25) + 
   coord_map() + 
-  scale_fill_gradient(name = "R0", low = "yellow", 
-                      high = "red",  na.value = "white", breaks = breaks, limits = c(0,3)) +
+  scale_fill_gradient2(name = expression("R"[0]), low = "yellow", mid = "red",
+                      high = "dark red",  midpoint = 1, na.value = "white", breaks = breaks, limits = c(0,2)) +
   theme_cowplot() %+replace% theme(strip.background=element_blank(),strip.text.x = element_blank()) +
   labs(x=NULL, y = NULL) +
-  theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(), line = element_blank()) 
+  theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(), line = element_blank()) +
+  theme(legend.position = "right") +
+  theme(legend.text=element_text(size=12, margin = margin(), debug = FALSE), legend.title = element_text(size = 18)) +
+  theme(legend.key.size =  unit(0.5, "in")) 
   #geom_polygon(data=lamb_county, aes(x=long, y = lat, group = group), fill="grey", color = "black", size = .25, inherit.aes = FALSE)
 
 plot

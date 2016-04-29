@@ -155,7 +155,7 @@ county_ids$Cum.Cases.worst <- as.numeric(county_ids$Cum.Cases.worst)
 texas.county.f <- fortify(texas.county, region = "ID")
 merge.texas.county <- merge(texas.county.f, county_ids, by = "id", all.x = TRUE)
 final.plot <- merge.texas.county[order(merge.texas.county$id),]
-save(list = c('final.plot'), file = paste(saveLoc, "Avg_Worst_Plot.Rdata"))
+save(list = c('r0.triggers'), file = "fake.triggers.Rdata")
 # Decide which type you want to plot
 
 legend_breaks <- round(seq(0, 40, 8))
