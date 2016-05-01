@@ -27,8 +27,8 @@ params <- get_parms(data.file)
 triggers <- data.frame()
 for(prevalence in prevalences){
   for(conf in confidences){
-    epi <- get_epidemic_trigger(trials = trials, threshold = prevalence, confidence = conf)  
-    prev <- get_surveillance_trigger(trials = trials,threshold =  prevalence, confidence = conf)  
+    epi <- get_epidemic_trigger(trials = trials, threshold = prevalence, confidence = conf, max_detect=300)  
+    prev <- get_surveillance_trigger(trials = trials,threshold =  prevalence, confidence = conf, max_detect=300) 
     triggers <- rbind(triggers, cbind(params, data.frame(threshold=prevalence, confidence=conf, epi_trigger=epi, prev_trigger=prev)))
   }
 }
