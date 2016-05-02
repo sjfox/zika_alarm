@@ -31,11 +31,11 @@ rnots <- sort(unique(county_plot.m$rnott.expected))
 import.rates <- sort(unique(county_plot.m$import.rate))
 
 triggers <- get_trigger_data(rnots, intro = import.rates,
-                             disc = 0.0224, threshold = 20, confidence = .8)
-triggers.10 <- triggers[triggers$num_necessary == 10,]
+                             disc = 0.0224, threshold = 20, confidence = .8, num_necessary = 10)
+
 
 #### Match R0/Import Rate with Trigger
-county_plot.m <- merge(x = county_plot.m, y = triggers.10[,c("r_not", "intro_rate", "prev_trigger")], 
+county_plot.m <- merge(x = county_plot.m, y = triggers[,c("r_not", "intro_rate", "prev_trigger")], 
                        by.x=c("rnott.expected", "import.rate"), by.y=c("r_not", "intro_rate"), all.x=TRUE, sort=FALSE)
 
 
@@ -106,12 +106,18 @@ plot.importation.log <- ggplot(import.plot, aes(x = long, y = lat)) +
 
 save_plot(filename = "../ExploratoryFigures/figure3_importationlog.pdf", plot = plot.importation.log, base_height = 4, base_aspect_ratio = 1.2)            
 
+g <- ggplotGrob(plot.trial)
+gl <- g$layout
+## Don't need to mess with axis, because not applicable for maps, but code for that from stackoverflow is below
+gl[2, 1:4] <- c(4,7,4,7)
+gl[3, 1:4] <- c(8,4,8,4)
+gl[4, 1:4] <- c(8,7,8,7)
+g$layout <- gl
+fig3_all <- ggdraw() + draw_plot(g)+ 
+  draw_plot(plot = plot.importation.log, x = 0, y=0.48, width=0.46, height=0.52)+
+  draw_plot_label(c("A", "B", "C", "D"), c(0, 0.45, 0, 0.45), c(1, 1, 0.5, 0.5), size = 20)
 
-# fig3_all <- ggdraw() +
-#   draw_plot(plot.trial, x =  0,y =  0, width =  1,height =  1) +
-#   draw_plot_label(c("A", "B", "C", "D"), c(0, 0.45, 0, 0.45), c(1, 1, 0.5, 0.5), size = 20)
-# 
-# save_plot(filename = "../ExploratoryFigures/figure3_combined.pdf", plot = fig3_all, base_height = 8, base_aspect_ratio = 1.3)
+save_plot(filename = "../ExploratoryFigures/figure3_combined.pdf", plot = fig3_all, base_height = 8, base_aspect_ratio = 1.3)
 
 #Geting the lat long of the metro areas
 
@@ -119,3 +125,18 @@ summary.worse.projected <- summary(county_plot.m$prev_trigger[county_plot.m$scen
 summary.projected <- summary(county_plot.m$prev_trigger[county_plot.m$scenario == "importation.projected"])
 summary.current <- summary(county_plot.m$prev_trigger[county_plot.m$scenario == "importation.current"])
 
+
+
+
+
+################### SO code, helps move axis and titles with plots
+# head(diamonds)
+# plot <- ggplot(diamonds, aes(carat, price)) + facet_wrap(~cut) + geom_point() 
+# g <- ggplotGrob(plot)
+# 
+# gl <- g$layout
+# g$layout
+# idcol <- gl$r == (ncol(g)-2)
+# g$layout[idcol & gl$b < 5, c("t", "b")] <- gl[idcol & gl$b < 5, c("t", "b")] + 4
+# g$layout
+# plot(g)

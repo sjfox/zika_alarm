@@ -96,7 +96,7 @@ plot_prevalences <- function(df){
     scale_fill_brewer(palette="Set1", direction=-1)+
     guides(linetype=guide_legend(override.aes=list(fill=NA)))+
     labs(x = "Cumulative Detected Cases", 
-         y = "Current Prevalence (log scale)", 
+         y = "Current Cases (log scale)", 
          color = expression("R"[0]), 
          fill = expression("R"[0]), 
          linetype= "Detection \nProbability")
@@ -122,6 +122,13 @@ plot_dots <- function(dir_path, r_nots, disc_probs, intros){
     labs(x = expression("R"[0]), y= "Maximum Total Infectious")
 }
 
+
+get_legend<-function(myggplot){
+  tmp <- ggplot_gtable(ggplot_build(myggplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)
+}
 
 panel_border <- function (colour = "gray80", size = 0.5, linetype = 1, remove = FALSE) 
 {
