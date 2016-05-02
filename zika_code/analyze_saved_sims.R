@@ -70,12 +70,12 @@ get_cumcases_by_detects_all <- function(x, max_detect=100){
 }
 
 
-freq_above_thresh <- function(df, detected, cum_threshold, prev_threshold){
+freq_above_thresh <- function(df, detected, cum_threshold, prev_threshold, num_necessary=10){
   ## Takes in dataframe of all prevalence by detect
   ## Returns a single frequency of times that
   ## prevalence for a specific detection criteria is below a threshold
   rows <- which(df[,"detected"] == detected)
-  if(length(rows)==0){
+  if(length(rows)<=num_necessary){
     return(NA)
   }else{
     ## Return number of rows that excede both thresholds divided by the total rows
@@ -84,7 +84,7 @@ freq_above_thresh <- function(df, detected, cum_threshold, prev_threshold){
 }
 freq_above_thresh_vec <- Vectorize(freq_above_thresh, vectorize.args = "detected")
 
-get_epidemic_prob_by_d <- function(trials, prev_threshold, cum_threshold, max_detect=50){
+get_epidemic_prob_by_d <- function(trials, prev_threshold, cum_threshold, max_detect=50, num_necessary){
   ## Returns the probability in a given set of trials that the prevalence is below
   ## a specified threshold when X number of cases have been detected
   
@@ -92,7 +92,7 @@ get_epidemic_prob_by_d <- function(trials, prev_threshold, cum_threshold, max_de
   
   data <- get_cumcases_by_detects_all(trials, max_detect = max_detect)
 
-  probs <- freq_above_thresh_vec(data, detected, cum_threshold, prev_threshold)
+  probs <- freq_above_thresh_vec(data, detected, cum_threshold, prev_threshold, num_necessary)
   return(data.frame(detected=detected, prob_epidemic=probs))
 }
 
@@ -111,32 +111,6 @@ get_epidemic_prob_plot <- function(dir_path, prev_threshold, cum_threshold, r_no
 #############################################
 ## Get porbability below thresholds by detection functions
 
-# localprev_by_localdetects <- function(df){
-#   ## Takes in a data frame trials, and for each
-#   ## First instance of a new local detection, returns the local prevalence
-#   
-#   all_detects <- cum_detect_local(df)
-#   unique_detects <- unique(all_detects)
-#   ## Only  interested in maximum of 100 detections
-#   unique_detects <- unique_detects[unique_detects<=100]
-#   
-#   matches <- match(unique_detects, all_detects)
-#   data.frame(detected = unique_detects, prevalence = prevalence_local(df)[matches])
-# }
-# 
-# totalprev_by_localdetects <- function(df){
-#   ## Takes in a data frame trials, and for each
-#   ## First instance of a new local detection, returns the total prevalence
-#   
-#   all_detects <- cum_detect_local(df)
-#   unique_detects <- unique(all_detects)
-#   ## Only  interested in maximum of 100 detections
-#   unique_detects <- unique_detects[unique_detects<=100]
-#   
-#   matches <- match(unique_detects, all_detects)
-#   data.frame(detected = unique_detects, prevalence=prevalence_total(df)[matches])
-# }  
-
 
 totalprev_by_totaldetects <- function(df, max_detect){
   ## Takes in a data frame trials, and for each
@@ -151,30 +125,17 @@ totalprev_by_totaldetects <- function(df, max_detect){
   data.frame(detected = unique_detects, prevalence=prevalence_total(df)[matches])
 }
 
-# localprev_by_totaldetects <- function(df){
-#   ## Takes in a data frame trials, and for each
-#   ## First instance of a new local detection, returns the total prevalence
-#   
-#   all_detects <- cum_detect_total(df)
-#   unique_detects <- unique(all_detects)
-#   ## Only  interested in maximum of 100 detections
-#   unique_detects <- unique_detects[unique_detects<=100]
-#   
-#   matches <- match(unique_detects, all_detects)
-#   data.frame(detected = unique_detects, prevalence=prevalence_local(df)[matches])
-# }
-
 get_prev_by_detects_all <- function(x, f, max_detect=100){
   ## Returns data frame of all prevalence by detections for all trials
   ldply(x, f, max_detect)
 }
 
-freq_below_thresh <- function(df, detected, threshold){
+freq_below_thresh <- function(df, detected, threshold, num_necessary){
   ## Takes in dataframe of all prevalence by detect
   ## Returns a single frequency of times that
   ## prevalence for a specific detection criteria is below a threshold
   rows <- which(df[,"detected"] == detected)
-  if(length(rows)==0){
+  if(length(rows)<=num_necessary){
     return(NA)
   }
   sum(df[rows, "prevalence"] < threshold)/ length(rows)
@@ -292,13 +253,13 @@ calculate_all_triggers <- function(dir_path, r_nots, intro_rate, disc_prob,thres
 calculate_all_triggers_vec <- Vectorize(calculate_all_triggers, vectorize.args="confidence")
 
 
-get_surveillance_trigger <- function(trials, threshold, confidence, max_detect=200){
+get_surveillance_trigger <- function(trials, threshold, confidence, max_detect=200, num_necessary=10){
   ## Returns the max number of detected cases based on
   ## a specified threshold when X number of cases have been detected 
   ## and a tolerance for being X sure
   detected <- seq(0, max_detect) 
   data <- get_prev_by_detects_all(x = trials, f=totalprev_by_totaldetects, max_detect = max_detect) 
-  probs <- freq_below_thresh_vec(data, detected, threshold=threshold)
+  probs <- freq_below_thresh_vec(data, detected, threshold=threshold, num_necessary)
   # threshold.probs <- probs - confidence
   # threshold.positive <- threshold.probs[threshold.probs > 0]
   temp <- which(probs < confidence)
@@ -332,12 +293,12 @@ calculate_all_epidemics <- function(dir_path, r_nots, intro_rate, disc_prob, thr
 calculate_all_epidemics_vec <- Vectorize(calculate_all_epidemics, vectorize.args="confidence")
 
 
-get_epidemic_trigger <- function(trials, threshold, confidence, max_detect=200){
+get_epidemic_trigger <- function(trials, threshold, confidence, max_detect=200, num_necessary=10){
   ## Returns the max number of detected cases based on
   ## a specified threshold when X number of cases have been detected 
   ## and a tolerance for being X sure
   detected <- seq(0, max_detect) 
-  data <- get_epidemic_prob_by_d(trials = trials, prev_threshold = 25, cum_threshold = 1000, max_detect = max_detect) 
+  data <- get_epidemic_prob_by_d(trials = trials, prev_threshold = 20, cum_threshold = 2000, max_detect = max_detect, num_necessary) 
   temp <- which(data$prob_epidemic >= confidence)
   if (is.na(temp[1])) { 
     # Never hit the threshold

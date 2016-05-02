@@ -35,11 +35,12 @@ branch_params <- function(r_not = 0.9,
   return(as.list(environment()))
 
 dir_path <- "~/projects/zika_alarm/data/sep_intros/"
-trigger_dir_path <- "~/projects/zika_alarm/data/sep_intros_triggers/"
+trigger_dir_path <- "~/projects/zika_alarm/data/new_triggers/"
 save_path <- "~/projects/zika_alarm/data/"
 fig_path <- "~/projects/zika_alarm/ExploratoryFigures/"
 
-# load(get_vec_of_files(dir_path, 1.2, .068, 0.05))
+
+
 # plot_final_sizes(trials)
 # plot_intro_final_sizes(trials)
 # plot_local_final_sizes(trials)
@@ -48,12 +49,43 @@ fig_path <- "~/projects/zika_alarm/ExploratoryFigures/"
 
 
 ######### Combine triggers after a tacc run/download
-# combine_triggers(trigger_dir_path, save_path)
+combine_triggers(trigger_dir_path, save_path)
 
 
 get_trigger_data(1, 0.3, 0.011, 20, c(0.5,0.7,0.6,0.8))
 
+intros <- c(0.01)
+det_probs <- c(0.011)
+r_nots <- c(0.8, 0.85, seq(0.9, 1, by=0.01))
 
+dotplot_data_detect <- function(dir_path, r_nots, disc_probs, intro_rates){
+  dirPaths = get_vec_of_files(dir_path, r_nots, disc_probs, intro_rates)
+  ldply(dirPaths, function(x) {
+    load(x)
+    detects <- all_last_cumdetect_values(trials)
+    prevs <- all_max_prevalence(trials)
+    thresh_vals <- which(prevs>20)
+    # prevs <- all_last_cuminfect_values(trials)
+    # thresh_vals <- which(prevs>=1000)
+    
+    parms <- get_parms(x)
+    
+    if(length(thresh_vals)>0){
+      cbind(as.data.frame(parms), detects=detects[thresh_vals])  
+    } else{
+      cbind(as.data.frame(parms), detects=NA)  
+    }
+  })
+}
+
+test <- dotplot_data_detect(dir_path, r_nots = r_nots, disc_probs = det_probs, intro_rates = intros)
+ggplot(test, aes(r_not, detects)) + facet_wrap(~intro_rate, nrow=1)+ 
+  geom_point(position="jitter", shape=20,alpha=0.5) + geom_hline(yintercept=20, color="red") +
+  theme_cowplot() %+replace% theme(strip.background=element_rect(fill=NULL, color="black", size=0.5, linetype=1))+
+  scale_y_continuous(expand=c(0.01,0.01))+
+  scale_x_continuous(expand=c(0.01,0.01))+
+  panel_border(size=0.5, colour="black") +
+  labs(x = expression("R"[0]), y= "Cumulative Detections")
 
 
 
@@ -70,17 +102,18 @@ prev_plot <- plot_prevalences(prev_plot_data)
 print(prev_plot)  
 
 ##### Panel B
-r_nots <- c(0.8, 0.85, seq(0.9, 1.2, by=0.01), 1.25, seq(1.3, 2, by=0.1))
+r_nots <- c(seq(0.91, 1.2, by=0.01), 1.25, seq(1.3, 2, by=0.1))
 intros <- c(0.01, .1)
 det_probs <- c(0.011, 0.0224)
 
 prev_triggers <- get_trigger_data(r_nots, intros, det_probs, threshold=20, confidence=0.8)
-prev_triggers$prev_trigger <- ifelse(is.na(prev_triggers$prev_trigger), Inf, prev_triggers$prev_trigger)
 
-## Remove outlier from low trigger data ( few runs, and so not infinity solely due to stochasticity)
-prev_triggers$prev_trigger[which(prev_triggers$prev_trigger!=Inf & prev_triggers$intro_rate==0.01 & prev_triggers$r_not<.93)] <- Inf
+
+## Remove noise from low R0 values
+prev_triggers$prev_trigger[which(prev_triggers$prev_trigger>100 | is.na(prev_triggers$prev_trigger))] <- Inf
+
 prev_trigger_plot <- ggplot(prev_triggers, aes(r_not, prev_trigger, linetype=as.factor(disc_prob), color=as.factor(intro_rate))) + 
-  geom_line(size=1) + scale_y_continuous(expand=c(0.01,0.01), limits=c(1,150))+
+  geom_line(size=1) + scale_y_continuous(expand=c(0.01,0.01), limits=c(1,100))+
   scale_x_continuous(expand=c(0.01,0.01), limits=c(0.9,1.6))+
   scale_color_manual(values=c("Grey", "Black"))+
   theme_cowplot()%+replace% theme(legend.position="none")+
@@ -91,14 +124,14 @@ prev_trigger_plot <- ggplot(prev_triggers, aes(r_not, prev_trigger, linetype=as.
 print(prev_trigger_plot)
 ######## Panel C
 epi_triggers <- prev_triggers
-epi_triggers$epi_trigger <- ifelse(is.na(epi_triggers$epi_trigger), Inf, epi_triggers$epi_trigger)
+# epi_triggers$epi_trigger <- ifelse(is.na(epi_triggers$epi_trigger), Inf, epi_triggers$epi_trigger)
 epi_triggers$disc_prob <- paste0(calculate.discover(epi_triggers$disc_prob), "%")
 
 ## Remove outlier from low trigger data ( few runs, and so not infinity solely due to stochasticity)
-epi_triggers$epi_trigger[which(epi_triggers$epi_trigger!=Inf & epi_triggers$intro_rate==0.01 & epi_triggers$r_not<.93)] <- Inf
+epi_triggers$epi_trigger[which(epi_triggers$epi_trigger>100| is.na(prev_triggers$epi_trigger))] <- Inf
 
 epi_prob_plot <- ggplot(epi_triggers, aes(r_not, epi_trigger, linetype=as.factor(disc_prob), color=as.factor(intro_rate))) + 
-  geom_line(size=1) + scale_y_continuous(expand=c(0.01,0.01))+
+  geom_line(size=1) + scale_y_continuous(expand=c(0.01,0.01), limits=c(0,100))+
   scale_x_continuous(expand=c(0.01,0.01), limits=c(0.9,1.3))+
   scale_color_manual(values=c("Grey", "Black"))+
   labs(x = expression("R"[0]), 

@@ -19,17 +19,18 @@ if(length(args)>0)  { ## Then cycle through each element of the list and evaluat
 
 sapply(c('branch.functions.R','plot.functions.R', 'incubation_branch.R', 'analyze_saved_sims.R'), source)
 
-prevalences <- c(15,20,25)
+prevalence <- 20
 confidences <- seq(0.5, 0.95, by=0.05)
+num_necessary <- c(10, 20, 100)
 
 load(data.file)
 params <- get_parms(data.file)
 triggers <- data.frame()
-for(prevalence in prevalences){
+for(num in num_necessary){
   for(conf in confidences){
-    epi <- get_epidemic_trigger(trials = trials, threshold = prevalence, confidence = conf, max_detect=300)  
-    prev <- get_surveillance_trigger(trials = trials,threshold =  prevalence, confidence = conf, max_detect=300) 
-    triggers <- rbind(triggers, cbind(params, data.frame(threshold=prevalence, confidence=conf, epi_trigger=epi, prev_trigger=prev)))
+    epi <- get_epidemic_trigger(trials = trials, threshold = prevalence, confidence = conf, max_detect=300, num_necessary=num)  
+    prev <- get_surveillance_trigger(trials = trials,threshold =  prevalence, confidence = conf, max_detect=300, num_necessary=num) 
+    triggers <- rbind(triggers, cbind(params, data.frame(threshold= prevalence, confidence=conf, epi_trigger=epi, prev_trigger=prev)))
   }
 }
 
