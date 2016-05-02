@@ -22,7 +22,7 @@ county_plot <- read.csv("../csvs/county_master.csv")
 texas.county <- readShapeSpatial('../TexasCountyShapeFiles/texas.county.shp', proj4string = CRS("+proj=longlat +datum=WGS84"))
 
 ## Melt R0
-county_plot.m <- melt(data = county_plot, id.vars = c("id", "Geography", "rnott.metro", "importation_probability"), 
+county_plot.m <- melt(data = county_plot, id.vars = c("id", "Geography", "rnott.expected.round", "importation_probability"), 
                       measure.vars = c("importation.current", "importation.projected", "importation.worse.projected"))
 colnames(county_plot.m) <- c("id", "geography", "rnott.expected", "importation_probability", "scenario", "import.rate")
 
@@ -32,9 +32,10 @@ import.rates <- sort(unique(county_plot.m$import.rate))
 
 triggers <- get_trigger_data(rnots, intro = import.rates,
                              disc = 0.0224, threshold = 20, confidence = .8)
+triggers.10 <- triggers[triggers$num_necessary == 10,]
 
 #### Match R0/Import Rate with Trigger
-county_plot.m <- merge(x = county_plot.m, y = triggers[,c("r_not", "intro_rate", "prev_trigger")], 
+county_plot.m <- merge(x = county_plot.m, y = triggers.10[,c("r_not", "intro_rate", "prev_trigger")], 
                        by.x=c("rnott.expected", "import.rate"), by.y=c("r_not", "intro_rate"), all.x=TRUE, sort=FALSE)
 
 
@@ -66,24 +67,44 @@ save_plot(filename = "../ExploratoryFigures/figure3_triggers.pdf", plot = plot.t
 
 
 #### Importation Probability Map 
+#merge.texas.county.import <- merge(texas.county.f, county_plot, by = "id", all.x = TRUE)
+#import.plot <- merge.texas.county[order(merge.texas.county$id),]
+
+#max.import = max(import.plot$importation_probability,na.rm=TRUE)
+#plot.importation <- ggplot(import.plot, aes(x = long, y = lat)) +
+#  geom_polygon(data = import.plot, aes(group = group, fill = importation_probability), color = "black", size = .25) +
+#  scale_x_continuous("", breaks=NULL) + 
+#  scale_y_continuous("", breaks=NULL) + 
+#  scale_fill_continuous(name = "Import \nProbability", low = "light yellow", high = "red", 
+#                        na.value = "white", breaks= c(0,0.03, 0.06,0.09, 0.12, 0.25)) +
+#  theme_cowplot() %+replace% theme(strip.background=element_blank(),
+#                                   strip.text.x = element_blank(),
+#                                   legend.key.width =  unit(0.5, "in"),
+#                                   legend.position = c(0.15, 0.8)) 
+                             
+
+
 merge.texas.county.import <- merge(texas.county.f, county_plot, by = "id", all.x = TRUE)
 import.plot <- merge.texas.county[order(merge.texas.county$id),]
-head(import.plot)
+import.plot$importation_probability.log <- log(import.plot$importation_probability)
 
+map_data <- read.csv("../csvs/metro_geo.csv")
+map_data2 <- transform(map_data, lat2 = lat + .3)
 
-plot.importation <- ggplot(import.plot, aes(x = long, y = lat)) +
-  geom_polygon(data = import.plot, aes(group = group, fill = importation_probability), color = "black", size = .25) +
+plot.importation.log <- ggplot(import.plot, aes(x = long, y = lat)) +
+  geom_polygon(data = import.plot, aes(group = group, fill = importation_probability.log), color = "grey", size = .05) +
   scale_x_continuous("", breaks=NULL) + 
   scale_y_continuous("", breaks=NULL) + 
-  scale_fill_continuous(name = "Import \nProbability", low = "light yellow", high = "red", 
-                        na.value = "grey", breaks= c(0,0.03, 0.06,0.09, 0.12)) +
+  scale_fill_continuous(name = "Import \nProbability", low ="light blue", high = "blue", 
+                        na.value = "white") +
+  geom_point(data = map_data2, aes(x = lon, y = lat), color = "black", show.legend = FALSE) +
+  geom_text(data = map_data2, aes(x=lon, y = lat2, label = Name), size = 3)+
   theme_cowplot() %+replace% theme(strip.background=element_blank(),
                                    strip.text.x = element_blank(),
-                                   legend.key.width =  unit(0.5, "in"),
+                                   legend.key.width =  unit(0.3, "in"),
                                    legend.position = c(0.15, 0.8)) 
 
-## Plot just importations
-save_plot(filename = "../ExploratoryFigures/figure3_importation.pdf", plot = plot.importation, base_height = 4, base_aspect_ratio = 1.3)
+save_plot(filename = "../ExploratoryFigures/figure3_importationlog.pdf", plot = plot.importation.log, base_height = 4, base_aspect_ratio = 1.2)            
 
 
 # fig3_all <- ggdraw() +
@@ -92,4 +113,9 @@ save_plot(filename = "../ExploratoryFigures/figure3_importation.pdf", plot = plo
 # 
 # save_plot(filename = "../ExploratoryFigures/figure3_combined.pdf", plot = fig3_all, base_height = 8, base_aspect_ratio = 1.3)
 
+#Geting the lat long of the metro areas
+
+summary.worse.projected <- summary(county_plot.m$prev_trigger[county_plot.m$scenario == "importation.worse.projected"])
+summary.projected <- summary(county_plot.m$prev_trigger[county_plot.m$scenario == "importation.projected"])
+summary.current <- summary(county_plot.m$prev_trigger[county_plot.m$scenario == "importation.current"])
 
