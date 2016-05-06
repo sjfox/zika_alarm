@@ -20,7 +20,7 @@ if(length(args)>0)  { ## Then cycle through each element of the list and evaluat
 sapply(c('branch.functions.R','plot.functions.R', 'incubation_branch.R', 'analyze_saved_sims.R'), source)
 
 prevalence <- 20
-confidences <- seq(0.5, 0.95, by=0.05)
+confidences <- seq(0.05, 0.95, by=0.05)
 num_necessary <- c(10, 20, 100)
 
 load(data.file)
