@@ -30,7 +30,7 @@ for(num in num_necessary){
   for(conf in confidences){
     epi <- get_epidemic_trigger(trials = trials, threshold = prevalence, confidence = conf, max_detect=300, num_necessary=num)  
     prev <- get_surveillance_trigger(trials = trials,threshold =  prevalence, confidence = conf, max_detect=300, num_necessary=num) 
-    triggers <- rbind(triggers, cbind(params, data.frame(threshold= prevalence, confidence=conf, epi_trigger=epi, prev_trigger=prev)))
+    triggers <- rbind(triggers, cbind(params, data.frame(threshold= prevalence, confidence=conf, num_necessary=num, epi_trigger=epi, prev_trigger=prev)))
   }
 }
 
