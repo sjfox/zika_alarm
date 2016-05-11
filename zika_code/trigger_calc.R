@@ -20,6 +20,7 @@ if(length(args)>0)  { ## Then cycle through each element of the list and evaluat
 sapply(c('branch.functions.R','plot.functions.R', 'incubation_branch.R', 'analyze_saved_sims.R'), source)
 
 prevalence <- 20
+epi_prevalence <- 50
 confidences <- seq(0.05, 0.95, by=0.05)
 num_necessary <- c(10, 20, 100)
 
@@ -28,11 +29,11 @@ params <- get_parms(data.file)
 triggers <- data.frame()
 for(num in num_necessary){
   for(conf in confidences){
-    epi <- get_epidemic_trigger(trials = trials, threshold = prevalence, confidence = conf, max_detect=300, num_necessary=num)  
+    epi <- get_epidemic_trigger(trials = trials, threshold = epi_prevalence, confidence = conf, max_detect=300, num_necessary=num)  
     prev <- get_surveillance_trigger(trials = trials,threshold =  prevalence, confidence = conf, max_detect=300, num_necessary=num) 
-    triggers <- rbind(triggers, cbind(params, data.frame(threshold= prevalence, confidence=conf, num_necessary=num, epi_trigger=epi, prev_trigger=prev)))
+    triggers <- rbind(triggers, cbind(params, data.frame(prev_threshold= prevalence, epi_threshold=epi_prevalence, confidence=conf, num_necessary=num, epi_trigger=epi, prev_trigger=prev)))
   }
 }
 
-save(list = c("triggers"), file = paste0("../../workfolder/data/zika_triggers_all/", "zika_triggers_", params$r_not, "_", params$disc_prob, "_", params$intro_rate, ".Rdata"))
+save(list = c("triggers"), file = paste0("../../workfolder/data/zika_triggers_all50/", "zika_triggers_", params$r_not, "_", params$disc_prob, "_", params$intro_rate, ".Rdata"))
 

@@ -298,7 +298,7 @@ get_epidemic_trigger <- function(trials, threshold, confidence, max_detect=200, 
   ## a specified threshold when X number of cases have been detected 
   ## and a tolerance for being X sure
   detected <- seq(0, max_detect) 
-  data <- get_epidemic_prob_by_d(trials = trials, prev_threshold = 20, cum_threshold = 2000, max_detect = max_detect, num_necessary) 
+  data <- get_epidemic_prob_by_d(trials = trials, prev_threshold = threshold, cum_threshold = 2000, max_detect = max_detect, num_necessary) 
   temp <- which(data$prob_epidemic >= confidence)
   if (is.na(temp[1])) { 
     # Never hit the threshold
