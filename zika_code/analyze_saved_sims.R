@@ -316,12 +316,12 @@ get_epidemic_trigger <- function(trials, threshold, confidence, max_detect=200, 
 #############################
 ## Get saved trigger data
 #############################
-get_trigger_data <- function(rnot, intro, disc, threshold, confidence, num_necessary){
+get_trigger_data <- function(rnot, intro, disc, prev_threshold=c(20), epi_threshold=c(50), confidence, num_necessary){
   ## type should equal "prevalence" or "epidemic"
   ## Gets saved trigger data, and returns data from requested runs
   load("../data/all_triggers.Rdata")
   df <- all_triggers
-  df[which(df$r_not%in%rnot & df$intro_rate %in% intro & df$disc_prob%in%disc  & df$threshold %in% threshold & df$confidence %in% confidence & df$num_necessary %in% num_necessary),]  
+  df[which(df$r_not%in%rnot & df$intro_rate %in% intro & df$disc_prob%in%disc  & df$prev_threshold %in% prev_threshold & df$epi_threshold %in% epi_threshold& df$confidence %in% confidence & df$num_necessary %in% num_necessary),]  
 }
 
 combine_triggers <- function(dir_path, save_path) {

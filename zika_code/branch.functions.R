@@ -98,6 +98,23 @@ prevalence_total <- function(x){
   x[, "Total_Infections"]
 }
 
+## Get Time of max prevalence
+time_max_prevalence <- function(x){
+  return(x[which.max(x[,"Total_Infections"]), "time"])
+}
+all_time_max_prevalence <- function(x) {
+  return(unlist(laply(x, time_max_prevalence)))
+}
+
+## Get duration of simulation
+sim_duration <- function(x){
+  return(nrow(x))
+}
+all_sim_duration <- function(x) {
+  return(unlist(laply(x, sim_duration)))
+}
+
+
 ### Calculate Secondary Transmitted Detections for whole time series
 calculate_second_detections <- function(x) {
   second_detections <- x[,"Cum_Detections"] - x[,"Cum_Intro_Detections"]

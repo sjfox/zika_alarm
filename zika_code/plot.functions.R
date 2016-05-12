@@ -123,6 +123,58 @@ plot_dots <- function(dir_path, r_nots, disc_probs, intros){
 }
 
 
+max_prev_time_data <- function(trials){
+  ## Gives data back for plotting the maximum prevalence against
+  ## The time difference between the max prevalence and duration
+  time <- all_sim_duration(trials) - all_time_max_prevalence(trials)
+  max_prev <- all_max_prevalence(trials)
+  
+  data.frame(duration_diff=time, max_prev=max_prev)
+}
+
+plot_trial_data <- function(trials, type="prev", n=10, rando=TRUE, seqs=1){
+  ## plots trial data
+  if(rando){
+    samples <- sample(x = 1:length(trials), size = n, replace = F)  
+  } else{
+    samples <- seqs
+  }
+  df <- do.call("rbind", trials[samples]) ## Combine into data frame
+  df$index <- rep(seq_along(trials[samples]), sapply(trials[samples], nrow)) ## Add index for each simulation
+
+  
+  if(type=="prev"){
+    df <- melt(df, id.vars=c("time", "index"), measure.vars = c("Total_Infections"))  
+  } else if(type=="inc"){
+    df <- melt(df, id.vars=c("time", "index"), measure.vars = c("New_Infection"))  
+  }
+  
+  ggplot(df, aes(time, value, color=as.factor(index), group=as.factor(index))) + geom_line() + guides(color=FALSE)
+}
+
+plot_trial_data_local <- function(trials, type="prev", n=10, rando=TRUE, seqs=1){
+  ## plots trial data
+  if(rando){
+    samples <- sample(x = 1:length(trials), size = n, replace = F)  
+  } else{
+    samples <- seqs
+  }
+  df <- do.call("rbind", trials[samples]) ## Combine into data frame
+  df$index <- rep(seq_along(trials[samples]), sapply(trials[samples], nrow)) ## Add index for each simulation
+  
+  
+  if(type=="prev"){
+    df$local <- df$Total_Infections - df$Total_Intro_Infections
+    df <- melt(df, id.vars=c("time", "index"), measure.vars = c("local"))  
+  } else if(type=="inc"){
+    df <- melt(df, id.vars=c("time", "index"), measure.vars = c("New_Infection"))  
+  }
+  
+  ggplot(df, aes(time, value, color=as.factor(index), group=as.factor(index))) + geom_line() + guides(color=FALSE)
+}
+
+
+
 get_legend<-function(myggplot){
   tmp <- ggplot_gtable(ggplot_build(myggplot))
   leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
@@ -138,3 +190,6 @@ panel_border <- function (colour = "gray80", size = 0.5, linetype = 1, remove = 
   theme(panel.border = element_rect(colour = colour, fill = NA, 
                                     linetype = linetype, size = size))
 }
+
+
+

@@ -1,20 +1,20 @@
 ###################################################
 ## Determining incubation period boxes and infectious period boxes
 ## simulate distributions
-# incubation_time <- function(nboxes, prob){
-#   box = 1
-#   t = 0
-#   while(box <= nboxes){
-#     if(runif(1) < prob){
-#       box = box+1
-#     }
-#     t = t + 1
-#   }
-#   t
-# }
-# rincubation <- function(num_reps, ...) {
-#   raply(.n = num_reps, .expr = incubation_time(...) )
-# }
+incubation_time <- function(nboxes, prob){
+  box = 1
+  t = 0
+  while(box <= nboxes){
+    if(runif(1) < prob){
+      box = box+1
+    }
+    t = t + 1
+  }
+  t
+}
+rincubation <- function(num_reps, ...) {
+  raply(.n = num_reps, .expr = incubation_time(...) )
+}
 
 fitDist <- function(prob, size, mean) {
   draws <- rnbinom(n=100000, size = size, prob = prob) + size
@@ -55,3 +55,6 @@ incubation_best_fit$minimum
 
 mean(infectious_times)
 
+
+quantile((incubation_times), probs = c(.025, .5, .975))
+quantile((infectious_times), probs = c(.025, .5, .975))
