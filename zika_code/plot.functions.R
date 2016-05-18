@@ -52,7 +52,7 @@ plot_detections <- function(x){
 }
 
 plot_prob_below <- function(df){
-  df$disc_prob <- calculate.discover(df$disc_prob)
+  df$disc_prob <- paste0(calculate.discover(df$disc_prob), "%")
   ggplot(df, aes(detected, prob_below, linetype=as.factor(disc_prob), color = as.factor(r_not))) + 
     geom_line(size=1) + facet_wrap(~intro_rate)+
     scale_y_continuous(expand=c(0.01,0.01)) +
@@ -60,16 +60,16 @@ plot_prob_below <- function(df){
     scale_color_brewer(palette="Set1") +
     panel_border(size=.5, colour="black") +
     background_grid(major = "y", minor = "none")+
-    labs(x = "Cumulative Number of Detected Cases", 
-         y = "Probability Prevalence is Below 25", 
+    labs(x = "Cumulative Number of Reported Cases", 
+         y = "Probability Prevalence is Below 20", 
          color = expression("R"[0]),
-         linetype= "Detection \nProbability")
+         linetype= "Reporting\nRate")
   
 }
 
 
 plot_epidemic_prob <- function(df){
-  df$disc_prob <- calculate.discover(df$disc_prob)
+  df$disc_prob <- paste0(calculate.discover(df$disc_prob), "%")
   ggplot(df, aes(detected, prob_epidemic, color = as.factor(r_not))) +
     geom_line(size=1, aes(linetype=as.factor(disc_prob))) + facet_wrap(~intro_rate)+
     scale_y_continuous(expand=c(0.01,0.01)) +
@@ -77,10 +77,10 @@ plot_epidemic_prob <- function(df){
     theme_cowplot() %+replace% theme(strip.background=element_rect(fill=NULL, color="black", size=1, linetype=1))+
     panel_border(size=.5, colour="black") +
     background_grid(major = "y", minor = "none")+
-    labs(x = "Cumulative Number of Detected Cases", 
+    labs(x = "Cumulative Number of Reported Cases", 
          y = "Probability of an Epidemic", 
          color = expression("R"[0]), 
-         linetype= "Detection \nProbability")
+         linetype= "Reporting\nRate")
 }
 
 plot_prevalences <- function(df){
@@ -94,12 +94,11 @@ plot_prevalences <- function(df){
     scale_x_continuous(expand=c(0.01,0.01), limits=c(0,30))+
     scale_color_brewer(palette="Set1", direction = -1)+
     scale_fill_brewer(palette="Set1", direction=-1)+
-    guides(linetype=guide_legend(override.aes=list(fill=NA)))+
-    labs(x = "Cumulative Detected Cases", 
-         y = "Current Cases (log scale)", 
+    guides(linetype=FALSE)+
+    labs(x = "Cumulative Reported Cases", 
+         y = "Prevalence (log scale)", 
          color = expression("R"[0]), 
-         fill = expression("R"[0]), 
-         linetype= "Detection \nProbability")
+         fill = expression("R"[0]))
 }
 
 dotplot_data <- function(dir_path, r_nots, disc_probs, intro_rates){
@@ -114,7 +113,7 @@ dotplot_data <- function(dir_path, r_nots, disc_probs, intro_rates){
 plot_dots <- function(dir_path, r_nots, disc_probs, intros){
   dots <- dotplot_data(dir_path, r_nots, disc_probs, intros)
   ggplot(dots, aes(r_not, max_prev)) + facet_wrap(~intro_rate, nrow=1)+ 
-    geom_point(position="jitter", shape=20,alpha=0.5) + geom_hline(yintercept=20, color="red") +
+    geom_point(position="jitter", shape=20,alpha=0.5) + geom_hline(yintercept=c(20,50), color=c("red","blue")) +
     theme_cowplot() %+replace% theme(strip.background=element_rect(fill=NULL, color="black", size=0.5, linetype=1))+
     scale_y_continuous(expand=c(0.01,0.01))+
     scale_x_continuous(expand=c(0.01,0.01))+

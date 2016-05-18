@@ -41,7 +41,7 @@ save_path <- "~/projects/zika_alarm/data/"
 fig_path <- "~/projects/zika_alarm/ExploratoryFigures/"
 
 ######### Combine triggers after a tacc run/download #####################
-#combine_triggers(trigger_dir_path, save_path)
+# combine_triggers(trigger_dir_path, save_path)
 
 
 ################################
@@ -60,7 +60,7 @@ r_nots <- c(0.8, 0.85, seq(0.9, 1.2, by=0.01), 1.25, seq(1.3, 2, by=0.1))
 intros <- c(0.01, .1)
 det_probs <- c(0.011, 0.0224)
 
-prev_triggers <- get_trigger_data(r_nots, intros, det_probs, confidence=0.5, num_necessary = 10)
+prev_triggers <- get_trigger_data(r_nots, intros, det_probs, confidence=0.5, num_necessary = 100)
 
 
 ## Remove noise from low R0 values
@@ -69,12 +69,12 @@ prev_triggers$prev_trigger[which(is.na(prev_triggers$prev_trigger))] <- 200
 prev_trigger_plot <- ggplot(prev_triggers, aes(r_not, prev_trigger, linetype=as.factor(disc_prob), color=as.factor(intro_rate))) + 
   geom_line(size=1) + 
   scale_color_manual(values=c("Grey", "Black"))+
-  coord_cartesian(ylim=c(0, 150), xlim = c(0.9,1.6), expand = FALSE)+
+  coord_cartesian(ylim=c(0, 150), xlim = c(0.9,1.4), expand = FALSE)+
   theme_cowplot()%+replace% theme(legend.position="none")+
   labs(x = expression("R"[0]), 
-       y = "Trigger (Reported Cases)", 
+       y = "Trigger (Nowcasting)", 
        color = "Importation\nRate", 
-       linetype= "Detection \nProbability")
+       linetype= "Reporting \nRate")
 print(prev_trigger_plot)
 ######## Panel C
 ### Epidemic probability plot
@@ -82,7 +82,7 @@ r_nots <- c(0.8, 0.85, seq(0.9, 1.2, by=0.01), 1.25, seq(1.3, 2, by=0.1))
 intros <- c(0.01, .1)
 det_probs <- c(0.011, 0.0224)
 
-epi_triggers  <- get_trigger_data(r_nots, intros, det_probs, confidence=0.8, num_necessary = 10)
+epi_triggers  <- get_trigger_data(r_nots, intros, det_probs, confidence=0.5, num_necessary = 100)
 
 # epi_triggers$epi_trigger <- ifelse(is.na(epi_triggers$epi_trigger), Inf, epi_triggers$epi_trigger)
 epi_triggers$disc_prob <- paste0(calculate.discover(epi_triggers$disc_prob), "%")
@@ -92,18 +92,32 @@ epi_triggers$epi_trigger[which(is.na(epi_triggers$epi_trigger))] <- 200
 
 epi_prob_plot <- ggplot(epi_triggers, aes(r_not, epi_trigger, linetype=as.factor(disc_prob), color=as.factor(intro_rate))) +
   geom_line(size=1) + scale_color_manual(values=c("Grey", "Black"))+
-  coord_cartesian(ylim=c(0, 50), xlim = c(0.99,1.3), expand = FALSE)+
+  coord_cartesian(ylim=c(0, 150), xlim = c(1,1.25), expand = FALSE)+
   labs(x = expression("R"[0]),
-       y = "Trigger (Reported Cases)",
+       y = "Trigger (Forecasting)",
        color = "Importation\nRate",
-       linetype= "Detection \nProbability")
+       linetype= "Reporting\nRate")
 print(epi_prob_plot)
 
 ################
 # Print out the panels all together and gridded
-legend <- get_legend(epi_prob_plot)
+epi_legend <- get_legend(epi_prob_plot)
 epi_prob_plot <- epi_prob_plot + theme(legend.position="none")
-figure2_panels <- plot_grid(prev_plot, prev_trigger_plot, epi_prob_plot, legend, labels=c("A", "B", "C", ""), nrow = 1, rel_widths = c(1.2,1,1, 0.3))
+prev_legend <- get_legend(prev_plot)
+prev_plot <- prev_plot + theme(legend.position="none")
+
+p1 <-ggplot_gtable(ggplot_build(prev_plot))
+p2 <- ggplot_gtable(ggplot_build(epi_prob_plot))
+max_height <- grid::unit.pmax(p1$heights, p2$heights)
+p1$heights <- max_height
+p2$hights <- max_height
+plot_grid(p1, p2)
+
+figure2_panels <- plot_grid(p1, prev_trigger_plot, p2, labels=c("A", "B", "C"), nrow = 1, rel_widths = c(1, 1, 1))
+figure2_panels <- ggdraw()+ draw_plot(figure2_panels, x =  0,y =  0,width =  .95,height =  1) +
+  draw_plot(epi_legend, x =  0.81, y =  0.2,width =  .2, height = 1) +
+  draw_plot(prev_legend, x =  0.79, y =  -0.125, width =  .2, height = 1)
+
 save_plot(paste0(fig_path, "figure2_panels.pdf"), figure2_panels, base_height = 4, base_aspect_ratio = 3)
 
 
@@ -112,24 +126,24 @@ save_plot(paste0(fig_path, "figure2_panels.pdf"), figure2_panels, base_height = 
 
 # ######### Supplemental figures
 ### Porbability below threshold graph
-# thresholds <- c(25)
-# r_nots <- c(0.9, 1.1, 1.3)
-# disc_probs <- c(0.011,.0287, 0.068)
-# intro_rates <- c(.05, 0.3)
-# temp <- get_prob_below_plot(dir_path, thresholds, r_nots, disc_probs, intro_rates)
-# 
-# prob_below <- plot_prob_below(temp)
-# save_plot(paste0(fig_path, "probability_below_supplemental.pdf"),prob_below, base_height = 5, base_aspect_ratio = 2)
+thresholds <- c(20)
+r_nots <- c(0.9, 1.1, 1.3)
+disc_probs <- c(0.011,.0224)
+intro_rates <- c(.05, 0.3)
+temp <- get_prob_below_plot(dir_path, thresholds, r_nots, disc_probs, intro_rates)
+
+prob_below <- plot_prob_below(temp)
+save_plot(paste0(fig_path, "probability_below_supplemental.pdf"),prob_below, base_height = 5, base_aspect_ratio = 2)
 
 ### Epidemic probability graph
-# r_nots <- c(0.9, 1, 1.3)
-# disc_probs <- c(0.011, 0.0287, 0.068)
-# intro_rates <- c(.05, 0.1)
-# temp <- get_epidemic_prob_plot(dir_path, prev_threshold = 25, cum_threshold = 1000, r_nots, disc_probs, intro_rates)
-# 
-# epi_plot <- plot_epidemic_prob(temp)
-# save_plot(paste0(fig_path, "epi_prob_supplemental.pdf"),epi_plot, base_height = 5, base_aspect_ratio = 1.7)
-# 
+r_nots <- c(1.1, 1.3)
+disc_probs <- c(0.011, 0.0224)
+intro_rates <- c(.05, 0.1)
+temp <- get_epidemic_prob_plot(dir_path, prev_threshold = 25, cum_threshold = 1000, r_nots, disc_probs, intro_rates)
+
+epi_plot <- plot_epidemic_prob(temp)
+save_plot(paste0(fig_path, "epi_prob_supplemental.pdf"),epi_plot, base_height = 5, base_aspect_ratio = 1.7)
+
 
 
 # get_rows_final_sizes <- function(final_sizes, r_nots, disc_probs, intro_rates){
@@ -258,22 +272,14 @@ all_ts <- ggdraw() +
 save_plot(filename = "../ExploratoryFigures/all_ts2.pdf", plot = all_ts, base_height=4, base_aspect_ratio = 1.8)
 
 # ## Supplementary choosing threshold plot -- should be 20
-r_nots <- c(0.8, 0.9, 1, 1.1, 1.2)
+r_nots <- c(seq(0.95, 1.1, by=0.01))
 disc_probs <- c(0.011)
 intros <- c(0.01, 0.1, 0.3)
 threshold_plot <- plot_dots(dir_path, r_nots, disc_probs, intros)
-print(threshold_plot)
+threshold_plot <- threshold_plot + geom_hline(yintercept=20, color="blue")
+# print(threshold_plot)
 save_plot(paste0(fig_path, "threshold_plot.pdf"), threshold_plot, base_height = 4, base_aspect_ratio = 1.8)
 
-## Second plot
-r_nots <- seq(0.95, 1.1, by=0.01)
-disc_probs <- c(0.011)
-intros <- c(0.01, 0.1)
-threshold_plot <- plot_dots(dir_path, r_nots, disc_probs, intros)
-threshold_plot <- threshold_plot+geom_hline(yintercept=35, color="green")
-# print(threshold_plot)
-
-save_plot(paste0(fig_path, "threshold_plot_moreR0s.pdf"), threshold_plot, base_height = 4, base_aspect_ratio = 1.8)
 
 
 
@@ -335,7 +341,13 @@ all_get_beta <- function(trials, ...){
   ## Returns all the betas for the 10000 simulations
   ldply(trials, get_beta, ...)
 }
-load(get_vec_of_files(dir_path, .9, 0.011, 0.1))
+load(get_vec_of_files(dir_path, 1.03, 0.011, 0.1))
+
+ind <- which(all_last_cuminfect_values(trials)>=2000 & all_max_prevalence(trials) >=50)
+
+plot_trial_data(trials[-ind], n = 5)
+
+
 
 test <- all_get_beta(trials, num_rows=200)
 no_epis <- sum(is.na(test$Estimate))

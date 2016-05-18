@@ -17,6 +17,7 @@ library(plyr)
 library(cowplot)
 library(ggrepel)
 
+
 #### Read in file with county R0 and Texas shape file
 county_plot <- read.csv("../csvs/county_master.csv")
 texas.county <- readShapeSpatial('../TexasCountyShapeFiles/texas.county.shp', proj4string = CRS("+proj=longlat +datum=WGS84"))
@@ -30,8 +31,8 @@ colnames(county_plot.m) <- c("id", "geography", "rnott.expected", "importation_p
 rnots <- sort(unique(county_plot.m$rnott.expected))
 import.rates <- sort(unique(county_plot.m$import.rate))
 
-triggers <- get_trigger_data(rnots, intro = import.rates, disc = 0.0224, confidence = .5, num_necessary = 10)
-
+triggers <- get_trigger_data(rnot = rnots, intro = import.rates, disc = 0.0224, confidence = .7, num_necessary = 100)
+triggers$prev_trigger <- ifelse(triggers$prev_trigger>200, 200, triggers$prev_trigger)
 
 #### Match R0/Import Rate with Trigger
 county_plot.m <- merge(x = county_plot.m, y = triggers[,c("r_not", "intro_rate", "prev_trigger")], 
@@ -62,7 +63,7 @@ plot.importation.log <- ggplot(import.plot, aes(x = long, y = lat)) +
   geom_polygon(data = import.plot, aes(group = group, fill = importation_probability.log), color = "grey", size = .1) +
   scale_x_continuous("", breaks=NULL) + 
   scale_y_continuous("", breaks=NULL) + 
-  scale_fill_continuous(name = "Import Probability", low ="white", high = "blue", breaks = c(-6, -4, -2), labels = round(exp(c(-6, -4, -2)), digits = 3),
+  scale_fill_continuous(name = "Import Probability", low ="white", high = "blue", breaks = log(c(0.002, 0.02, 0.2)), labels = c(0.002,0.02,0.2),
                         na.value = "white") +
   geom_point(data = map_data, aes(x = lon, y = lat), color = "black", size=1, show.legend = FALSE) +
   geom_text_repel(data = map_data, aes(x=lon, y = lat, label = Name), size = 5,force=0.75, segment.color = "black")+
@@ -98,7 +99,7 @@ plot.trial <- ggplot(final.plot, aes(x=long, y = lat)) +
   facet_wrap(~scenario, nrow = 1) +
   scale_x_continuous("", breaks=NULL) + 
   scale_y_continuous("", breaks=NULL) + 
-  scale_fill_continuous(name = "Surveillance Trigger", low = "red", high = "white", 
+  scale_fill_continuous(name = "Trigger (Nowcasting)", low = "red", high = "white", 
                         na.value = "white", breaks = breaks.trigger) +
   geom_point(data = map_data[ind,], aes(x = lon, y = lat), color = "black", size=1, show.legend = FALSE) +
   geom_text_repel(data = map_data[ind,], aes(x=lon, y = lat, label = Name), force=100, nudge_x = ifelse(map_data[ind,]$Name=="Austin",-1,1),
@@ -126,23 +127,28 @@ plot.trial <- ggplot(final.plot, aes(x=long, y = lat)) +
 # 
 # save_plot(filename = "../ExploratoryFigures/figure3_combined.pdf", plot = fig3_all, base_height = 8, base_aspect_ratio = 1.1)
 
-# #Geting the lat long of the metro areas
-# 
-# summary.worse.projected <- summary(county_plot.m$prev_trigger[county_plot.m$scenario == "importation.worse.projected"])
-# summary.projected <- summary(county_plot.m$prev_trigger[county_plot.m$scenario == "importation.projected"])
-# summary.current <- summary(county_plot.m$prev_trigger[county_plot.m$scenario == "importation.current"])
-
 load("../data/rand_trigger.Rdata")
-rand_triggers$disc <- paste0(calculate.discover(rand_triggers$disc), "%")
+rand_triggers <- rand_triggers[which(rand_triggers$disc_prob==0.0224),]
+rand_triggers$disc_prob<-NULL
+rand_triggers$r_not <- "Unknown"
+rand_triggers$variable <- ifelse(rand_triggers$variable=="Forecasting", "Epidemic", "Prevalence")
 
-rand_trigger_plot <- ggplot(rand_triggers, aes(confidence, value, color=variable, linetype=as.factor(disc))) + geom_line(size=1)+
-  coord_cartesian(xlim = c(0,0.75), expand=FALSE)+
+test <- get_trigger_data(1.05, 0.1, 0.0224, confidence=seq(0.05, .95, by=0.05), num_necessary=10)
+test <- melt(test, id.vars=c("confidence"), measure.vars = c("epi_trigger", "prev_trigger"))
+test$confidence <- ifelse(test$variable == "epi_trigger", test$confidence, 1-test$confidence)
+test$variable <- ifelse(test$variable=="epi_trigger", "Epidemic", "Prevalence")
+test$r_not <- "1.05"
+rand_trigger_dat <- rbind(test, rand_triggers)
+
+rand_trigger_plot <- ggplot(rand_trigger_dat, aes(confidence, value, color=variable, linetype=r_not)) + geom_line(size=1)+
+  coord_cartesian(xlim = c(0,0.75), ylim=c(0,80),expand=FALSE)+
   scale_color_manual(values=c("Grey", "Black"))+
-  theme_cowplot()%+replace% theme(legend.position=c(0.3, 0.6),
+  scale_linetype_manual(values=c(10,1))+
+  theme_cowplot()%+replace% theme(legend.position=c(0.25, 0.75),
                                   legend.box.just = "left")+
   labs(x = "Risk Tolerance", 
        y = "Trigger (Reported Cases)", 
-       linetype = "Detection\nProbability",
+       linetype = expression("R"[0]),
        color="Trigger Type")
 print(rand_trigger_plot)
 
@@ -150,6 +156,16 @@ fig4 <- ggdraw() + draw_plot(plot.trial, x = 0, y=0, width=0.66, height=1)+
   draw_plot(plot = rand_trigger_plot, x = 0.66, y=0, width=0.33, height=1)+
   draw_plot_label(c("A", "B", "C"), c(0, 0.33, 0.66), c(1, 1, 1), size = 20)
 save_plot(filename = "../ExploratoryFigures/fig4_texas_risk.pdf", plot = fig4, base_height = 4, base_aspect_ratio = 3)
+
+
+
+
+summary(county_plot.m$prev_trigger[county_plot.m$scenario == "importation.projected"])
+summary(county_plot.m$prev_trigger[county_plot.m$scenario == "importation.worse.projected"])
+triggers_both_scenarios <- dcast(county_plot.m, geography ~ scenario, value.var = "prev_trigger")
+
+sum(!is.na(triggers_both_scenarios$importation.projected - triggers_both_scenarios$importation.worse.projected))
+mean(triggers_both_scenarios$importation.projected - triggers_both_scenarios$importation.worse.projected, na.rm=T)
 
 ################### SO code, helps move axis and titles with plots
 # head(diamonds)
@@ -180,48 +196,45 @@ save_plot(filename = "../ExploratoryFigures/fig4_texas_risk.pdf", plot = fig4, b
 # 
 # values <- unlist(strsplit(projected_combos, "_"))
 # ## R0s are the first item in each combo
-# r_nots <- as.numeric(values[seq(1,length(values), by=2)])
-# intro_rates <- as.numeric(values[seq(2,length(values), by=2)])
-# indices <- 1:length(r_nots)
-# 
-# num_samps <- 10000
-# samps <- sample(indices, size = num_samps, replace = T)
-# samps <- table(samps)
-# rand_trials <- vector("list", length = num_samps)
-# list_ind <- 1
-# 
-# for(i in 1:length(samps)){
-#   index <- as.numeric(names(samps[i]))
-#   num_trials <- samps[i]
-#   #  print(i)
-#   #  print(get_vec_of_files(dir_path, r_nots = r_nots[index], disc_probs = 0.011, intro_rates = intro_rates[index]))
-#   load(get_vec_of_files(dir_path, r_nots = r_nots[index], disc_probs = 0.0224, intro_rates = intro_rates[index]))
-#   rand_trials[list_ind:(list_ind+num_trials-1)] <- trials[sample(1:10000, size=num_trials)]
-#   list_ind <- list_ind+num_trials
-# }
-# conf <- seq(0.05, 0.95, by=0.05)
-# epi_triggers <- c()
-# prev_triggers <- c()
-# 
-# for(ci in conf){
-#   temp <- get_epidemic_trigger(trials = rand_trials, threshold = 50, confidence = ci, max_detect = 300, num_necessary = 10)  
-#   temp2 <- get_surveillance_trigger(trials=rand_trials, threshold = 20, confidence=ci, max_detect = 300, num_necessary=10)
-#   epi_triggers <- c(epi_triggers, temp)
-#   prev_triggers <- c(prev_triggers, temp2)
-# }
-# df <- data.frame(confidence=conf, epi_trigger = epi_triggers, prev_trigger = prev_triggers[length(prev_triggers):1])
-# df <- melt(df, id.vars=c("confidence"))
-# df$variable <- ifelse(df$variable=="epi_trigger", "Nowcasting", "Forecasting")
-# rand_trigger_plot <- ggplot(df, aes(confidence, value, color=variable)) + geom_line(size=1)+
-#   coord_cartesian(xlim = c(0,1), expand=FALSE)+
-#   scale_color_manual(values=c("Grey", "Black"))+
-#   theme_cowplot()%+replace% theme(legend.position=c(0.3, 0.8))+
-#   labs(x = "Risk Tolerance", 
-#        y = "Trigger (Reported Cases)", 
-#        color = "")
-# 
-# print(rand_trigger_plot)
-# df$disc <- 0.0224
-# df10disc$disc <- 0.011
-# rand_triggers <- rbind(df, df10disc)
+r_nots <- as.numeric(values[seq(1,length(values), by=2)])
+intro_rates <- as.numeric(values[seq(2,length(values), by=2)])
+disc_probs <- c(0.011, 0.0224)
+indices <- 1:length(r_nots)
+df_all <- data.frame()
+for(disc_prob in disc_probs){
+  num_samps <- 10000
+  samps <- sample(indices, size = num_samps, replace = T)
+  samps <- table(samps)
+  rand_trials <- vector("list", length = num_samps)
+  list_ind <- 1
+
+  for(i in 1:length(samps)){
+    index <- as.numeric(names(samps[i]))
+    num_trials <- samps[i]
+    #  print(i)
+    #  print(get_vec_of_files(dir_path, r_nots = r_nots[index], disc_probs = 0.011, intro_rates = intro_rates[index]))
+    load(get_vec_of_files(dir_path, r_nots = r_nots[index], disc_probs = disc_prob, intro_rates = intro_rates[index]))
+    rand_trials[list_ind:(list_ind+num_trials-1)] <- trials[sample(1:10000, size=num_trials)]
+    list_ind <- list_ind+num_trials
+  }
+  
+  conf <- seq(0.05, 0.95, by=0.05)
+  epi_triggers <- c()
+  prev_triggers <- c()
+
+  for(ci in conf){
+    temp <- get_epidemic_trigger(trials = rand_trials, threshold = 50, confidence = ci, max_detect = 300, num_necessary = 100)
+    temp2 <- get_surveillance_trigger(trials=rand_trials, threshold = 20, confidence=ci, max_detect = 300, num_necessary=100)
+    epi_triggers <- c(epi_triggers, temp)
+    prev_triggers <- c(prev_triggers, temp2)
+  }
+  df <- data.frame(confidence=conf, epi_trigger = epi_triggers, prev_trigger = prev_triggers[length(prev_triggers):1])
+  df <- melt(df, id.vars=c("confidence"))
+  df$variable <- ifelse(df$variable=="epi_trigger",  "Forecasting", "Nowcasting")
+  df$disc_prob <- disc_prob
+  df_all <- rbind(df_all, df)
+}
+rand_triggers <- df_all
+
+# # ggplot(df_all, aes(confidence, value, color=variable, linetype=as.factor(disc_prob)))+geom_line()
 # save(list = c("rand_triggers"), file = "../data/rand_trigger.Rdata")

@@ -102,7 +102,7 @@ get_epidemic_prob_plot <- function(dir_path, prev_threshold, cum_threshold, r_no
   ldply(data.files, function(x) {
     load(x)
     parms <- get_parms(x)
-    prob_belows <- get_epidemic_prob_by_d(trials = trials, prev_threshold=prev_threshold, cum_threshold=cum_threshold)  
+    prob_belows <- get_epidemic_prob_by_d(trials = trials, prev_threshold=prev_threshold, cum_threshold=cum_threshold, num_necessary=100)  
     cbind(as.data.frame(parms), prob_belows)
   })  
 }
@@ -148,7 +148,7 @@ get_prob_below_threshold <- function(trials, f, threshold, max_detect=50){
   ## a specified threshold when X number of cases have been detected 
   detected <- seq(0,max_detect) 
   data <- get_prev_by_detects_all(trials, f) 
-  probs <- freq_below_thresh_vec(data, detected, threshold)
+  probs <- freq_below_thresh_vec(data, detected, threshold, num_necessary=100)
   return(data.frame(detected=detected, prob_below=probs))
 }
 
