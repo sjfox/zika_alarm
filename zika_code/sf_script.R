@@ -48,77 +48,144 @@ fig_path <- "~/projects/zika_alarm/ExploratoryFigures/"
 ## Code to Make Figure 2
 ################################
 ##### Panel A
-r_nots <- c(0.9, 1.3)
+r_nots <- c(1.1, 1.5)
 disc_probs <- c(0.011, 0.0224)
 intros <- 0.1 ## Harris county has 0.129, but this close
 prev_plot_data <- get_prev_by_detects_plot(dir_path, r_nots = r_nots, disc_probs = disc_probs, intro_rates = intros)
-prev_plot <- plot_prevalences(prev_plot_data)
-print(prev_plot)  
+prev_plot_data$disc_prob <- paste0(calculate.discover(prev_plot_data$disc_prob), "%")
+prev_plot <- ggplot(prev_plot_data, aes(detected, median, color=as.factor(r_not), linetype=as.factor(disc_prob), fill=as.factor(r_not))) + 
+  geom_line(size=1)+
+  geom_ribbon(aes(ymax=max, ymin=min), alpha=0.1, color=NA)+
+  scale_y_log10(expand=c(0,0),limits=c(1,100), breaks = c(5,10,25,50,100))+
+  coord_cartesian(xlim = c(0,30))+
+  scale_x_continuous(expand=c(0.01,0.01))+
+  theme(legend.position = c(0.6,0.2),
+        #legend.direction = "horizontal",
+        legend.box="horizontal")+
+  scale_color_brewer(palette="Set1", direction = -1)+
+  scale_fill_brewer(palette="Set1", direction=-1)+
+  guides(linetype=guide_legend(title.hjust = 0, override.aes=list("fill"=NA), title="Reporting Rate"))+
+  labs(x = "Cumulative Reported Cases", 
+       y = "Prevalence (log scale)", 
+       color = expression("R"[0]), 
+       fill = expression("R"[0]))
+# print(prev_plot)  
 
 ##### Panel B
+thresholds <- c(20)
+r_nots <- c(1.1)
+disc_probs <- c(.0224)
+intro_rates <- c(.01, .1)
+prob_below <- get_prob_below_plot(dir_path, thresholds, r_nots, disc_probs, intro_rates)
+prob_below$prob_below <- 1-prob_below$prob_below
+epi_prob <- get_epidemic_prob_plot(dir_path, prev_threshold = 50, cum_threshold = 2000, r_nots, disc_probs, intro_rates)
+both_combined <- merge(x = prob_below, y= epi_prob, by.x= c("r_not", "intro_rate", "disc_prob", "detected"), by.y=c("r_not", "intro_rate", "disc_prob", "detected"))
+both_combined$threshold <- NULL
+df <- melt(both_combined, measure.vars = c("prob_below", "prob_epidemic"))
+df$variable <- ifelse(df$variable=="prob_below", "Prevalence", "Epidemic")
+df$intro_rate <- factor(df$intro_rate, levels=c(0.1,0.01))
+df <- df[seq(1,nrow(df),by=3),]
+epi_prev_threshold <- ggplot(df, aes(detected, value, linetype=intro_rate, color = variable)) + 
+  geom_line(size=1) +
+  geom_hline(yintercept=0.5, size=0.5)+
+  coord_cartesian(ylim=c(0,1), xlim = c(0,100), expand = FALSE)+
+  scale_color_manual(values=c("Black", "Grey")) +
+  background_grid(major = "xy", minor = "none")+
+  theme(legend.position="none")+
+  labs(x = "Cumulative Reported Cases", 
+       y = "Trigger Probability", 
+       color = "Trigger Type",
+       linetype= "Importation\nRate")
+# print(epi_prev_threshold)
+
+# save_plot(paste0(fig_path, "trigger_probability.pdf"),epi_prev_threshold, base_height = 5, base_aspect_ratio = 1.3)
+
 r_nots <- c(0.8, 0.85, seq(0.9, 1.2, by=0.01), 1.25, seq(1.3, 2, by=0.1))
 intros <- c(0.01, .1)
-det_probs <- c(0.011, 0.0224)
+det_probs <- c(0.0224)
 
-prev_triggers <- get_trigger_data(r_nots, intros, det_probs, confidence=0.5, num_necessary = 100)
+triggers <- get_trigger_data(r_nots, intros, det_probs, confidence=0.5, num_necessary = 100)
 
 
-## Remove noise from low R0 values
-prev_triggers$prev_trigger[which(is.na(prev_triggers$prev_trigger))] <- 200
-
-prev_trigger_plot <- ggplot(prev_triggers, aes(r_not, prev_trigger, linetype=as.factor(disc_prob), color=as.factor(intro_rate))) + 
+## Remove NA to make plots drift off to top of figure
+triggers$prev_trigger[which(is.na(triggers$prev_trigger))] <- 200
+triggers$epi_trigger[which(is.na(triggers$epi_trigger))] <- 200
+temp <- melt(triggers, measure.vars = c("epi_trigger", "prev_trigger"))
+temp$variable <- ifelse(temp$variable=="prev_trigger", "Prevalence", "Epidemic")
+trigger_plot <- ggplot(temp, aes(r_not, value, linetype=as.factor(intro_rate), color=variable)) + 
   geom_line(size=1) + 
   scale_color_manual(values=c("Grey", "Black"))+
-  coord_cartesian(ylim=c(0, 150), xlim = c(0.9,1.4), expand = FALSE)+
-  theme_cowplot()%+replace% theme(legend.position="none")+
+  coord_cartesian(ylim=c(0, 150), xlim = c(0.95,1.4), expand = FALSE)+
+  scale_x_continuous(expand=c(0.01,0.01))+
+  theme(legend.position=c(0.75,0.7), legend.box.just="left")+
   labs(x = expression("R"[0]), 
-       y = "Trigger (Nowcasting)", 
-       color = "Importation\nRate", 
-       linetype= "Reporting \nRate")
-print(prev_trigger_plot)
-######## Panel C
-### Epidemic probability plot
-r_nots <- c(0.8, 0.85, seq(0.9, 1.2, by=0.01), 1.25, seq(1.3, 2, by=0.1))
-intros <- c(0.01, .1)
-det_probs <- c(0.011, 0.0224)
+       y = "Trigger (Reported Cases)", 
+       linetype = "Importation\nRate", 
+       color = "Trigger Type")
+print(trigger_plot)
+# save_plot(paste0(fig_path, "triggers.pdf"), trigger_plot, base_height = 5, base_aspect_ratio = 1.3)
 
-epi_triggers  <- get_trigger_data(r_nots, intros, det_probs, confidence=0.5, num_necessary = 100)
-
-# epi_triggers$epi_trigger <- ifelse(is.na(epi_triggers$epi_trigger), Inf, epi_triggers$epi_trigger)
-epi_triggers$disc_prob <- paste0(calculate.discover(epi_triggers$disc_prob), "%")
-
-## Remove outlier from low trigger data ( few runs, and so not infinity solely due to stochasticity)
-epi_triggers$epi_trigger[which(is.na(epi_triggers$epi_trigger))] <- 200
-
-epi_prob_plot <- ggplot(epi_triggers, aes(r_not, epi_trigger, linetype=as.factor(disc_prob), color=as.factor(intro_rate))) +
-  geom_line(size=1) + scale_color_manual(values=c("Grey", "Black"))+
-  coord_cartesian(ylim=c(0, 150), xlim = c(1,1.25), expand = FALSE)+
-  labs(x = expression("R"[0]),
-       y = "Trigger (Forecasting)",
-       color = "Importation\nRate",
-       linetype= "Reporting\nRate")
-print(epi_prob_plot)
-
-################
-# Print out the panels all together and gridded
-epi_legend <- get_legend(epi_prob_plot)
-epi_prob_plot <- epi_prob_plot + theme(legend.position="none")
-prev_legend <- get_legend(prev_plot)
-prev_plot <- prev_plot + theme(legend.position="none")
-
+## Align figures
 p1 <-ggplot_gtable(ggplot_build(prev_plot))
-p2 <- ggplot_gtable(ggplot_build(epi_prob_plot))
-max_height <- grid::unit.pmax(p1$heights, p2$heights)
-p1$heights <- max_height
-p2$hights <- max_height
-plot_grid(p1, p2)
+p2 <- ggplot_gtable(ggplot_build(trigger_plot))
+p2$heights <- p1$heights
+figure2 <- plot_grid(p1, epi_prev_threshold, p2, labels=c("A", "B", "C"), nrow = 1, rel_widths = c(1, 1, 1))
+save_plot(paste0(fig_path, "figure2_panels.pdf"), figure2, base_height = 4, base_aspect_ratio = 3)
 
-figure2_panels <- plot_grid(p1, prev_trigger_plot, p2, labels=c("A", "B", "C"), nrow = 1, rel_widths = c(1, 1, 1))
-figure2_panels <- ggdraw()+ draw_plot(figure2_panels, x =  0,y =  0,width =  .95,height =  1) +
-  draw_plot(epi_legend, x =  0.81, y =  0.2,width =  .2, height = 1) +
-  draw_plot(prev_legend, x =  0.79, y =  -0.125, width =  .2, height = 1)
+# 
+# prev_trigger_plot <- ggplot(prev_triggers, aes(r_not, prev_trigger, linetype=as.factor(disc_prob), color=as.factor(intro_rate))) + 
+#   geom_line(size=1) + 
+#   scale_color_manual(values=c("Grey", "Black"))+
+#   coord_cartesian(ylim=c(0, 150), xlim = c(0.9,1.4), expand = FALSE)+
+#   theme_cowplot()%+replace% theme(legend.position="none")+
+#   labs(x = expression("R"[0]), 
+#        y = "Trigger (Nowcasting)", 
+#        color = "Importation\nRate", 
+#        linetype= "Reporting \nRate")
+# print(prev_trigger_plot)
+# ######## Panel C
+# ### Epidemic probability plot
+# r_nots <- c(0.8, 0.85, seq(0.9, 1.2, by=0.01), 1.25, seq(1.3, 2, by=0.1))
+# intros <- c(0.01, .1)
+# det_probs <- c(0.011, 0.0224)
+# 
+# epi_triggers  <- get_trigger_data(r_nots, intros, det_probs, confidence=0.5, num_necessary = 100)
+# 
+# # epi_triggers$epi_trigger <- ifelse(is.na(epi_triggers$epi_trigger), Inf, epi_triggers$epi_trigger)
+# epi_triggers$disc_prob <- paste0(calculate.discover(epi_triggers$disc_prob), "%")
+# 
+# ## Remove outlier from low trigger data ( few runs, and so not infinity solely due to stochasticity)
+# epi_triggers$epi_trigger[which(is.na(epi_triggers$epi_trigger))] <- 200
+# 
+# epi_prob_plot <- ggplot(epi_triggers, aes(r_not, epi_trigger, linetype=as.factor(disc_prob), color=as.factor(intro_rate))) +
+#   geom_line(size=1) + scale_color_manual(values=c("Grey", "Black"))+
+#   coord_cartesian(ylim=c(0, 150), xlim = c(1,1.25), expand = FALSE)+
+#   labs(x = expression("R"[0]),
+#        y = "Trigger (Forecasting)",
+#        color = "Importation\nRate",
+#        linetype= "Reporting\nRate")
+# print(epi_prob_plot)
 
-save_plot(paste0(fig_path, "figure2_panels.pdf"), figure2_panels, base_height = 4, base_aspect_ratio = 3)
+# ################
+# # Print out the panels all together and gridded
+# epi_legend <- get_legend(epi_prob_plot)
+# epi_prob_plot <- epi_prob_plot + theme(legend.position="none")
+# prev_legend <- get_legend(prev_plot)
+# prev_plot <- prev_plot + theme(legend.position="none")
+# 
+# p1 <-ggplot_gtable(ggplot_build(prev_plot))
+# p2 <- ggplot_gtable(ggplot_build(epi_prob_plot))
+# max_height <- grid::unit.pmax(p1$heights, p2$heights)
+# p1$heights <- max_height
+# p2$hights <- max_height
+# plot_grid(p1, p2)
+# 
+# figure2_panels <- plot_grid(p1, prev_trigger_plot, p2, labels=c("A", "B", "C"), nrow = 1, rel_widths = c(1, 1, 1))
+# figure2_panels <- ggdraw()+ draw_plot(figure2_panels, x =  0,y =  0,width =  .95,height =  1) +
+#   draw_plot(epi_legend, x =  0.81, y =  0.2,width =  .2, height = 1) +
+#   draw_plot(prev_legend, x =  0.79, y =  -0.125, width =  .2, height = 1)
+# 
+# save_plot(paste0(fig_path, "figure2_panels.pdf"), figure2_panels, base_height = 4, base_aspect_ratio = 3)
 
 
 
