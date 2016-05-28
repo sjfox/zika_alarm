@@ -6,7 +6,7 @@ if(grepl('tacc', Sys.info()['nodename'])) setwd('/home1/02958/sjf826/zika_alarm/
 if(grepl('meyerslab', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
 if(grepl('laurencastro', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
 
-run_type <- "analyze_importation"
+run_type <- "analyze_importations"
 
 ## Want total discovery rates of 5%, 10%, 15%, 20%, 40% 
 ## Calculated by total discovery probability = (1-(1-daily_prob)^9.88)
