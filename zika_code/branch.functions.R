@@ -378,6 +378,18 @@ calculate.discover <- function(disc_p){
   round(1-((1-disc_p)^9.88), digits = 2)*100
 } 
 
-
+get_disc_prob_rand <- function(path){
+  temp <- strsplit(path, split="/")[[1]]
+  temp <- temp[length(temp)]
+  temp <- strsplit(temp, split="_")[[1]]
+  disc_prob <- strsplit(temp[5], "\\.")[[1]]
+  as.numeric(paste0(disc_prob[1:length(disc_prob)-1],collapse ="."))
+}
+get_risk_level_rand <- function(path){
+  temp <- strsplit(path, split="/")[[1]]
+  temp <- temp[length(temp)]
+  temp <- strsplit(temp, split="_")[[1]]
+  paste0(temp[1:2],collapse ="_")
+}
 
   

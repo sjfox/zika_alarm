@@ -31,11 +31,11 @@ colnames(county_plot.m) <- c("id", "geography", "rnott.expected", "importation_p
 rnots <- sort(unique(county_plot.m$rnott.expected))
 import.rates <- sort(unique(county_plot.m$import.rate))
 
-triggers <- get_trigger_data(rnot = rnots, intro = import.rates, disc = 0.0224, confidence = .7, num_necessary = 100)
+triggers <- get_trigger_data(rnot = rnots, intro = import.rates, disc = 0.0224, confidence = .3, num_necessary = 100)
 # triggers$prev_trigger <- ifelse(triggers$prev_trigger>200, 200, triggers$prev_trigger)
 
 #### Match R0/Import Rate with Trigger
-county_plot.m <- merge(x = county_plot.m, y = triggers[,c("r_not", "intro_rate", "prev_trigger")], 
+county_plot.m <- merge(x = county_plot.m, y = triggers[,c("r_not", "intro_rate", "epi_trigger")], 
                        by.x=c("rnott.expected", "import.rate"), by.y=c("r_not", "intro_rate"), all.x=TRUE, sort=FALSE)
 
 
@@ -95,14 +95,14 @@ ind <- which(map_data$Name %in% c("Austin", "Houston"))
 ###### Trigger Maps, Faceted by Scenario 
 
 colFunc <- colorRampPalette(c("red4","darkorange", "gold", "yellow"))
-breaks.trigger = seq(from = 0, to = max(final.plot$prev_trigger,na.rm=TRUE), by = 40)
+breaks.trigger = seq(from = 0, to = max(final.plot$epi_trigger,na.rm=TRUE), by = 1)
 plot.trial <- ggplot(final.plot, aes(x=long, y = lat)) +
-  geom_polygon(data = final.plot, aes(group = group, fill = prev_trigger), color = "grey", size = .1) +
+  geom_polygon(data = final.plot, aes(group = group, fill = epi_trigger), color = "grey", size = .1) +
   facet_wrap(~scenario, nrow = 1) +
   scale_x_continuous("", breaks=NULL) + 
   scale_y_continuous("", breaks=NULL) + 
   # scale_fill_continuous(name = "Trigger (Nowcasting)", low = "red", high = "white",
-  scale_fill_gradientn(name = "Trigger (Nowcasting)", colors=colFunc(10),
+  scale_fill_gradientn(name = "Trigger (Reported Cases)", colors=colFunc(10),
                         na.value = "white", breaks = breaks.trigger) +
   geom_point(data = map_data[ind,], aes(x = lon, y = lat), color = "black", size=1, show.legend = FALSE) +
   geom_text_repel(data = map_data[ind,], aes(x=lon, y = lat, label = Name), force=100, nudge_x = ifelse(map_data[ind,]$Name=="Austin",-1,1),
@@ -118,6 +118,11 @@ save_plot(filename = "../ExploratoryFigures/trigger_maps_test.pdf", plot = plot.
 # trigger.legend <- get_legend(plot.trial)
 # plot.trial <- plot.trial+theme(legend.position="none")
 
+
+
+temp <- get_trigger_data(c(0.8, 0.85, seq(0.9, 1.2, by=0.05)), intro=c(0.0, 0.01, 0.05, 0.1, 0.3), disc = c(0.0224), confidence = 0.3, num_necessary = 100)
+
+ggplot(temp, aes(intro_rate, epi_trigger, color=r_not, group=r_not)) + geom_line() +scale_y_log10()
 
 
 # save_plot(filename = "../ExploratoryFigures/figure3_importationlog.pdf", plot = plot.importation.log, base_height = 4, base_aspect_ratio = 1.2)            
@@ -177,6 +182,8 @@ triggers_both_scenarios <- dcast(county_plot.m, geography ~ scenario, value.var 
 
 sum(!is.na(triggers_both_scenarios$importation.projected - triggers_both_scenarios$importation.worse.projected))
 mean(triggers_both_scenarios$importation.projected - triggers_both_scenarios$importation.worse.projected, na.rm=T)
+
+
 
 #####################################
 ## FIGURE FOR ALISON
@@ -311,57 +318,119 @@ save_plot(filename = "../ExploratoryFigures/alison_fig.pdf", plot = alison_fig, 
 ##########################################
 #######################
 # RANDOM SELECT VALUES
-imports <- read.csv("../csvs/county_master.csv")
-dir_path <-"~/projects/zika_alarm/data/sep_intros/"
-projected_combos <- as.character(unique(interaction(imports$rnott.expected.round, imports$importation.projected,sep = "_")))
 
-values <- unlist(strsplit(projected_combos, "_"))
-## R0s are the first item in each combo
-r_nots <- as.numeric(values[seq(1,length(values), by=2)])
-intro_rates <- as.numeric(values[seq(2,length(values), by=2)])
-
-## If you want to do only high risk include this line:
-indices <- which(r_nots>=1)
-r_nots <- r_nots[indices]
-intro_rates <- intro_rates[indices]
-
-disc_probs <- c(0.011, 0.0224)
-indices <- 1:length(r_nots)
-df_all <- data.frame()
-for(disc_prob in disc_probs){
-  num_samps <- 10000
+get_rand_trials <- function(dir_path, import_loc, disc_prob, num_trials, high_risk=FALSE){
+  imports <- read.csv(import_loc)
+  dir_path <-"~/projects/zika_alarm/data/sep_intros/"
+  
+  projected_combos <- as.character(unique(interaction(imports$rnott.expected.round, imports$importation.projected,sep = "_")))
+  
+  values <- unlist(strsplit(projected_combos, "_"))
+  ## R0s are the first item in each combo
+  r_nots <- as.numeric(values[seq(1,length(values), by=2)])
+  intro_rates <- as.numeric(values[seq(2,length(values), by=2)])
+  
+  ## If you want to do only high risk include this line:
+  if(high_risk){
+    indices <- which(r_nots>=1)  
+    r_nots <- r_nots[indices]
+    intro_rates <- intro_rates[indices]
+  } 
+  indices <- 1:length(r_nots)
+  num_samps <- num_trials
   samps <- sample(indices, size = num_samps, replace = T)
   samps <- table(samps)
   rand_trials <- vector("list", length = num_samps)
   list_ind <- 1
-
+  
   for(i in 1:length(samps)){
     index <- as.numeric(names(samps[i]))
     num_trials <- samps[i]
-    #  print(i)
-    #  print(get_vec_of_files(dir_path, r_nots = r_nots[index], disc_probs = 0.011, intro_rates = intro_rates[index]))
+    
     load(get_vec_of_files(dir_path, r_nots = r_nots[index], disc_probs = disc_prob, intro_rates = intro_rates[index]))
     rand_trials[list_ind:(list_ind+num_trials-1)] <- trials[sample(1:10000, size=num_trials)]
     list_ind <- list_ind+num_trials
   }
-
-  conf <- seq(0.05, 0.95, by=0.05)
-  epi_triggers <- c()
-  prev_triggers <- c()
-
-  for(ci in conf){
-    temp <- get_epidemic_trigger(trials = rand_trials, threshold = 50, confidence = ci, max_detect = 300, num_necessary = 100)
-    temp2 <- get_surveillance_trigger(trials=rand_trials, threshold = 20, confidence=ci, max_detect = 300, num_necessary=100)
-    epi_triggers <- c(epi_triggers, temp)
-    prev_triggers <- c(prev_triggers, temp2)
-  }
-  df <- data.frame(confidence=conf, epi_trigger = epi_triggers, prev_trigger = prev_triggers[length(prev_triggers):1])
-  df <- melt(df, id.vars=c("confidence"))
-  df$variable <- ifelse(df$variable=="epi_trigger",  "Forecasting", "Nowcasting")
-  df$disc_prob <- disc_prob
-  df_all <- rbind(df_all, df)
+  rand_trials  
 }
-rand_triggers <- df_all
 
-# # ggplot(df_all, aes(confidence, value, color=variable, linetype=as.factor(disc_prob)))+geom_line()
-save(list = c("rand_triggers"), file = "../data/rand_trigger_extra_high_risk.Rdata")
+#############################################
+## Creating Random county trigger data
+#############################################
+## Generate random trial data
+set.seed(808)
+rand_trials <- get_rand_trials(dir_path, "../csvs/county_master.csv", disc_prob=0.0224, 10000)
+save(list = c("rand_trials"), file = "../data/rand_trials/all_risk_county_trials_0.0224.Rdata")
+rand_trials <- get_rand_trials(dir_path, "../csvs/county_master.csv", disc_prob=0.011, 10000)
+save(list = c("rand_trials"), file = "../data/rand_trials/all_risk_county_trials_0.011.Rdata")
+rand_trials <- get_rand_trials(dir_path, "../csvs/county_master.csv", disc_prob=0.0224, 10000, high_risk = TRUE)
+save(list = c("rand_trials"), file = "../data/rand_trials/high_risk_county_trials_0.0224.Rdata")
+rand_trials <- get_rand_trials(dir_path, "../csvs/county_master.csv", disc_prob=0.011, 10000, high_risk = TRUE)
+save(list = c("rand_trials"), file = "../data/rand_trials/high_risk_county_trials_0.011.Rdata")
+
+## Analyze saved trials and create data frame of epidemic and prevalence probabilities
+
+
+data.files <- list.files(path="../data/rand_trials", pattern="*.Rdata", full.names=T, recursive=FALSE)
+prob_data <- ldply(data.files, function(x) {
+  load(x)
+  ## Get the R0
+  disc_prob <- get_disc_prob_rand(x) 
+  risk_level <- get_risk_level_rand(x)
+  prob_below <- get_prob_below_threshold(trials = rand_trials, f=totalprev_by_totaldetects, threshold=20, max_detect = 200)
+  prob_below$prob_below <- 1 - prob_below$prob_below
+  prob_epidemic <- get_epidemic_prob_by_d(trials = rand_trials, prev_threshold = 50, cum_threshold = 2000, max_detect = 200, num_necessary = 100)
+  cbind(risk_level=risk_level, disc_prob=disc_prob, prob_below, data.frame(prob_epidemic=prob_epidemic$prob_epidemic))
+})  
+prob_data <- melt(prob_data, measure.vars = c("prob_below", "prob_epidemic"))
+save(list = c("prob_data"), file = "../data/rand_county_prob_data.Rdata")
+
+#############################################################################
+
+
+# 
+# load("../data/rand_trials/all_risk_county_trials_0.011.Rdata")
+# test <- get_prob_below_threshold(rand_trials,totalprev_by_totaldetects, threshold = 20, max_detect = 200)
+# 
+# rand_trials
+# 
+# disc_probs <- c(0.011, 0.0224)
+# indices <- 1:length(r_nots)
+# df_all <- data.frame()
+# for(disc_prob in disc_probs){
+#   num_samps <- 10000
+#   samps <- sample(indices, size = num_samps, replace = T)
+#   samps <- table(samps)
+#   rand_trials <- vector("list", length = num_samps)
+#   list_ind <- 1
+# 
+#   for(i in 1:length(samps)){
+#     index <- as.numeric(names(samps[i]))
+#     num_trials <- samps[i]
+#     #  print(i)
+#     #  print(get_vec_of_files(dir_path, r_nots = r_nots[index], disc_probs = 0.011, intro_rates = intro_rates[index]))
+#     load(get_vec_of_files(dir_path, r_nots = r_nots[index], disc_probs = disc_prob, intro_rates = intro_rates[index]))
+#     rand_trials[list_ind:(list_ind+num_trials-1)] <- trials[sample(1:10000, size=num_trials)]
+#     list_ind <- list_ind+num_trials
+#   }
+# 
+#   conf <- seq(0.05, 0.95, by=0.05)
+#   epi_triggers <- c()
+#   prev_triggers <- c()
+# 
+#   for(ci in conf){
+#     temp <- get_epidemic_trigger(trials = rand_trials, threshold = 50, confidence = ci, max_detect = 300, num_necessary = 100)
+#     temp2 <- get_surveillance_trigger(trials=rand_trials, threshold = 20, confidence=ci, max_detect = 300, num_necessary=100)
+#     epi_triggers <- c(epi_triggers, temp)
+#     prev_triggers <- c(prev_triggers, temp2)
+#   }
+#   df <- data.frame(confidence=conf, epi_trigger = epi_triggers, prev_trigger = prev_triggers[length(prev_triggers):1])
+#   df <- melt(df, id.vars=c("confidence"))
+#   df$variable <- ifelse(df$variable=="epi_trigger",  "Forecasting", "Nowcasting")
+#   df$disc_prob <- disc_prob
+#   df_all <- rbind(df_all, df)
+# }
+# rand_triggers <- df_all
+# 
+# # # ggplot(df_all, aes(confidence, value, color=variable, linetype=as.factor(disc_prob)))+geom_line()
+# save(list = c("rand_triggers"), file = "../data/rand_trigger_extra_high_risk.Rdata")

@@ -48,18 +48,81 @@ fig_path <- "~/projects/zika_alarm/ExploratoryFigures/"
 ## Code to Make Figure 2
 ################################
 ##### Panel A
-r_nots <- c(1.1, 1.5)
-disc_probs <- c(0.011, 0.0224)
-intros <- 0.1 ## Harris county has 0.129, but this close
-prev_plot_data <- get_prev_by_detects_plot(dir_path, r_nots = r_nots, disc_probs = disc_probs, intro_rates = intros)
+
+
+get_epi_data <- function(trials, n){
+  ## Returns first n trials in data frame form
+  names(trials) <- seq_along(trials)
+  ldply(trials[1:n], data.frame)
+}
+
+data.files <- list.files(path="../data/rand_trials", pattern="*.Rdata", full.names=T, recursive=FALSE)
+
+temp <- ldply(data.files, function(x) {
+  load(x)
+  disc_prob <- get_disc_prob_rand(x)
+  risk_level <- get_risk_level_rand(x)
+  data <- get_epi_data(rand_trials, n= 3000)
+  cbind(risk_level, disc_prob, data)
+})  
+# temp <- temp[which(temp$disc_prob==0.0224),]
+temp <- temp[which(temp$risk_level=="high_risk" & temp$disc_prob==0.0224),]
+temp$disc_prob <- paste0(calculate.discover(temp$disc_prob), "%")
+# temp$disc_prob <- factor(temp$disc_prob, levels = c("20%", "10%"))
+
+load(get_vec_of_files(dir_path, 1.1, 0.0224, 0.01))
+known_rnot <- cbind(data.frame(risk_level="1.1", disc_prob=0.0224), get_epi_data(trials, 3000))
+known_rnot$disc_prob <- paste0(calculate.discover(known_rnot$disc_prob), "%")
+both_rnots <- rbind(temp, known_rnot)
+both_rnots$risk_level <- ifelse(both_rnots$risk_level=="high_risk", "Unknown (High Risk)", "1.1")
+both_rnots$risk_level <- factor(both_rnots$risk_level, levels = c("Unknown (High Risk)", "1.1"))
+outbreak_plot <- ggplot(both_rnots, aes(time, Cum_Detections, group=interaction(.id, risk_level), color=risk_level)) + 
+  geom_line(alpha=0.15,size=1) + 
+  scale_color_brewer(palette="Set1", direction = -1)+
+  coord_cartesian(xlim=c(0,150), ylim=c(0,50), expand=FALSE) +
+  guides(color=guide_legend(override.aes=list(alpha=1)))+
+  theme(legend.position=c(0.35,0.8))+
+  labs(x = "Time (days)", 
+       y = "Cumulative Reported Cases", 
+       color = expression("R"[0]))
+print(outbreak_plot)
+
+
+
+unknown_prev <- ldply(data.files, function(x) {
+  load(x)
+  disc_prob <- get_disc_prob_rand(x)
+  risk_level <- get_risk_level_rand(x)
+  prevalences <- get_prev_by_detects_all(rand_trials, f=totalprev_by_totaldetects)  
+  
+  prevalences <- ddply(prevalences, .(detected), .fun = function(x){ 
+    quants <-  quantile(x = x$prevalence, probs = c(0.5, 0.025, 0.975), names=FALSE) 
+    data.frame(median=quants[1], min = quants[2], max = quants[3])
+  })
+  cbind(risk_level, disc_prob, prevalences)
+})
+unknown_prev <- unknown_prev[which(unknown_prev$risk_level=="high_risk" ),]
+
+known_prev <- get_prev_by_detects_plot(dir_path, r_nots = 1.1, disc_probs = c(0.011,0.0224), intro_rates = 0.01)
+known_prev$intro_rate <- NULL
+names(known_prev)[1] <- "risk_level"
+known_prev$risk_level <- "1.1"
+
+prev_plot_data <- rbind(unknown_prev, known_prev)
+
 prev_plot_data$disc_prob <- paste0(calculate.discover(prev_plot_data$disc_prob), "%")
-prev_plot <- ggplot(prev_plot_data, aes(detected, median, color=as.factor(r_not), linetype=as.factor(disc_prob), fill=as.factor(r_not))) + 
+# prev_plot_data$disc_prob <- factor(prev_plot_data$disc_prob, levels = c("20%", "10%"))
+prev_plot_data$risk_level <- ifelse(prev_plot_data$risk_level=="high_risk", "Unknown\n(High Risk)", "1.1")
+both_rnots$risk_level <- factor(both_rnots$risk_level, levels = c("Unknown\n(High Risk)", "1.1"))
+
+
+prev_plot <- ggplot(prev_plot_data, aes(detected, median, color=risk_level, fill=risk_level, linetype=as.factor(disc_prob), group = interaction(risk_level, disc_prob))) + 
   geom_line(size=1)+
   geom_ribbon(aes(ymax=max, ymin=min), alpha=0.1, color=NA)+
-  scale_y_log10(expand=c(0,0),limits=c(1,100), breaks = c(5,10,25,50,100))+
+  scale_y_log10(expand=c(0,0),limits=c(1,200), breaks = c(5,10,25,50,100))+
   coord_cartesian(xlim = c(0,30))+
   scale_x_continuous(expand=c(0.01,0.01))+
-  theme(legend.position = c(0.6,0.2),
+  theme(legend.position = c(0.6,0.1),
         #legend.direction = "horizontal",
         legend.box="horizontal")+
   scale_color_brewer(palette="Set1", direction = -1)+
@@ -69,7 +132,35 @@ prev_plot <- ggplot(prev_plot_data, aes(detected, median, color=as.factor(r_not)
        y = "Prevalence (log scale)", 
        color = expression("R"[0]), 
        fill = expression("R"[0]))
-# print(prev_plot)  
+print(prev_plot)  
+
+
+load("../data/rand_county_prob_data.Rdata")
+prob_data <- prob_data[which(prob_data$disc_prob==0.0224),]
+prob_data <- prob_data[seq(1,nrow(prob_data),by=3),]
+prob_data$risk_level <- ifelse(prob_data$risk_level=="all_risk", "Unkown", "High Risk")
+prob_data$variable <- ifelse(prob_data$variable=="prob_below", "Prevalence", "Epidemic")
+prob_plot <- ggplot(prob_data, aes(detected, value, linetype=risk_level, color=variable)) + 
+  geom_line(size=1) + 
+  coord_cartesian(xlim=c(0,50), ylim=c(0,1), expand=FALSE)+
+  geom_hline(yintercept=0.5, size=0.5)+
+  scale_color_manual(values=c("Black", "Grey")) +
+  background_grid(major = "xy", minor = "none")+
+  theme(legend.position=c(0.8,0.2),
+        legend.box.just="left")+
+  labs(x = "Cumulative Reported Cases", 
+       y = "Trigger Probability", 
+       color = "County Risk",
+       linetype= "Trigger Type")
+  
+fig2 <- plot_grid(outbreak_plot, prev_plot, prob_plot, nrow = 1, labels="AUTO")
+save_plot(paste0(fig_path, "figure2_newtemp_known95.pdf"), fig2, base_height = 4, base_aspect_ratio = 3)
+
+
+
+
+
+
 
 ##### Panel B
 thresholds <- c(20)

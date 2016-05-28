@@ -176,7 +176,7 @@ get_prev_by_detects_plot <- function(dir_path, r_nots, disc_probs, intro_rates){
     prevalences <- get_prev_by_detects_all(trials, f=totalprev_by_totaldetects)  
     
     prevalences <- ddply(prevalences, .(detected), .fun = function(x){ 
-      quants <-  quantile(x = x$prevalence, probs = c(0.5, 0.25, 0.75), names=FALSE) 
+      quants <-  quantile(x = x$prevalence, probs = c(0.5, 0.025, 0.975), names=FALSE) 
       data.frame(median=quants[1], min = quants[2], max = quants[3])
     })
     cbind(as.data.frame(parms), prevalences)
