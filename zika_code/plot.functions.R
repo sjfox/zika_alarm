@@ -89,7 +89,7 @@ plot_prevalences <- function(df){
   
   ggplot(df, aes(detected, median, color=as.factor(r_not), linetype=as.factor(disc_prob), fill=as.factor(r_not))) + 
     geom_line(size=1)+
-    geom_ribbon(aes(ymax=max, ymin=min), alpha=0.1)+
+    geom_ribbon(aes(ymax=max, ymin=min), alpha=0.1, color=NA)+
     scale_y_log10(expand=c(0.01,0.01), limits=c(1,100), breaks = c(5,10,25,50,100))+
     scale_x_continuous(expand=c(0.01,0.01), limits=c(0,30))+
     scale_color_brewer(palette="Set1", direction = -1)+
