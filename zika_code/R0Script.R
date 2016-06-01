@@ -119,20 +119,20 @@ head(rnott.data)
 #cols <- rev(heat.colors(length(breaks.rnott)))
 
 breaks.rnott <- seq(from = 0, to = 4, by = 1)
-labels <- c(rnott.expected = "Expected", rnott.low = "Low", rnott.high = "High", rnott.high.slope = "Mixed")
-sp + facet_grid(. ~ sex, labeller=labeller(sex = labels))
+labels <- c(rnott.expected = "Medium", rnott.low = "Strong", rnott.high = "Weak", rnott.high.slope = "Mixed")
 
 plot.rnott <- ggplot(rnott.data, aes(x=long, y = lat)) +
     geom_polygon(data = rnott.data, aes(group = group, fill = rnott), color = "black", size = .25) +
     facet_wrap(~rnott.scenario, nrow = 2, dir = "h", labeller = labeller(rnott.scenario = labels)) +
     scale_x_continuous("", breaks=NULL) + 
     scale_y_continuous("", breaks=NULL) + 
-    scale_fill_gradient(name = expression("R"[0]), low = "yellow", high = "red") +
+    scale_fill_gradient(name = expression("R"[0]), low = "yellow", high = "dark red") +
     theme_cowplot() + theme(strip.background = element_blank()) + 
     theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(), line = element_blank()) +
     theme(legend.position = "right") +
-    theme(legend.text=element_text(size=12, margin = margin(), debug = FALSE), legend.title = element_text(size = 18)) +
-    theme(legend.key.size =  unit(0.5, "in")) 
+    theme(strip.text.x = element_text(size = 16)) 
+
+plot.rnott
   
 plot.rnott <- ggplot(rnott.data, aes(x=long, y = lat)) + 
   geom_polygon(data = rnott.data, aes(group = group, fill = rnott.expected), color = "black", size = .25) +
@@ -145,27 +145,39 @@ plot.rnott <- ggplot(rnott.data, aes(x=long, y = lat)) +
   theme(legend.text=element_text(size=12, margin = margin(), debug = FALSE), legend.title = element_text(size = 18)) +
   theme(legend.key.size =  unit(0.5, "in")) 
 
-save_plot(filename = "Documents/zika_alarm/ExploratoryFigures/R0_temp.pdf", plot = plot.rnott, base_height = 8, base_aspect_ratio = 1.1)  
+save_plot(filename = "Documents/zika_alarm/ExploratoryFigures/R0sensitive_temp.pdf", plot = plot.rnott, base_height = 8, base_aspect_ratio = 1.1)  
 
 
 #### Histograms 
+breaks <- c(0,1,6)
+mycolors <- c("yellow", "red")
 
-hist.rnott <- ggplot(rnott_plot.m, aes(rnott)) +
-  geom_histogram(binwidth = .2) +
+rnott_plot.m.copy <- rnott_plot.m
+rnott_plot.m.copy$b <- cut(rnott_plot.m.copy$rnott, breaks)
+range(rnott_plot.m.copy$rnott)
+head(rnott_plot.m.copy$b)
+
+hist.rnott <- ggplot(rnott_plot.m.copy, aes(rnott, fill = rnott_plot.m.copy$b)) +
+  geom_histogram(binwidth = .1) +
   facet_wrap(~rnott.scenario, nrow = 2, dir = "h", labeller = labeller(rnott.scenario = labels)) +
   geom_vline(xintercept = 1, colour="red", linetype = "longdash") +
   scale_x_continuous(name = expression("R"[0]), breaks = seq(0,5,.5)) + 
   scale_y_continuous(name = "Count", breaks = seq(0,100, 10)) +
+  scale_fill_manual(breaks = levels(rnott_plot.m.copy$b), values = mycolors,
+                                    name = "Risk Level", drop = FALSE) 
++ 
   theme_cowplot() + theme(strip.background = element_blank()) + 
   theme(axis.text.x = element_text(size = 16), axis.text.y = element_text(size = 16),
-        axis.title.x = element_text(size = 16), axis.title.y = element_text(size = 16)) 
-, line = element_blank()) #+
+        axis.title.x = element_text(size = 16), axis.title.y = element_text(size = 16)) + 
+  theme(strip.text.x = element_text(size = 16)) 
+
+hist.rnott
   #theme(legend.position = "right") +
   theme(legend.text=element_text(size=16, margin = margin(), debug = FALSE), legend.title = element_text(size = 18)) +
   theme(legend.key.size =  unit(0.5, "in")) +
     #scale_fill_gradient(name = expression("R"[0]), low = "yellow", high = "red") +
 
-hist.rnott
+
 head(rnott_plot.m)
 save_plot(filename = "Documents/zika_alarm/ExploratoryFigures/hist_R0.pdf", plot = hist.rnott, base_height = 8, base_aspect_ratio = 1.5)  
 
