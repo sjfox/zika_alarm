@@ -97,12 +97,12 @@ get_epidemic_prob_by_d <- function(trials, prev_threshold, cum_threshold, max_de
 }
 
 
-get_epidemic_prob_plot <- function(dir_path, prev_threshold, cum_threshold, r_nots, disc_probs, intro_rates){
+get_epidemic_prob_plot <- function(dir_path, prev_threshold, cum_threshold, r_nots, disc_probs, intro_rates,max_detect=150, num_necessary=100){
   data.files <- get_vec_of_files(dir_path, r_nots, disc_probs, intro_rates)
   ldply(data.files, function(x) {
     load(x)
     parms <- get_parms(x)
-    prob_belows <- get_epidemic_prob_by_d(trials = trials, prev_threshold=prev_threshold, cum_threshold=cum_threshold, num_necessary=100, max_detect=150)  
+    prob_belows <- get_epidemic_prob_by_d(trials = trials, prev_threshold=prev_threshold, cum_threshold=cum_threshold, num_necessary=num_necessary, max_detect=max_detect)  
     cbind(as.data.frame(parms), prob_belows)
   })  
 }
@@ -176,7 +176,7 @@ get_prev_by_detects_plot <- function(dir_path, r_nots, disc_probs, intro_rates){
     prevalences <- get_prev_by_detects_all(trials, f=totalprev_by_totaldetects)  
     
     prevalences <- ddply(prevalences, .(detected), .fun = function(x){ 
-      quants <-  quantile(x = x$prevalence, probs = c(0.5, 0.025, 0.975), names=FALSE) 
+      quants <-  quantile(x = x$prevalence, probs = c(0.5, 0.25, 0.75), names=FALSE) 
       data.frame(median=quants[1], min = quants[2], max = quants[3])
     })
     cbind(as.data.frame(parms), prevalences)
@@ -322,13 +322,13 @@ get_trigger_data <- function(rnot, intro, disc, prev_threshold=c(20), epi_thresh
   load("../data/all_triggers.Rdata")
   
   df <- all_triggers
-  df[which(df$r_not%in%rnot & 
-             df$intro_rate %in% intro & 
-             df$disc_prob%in%disc  & 
-             df$prev_threshold %in% prev_threshold & 
-             df$epi_threshold %in% epi_threshold & 
+  df[which(as.character(df$r_not)%in%rnot & 
+             as.character(df$intro_rate) %in% intro & 
+             as.character(df$disc_prob)%in%disc  & 
+             as.character(df$prev_threshold) %in% prev_threshold & 
+             as.character(df$epi_threshold) %in% epi_threshold & 
              as.character(df$confidence) %in% confidence & 
-             df$num_necessary %in% num_necessary), ]  
+             as.character(df$num_necessary) %in% num_necessary), ]  
   
 }
 
