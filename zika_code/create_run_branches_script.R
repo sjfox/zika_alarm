@@ -37,6 +37,31 @@ if(run_type== "importations"){
   }
   sink()  
   
+} else if(run_type == "rnot_sensitivity"){
+  imports <- read.csv("../csvs/county_master.csv")
+  low_combos <- as.character(unique(interaction(imports$low.round, imports$importation.projected,sep = "_")))
+  high_combos <- as.character(unique(interaction(imports$high.round, imports$importation.projected,sep = "_")))
+  hetero_combos <- as.character(unique(interaction(imports$hetero.round, imports$importation.projected,sep = "_")))
+
+  all_combos <- unique(c(low_combos, high_combos, hetero_combos))
+  
+  values <- unlist(strsplit(all_combos, "_"))
+  ## R0s are the first item in each combo
+  r_nots <- values[seq(1,length(values), by=2)]
+  intro_rates <- values[seq(2,length(values), by=2)]
+  
+  sink('../launcher/run_import_branches.txt')
+  for(disc_prob in disc_probs){
+    for(ii in 1: length(r_nots)){
+      startCmd <- "R CMD BATCH '--no-restore --no-save --args"
+      paramCmd <- paste0(' desired_Rnot=', r_nots[ii], ' disc_prob=', disc_prob, ' intro_rate=', intro_rates[ii], " '")
+      endCmd <- " ../zika_code/run_branches.R"
+      full_cmd <- paste0(startCmd, paramCmd, endCmd)
+      cat(full_cmd)              
+      cat('\n')              
+    }
+  }
+  sink()  
 } else if(run_type=="analyze_importations"){
   disc_probs <- c(0.011, 0.0224, 0.0505)
   r_nots <- seq(0.7, 1.2, by=0.1)
