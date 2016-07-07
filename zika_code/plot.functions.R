@@ -101,24 +101,32 @@ plot_prevalences <- function(df){
          fill = expression("R"[0]))
 }
 
-dotplot_data <- function(dir_path, r_nots, disc_probs, intro_rates){
+dotplot_data <- function(dir_path, r_nots, disc_probs, intro_rates, local){
   dirPaths = get_vec_of_files(dir_path, r_nots, disc_probs, intro_rates)
   ldply(dirPaths, function(x) {
     load(x)
-    prevs <- all_max_prevalence(trials)
+    if(local){
+      prevs <- all_max_nonintro_prevalence(trials)  
+    }else{
+      prevs <- all_max_prevalence(trials)  
+    }
+    
     parms <- get_parms(x)
     cbind(as.data.frame(parms), max_prev=prevs[sample(seq(0,10000), 1000)])
   })
 }
-plot_dots <- function(dir_path, r_nots, disc_probs, intros){
-  dots <- dotplot_data(dir_path, r_nots, disc_probs, intros)
+plot_dots <- function(dir_path, r_nots, disc_probs, intros, local=FALSE){
+  
+  dots <- dotplot_data(dir_path, r_nots, disc_probs, intros, local)
+  
   ggplot(dots, aes(r_not, max_prev)) + facet_wrap(~intro_rate, nrow=1)+ 
-    geom_point(position="jitter", shape=20,alpha=0.5) + geom_hline(yintercept=c(20,50), color=c("red","blue")) +
-    theme_cowplot() %+replace% theme(strip.background=element_rect(fill=NULL, color="black", size=0.5, linetype=1))+
+    geom_point(position="jitter", shape=20,alpha=0.5) + 
+    #geom_hline(yintercept=c(20,50), color=c("red","blue")) +
+    theme(strip.background=element_rect(fill=NULL, color="black", size=0.5, linetype=1))+
     scale_y_continuous(expand=c(0.01,0.01))+
-    scale_x_continuous(expand=c(0.01,0.01))+
+    scale_x_continuous(expand=c(0.01,0.01), breaks = r_nots)+
     panel_border(size=0.5, colour="black") +
-    labs(x = expression("R"[0]), y= "Maximum Total Infectious")
+    labs(x = expression("R"[0]), y= ifelse(local,"Maximum Local Infectious", "Maximum Total Infectious"))
 }
 
 

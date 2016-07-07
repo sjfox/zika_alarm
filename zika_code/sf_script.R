@@ -41,8 +41,8 @@ save_path <- "~/projects/zika_alarm/data/"
 fig_path <- "~/projects/zika_alarm/ExploratoryFigures/"
 
 ######### Combine triggers after a tacc run/download #####################
-# combine_triggers(trigger_dir_path, save_path)
-
+combine_triggers(trigger_dir_path, save_path)
+get_trigger_data(0.7, intro = 2, disc = 0.0224, confidence=0.5, num_necessary=100)
 
 ################################
 ## Code to Make Figure 2
@@ -167,7 +167,7 @@ prob_data$disc_prob <- paste0(calculate.discover(prob_data$disc_prob), "%")
 prob_plot <- ggplot(prob_data, aes(detected, value, linetype=as.factor(disc_prob), color=risk_level)) + 
   geom_line(size=1) + 
   coord_cartesian(xlim=c(0,30), ylim=c(0,1), expand=FALSE)+
-  geom_hline(yintercept=0.5, size=0.5)+
+  geom_hline(yintercept=0.5, size=0.5, linetype=2)+
   scale_color_brewer(palette="Set1", direction = 1) +
   background_grid(major = "xy", minor = "none")+
   theme(legend.position="none",
@@ -187,8 +187,79 @@ fig2 <- ggdraw() + draw_plot(outbreak_plot, x = 0, y=0, width=.33, height=1)+
 save_plot(paste0(fig_path, "figure3_new.pdf"), fig2, base_height = 4, base_aspect_ratio = 3)
 
 
+#######################################################
+# 0.25, 0.5, 0.75, and 1.0 (in addition to the 2 you already included)
+## Fig for Michael Johannson
+load("../data/rand_county_prob_data.Rdata")
+prob_data <- prob_data[which(prob_data$risk_level=="high_risk"), ]
+prob_data <- prob_data[which(prob_data$variable=="prob_epidemic"), ]
+prob_data$variable <- NULL
+
+load(get_vec_of_files(dir_path = dir_path, r_nots = 0.2, disc_probs = c(0.0224), intro_rates = 0.001))
+temp_prev_below <- cbind("0.2", 0.0224, get_epidemic_prob_by_d(trials,50, 2000, 200, 100))
+load(get_vec_of_files(dir_path = dir_path, r_nots = 0.2, disc_probs = c(0.011), intro_rates = 0.001))
+temp_prev_below2 <- cbind("0.2", 0.011, get_epidemic_prob_by_d(trials,50, 2000, 200, 100))
+load(get_vec_of_files(dir_path = dir_path, r_nots = 0.2, disc_probs = c(0.0505), intro_rates = 0.001))
+temp_prev_below3 <- cbind("0.2", 0.0505, get_epidemic_prob_by_d(trials,50, 2000, 200, 100))
+
+load(get_vec_of_files(dir_path = dir_path, r_nots = 0.5, disc_probs = c(0.0224), intro_rates = 0.001))
+temp_prev_below4 <- cbind("0.5", 0.0224, get_epidemic_prob_by_d(trials,50, 2000, 200, 100))
+load(get_vec_of_files(dir_path = dir_path, r_nots = 0.5, disc_probs = c(0.011), intro_rates = 0.001))
+temp_prev_below5 <- cbind("0.5", 0.011, get_epidemic_prob_by_d(trials,50, 2000, 200, 100))
+load(get_vec_of_files(dir_path = dir_path, r_nots = 0.5, disc_probs = c(0.0505), intro_rates = 0.001))
+temp_prev_below6 <- cbind("0.5", 0.0505, get_epidemic_prob_by_d(trials,50, 2000, 200, 100))
+
+load(get_vec_of_files(dir_path = dir_path, r_nots = 0.7, disc_probs = c(0.0224), intro_rates = 0.001))
+temp_prev_below7 <- cbind("0.7", 0.0224, get_epidemic_prob_by_d(trials,50, 2000, 200, 100))
+load(get_vec_of_files(dir_path = dir_path, r_nots = 0.7, disc_probs = c(0.011), intro_rates = 0.001))
+temp_prev_below8 <- cbind("0.7", 0.011, get_epidemic_prob_by_d(trials,50, 2000, 200, 100))
+load(get_vec_of_files(dir_path = dir_path, r_nots = 0.7, disc_probs = c(0.0505), intro_rates = 0.001))
+temp_prev_below9 <- cbind("0.7", 0.0505, get_epidemic_prob_by_d(trials,50, 2000, 200, 100))
+
+load(get_vec_of_files(dir_path = dir_path, r_nots = 1, disc_probs = c(0.0224), intro_rates = 0.001))
+temp_prev_below10 <- cbind("1.0", 0.0224, get_epidemic_prob_by_d(trials,50, 2000, 200, 100))
+load(get_vec_of_files(dir_path = dir_path, r_nots = 1, disc_probs = c(0.011), intro_rates = 0.001))
+temp_prev_below11 <- cbind("1.0", 0.011, get_epidemic_prob_by_d(trials,50, 2000, 200, 100))
+load(get_vec_of_files(dir_path = dir_path, r_nots = 1, disc_probs = c(0.0505), intro_rates = 0.001))
+temp_prev_below12 <- cbind("1.0", 0.0505, get_epidemic_prob_by_d(trials,50, 2000, 200, 100))
 
 
+names(temp_prev_below2) <-names(temp_prev_below3)<-names(temp_prev_below4)<-names(temp_prev_below5)<-names(temp_prev_below6)<-
+  names(temp_prev_below7)<-names(temp_prev_below8)<-names(temp_prev_below9)<-names(temp_prev_below10)<-names(temp_prev_below11)<- names(temp_prev_below12)<-names(temp_prev_below)
+
+temp_prev_below <- rbind(temp_prev_below, temp_prev_below2, temp_prev_below3,temp_prev_below4,
+                         temp_prev_below5,temp_prev_below6,temp_prev_below7,temp_prev_below8,
+                         temp_prev_below9,temp_prev_below10,temp_prev_below11,temp_prev_below12)
+rm(temp_prev_below2)
+names(temp_prev_below)[c(1:2, 4)] <- c("risk_level", "disc_prob", "value")
+# temp_prev_below$prob_below <- 1 - temp_prev_below$prob_below
+# temp_prev_below <- melt(temp_prev_below, measure.vars = c("prob_epidemic"))
+
+prob_data <- rbind(prob_data, temp_prev_below)
+
+prob_data$risk_level <- ifelse(prob_data$risk_level=="high_risk", "High Risk", as.character(prob_data$risk_level))
+# prob_data$variable <- ifelse(prob_data$variable=="prob_below", "Prevalence", "Epidemic")
+# prob_data$risk_level <- factor(prob_data$risk_level, levels = c("High Risk", "1.1"))
+
+# prob_data <- prob_data[seq(1,nrow(prob_data),by=3),]
+prob_data <- prob_data[which(prob_data$disc_prob!=0.0505),]
+prob_data$disc_prob <- paste0(calculate.discover(prob_data$disc_prob), "%")
+
+mj_prob_below <- ggplot(prob_data, aes(detected, value, linetype=as.factor(disc_prob), color=risk_level)) + 
+  geom_line(size=1) + 
+  coord_cartesian(xlim=c(0,30), ylim=c(0,1), expand=FALSE)+
+  # geom_hline(yintercept=0.5, size=0.5, linetype=2)+
+  scale_color_brewer(palette="Set1", direction = 1) +
+  background_grid(major = "xy", minor = "none")+
+  theme(#legend.position="none",
+    legend.box.just="left")+
+  labs(x = "Cumulative Reported Cases", 
+       y = "Probability of Sustained Transmission", 
+       color = expression("R"[0]),
+       linetype= "Reporting\nRate")
+save_plot(filename = "../ExploratoryFigures/prob_below.pdf", mj_prob_below, base_height = 5, base_aspect_ratio = 1.3)
+
+#################################################################
 
 ##### Panel B
 thresholds <- c(20)

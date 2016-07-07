@@ -73,7 +73,7 @@ run_branch_inc <- function(params) {
     DI_Intro_Asymp = vector("numeric", length=infBoxes) 
     
     ## Initialize the epidemic with one undetected infectious
-    UI_Symp[1] = 1
+    UI_Intro_Symp[1] = 1
     
     ## UI and DI keep track of the total number of undetected and detected
     ## cases at any given time
