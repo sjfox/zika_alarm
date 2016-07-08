@@ -56,12 +56,12 @@ cumcases_by_detects <- function(df, max_detect=100){
   ## Takes in a data frame trials, and for each
   ## First instance of a new local detection, returns the total prevalence
   
-  all_detects <- cum_detect_total(df)
+  all_detects <- cum_detect_local(df)
   unique_detects <- unique(all_detects)
   ## Only  interested in maximum of 100 detections
   unique_detects <- unique_detects[unique_detects<=max_detect]
   
-  data.frame(detected = unique_detects, cum_infections = last_cuminfect_value(df), max_prevalence = max_prevalence(df))
+  data.frame(detected = unique_detects, cum_infections = last_cuminfect_local_value(df), max_prevalence = max_nonintro_prevalence(df))
 }
 
 get_cumcases_by_detects_all <- function(x, max_detect=100){
@@ -116,13 +116,13 @@ totalprev_by_totaldetects <- function(df, max_detect){
   ## Takes in a data frame trials, and for each
   ## First instance of a new local detection, returns the total prevalence
   
-  all_detects <- cum_detect_total(df)
+  all_detects <- cum_detect_local(df)
   unique_detects <- unique(all_detects)
   ## Only  interested in maximum of 100 detections
   unique_detects <- unique_detects[unique_detects<=max_detect]
   
   matches <- match(unique_detects, all_detects)
-  data.frame(detected = unique_detects, prevalence=prevalence_total(df)[matches])
+  data.frame(detected = unique_detects, prevalence=prevalence_local(df)[matches])
 }
 
 get_prev_by_detects_all <- function(x, f, max_detect=100){
