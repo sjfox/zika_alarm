@@ -109,7 +109,7 @@ run_branch_inc <- function(params) {
     ## Initialize appropriately
     time_record$New_Infection = time_record$Total_Infections = time_record$Cumulative_Infections = I
     
-    while  ((cumI < e_thresh) & ((I+sum(incubationInfecteds)) > 0)) {
+    while  (( (cumI-cumI_Intro) < e_thresh) & ((I+sum(incubationInfecteds)) > 0)) {
       #while Number of infected is below epidemic threshold and more than 0 infected
       # or while number of infecteds is above 0 and the number of detected is below threshold
       

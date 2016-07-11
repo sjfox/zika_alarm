@@ -441,7 +441,7 @@ save_plot(filename = "../ExploratoryFigures/alison_fig.pdf", plot = alison_fig, 
 
 get_rand_trials <- function(dir_path, import_loc, disc_prob, num_trials, high_risk=FALSE){
   imports <- read.csv(import_loc)
-  dir_path <-"~/projects/zika_alarm/data/sep_intros/"
+  dir_path <-"~/projects/zika_alarm/data/all_trials/"
   
   projected_combos <- as.character(unique(interaction(imports$rnott.expected.round, imports$importation.projected,sep = "_")))
   
@@ -487,7 +487,7 @@ rand_trials <- get_rand_trials(dir_path, "../csvs/county_master.csv", disc_prob=
 save(list = c("rand_trials"), file = "../data/rand_trials/high_risk_county_trials_0.0224.Rdata")
 rand_trials <- get_rand_trials(dir_path, "../csvs/county_master.csv", disc_prob=0.011, 10000, high_risk = TRUE)
 save(list = c("rand_trials"), file = "../data/rand_trials/high_risk_county_trials_0.011.Rdata")
-
+rm("rand_trials")
 ## Analyze saved trials and create data frame of epidemic and prevalence probabilities
 
 

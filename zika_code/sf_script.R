@@ -41,8 +41,8 @@ save_path <- "~/projects/zika_alarm/data/"
 fig_path <- "~/projects/zika_alarm/ExploratoryFigures/"
 
 ######### Combine triggers after a tacc run/download #####################
-combine_triggers(trigger_dir_path, save_path)
-get_trigger_data(0.7, intro = 2, disc = 0.0224, confidence=0.5, num_necessary=100)
+# combine_triggers(trigger_dir_path, save_path)
+# get_trigger_data(0.7, intro = 2, disc = 0.0224, confidence=0.5, num_necessary=100)
 
 ################################
 ## Code to Make Figure 2
@@ -529,13 +529,16 @@ all_ts <- ggdraw() +
 save_plot(filename = "../ExploratoryFigures/all_ts2.pdf", plot = all_ts, base_height=4, base_aspect_ratio = 1.8)
 
 # ## Supplementary choosing threshold plot -- should be 20
-r_nots <- c(seq(0.95, 1.1, by=0.01))
+r_nots <- c(seq(0.9, 1.1, by=0.1))
 disc_probs <- c(0.011)
 intros <- c(0.01, 0.1, 0.3)
 threshold_plot <- plot_dots(dir_path, r_nots, disc_probs, intros)
-threshold_plot <- threshold_plot + geom_hline(yintercept=20, color="blue")
 # print(threshold_plot)
-save_plot(paste0(fig_path, "threshold_plot.pdf"), threshold_plot, base_height = 4, base_aspect_ratio = 1.8)
+save_plot(paste0(fig_path, "all_threshold_plot.pdf"), threshold_plot, base_height = 4, base_aspect_ratio = 1.8)
+
+threshold_plot <- plot_dots(dir_path, r_nots, disc_probs, intros, local=T)
+# print(threshold_plot)
+save_plot(paste0(fig_path, "local_threshold_plot.pdf"), threshold_plot, base_height = 4, base_aspect_ratio = 1.8)
 
 
 

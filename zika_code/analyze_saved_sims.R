@@ -91,7 +91,7 @@ get_epidemic_prob_by_d <- function(trials, prev_threshold, cum_threshold, max_de
   detected <- seq(0, max_detect)
   
   data <- get_cumcases_by_detects_all(trials, max_detect = max_detect)
-
+browser()
   probs <- freq_above_thresh_vec(data, detected, cum_threshold, prev_threshold, num_necessary)
   return(data.frame(detected=detected, prob_epidemic=probs))
 }
