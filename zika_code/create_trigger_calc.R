@@ -7,7 +7,7 @@ if(grepl('meyerslab', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_c
 if(grepl('laurencastro', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
 
 
-dirPath <- "../../workfolder/data/zika_all/"
+dirPath <- "../../workfolder/data/zika_sensitivity/"
 
 data.files <- list.files(path=dirPath, pattern="*.Rdata", full.names=T, recursive=FALSE)
 sink('../launcher/trigger_calc.txt')

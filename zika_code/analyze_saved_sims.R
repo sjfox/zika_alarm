@@ -56,12 +56,12 @@ cumcases_by_detects <- function(df, max_detect=100){
   ## Takes in a data frame trials, and for each
   ## First instance of a new local detection, returns the total prevalence
   
-  all_detects <- cum_detect_total(df)
+  all_detects <- cum_detect_local(df)
   unique_detects <- unique(all_detects)
   ## Only  interested in maximum of 100 detections
   unique_detects <- unique_detects[unique_detects<=max_detect]
   
-  data.frame(detected = unique_detects, cum_infections = last_cuminfect_value(df), max_prevalence = max_prevalence(df))
+  data.frame(detected = unique_detects, cum_infections = last_cuminfect_local_value(df), max_prevalence = max_nonintro_prevalence(df))
 }
 
 get_cumcases_by_detects_all <- function(x, max_detect=100){
@@ -91,18 +91,41 @@ get_epidemic_prob_by_d <- function(trials, prev_threshold, cum_threshold, max_de
   detected <- seq(0, max_detect)
   
   data <- get_cumcases_by_detects_all(trials, max_detect = max_detect)
-
   probs <- freq_above_thresh_vec(data, detected, cum_threshold, prev_threshold, num_necessary)
   return(data.frame(detected=detected, prob_epidemic=probs))
 }
 
 
-get_epidemic_prob_plot <- function(dir_path, prev_threshold, cum_threshold, r_nots, disc_probs, intro_rates){
+get_epidemic_prob_plot <- function(dir_path, prev_threshold, cum_threshold, r_nots, disc_probs, intro_rates,max_detect=150, num_necessary=100){
   data.files <- get_vec_of_files(dir_path, r_nots, disc_probs, intro_rates)
   ldply(data.files, function(x) {
     load(x)
     parms <- get_parms(x)
-    prob_belows <- get_epidemic_prob_by_d(trials = trials, prev_threshold=prev_threshold, cum_threshold=cum_threshold, num_necessary=100, max_detect=150)  
+    prob_belows <- get_epidemic_prob_by_d(trials = trials, prev_threshold=prev_threshold, cum_threshold=cum_threshold, num_necessary=num_necessary, max_detect=max_detect)  
+    cbind(as.data.frame(parms), prob_belows)
+  })  
+}
+
+get_detect_prob_by_d <- function(trials, prev_threshold, cum_threshold, max_detect=50, num_necessary){
+  ## Returns the probability in a given set of trials that the 
+  ## number of detections are ever detected in all trials
+  
+  detected <- seq(0, max_detect)
+  
+  data <- get_cumcases_by_detects_all(trials, max_detect = max_detect)
+  detect_prob_by_d <- table(data$detected)/length(trials)
+  
+  detect_prob_by_d <- data.frame(detect_prob_by_d)
+  colnames(detect_prob_by_d) <- c("detected", "prob_detect")
+  detect_prob_by_d
+}
+
+get_detect_prob_plot <- function(dir_path, prev_threshold, cum_threshold, r_nots, disc_probs, intro_rates,max_detect=150, num_necessary=100){
+  data.files <- get_vec_of_files(dir_path, r_nots, disc_probs, intro_rates)
+  ldply(data.files, function(x) {
+    load(x)
+    parms <- get_parms(x)
+    prob_belows <- get_detect_prob_by_d(trials = trials, prev_threshold=prev_threshold, cum_threshold=cum_threshold, num_necessary=num_necessary, max_detect=max_detect)  
     cbind(as.data.frame(parms), prob_belows)
   })  
 }
@@ -116,13 +139,13 @@ totalprev_by_totaldetects <- function(df, max_detect){
   ## Takes in a data frame trials, and for each
   ## First instance of a new local detection, returns the total prevalence
   
-  all_detects <- cum_detect_total(df)
+  all_detects <- cum_detect_local(df)
   unique_detects <- unique(all_detects)
   ## Only  interested in maximum of 100 detections
   unique_detects <- unique_detects[unique_detects<=max_detect]
   
   matches <- match(unique_detects, all_detects)
-  data.frame(detected = unique_detects, prevalence=prevalence_total(df)[matches])
+  data.frame(detected = unique_detects, prevalence=prevalence_local(df)[matches])
 }
 
 get_prev_by_detects_all <- function(x, f, max_detect=100){
@@ -176,7 +199,7 @@ get_prev_by_detects_plot <- function(dir_path, r_nots, disc_probs, intro_rates){
     prevalences <- get_prev_by_detects_all(trials, f=totalprev_by_totaldetects)  
     
     prevalences <- ddply(prevalences, .(detected), .fun = function(x){ 
-      quants <-  quantile(x = x$prevalence, probs = c(0.5, 0.025, 0.975), names=FALSE) 
+      quants <-  quantile(x = x$prevalence, probs = c(0.5, 0.25, 0.75), names=FALSE) 
       data.frame(median=quants[1], min = quants[2], max = quants[3])
     })
     cbind(as.data.frame(parms), prevalences)
@@ -322,13 +345,13 @@ get_trigger_data <- function(rnot, intro, disc, prev_threshold=c(20), epi_thresh
   load("../data/all_triggers.Rdata")
   
   df <- all_triggers
-  df[which(df$r_not%in%rnot & 
-             df$intro_rate %in% intro & 
-             df$disc_prob%in%disc  & 
-             df$prev_threshold %in% prev_threshold & 
-             df$epi_threshold %in% epi_threshold & 
+  df[which(as.character(df$r_not)%in%rnot & 
+             as.character(df$intro_rate) %in% intro & 
+             as.character(df$disc_prob)%in%disc  & 
+             as.character(df$prev_threshold) %in% prev_threshold & 
+             as.character(df$epi_threshold) %in% epi_threshold & 
              as.character(df$confidence) %in% confidence & 
-             df$num_necessary %in% num_necessary), ]  
+             as.character(df$num_necessary) %in% num_necessary), ]
   
 }
 

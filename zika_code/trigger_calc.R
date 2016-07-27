@@ -22,7 +22,7 @@ sapply(c('branch.functions.R','plot.functions.R', 'incubation_branch.R', 'analyz
 prevalence <- 20
 epi_prevalence <- 50
 confidences <- seq(0.05, 0.95, by=0.05)
-num_necessary <- c(10, 20, 100)
+num_necessary <- c(50, 100)
 
 load(data.file)
 params <- get_parms(data.file)
