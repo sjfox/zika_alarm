@@ -112,7 +112,7 @@ r0.plot <- ggplot(final.plot[which(final.plot$scenario=="importation.projected")
   geom_polygon(data = final.plot, aes(group = group, fill = rnott.expected), color = "grey", size = .1) +
   scale_x_continuous("", breaks=NULL) + 
   scale_y_continuous("", breaks=NULL) + 
-  scale_fill_gradientn(colours = colorends, values = rescale(gradientends)) +
+  scale_fill_gradientn(name = expression("R"[0]), colours = colorends, values = rescale(gradientends)) +
   # scale_fill_gradient2(name = expression("R"[0]), low = "lightgreen", mid =  "yellow", high = "red", midpoint = 1, na.value = "white") +
   theme_cowplot() %+replace% theme(strip.background=element_blank(),
                                    strip.text.x = element_blank(),
@@ -120,7 +120,7 @@ r0.plot <- ggplot(final.plot[which(final.plot$scenario=="importation.projected")
                                    legend.title.align = 0.5) +
   guides(fill = guide_colorbar(label.position = "bottom", title.position="top",direction = "horizontal", barwidth = 10))
 
-print(r0.plot)
+# print(r0.plot)
 
 import_r0_plot <- plot_grid(plot.importation.log, r0.plot, nrow = 1, labels = "AUTO", label_size = 20)
 save_plot(filename = "../ExploratoryFigures/fig3_import_r0.pdf", plot = import_r0_plot, base_height = 4, base_aspect_ratio = 2.2)
