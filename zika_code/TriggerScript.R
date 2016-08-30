@@ -39,12 +39,14 @@ colnames(county_plot.m) <- c("id", "geography", "rnott.expected", "importation_p
 rnots <- sort(unique(county_plot.m$rnott.expected))
 import.rates <- sort(unique(county_plot.m$import.rate))
 
-triggers <- get_trigger_data(rnot = rnots, intro = import.rates, disc = 0.0224, confidence = .7, num_necessary = 100)
+triggers <- get_trigger_data(rnot = rnots, intro = import.rates, disc = 0.0224, confidence = .5, num_necessary = 100)
 # triggers$prev_trigger <- ifelse(triggers$prev_trigger>200, 200, triggers$prev_trigger)
+
 
 #### Match R0/Import Rate with Triggers
 county_plot.m <- merge(x = county_plot.m, y = triggers[,c("r_not", "intro_rate", "epi_trigger")], 
                        by.x=c("rnott.expected", "import.rate"), by.y=c("r_not", "intro_rate"), all.x=TRUE, sort=FALSE)
+
 
 ## Match R0/import rate with probability of seeing 2 cases and probability ofepidemic given seeing 2 cases
 load("../data/county_prob_detect_x.Rdata")
@@ -101,16 +103,24 @@ plot.importation.log <- ggplot(import.plot, aes(x = long, y = lat)) +
   guides(fill = guide_colorbar(label.position = "bottom", title.position="top",direction = "horizontal", barwidth = 10))
 # print(plot.importation.log)
 
+
+colorends <- c("white", "darkseagreen", "yellow", "red")
+gradientends <- c(0,1,1.01,max(final.plot$rnott.expected))
+
+
 r0.plot <- ggplot(final.plot[which(final.plot$scenario=="importation.projected"),], aes(x=long, y = lat)) +
   geom_polygon(data = final.plot, aes(group = group, fill = rnott.expected), color = "grey", size = .1) +
   scale_x_continuous("", breaks=NULL) + 
   scale_y_continuous("", breaks=NULL) + 
-  scale_fill_continuous(name = expression("R"[0]), low = "white", high = "darkgreen", na.value = "white") +
+  scale_fill_gradientn(name = expression("R"[0]), colours = colorends, values = rescale(gradientends)) +
+  # scale_fill_gradient2(name = expression("R"[0]), low = "lightgreen", mid =  "yellow", high = "red", midpoint = 1, na.value = "white") +
   theme_cowplot() %+replace% theme(strip.background=element_blank(),
                                    strip.text.x = element_blank(),
                                    legend.position = c(0.2, 0.17), 
                                    legend.title.align = 0.5) +
   guides(fill = guide_colorbar(label.position = "bottom", title.position="top",direction = "horizontal", barwidth = 10))
+
+# print(r0.plot)
 
 import_r0_plot <- plot_grid(plot.importation.log, r0.plot, nrow = 1, labels = "AUTO", label_size = 20)
 save_plot(filename = "../ExploratoryFigures/fig3_import_r0.pdf", plot = import_r0_plot, base_height = 4, base_aspect_ratio = 2.2)
@@ -127,17 +137,20 @@ ind <- which(map_data$Name %in% c("Austin", "Houston", "Dallas", "San Antonio"))
 
 ## Panel A
 ## Plot county probability of detecting two cases
+breaks_prob <- c(0,0.25,0.5,0.75,1)
+
 plot.detectrisk <- ggplot(final.plot, aes(x=long, y = lat)) +
   geom_polygon(data = final.plot, aes(group = group, fill = prob_detect), color = "grey", size = .1) +
   facet_wrap(~scenario, nrow = 1) +
   scale_x_continuous("", breaks=NULL) + 
   scale_y_continuous("", breaks=NULL) + 
-  scale_fill_continuous(name = "Detection Probability", low = "grey95", high = "red", na.value="white")+
+  scale_fill_continuous(name = "Two-case Probability", low = "grey95", high = "black", na.value="white", breaks=breaks_prob, limits=c(0,1))+
   # scale_fill_gradientn(name = "Trigger (Reported Cases)", colors=colFunc(10),
   # na.value = "white", breaks = breaks.trigger) +
   geom_point(data = map_data[ind,], aes(x = lon, y = lat), color = "black", size=1, show.legend = FALSE) +
-  geom_text_repel(data = map_data[ind,], aes(x=lon, y = lat, label = Name), force=10, nudge_x = ifelse(map_data[ind,]$Name=="San Antonio",-1,0),
-                  size = 5, point.padding = unit(0, "lines"), box.padding =unit(1, 'lines'),segment.color = "black")+
+  geom_text_repel(data = map_data[ind,], aes(x=lon, y = lat, label = Name), force=10, nudge_x = ifelse(map_data[ind,]$Name=="Houston",1,-1),
+                  nudge_y = ifelse(map_data[ind,]$Name=="Houston",-1.25,0),
+                  size = 5, point.padding = unit(0.25, "lines"), box.padding = unit(0.5, "lines"), segment.color = "black")+
   theme_cowplot() %+replace% theme(strip.background=element_blank(),
                                    strip.text.x = element_blank(),
                                    legend.title.align = 0.5,
@@ -151,12 +164,13 @@ plot.epirisk <- ggplot(final.plot, aes(x=long, y = lat)) +
   facet_wrap(~scenario, nrow = 1) +
   scale_x_continuous("", breaks=NULL) + 
   scale_y_continuous("", breaks=NULL) + 
-  scale_fill_continuous(name = "Epidemic Probability", low = "grey95", high = "red", na.value="white")+
+  scale_fill_continuous(name = "Epidemic Probability", low = "grey95", high = "red", na.value="white", breaks=breaks_prob, limits=c(0,1))+
   # scale_fill_gradientn(name = "Trigger (Reported Cases)", colors=colFunc(10),
   # na.value = "white", breaks = breaks.trigger) +
   geom_point(data = map_data[ind,], aes(x = lon, y = lat), color = "black", size=1, show.legend = FALSE) +
-  geom_text_repel(data = map_data[ind,], aes(x=lon, y = lat, label = Name), force=10, nudge_x = ifelse(map_data[ind,]$Name=="San Antonio",-1,0),
-                  size = 5, point.padding = unit(0, "lines"), box.padding =unit(1, 'lines'),segment.color = "black")+
+  geom_text_repel(data = map_data[ind,], aes(x=lon, y = lat, label = Name), force=10, nudge_x = ifelse(map_data[ind,]$Name=="Houston",1,-1),
+                  nudge_y = ifelse(map_data[ind,]$Name=="Houston",-1.25,0),
+                  size = 5, point.padding = unit(0.25, "lines"), box.padding = unit(0.5, "lines"), segment.color = "black")+
   theme_cowplot() %+replace% theme(strip.background=element_blank(),
                                    strip.text.x = element_blank(),
                                    legend.title.align = 0.5,
@@ -247,22 +261,19 @@ save_plot(filename = ifelse(import=="worse","../ExploratoryFigures/figure4_local
 #        fill = "Risk\nTolerance")
 
 
+worse <- county_plot.m
 
 summary(county_plot.m$prob_detect)
-nrow(county_plot.m)
+quantile(x = county_plot.m$prob_detect, c(0.025,0.5,0.975), na.rm=T)
 summary(county_plot.m$prob_epidemic)
+quantile(x = county_plot.m$prob_epidemic, c(0.025,0.5,0.975), na.rm=T)
 summary(county_plot.m$epi_trigger)
+quantile(x = county_plot.m$epi_trigger, c(0.025,0.5,0.975), na.rm=T)
 
-test_epi <- county_plot.m$epi_trigger
-county_plot.m$epi_trigger-test_epi
+summary(worse$epi_trigger)
+quantile(x = worse$epi_trigger, c(0.025,0.5,0.975), na.rm=T)
 
-summary(county_plot.m$epi_trigger[county_plot.m$scenario == "importation.projected"])
-summary(county_plot.m$epi_trigger[county_plot.m$scenario == "importation.worse.projected"])
-triggers_both_scenarios <- dcast(county_plot.m, geography ~ scenario, value.var = "epi_trigger")
-
-sum(!is.na(triggers_both_scenarios$importation.projected - triggers_both_scenarios$importation.worse.projected))
-mean(triggers_both_scenarios$importation.projected - triggers_both_scenarios$importation.worse.projected, na.rm=T)
-
+county_plot.m$epi_trigger - worse$epi_trigger
 
 
 #####################################
