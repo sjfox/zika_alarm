@@ -351,7 +351,7 @@ get_trigger_data <- function(rnot, intro, disc, prev_threshold=c(20), epi_thresh
              as.character(df$prev_threshold) %in% prev_threshold & 
              as.character(df$epi_threshold) %in% epi_threshold & 
              as.character(df$confidence) %in% confidence & 
-             as.character(df$num_necessary) %in% num_necessary), ]  
+             as.character(df$num_necessary) %in% num_necessary), ]
   
 }
 

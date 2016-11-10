@@ -121,12 +121,12 @@ plot_dots <- function(dir_path, r_nots, disc_probs, intros, local=FALSE){
   
   ggplot(dots, aes(r_not, max_prev)) + facet_wrap(~intro_rate, nrow=1)+ 
     geom_point(position="jitter", shape=20,alpha=0.5) + 
-    #geom_hline(yintercept=c(20,50), color=c("red","blue")) +
+    geom_hline(yintercept=c(50), color=c("blue")) +
     theme(strip.background=element_rect(fill=NULL, color="black", size=0.5, linetype=1))+
     scale_y_continuous(expand=c(0.01,0.01))+
     scale_x_continuous(expand=c(0.01,0.01), breaks = r_nots)+
     panel_border(size=0.5, colour="black") +
-    labs(x = expression("R"[0]), y= ifelse(local,"Maximum Local Infectious", "Maximum Total Infectious"))
+    labs(x = expression("R"[0]), y= ifelse(local,"Maximum Local Daily Prevalence", "Maximum Daily Prevalences"))
 }
 
 
