@@ -98,6 +98,14 @@ prevalence_total <- function(x){
   x[, "Total_Infections"]
 }
 
+
+get_time <- function(x) {
+  ## Returns column of time
+  x[, "time"]
+}
+
+
+
 ## Get Time of max prevalence
 time_max_prevalence <- function(x){
   return(x[which.max(x[,"Total_Infections"]), "time"])

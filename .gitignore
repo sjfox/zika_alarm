@@ -3,3 +3,7 @@
 *.Rdata
 *.Rproj.user
 *.Rout
+
+*.tiff
+
+.Rhistory
