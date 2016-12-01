@@ -27,7 +27,7 @@ county_plot <- read.csv("../csvs/county_master.csv")
 texas.county <- readShapeSpatial('../TexasCountyShapeFiles/texas.county.shp', proj4string = CRS("+proj=longlat +datum=WGS84"))
 
 ## Set importation to "worse", or "expected"
-import <- "worse"
+import <- "expected"
 
 ## Melt R0
 ## Change measure.vars between "importation.projected" and "importation.worse.projected", depending on ms vs supplement
@@ -104,16 +104,16 @@ plot.importation.log <- ggplot(import.plot, aes(x = long, y = lat)) +
 # print(plot.importation.log)
 
 
-colorends <- c("white", "darkseagreen", "yellow", "red")
-gradientends <- c(0,1,1.01,max(final.plot$rnott.expected))
+# colorends <- c("white", "darkseagreen", "yellow", "red")
+# gradientends <- c(0,1,1.01,max(final.plot$rnott.expected))
 
 
 r0.plot <- ggplot(final.plot[which(final.plot$scenario=="importation.projected"),], aes(x=long, y = lat)) +
   geom_polygon(data = final.plot, aes(group = group, fill = rnott.expected), color = "grey", size = .1) +
   scale_x_continuous("", breaks=NULL) + 
   scale_y_continuous("", breaks=NULL) + 
-  scale_fill_gradientn(name = expression("R"[0]), colours = colorends, values = rescale(gradientends)) +
-  # scale_fill_gradient2(name = expression("R"[0]), low = "lightgreen", mid =  "yellow", high = "red", midpoint = 1, na.value = "white") +
+  # scale_fill_gradientn(name = expression("R"[0]), colours = colorends, values = rescale(gradientends)) +
+  scale_fill_gradient2(name = "Transmission Risk", low = "lightgreen", high = "darkgreen", na.value = "white") +
   theme_cowplot() %+replace% theme(strip.background=element_blank(),
                                    strip.text.x = element_blank(),
                                    legend.position = c(0.2, 0.17), 

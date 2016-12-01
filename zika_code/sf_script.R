@@ -21,11 +21,35 @@ trigger_dir_path <- "~/projects/zika_alarm/data/triggers_local/"
 save_path <- "~/projects/zika_alarm/data/"
 fig_path <- "~/projects/zika_alarm/ExploratoryFigures/"
 
+
 ######### Combine triggers after a tacc run/download #####################
 # combine_triggers(trigger_dir_path, save_path)
 # get_trigger_data(0.7, intro = 2, disc = 0.0224, confidence=0.5, num_necessary=100)
-load(get_vec_of_files(dir_path, 0.9, 0.0224, 0.3))
-sum(all_last_cuminfect_local_values(trials)>2000 & all_max_nonintro_prevalence(trials)>50)
+load(get_vec_of_files(dir_path, 0.8, 0.0224, .269))
+
+get_local_detected_intervals <- function(trial){
+  detected <- cum_detect_local(trial)
+  if(max(detected)<2){
+    return(NA)
+  } else{
+    runs <- rle(detected)$lengths
+    runs[-c(1,length(runs))]
+  }
+}
+
+all_local_interval <- function(x) {
+  unlist(sapply(x, get_local_detected_intervals))
+}
+test <- all_local_interval(trials)
+
+cum_detect_local(trials[[4]])
+rle(cum_detect_local(trials[[4]]))
+get_local_detected_intervals(trials[[7]])
+
+trials[[6]]$Cum_Intro_Detections
+
+
+# sum(all_last_cuminfect_local_values(trials)>2000 & all_max_nonintro_prevalence(trials)>50)
 
 ################################
 ## Code to Make Figure 3
