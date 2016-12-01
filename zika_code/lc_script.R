@@ -3,7 +3,7 @@ if(grepl('spencerfox', Sys.info()['login'])) setwd('~/projects/zika_alarm/zika_c
 if(grepl('vagrant', Sys.info()['user'])) setwd('/vagrant/zika_alarm/zika_code/')
 if(grepl('sjf826', Sys.info()['login'])) setwd('/home1/02958/sjf826/zika_alarm/zika_code/')
 if(grepl('tacc', Sys.info()['nodename'])) setwd('/home1/02958/sjf826/zika_alarm/zika_code/')
-if(grepl('meyerslab', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
+if(grepl('meyerslab', Sys.info()['login'])) setwd('~/Documents/projects/zika_alarm/zika_code/')
 if(grepl('laurencastro', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
 
 
@@ -177,7 +177,284 @@ combined <- plot_grid(plotbaseline, plot.baddetect_goodintro,
 
 
 
-############
-get_trigger_data(rnot = 0.9, intro=0.59 , disc = .05050, threshold = 15, confidence = .5)
+##################### Working on Time Distributions
+
+dir_path = "~/Documents/projects/zika_alarm/data/zika_sims/"
+fig_path = "~/Documents/projects/zika_alarm/ExploratoryFigures/"
+
+time_by_detect <- function(df, max_detect=100, epi_thres = 50){
+  ## Takes in a data frame trials, and for each
+  ## returns time lapse between detections
+  
+  max.prev <- max_nonintro_prevalence(df)
+  
+  if (max.prev > epi_thres) {
+  
+  local.detections <- df$New_Detections-df$New_Intro_Detections 
+  indicies <- which(local.detections > 0 )
+  difference <- diff(indicies)
+  #difference <- c(indicies[1], difference) # Adding in the time spance of the first 
+  return(data.frame(difference))
+  }
+}
+
+get_time_between_detects_all <- function(x, max_detect=100){
+  ## Returns data frame of all prevalence by detections for all trials
+  ldply(x, time_by_detect, max_detect)
+}
+
+
+dotplot_tdiff_data <- function(dir_path, r_nots, disc_probs, intro_rates, local){
+  # Function to get all the differences between two local detection
+  dirPaths = get_vec_of_files(dir_path, r_nots, disc_probs, intro_rates)
+  ldply(dirPaths, function(x) {
+    load(x)
+    if(local){
+      differences <- get_time_between_detects_all(trials) 
+      if (nrow(differences) > 0) {
+        parms <- get_parms(x)
+        cbind(as.data.frame(parms), t_diff=differences$difference[sample(seq(0,10000), 1000)])
+      }
+    }else{
+      differences <- get_time_between_detects_all(trials)  
+    }
+    #parms <- get_parms(x)
+    #cbind(as.data.frame(parms), t_diff=differences$difference[sample(seq(0,10000), 1000)])
+  })
+}
+
+
+
+time_by_detect_summary <- function(df, max_detect = 100) {
+  # takes in a data frame of trials and for each
+  # returns the summary statistics of the time lapses
+  local.detections <- df$New_Detections-df$New_Intro_Detections 
+  indicies <- which(local.detections > 0 )
+  #indicies <- which(df[, "New_Detections"- "New_Intro_Detections"] > 0 )
+  
+  difference <- diff(indicies)
+  summary <- unname(summary(difference))
+  return(data.frame(median = summary[3], third = summary[5]))
+}
+
+time_by_detect_summary(df)
+
+
+get_tdiff_summary_all <- function(x, max_detect = 100) {
+  ## Returns data frame of all prevalence by detections for all trials
+  ldply(x, time_by_detect_summary, max_detect)
+}
+
+trial$ <- get_tdiff_summary_all(trials)
+
+
+
+dotplot_tdiff_summary_data <- function(dir_path, r_nots, disc_probs, intro_rates, type){
+  # Function to get all the differences between two local detection
+  dirPaths = get_vec_of_files(dir_path, r_nots, disc_probs, intro_rates)
+  ldply(dirPaths, function(x) {
+    load(x)
+    differences <- get_tdiff_summary_all(trials)  
+    if(type == 'median'){
+      differences <- differences$median
+    }else{
+      differences <- differences$third 
+    }
+    parms <- get_parms(x)
+    cbind(as.data.frame(parms), t_diff=differences)
+  })
+}
+
+
+
+r_nots <- c(seq(0.7, 1.2, by=0.05))
+disc_probs <- c(0.0224)
+intros <- c(0.1)
+
+#Harris County
+
+r_nots <- c(0.8)
+intros <- c(0.269)
+
+
+tdiff.dots <- dotplot_tdiff_data(dir_path, r_nots, disc_probs, intro_rates = intros, local=T)
+
+tdiff.dots.cleaned <- tdiff.dots[!is.na(tdiff.dots$t_diff),]
+head(tdiff.dots.cleaned)
+
+fake.row <- data.frame(cbind(0.8, 0.0224, 0.1, NA))
+colnames(fake.row) <- colnames(tdiff.dots.cleaned)
+plot.data.trail <- rbind(fake.row, tdiff.dots.cleaned)
+
+
+tdiff_plot <- ggplot(plot.data.trail, aes(r_not, t_diff)) + #+ facet_wrap(~intro_rate, nrow = 1) + 
+  geom_point(position="jitter", shape=20,alpha=0.5) + 
+  geom_hline(yintercept=c(15), color=c("blue")) +
+ # geom_hline(yintercept = c(30), color = c("red")) + 
+  theme(strip.background=element_rect(fill=NULL, color="black", size=0.5, linetype=1))+
+  scale_y_continuous(expand=c(0.01,0.01))+
+  scale_x_continuous(expand=c(0.01,0.01), breaks = r_nots)+
+  panel_border(size=0.5, colour="black") +
+  labs(x = expression("R"[0]), y= "Days Between Local Detection")
+
+
+tdiff_plot_box <- ggplot(plot.data.trail, aes(factor(r_not), t_diff)) + 
+  geom_boxplot() + 
+  geom_hline(yintercept=c(15), color=c("blue")) +
+  #geom_hline(yintercept = c(30), color = c("red")) + 
+  theme(strip.background=element_rect(fill=NULL, color="black", size=0.5, linetype=1))+
+  scale_y_continuous(expand=c(0.01,0.01))+
+  #scale_x_continuous(expand=c(0.01,0.01), breaks = r_nots)+
+  panel_border(size=0.5, colour="black") +
+  labs(x = expression("R"[0]), y= "Days between local detection")
+
+
+tdiff_plot
+
+save_plot(paste0(fig_path, "local_tdiff_points.pdf"), tdiff_plot, base_height = 4, base_aspect_ratio = 1.8)
+
+
+## median plot 
+median.dots <- dotplot_tdiff_data(dir_path, r_nots, disc_probs, intro_rates = intros, type = 'median')
+head(median.dots)
+head(median.dots.cleaned)
+mean(median.dots.cleaned$t_diff)
+
+median.dots.cleaned <- median.dots[!is.na(median.dots$t_diff),]
+
+tdiff_median_plot <- ggplot(median.dots.cleaned, aes(r_not, t_diff)) + facet_wrap(~intro_rate, nrow = 1) + 
+  geom_point(position="jitter", shape=20,alpha=0.5) + 
+  geom_hline(yintercept=c(14), color=c("blue")) +
+  theme(strip.background=element_rect(fill=NULL, color="black", size=0.5, linetype=1))+
+  scale_y_continuous(expand=c(0.01,0.01))+
+  scale_x_continuous(expand=c(0.01,0.01), breaks = r_nots)+
+  panel_border(size=0.5, colour="black") +
+  labs(x = expression("R"[0]), y= "Median days between local detection")
+
+save_plot(paste0(fig_path, "local_median_tdiff_plot.pdf"), tdiff_median_plot, base_height = 4, base_aspect_ratio = 1.8)
+
+
+
+# third quarter plot 
+#third.quarter.dots <- dotplot_tdiff_data(dir_path, r_nots, disc_probs, intro_rates = intros, type = 'third')
+#third.quarter.cleaned <- third.quarter.dots[!is.na(third.quarter.dots$t_diff),] 
+
+#tdiff_third_plot <- ggplot(third.quarter.cleaned, aes(r_not, t_diff)) + facet_wrap(~intro_rate, nrow = 1) + 
+#  geom_point(position="jitter", shape=20,alpha=0.5) + 
+#  geom_hline(yintercept=c(14), color=c("blue")) +
+#  theme(strip.background=element_rect(fill=NULL, color="black", size=0.5, linetype=1))+
+#  scale_y_continuous(expand=c(0.01,0.01))+
+#  scale_x_continuous(expand=c(0.01,0.01), breaks = r_nots)+
+#  panel_border(size=0.5, colour="black") +
+#  labs(x = expression("R"[0]), y= "Third Quarter Summary of days between local detection")
+
+#save_plot(paste0(fig_path, "local_third_tdiff_plot.pdf"), tdiff_third_plot , base_height = 4, base_aspect_ratio = 1.8)
+
+
+
+# Normal Plot 
+dots <- dotplot_tdiff_data(dir_path, r_nots, disc_probs, intros, local = T)
+hist(dots$t_diff)
+summary(dots)
+
+baseline = dots[dots$intro_rate == 0,]
+head(baseline)
+
+baseline.plot <- ggplot(baseline, aes(t_diff)) + geom_histogram() + 
+ labs(x = 'Time Between Local Detections', y = "Count") +
+  geom_vline(xintercept = c(15), color = c("blue")) +
+  scale_x_continuous(breaks = seq(0,160, 10))
+
+save_plot(paste0(fig_path, "baseline_tdiff.pdf"), baseline.plot, base_height = 4, base_aspect_ratio = 1.8)
+
+
+
+
+
+plot_tdiff_dots <- function(dir_path, r_nots, disc_probs, intros, local=FALSE){
+  
+  dots <- dotplot_data(dir_path, r_nots, disc_probs, intros, local)
+  
+  ggplot(dots, aes(r_not, max_prev)) + facet_wrap(~intro_rate, nrow=1)+ 
+    geom_point(position="jitter", shape=20,alpha=0.5) + 
+    geom_hline(yintercept=c(50), color=c("blue")) +
+    theme(strip.background=element_rect(fill=NULL, color="black", size=0.5, linetype=1))+
+    scale_y_continuous(expand=c(0.01,0.01))+
+    scale_x_continuous(expand=c(0.01,0.01), breaks = r_nots)+
+    panel_border(size=0.5, colour="black") +
+    labs(x = expression("R"[0]), y= ifelse(local,"Maximum Local Daily Prevalence", "Maximum Daily Prevalences"))
+}
+
+
+
+
+
+
+
+
+
+
+# print(threshold_plot)
+save_plot(paste0(fig_path, "local_threshold_plot.pdf"), threshold_plot, base_height = 4, base_aspect_ratio = 1.8)
+
+projected_worst_combos <- data.frame(sort(projected_worst_combos$projected_worst_combos, decreasing = FALSE))
+load(get_vec_of_files(dir_path))
+
+load(get_vec_of_files(dir_path, 0.9, 0.0224, 0.432))
+
+finaldetection <- all_last_cumdetect_local_values(trials)
+max_local_prev <- all_max_nonintro_prevalence(trials)
+#durations <- all_sim_duration(trials)
+
+cum.cases.by.detect <- get_cumcases_by_detects_all(trials)
+
+plot(durations, finaldetection)
+plot(finaldetection, max_local_prev)
+
+
+differences.trials <- get_time_between_detects_all(trials)
+summary(differences.trials$difference)
+hist(differences.trials$difference)
+
+
+
+# ## Supplementary choosing threshold plot -- should be 20
+r_nots <- c(seq(0.9, 1.1, by=0.05))
+disc_probs <- c(0.011)
+intros <- c(0.01, 0.1)
+threshold_plot <- plot_dots(dir_path, r_nots, disc_probs, intros, local=T)
+# print(threshold_plot)
+save_plot(paste0(fig_path, "local_threshold_plot.pdf"), threshold_plot, base_height = 4, base_aspect_ratio = 1.8)
+
+
+
+epi.data <- get_epi_data(trials, 3000)
+
+load(get_vec_of_files(dir_path, 1.01, 0.0224, 0))
+
+#epi.data_0.7 <- get_epi_data(trials, 3000)
+
+outbreak_plot_1.1 
+
+breaks <- c(1,2,3,4,5,10,50, 100)
+
+outbreak_plot_0.7 <- ggplot(epi.data_0.6, aes(time, Cum_Detections)) + geom_line(alpha = 0.15, size = 1) +xlim (0,100) + scale_y_log10()
+outbreak_plot_0.7
+outbreak_plot_1.1
+
+                                      
+                                      #, group=interaction(.id, risk_level), color=risk_level)) + 
+  geom_line(alpha=0.15,size=1) + 
+ # scale_color_brewer(palette="Set1", direction = 1)+
+  coord_cartesian(xlim=c(0,150), ylim=c(0,50), expand=FALSE) +
+  guides(color=guide_legend(override.aes=list(alpha=1))) +
+  theme(legend.position=c(0.3,0.8))+
+  labs(x = "Time (days)", 
+       y = "Reported Autochthonous Cases", 
+       color = expression("R"[0]))
+print(outbreak_plot)
+
+# Looking at the distributions of time
+
 
 
