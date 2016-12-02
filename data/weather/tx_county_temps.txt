@@ -1,0 +1,3323 @@
+"Notes"	"County"	"County Code"	"Month"	"Month Code"	Avg Daily Max Air Temperature (C)	Avg Daily Min Air Temperature (C)
+	"Anderson County, TX"	"48001"	"Jan"	"1"	15.49818	3.89457
+	"Anderson County, TX"	"48001"	"Feb"	"2"	17.33831	5.34237
+	"Anderson County, TX"	"48001"	"Mar"	"3"	21.63847	9.11116
+	"Anderson County, TX"	"48001"	"Apr"	"4"	25.98448	12.16987
+	"Anderson County, TX"	"48001"	"May"	"5"	30.16998	17.58391
+	"Anderson County, TX"	"48001"	"Jun"	"6"	33.34998	21.79600
+	"Anderson County, TX"	"48001"	"Jul"	"7"	35.27504	23.19828
+	"Anderson County, TX"	"48001"	"Aug"	"8"	35.96458	23.45425
+	"Anderson County, TX"	"48001"	"Sep"	"9"	32.36915	20.25327
+	"Anderson County, TX"	"48001"	"Oct"	"10"	27.36449	14.26845
+	"Anderson County, TX"	"48001"	"Nov"	"11"	21.33080	9.10697
+	"Anderson County, TX"	"48001"	"Dec"	"12"	15.74094	3.78973
+"Total"	"Anderson County, TX"	"48001"			26.04201	13.70247
+	"Andrews County, TX"	"48003"	"Jan"	"1"	13.63164	2.73608
+	"Andrews County, TX"	"48003"	"Feb"	"2"	16.31510	4.51751
+	"Andrews County, TX"	"48003"	"Mar"	"3"	21.01785	8.03843
+	"Andrews County, TX"	"48003"	"Apr"	"4"	26.11649	11.99896
+	"Andrews County, TX"	"48003"	"May"	"5"	31.31917	16.80620
+	"Andrews County, TX"	"48003"	"Jun"	"6"	34.75966	21.14492
+	"Andrews County, TX"	"48003"	"Jul"	"7"	34.74349	22.27414
+	"Andrews County, TX"	"48003"	"Aug"	"8"	34.43105	22.37746
+	"Andrews County, TX"	"48003"	"Sep"	"9"	31.00141	18.41949
+	"Andrews County, TX"	"48003"	"Oct"	"10"	25.63254	13.10913
+	"Andrews County, TX"	"48003"	"Nov"	"11"	18.67680	6.70287
+	"Andrews County, TX"	"48003"	"Dec"	"12"	13.42371	2.31045
+"Total"	"Andrews County, TX"	"48003"			25.12667	12.57394
+	"Angelina County, TX"	"48005"	"Jan"	"1"	16.18490	4.23649
+	"Angelina County, TX"	"48005"	"Feb"	"2"	18.03746	5.73410
+	"Angelina County, TX"	"48005"	"Mar"	"3"	22.18809	9.38611
+	"Angelina County, TX"	"48005"	"Apr"	"4"	26.36724	12.23885
+	"Angelina County, TX"	"48005"	"May"	"5"	30.16849	17.66135
+	"Angelina County, TX"	"48005"	"Jun"	"6"	32.96244	21.87955
+	"Angelina County, TX"	"48005"	"Jul"	"7"	34.36628	23.04739
+	"Angelina County, TX"	"48005"	"Aug"	"8"	34.94687	23.22008
+	"Angelina County, TX"	"48005"	"Sep"	"9"	32.07188	20.29940
+	"Angelina County, TX"	"48005"	"Oct"	"10"	27.65242	14.36133
+	"Angelina County, TX"	"48005"	"Nov"	"11"	21.75099	9.16665
+	"Angelina County, TX"	"48005"	"Dec"	"12"	16.42192	4.15035
+"Total"	"Angelina County, TX"	"48005"			26.12936	13.81874
+	"Aransas County, TX"	"48007"	"Jan"	"1"	19.03354	13.13488
+	"Aransas County, TX"	"48007"	"Feb"	"2"	20.11502	14.00660
+	"Aransas County, TX"	"48007"	"Mar"	"3"	22.16876	15.84863
+	"Aransas County, TX"	"48007"	"Apr"	"4"	25.24307	18.97742
+	"Aransas County, TX"	"48007"	"May"	"5"	28.34960	22.67381
+	"Aransas County, TX"	"48007"	"Jun"	"6"	30.46411	25.49324
+	"Aransas County, TX"	"48007"	"Jul"	"7"	30.95517	26.36785
+	"Aransas County, TX"	"48007"	"Aug"	"8"	31.60733	26.93024
+	"Aransas County, TX"	"48007"	"Sep"	"9"	30.45014	25.81479
+	"Aransas County, TX"	"48007"	"Oct"	"10"	27.47342	22.31067
+	"Aransas County, TX"	"48007"	"Nov"	"11"	23.59173	17.92439
+	"Aransas County, TX"	"48007"	"Dec"	"12"	19.85498	13.65786
+"Total"	"Aransas County, TX"	"48007"			25.79964	20.28879
+	"Archer County, TX"	"48009"	"Jan"	"1"	13.24358	1.40342
+	"Archer County, TX"	"48009"	"Feb"	"2"	15.15064	2.96307
+	"Archer County, TX"	"48009"	"Mar"	"3"	20.47579	7.34057
+	"Archer County, TX"	"48009"	"Apr"	"4"	25.59206	11.16712
+	"Archer County, TX"	"48009"	"May"	"5"	30.97898	16.83861
+	"Archer County, TX"	"48009"	"Jun"	"6"	35.21287	22.12038
+	"Archer County, TX"	"48009"	"Jul"	"7"	37.29823	24.17798
+	"Archer County, TX"	"48009"	"Aug"	"8"	37.28383	24.74863
+	"Archer County, TX"	"48009"	"Sep"	"9"	32.25849	19.72873
+	"Archer County, TX"	"48009"	"Oct"	"10"	26.11795	13.21776
+	"Archer County, TX"	"48009"	"Nov"	"11"	19.42413	6.97428
+	"Archer County, TX"	"48009"	"Dec"	"12"	13.15801	1.03662
+"Total"	"Archer County, TX"	"48009"			25.56507	12.68959
+	"Armstrong County, TX"	"48011"	"Jan"	"1"	10.89025	-0.62036
+	"Armstrong County, TX"	"48011"	"Feb"	"2"	12.85876	0.79199
+	"Armstrong County, TX"	"48011"	"Mar"	"3"	17.99435	5.02623
+	"Armstrong County, TX"	"48011"	"Apr"	"4"	23.38640	9.10072
+	"Armstrong County, TX"	"48011"	"May"	"5"	28.61712	14.43605
+	"Armstrong County, TX"	"48011"	"Jun"	"6"	33.03742	19.84341
+	"Armstrong County, TX"	"48011"	"Jul"	"7"	34.69843	21.75359
+	"Armstrong County, TX"	"48011"	"Aug"	"8"	34.08660	21.69800
+	"Armstrong County, TX"	"48011"	"Sep"	"9"	29.88758	16.73123
+	"Armstrong County, TX"	"48011"	"Oct"	"10"	23.66584	10.68430
+	"Armstrong County, TX"	"48011"	"Nov"	"11"	16.70102	4.10151
+	"Armstrong County, TX"	"48011"	"Dec"	"12"	10.82591	-0.96492
+"Total"	"Armstrong County, TX"	"48011"			23.10071	10.26109
+	"Atascosa County, TX"	"48013"	"Jan"	"1"	19.72885	8.10055
+	"Atascosa County, TX"	"48013"	"Feb"	"2"	22.32402	9.22780
+	"Atascosa County, TX"	"48013"	"Mar"	"3"	26.02572	11.76789
+	"Atascosa County, TX"	"48013"	"Apr"	"4"	30.53823	15.23910
+	"Atascosa County, TX"	"48013"	"May"	"5"	34.74932	19.84611
+	"Atascosa County, TX"	"48013"	"Jun"	"6"	36.45980	22.96073
+	"Atascosa County, TX"	"48013"	"Jul"	"7"	35.91586	23.81158
+	"Atascosa County, TX"	"48013"	"Aug"	"8"	36.60111	24.70937
+	"Atascosa County, TX"	"48013"	"Sep"	"9"	33.22582	22.98993
+	"Atascosa County, TX"	"48013"	"Oct"	"10"	29.54534	17.69363
+	"Atascosa County, TX"	"48013"	"Nov"	"11"	24.61057	12.57655
+	"Atascosa County, TX"	"48013"	"Dec"	"12"	19.87467	7.56473
+"Total"	"Atascosa County, TX"	"48013"			29.16139	16.40471
+	"Austin County, TX"	"48015"	"Jan"	"1"	17.45867	6.42568
+	"Austin County, TX"	"48015"	"Feb"	"2"	19.34417	7.67867
+	"Austin County, TX"	"48015"	"Mar"	"3"	22.99668	10.47399
+	"Austin County, TX"	"48015"	"Apr"	"4"	27.13331	13.68822
+	"Austin County, TX"	"48015"	"May"	"5"	31.40291	18.63989
+	"Austin County, TX"	"48015"	"Jun"	"6"	33.95706	22.33002
+	"Austin County, TX"	"48015"	"Jul"	"7"	34.55411	23.37040
+	"Austin County, TX"	"48015"	"Aug"	"8"	35.24688	23.95888
+	"Austin County, TX"	"48015"	"Sep"	"9"	32.44073	21.75838
+	"Austin County, TX"	"48015"	"Oct"	"10"	27.85126	16.29606
+	"Austin County, TX"	"48015"	"Nov"	"11"	22.50475	11.20427
+	"Austin County, TX"	"48015"	"Dec"	"12"	17.77593	6.22545
+"Total"	"Austin County, TX"	"48015"			26.92199	15.20405
+	"Bailey County, TX"	"48017"	"Jan"	"1"	11.14685	-0.23973
+	"Bailey County, TX"	"48017"	"Feb"	"2"	13.67820	1.41759
+	"Bailey County, TX"	"48017"	"Mar"	"3"	18.25924	5.02662
+	"Bailey County, TX"	"48017"	"Apr"	"4"	23.53088	9.15055
+	"Bailey County, TX"	"48017"	"May"	"5"	29.01889	14.25867
+	"Bailey County, TX"	"48017"	"Jun"	"6"	33.15234	19.28786
+	"Bailey County, TX"	"48017"	"Jul"	"7"	33.87729	20.58689
+	"Bailey County, TX"	"48017"	"Aug"	"8"	33.27668	20.11887
+	"Bailey County, TX"	"48017"	"Sep"	"9"	29.58516	15.88530
+	"Bailey County, TX"	"48017"	"Oct"	"10"	23.73883	10.23597
+	"Bailey County, TX"	"48017"	"Nov"	"11"	16.70853	3.86027
+	"Bailey County, TX"	"48017"	"Dec"	"12"	11.34500	-0.58930
+"Total"	"Bailey County, TX"	"48017"			23.15140	9.95677
+	"Bandera County, TX"	"48019"	"Jan"	"1"	17.03402	6.40014
+	"Bandera County, TX"	"48019"	"Feb"	"2"	19.42927	7.73304
+	"Bandera County, TX"	"48019"	"Mar"	"3"	23.29446	10.94947
+	"Bandera County, TX"	"48019"	"Apr"	"4"	27.81583	14.57684
+	"Bandera County, TX"	"48019"	"May"	"5"	32.04721	19.05006
+	"Bandera County, TX"	"48019"	"Jun"	"6"	34.11189	21.89331
+	"Bandera County, TX"	"48019"	"Jul"	"7"	33.77097	22.43139
+	"Bandera County, TX"	"48019"	"Aug"	"8"	34.22719	23.22335
+	"Bandera County, TX"	"48019"	"Sep"	"9"	30.76082	21.03731
+	"Bandera County, TX"	"48019"	"Oct"	"10"	26.58755	16.03772
+	"Bandera County, TX"	"48019"	"Nov"	"11"	21.55197	10.68908
+	"Bandera County, TX"	"48019"	"Dec"	"12"	17.11794	5.90322
+"Total"	"Bandera County, TX"	"48019"			26.50894	15.02545
+	"Bastrop County, TX"	"48021"	"Jan"	"1"	17.53539	6.44209
+	"Bastrop County, TX"	"48021"	"Feb"	"2"	19.60789	7.72699
+	"Bastrop County, TX"	"48021"	"Mar"	"3"	23.36888	10.69781
+	"Bastrop County, TX"	"48021"	"Apr"	"4"	28.04581	13.95884
+	"Bastrop County, TX"	"48021"	"May"	"5"	32.82413	18.81714
+	"Bastrop County, TX"	"48021"	"Jun"	"6"	35.18084	22.48010
+	"Bastrop County, TX"	"48021"	"Jul"	"7"	35.70523	23.58557
+	"Bastrop County, TX"	"48021"	"Aug"	"8"	36.39295	24.49174
+	"Bastrop County, TX"	"48021"	"Sep"	"9"	32.96204	22.37895
+	"Bastrop County, TX"	"48021"	"Oct"	"10"	28.14910	16.67245
+	"Bastrop County, TX"	"48021"	"Nov"	"11"	22.67060	11.30550
+	"Bastrop County, TX"	"48021"	"Dec"	"12"	17.89952	6.18729
+"Total"	"Bastrop County, TX"	"48021"			27.56373	15.42924
+	"Baylor County, TX"	"48023"	"Jan"	"1"	13.28438	1.59689
+	"Baylor County, TX"	"48023"	"Feb"	"2"	15.19405	3.10749
+	"Baylor County, TX"	"48023"	"Mar"	"3"	20.50303	7.47860
+	"Baylor County, TX"	"48023"	"Apr"	"4"	25.72467	11.43605
+	"Baylor County, TX"	"48023"	"May"	"5"	31.05612	17.03241
+	"Baylor County, TX"	"48023"	"Jun"	"6"	35.27524	22.44800
+	"Baylor County, TX"	"48023"	"Jul"	"7"	37.10946	24.44448
+	"Baylor County, TX"	"48023"	"Aug"	"8"	37.04109	24.89692
+	"Baylor County, TX"	"48023"	"Sep"	"9"	32.25253	20.01649
+	"Baylor County, TX"	"48023"	"Oct"	"10"	26.11690	13.49104
+	"Baylor County, TX"	"48023"	"Nov"	"11"	19.29250	7.08302
+	"Baylor County, TX"	"48023"	"Dec"	"12"	13.11604	1.17175
+"Total"	"Baylor County, TX"	"48023"			25.54520	12.89677
+	"Bee County, TX"	"48025"	"Jan"	"1"	20.22694	9.15350
+	"Bee County, TX"	"48025"	"Feb"	"2"	22.58377	10.31648
+	"Bee County, TX"	"48025"	"Mar"	"3"	25.93816	12.65862
+	"Bee County, TX"	"48025"	"Apr"	"4"	29.92546	15.99289
+	"Bee County, TX"	"48025"	"May"	"5"	33.59675	20.19377
+	"Bee County, TX"	"48025"	"Jun"	"6"	35.27238	23.19929
+	"Bee County, TX"	"48025"	"Jul"	"7"	34.73706	23.95574
+	"Bee County, TX"	"48025"	"Aug"	"8"	35.42182	24.68392
+	"Bee County, TX"	"48025"	"Sep"	"9"	32.79507	23.28811
+	"Bee County, TX"	"48025"	"Oct"	"10"	29.46890	18.61536
+	"Bee County, TX"	"48025"	"Nov"	"11"	24.90166	13.76562
+	"Bee County, TX"	"48025"	"Dec"	"12"	20.53501	8.95344
+"Total"	"Bee County, TX"	"48025"			28.80863	17.09325
+	"Bell County, TX"	"48027"	"Jan"	"1"	16.03321	5.16684
+	"Bell County, TX"	"48027"	"Feb"	"2"	17.91370	6.53581
+	"Bell County, TX"	"48027"	"Mar"	"3"	22.12179	10.07262
+	"Bell County, TX"	"48027"	"Apr"	"4"	26.98058	13.72467
+	"Bell County, TX"	"48027"	"May"	"5"	32.02587	18.80158
+	"Bell County, TX"	"48027"	"Jun"	"6"	34.95827	22.79541
+	"Bell County, TX"	"48027"	"Jul"	"7"	36.20637	24.27047
+	"Bell County, TX"	"48027"	"Aug"	"8"	36.56520	25.10947
+	"Bell County, TX"	"48027"	"Sep"	"9"	32.67524	22.11595
+	"Bell County, TX"	"48027"	"Oct"	"10"	27.46025	16.06603
+	"Bell County, TX"	"48027"	"Nov"	"11"	21.58237	10.23109
+	"Bell County, TX"	"48027"	"Dec"	"12"	16.39720	4.92785
+"Total"	"Bell County, TX"	"48027"			26.78401	15.02346
+	"Bexar County, TX"	"48029"	"Jan"	"1"	18.09666	7.46992
+	"Bexar County, TX"	"48029"	"Feb"	"2"	20.48643	8.68951
+	"Bexar County, TX"	"48029"	"Mar"	"3"	24.17814	11.60235
+	"Bexar County, TX"	"48029"	"Apr"	"4"	28.80263	15.08576
+	"Bexar County, TX"	"48029"	"May"	"5"	33.13733	19.52649
+	"Bexar County, TX"	"48029"	"Jun"	"6"	35.30616	22.65592
+	"Bexar County, TX"	"48029"	"Jul"	"7"	35.25645	23.45976
+	"Bexar County, TX"	"48029"	"Aug"	"8"	35.82179	24.28448
+	"Bexar County, TX"	"48029"	"Sep"	"9"	32.35837	22.41748
+	"Bexar County, TX"	"48029"	"Oct"	"10"	28.18356	17.24967
+	"Bexar County, TX"	"48029"	"Nov"	"11"	22.97322	12.03586
+	"Bexar County, TX"	"48029"	"Dec"	"12"	18.28312	6.99759
+"Total"	"Bexar County, TX"	"48029"			27.77127	15.98757
+	"Blanco County, TX"	"48031"	"Jan"	"1"	16.29350	5.45662
+	"Blanco County, TX"	"48031"	"Feb"	"2"	18.46262	6.89411
+	"Blanco County, TX"	"48031"	"Mar"	"3"	22.36614	10.30677
+	"Blanco County, TX"	"48031"	"Apr"	"4"	27.02337	14.07031
+	"Blanco County, TX"	"48031"	"May"	"5"	31.66004	18.77077
+	"Blanco County, TX"	"48031"	"Jun"	"6"	34.15758	22.01255
+	"Blanco County, TX"	"48031"	"Jul"	"7"	34.63313	22.89018
+	"Blanco County, TX"	"48031"	"Aug"	"8"	35.06547	23.62928
+	"Blanco County, TX"	"48031"	"Sep"	"9"	31.53336	21.18739
+	"Blanco County, TX"	"48031"	"Oct"	"10"	26.80750	15.76413
+	"Blanco County, TX"	"48031"	"Nov"	"11"	21.34893	10.23909
+	"Blanco County, TX"	"48031"	"Dec"	"12"	16.60869	5.07579
+"Total"	"Blanco County, TX"	"48031"			26.36483	14.72570
+	"Borden County, TX"	"48033"	"Jan"	"1"	13.85783	2.04634
+	"Borden County, TX"	"48033"	"Feb"	"2"	16.15783	3.84904
+	"Borden County, TX"	"48033"	"Mar"	"3"	21.05601	7.60099
+	"Borden County, TX"	"48033"	"Apr"	"4"	26.33144	11.79719
+	"Borden County, TX"	"48033"	"May"	"5"	31.25968	16.71120
+	"Borden County, TX"	"48033"	"Jun"	"6"	34.68604	21.43611
+	"Borden County, TX"	"48033"	"Jul"	"7"	35.22008	22.61732
+	"Borden County, TX"	"48033"	"Aug"	"8"	34.94651	22.93464
+	"Borden County, TX"	"48033"	"Sep"	"9"	31.35879	18.89989
+	"Borden County, TX"	"48033"	"Oct"	"10"	25.89151	13.01931
+	"Borden County, TX"	"48033"	"Nov"	"11"	19.09510	6.53206
+	"Borden County, TX"	"48033"	"Dec"	"12"	13.70836	1.60901
+"Total"	"Borden County, TX"	"48033"			25.33752	12.46051
+	"Bosque County, TX"	"48035"	"Jan"	"1"	15.05724	3.90597
+	"Bosque County, TX"	"48035"	"Feb"	"2"	16.78090	5.33661
+	"Bosque County, TX"	"48035"	"Mar"	"3"	21.24573	9.02693
+	"Bosque County, TX"	"48035"	"Apr"	"4"	26.16819	12.84522
+	"Bosque County, TX"	"48035"	"May"	"5"	31.36651	18.21599
+	"Bosque County, TX"	"48035"	"Jun"	"6"	34.85697	22.70515
+	"Bosque County, TX"	"48035"	"Jul"	"7"	36.61404	24.28930
+	"Bosque County, TX"	"48035"	"Aug"	"8"	36.75695	24.96695
+	"Bosque County, TX"	"48035"	"Sep"	"9"	32.42003	21.15989
+	"Bosque County, TX"	"48035"	"Oct"	"10"	27.01024	15.08033
+	"Bosque County, TX"	"48035"	"Nov"	"11"	20.74017	9.10782
+	"Bosque County, TX"	"48035"	"Dec"	"12"	15.25584	3.62446
+"Total"	"Bosque County, TX"	"48035"			26.23384	14.23000
+	"Bowie County, TX"	"48037"	"Jan"	"1"	13.25488	1.95243
+	"Bowie County, TX"	"48037"	"Feb"	"2"	14.99729	3.41659
+	"Bowie County, TX"	"48037"	"Mar"	"3"	20.05326	7.63515
+	"Bowie County, TX"	"48037"	"Apr"	"4"	24.57785	11.04864
+	"Bowie County, TX"	"48037"	"May"	"5"	28.54225	16.90240
+	"Bowie County, TX"	"48037"	"Jun"	"6"	32.22919	21.35243
+	"Bowie County, TX"	"48037"	"Jul"	"7"	34.67991	23.15179
+	"Bowie County, TX"	"48037"	"Aug"	"8"	35.52298	22.99037
+	"Bowie County, TX"	"48037"	"Sep"	"9"	31.77549	18.97271
+	"Bowie County, TX"	"48037"	"Oct"	"10"	26.20349	12.86781
+	"Bowie County, TX"	"48037"	"Nov"	"11"	19.79094	7.56373
+	"Bowie County, TX"	"48037"	"Dec"	"12"	13.57684	1.84026
+"Total"	"Bowie County, TX"	"48037"			24.64476	12.51741
+	"Brazoria County, TX"	"48039"	"Jan"	"1"	17.46447	9.88553
+	"Brazoria County, TX"	"48039"	"Feb"	"2"	18.53680	10.76830
+	"Brazoria County, TX"	"48039"	"Mar"	"3"	21.46442	13.18773
+	"Brazoria County, TX"	"48039"	"Apr"	"4"	24.85196	16.47811
+	"Brazoria County, TX"	"48039"	"May"	"5"	28.61567	20.96156
+	"Brazoria County, TX"	"48039"	"Jun"	"6"	31.07288	24.26863
+	"Brazoria County, TX"	"48039"	"Jul"	"7"	31.66753	25.24269
+	"Brazoria County, TX"	"48039"	"Aug"	"8"	32.23134	25.59586
+	"Brazoria County, TX"	"48039"	"Sep"	"9"	30.53066	23.75577
+	"Brazoria County, TX"	"48039"	"Oct"	"10"	26.77685	19.33957
+	"Brazoria County, TX"	"48039"	"Nov"	"11"	22.37618	14.71416
+	"Brazoria County, TX"	"48039"	"Dec"	"12"	18.16215	10.16006
+"Total"	"Brazoria County, TX"	"48039"			25.34241	17.89488
+	"Brazos County, TX"	"48041"	"Jan"	"1"	16.92975	5.29964
+	"Brazos County, TX"	"48041"	"Feb"	"2"	18.80950	6.71293
+	"Brazos County, TX"	"48041"	"Mar"	"3"	22.72016	9.95530
+	"Brazos County, TX"	"48041"	"Apr"	"4"	26.98709	13.06383
+	"Brazos County, TX"	"48041"	"May"	"5"	31.55650	18.31917
+	"Brazos County, TX"	"48041"	"Jun"	"6"	34.38040	22.19318
+	"Brazos County, TX"	"48041"	"Jul"	"7"	35.55505	23.45273
+	"Brazos County, TX"	"48041"	"Aug"	"8"	36.06647	23.99530
+	"Brazos County, TX"	"48041"	"Sep"	"9"	32.68488	21.32405
+	"Brazos County, TX"	"48041"	"Oct"	"10"	27.93376	15.48822
+	"Brazos County, TX"	"48041"	"Nov"	"11"	22.28430	10.14772
+	"Brazos County, TX"	"48041"	"Dec"	"12"	17.22789	5.01454
+"Total"	"Brazos County, TX"	"48041"			26.96498	14.61628
+	"Brewster County, TX"	"48043"	"Jan"	"1"	16.15985	5.40613
+	"Brewster County, TX"	"48043"	"Feb"	"2"	18.75363	7.10943
+	"Brewster County, TX"	"48043"	"Mar"	"3"	22.87315	10.30397
+	"Brewster County, TX"	"48043"	"Apr"	"4"	27.74368	14.59233
+	"Brewster County, TX"	"48043"	"May"	"5"	32.05392	19.12579
+	"Brewster County, TX"	"48043"	"Jun"	"6"	34.44721	22.47980
+	"Brewster County, TX"	"48043"	"Jul"	"7"	33.65003	22.51878
+	"Brewster County, TX"	"48043"	"Aug"	"8"	33.31440	22.64876
+	"Brewster County, TX"	"48043"	"Sep"	"9"	30.66349	19.73348
+	"Brewster County, TX"	"48043"	"Oct"	"10"	26.50627	15.19475
+	"Brewster County, TX"	"48043"	"Nov"	"11"	20.66074	9.24540
+	"Brewster County, TX"	"48043"	"Dec"	"12"	16.21249	4.91867
+"Total"	"Brewster County, TX"	"48043"			26.11622	14.47180
+	"Briscoe County, TX"	"48045"	"Jan"	"1"	11.56674	0.12708
+	"Briscoe County, TX"	"48045"	"Feb"	"2"	13.55430	1.53450
+	"Briscoe County, TX"	"48045"	"Mar"	"3"	18.58732	5.79244
+	"Briscoe County, TX"	"48045"	"Apr"	"4"	23.91107	9.93238
+	"Briscoe County, TX"	"48045"	"May"	"5"	29.11545	15.19537
+	"Briscoe County, TX"	"48045"	"Jun"	"6"	33.24760	20.35833
+	"Briscoe County, TX"	"48045"	"Jul"	"7"	34.80618	22.18674
+	"Briscoe County, TX"	"48045"	"Aug"	"8"	34.42837	22.19982
+	"Briscoe County, TX"	"48045"	"Sep"	"9"	30.22699	17.37143
+	"Briscoe County, TX"	"48045"	"Oct"	"10"	24.16165	11.42213
+	"Briscoe County, TX"	"48045"	"Nov"	"11"	17.32489	4.98132
+	"Briscoe County, TX"	"48045"	"Dec"	"12"	11.47254	-0.21908
+"Total"	"Briscoe County, TX"	"48045"			23.57915	10.95217
+	"Brooks County, TX"	"48047"	"Jan"	"1"	22.18171	11.35287
+	"Brooks County, TX"	"48047"	"Feb"	"2"	24.61809	12.33912
+	"Brooks County, TX"	"48047"	"Mar"	"3"	28.08925	14.19844
+	"Brooks County, TX"	"48047"	"Apr"	"4"	31.86002	17.12801
+	"Brooks County, TX"	"48047"	"May"	"5"	35.02025	20.77877
+	"Brooks County, TX"	"48047"	"Jun"	"6"	35.93879	23.25461
+	"Brooks County, TX"	"48047"	"Jul"	"7"	35.28265	23.94562
+	"Brooks County, TX"	"48047"	"Aug"	"8"	35.61024	24.68428
+	"Brooks County, TX"	"48047"	"Sep"	"9"	32.93575	23.78960
+	"Brooks County, TX"	"48047"	"Oct"	"10"	30.32477	19.81848
+	"Brooks County, TX"	"48047"	"Nov"	"11"	26.20809	15.21529
+	"Brooks County, TX"	"48047"	"Dec"	"12"	22.35668	10.98523
+"Total"	"Brooks County, TX"	"48047"			30.05736	18.14852
+	"Brown County, TX"	"48049"	"Jan"	"1"	15.46169	3.29326
+	"Brown County, TX"	"48049"	"Feb"	"2"	17.18954	4.79938
+	"Brown County, TX"	"48049"	"Mar"	"3"	21.77227	8.46287
+	"Brown County, TX"	"48049"	"Apr"	"4"	26.80037	12.39088
+	"Brown County, TX"	"48049"	"May"	"5"	31.89167	17.60233
+	"Brown County, TX"	"48049"	"Jun"	"6"	34.80639	21.91131
+	"Brown County, TX"	"48049"	"Jul"	"7"	35.88557	23.21866
+	"Brown County, TX"	"48049"	"Aug"	"8"	35.84567	24.10548
+	"Brown County, TX"	"48049"	"Sep"	"9"	31.69709	20.04552
+	"Brown County, TX"	"48049"	"Oct"	"10"	26.62794	14.18886
+	"Brown County, TX"	"48049"	"Nov"	"11"	20.63174	8.10158
+	"Brown County, TX"	"48049"	"Dec"	"12"	15.53280	2.85805
+"Total"	"Brown County, TX"	"48049"			26.22043	13.45511
+	"Burleson County, TX"	"48051"	"Jan"	"1"	17.13498	5.59721
+	"Burleson County, TX"	"48051"	"Feb"	"2"	19.02449	6.93765
+	"Burleson County, TX"	"48051"	"Mar"	"3"	22.90926	10.15021
+	"Burleson County, TX"	"48051"	"Apr"	"4"	27.23130	13.31782
+	"Burleson County, TX"	"48051"	"May"	"5"	32.00060	18.45127
+	"Burleson County, TX"	"48051"	"Jun"	"6"	34.74371	22.27967
+	"Burleson County, TX"	"48051"	"Jul"	"7"	35.78232	23.55004
+	"Burleson County, TX"	"48051"	"Aug"	"8"	36.31798	24.16316
+	"Burleson County, TX"	"48051"	"Sep"	"9"	32.85915	21.52153
+	"Burleson County, TX"	"48051"	"Oct"	"10"	27.97574	15.78649
+	"Burleson County, TX"	"48051"	"Nov"	"11"	22.43642	10.42111
+	"Burleson County, TX"	"48051"	"Dec"	"12"	17.45588	5.29252
+"Total"	"Burleson County, TX"	"48051"			27.19303	14.82473
+	"Burnet County, TX"	"48053"	"Jan"	"1"	16.06716	4.87872
+	"Burnet County, TX"	"48053"	"Feb"	"2"	18.04906	6.26733
+	"Burnet County, TX"	"48053"	"Mar"	"3"	22.18295	9.80440
+	"Burnet County, TX"	"48053"	"Apr"	"4"	26.95303	13.58549
+	"Burnet County, TX"	"48053"	"May"	"5"	31.85939	18.52450
+	"Burnet County, TX"	"48053"	"Jun"	"6"	34.51712	22.15424
+	"Burnet County, TX"	"48053"	"Jul"	"7"	35.35024	23.37308
+	"Burnet County, TX"	"48053"	"Aug"	"8"	35.77185	24.20403
+	"Burnet County, TX"	"48053"	"Sep"	"9"	32.00712	21.36093
+	"Burnet County, TX"	"48053"	"Oct"	"10"	27.06530	15.60105
+	"Burnet County, TX"	"48053"	"Nov"	"11"	21.27527	9.75277
+	"Burnet County, TX"	"48053"	"Dec"	"12"	16.39995	4.53254
+"Total"	"Burnet County, TX"	"48053"			26.49657	14.54055
+	"Caldwell County, TX"	"48055"	"Jan"	"1"	17.97752	6.58102
+	"Caldwell County, TX"	"48055"	"Feb"	"2"	20.16006	7.78073
+	"Caldwell County, TX"	"48055"	"Mar"	"3"	23.93468	10.57850
+	"Caldwell County, TX"	"48055"	"Apr"	"4"	28.50341	13.81229
+	"Caldwell County, TX"	"48055"	"May"	"5"	33.15498	18.66953
+	"Caldwell County, TX"	"48055"	"Jun"	"6"	35.32879	22.30211
+	"Caldwell County, TX"	"48055"	"Jul"	"7"	35.59120	23.32319
+	"Caldwell County, TX"	"48055"	"Aug"	"8"	36.31179	24.34191
+	"Caldwell County, TX"	"48055"	"Sep"	"9"	32.95272	22.34592
+	"Caldwell County, TX"	"48055"	"Oct"	"10"	28.33942	16.55101
+	"Caldwell County, TX"	"48055"	"Nov"	"11"	23.14612	11.36847
+	"Caldwell County, TX"	"48055"	"Dec"	"12"	18.34771	6.20429
+"Total"	"Caldwell County, TX"	"48055"			27.84573	15.35450
+	"Calhoun County, TX"	"48057"	"Jan"	"1"	18.68268	10.54849
+	"Calhoun County, TX"	"48057"	"Feb"	"2"	20.03508	11.52012
+	"Calhoun County, TX"	"48057"	"Mar"	"3"	22.70317	13.75997
+	"Calhoun County, TX"	"48057"	"Apr"	"4"	26.14938	17.14619
+	"Calhoun County, TX"	"48057"	"May"	"5"	29.44383	21.23766
+	"Calhoun County, TX"	"48057"	"Jun"	"6"	31.63475	24.33622
+	"Calhoun County, TX"	"48057"	"Jul"	"7"	32.03208	25.23311
+	"Calhoun County, TX"	"48057"	"Aug"	"8"	32.73516	25.73362
+	"Calhoun County, TX"	"48057"	"Sep"	"9"	31.20807	24.20964
+	"Calhoun County, TX"	"48057"	"Oct"	"10"	27.59062	20.01622
+	"Calhoun County, TX"	"48057"	"Nov"	"11"	23.37430	15.34266
+	"Calhoun County, TX"	"48057"	"Dec"	"12"	19.36244	10.84256
+"Total"	"Calhoun County, TX"	"48057"			26.27213	18.35688
+	"Callahan County, TX"	"48059"	"Jan"	"1"	14.34935	2.69697
+	"Callahan County, TX"	"48059"	"Feb"	"2"	16.17232	4.28292
+	"Callahan County, TX"	"48059"	"Mar"	"3"	20.96392	8.19114
+	"Callahan County, TX"	"48059"	"Apr"	"4"	26.06047	12.17071
+	"Callahan County, TX"	"48059"	"May"	"5"	31.02803	17.23313
+	"Callahan County, TX"	"48059"	"Jun"	"6"	34.32365	21.84298
+	"Callahan County, TX"	"48059"	"Jul"	"7"	35.46418	23.18008
+	"Callahan County, TX"	"48059"	"Aug"	"8"	35.38230	23.97062
+	"Callahan County, TX"	"48059"	"Sep"	"9"	31.20795	19.72201
+	"Callahan County, TX"	"48059"	"Oct"	"10"	25.77461	13.76903
+	"Callahan County, TX"	"48059"	"Nov"	"11"	19.57643	7.69068
+	"Callahan County, TX"	"48059"	"Dec"	"12"	14.39202	2.41718
+"Total"	"Callahan County, TX"	"48059"			25.43381	13.13836
+	"Cameron County, TX"	"48061"	"Jan"	"1"	22.13526	14.72557
+	"Cameron County, TX"	"48061"	"Feb"	"2"	23.75970	15.45190
+	"Cameron County, TX"	"48061"	"Mar"	"3"	26.14421	16.95602
+	"Cameron County, TX"	"48061"	"Apr"	"4"	28.89265	19.39302
+	"Cameron County, TX"	"48061"	"May"	"5"	31.55671	22.31189
+	"Cameron County, TX"	"48061"	"Jun"	"6"	32.93865	24.56633
+	"Cameron County, TX"	"48061"	"Jul"	"7"	32.98477	25.42978
+	"Cameron County, TX"	"48061"	"Aug"	"8"	33.22556	25.96231
+	"Cameron County, TX"	"48061"	"Sep"	"9"	31.49098	25.38168
+	"Cameron County, TX"	"48061"	"Oct"	"10"	29.26433	22.43862
+	"Cameron County, TX"	"48061"	"Nov"	"11"	25.90831	18.46237
+	"Cameron County, TX"	"48061"	"Dec"	"12"	22.75461	14.96007
+"Total"	"Cameron County, TX"	"48061"			28.44094	20.52516
+	"Camp County, TX"	"48063"	"Jan"	"1"	14.02364	2.43320
+	"Camp County, TX"	"48063"	"Feb"	"2"	15.81581	3.89553
+	"Camp County, TX"	"48063"	"Mar"	"3"	20.59939	7.98253
+	"Camp County, TX"	"48063"	"Apr"	"4"	24.92694	11.18295
+	"Camp County, TX"	"48063"	"May"	"5"	29.18303	16.94058
+	"Camp County, TX"	"48063"	"Jun"	"6"	32.76936	21.31860
+	"Camp County, TX"	"48063"	"Jul"	"7"	35.06692	23.01659
+	"Camp County, TX"	"48063"	"Aug"	"8"	35.89368	22.99597
+	"Camp County, TX"	"48063"	"Sep"	"9"	32.06950	19.18836
+	"Camp County, TX"	"48063"	"Oct"	"10"	26.53236	13.12729
+	"Camp County, TX"	"48063"	"Nov"	"11"	20.33422	7.96147
+	"Camp County, TX"	"48063"	"Dec"	"12"	14.28666	2.29882
+"Total"	"Camp County, TX"	"48063"			25.16835	12.73658
+	"Carson County, TX"	"48065"	"Jan"	"1"	9.80883	-1.04487
+	"Carson County, TX"	"48065"	"Feb"	"2"	11.69570	0.22953
+	"Carson County, TX"	"48065"	"Mar"	"3"	17.02657	4.49862
+	"Carson County, TX"	"48065"	"Apr"	"4"	22.52907	8.68605
+	"Carson County, TX"	"48065"	"May"	"5"	27.71229	14.00644
+	"Carson County, TX"	"48065"	"Jun"	"6"	32.33123	19.57393
+	"Carson County, TX"	"48065"	"Jul"	"7"	34.17674	21.50712
+	"Carson County, TX"	"48065"	"Aug"	"8"	33.47004	21.34738
+	"Carson County, TX"	"48065"	"Sep"	"9"	29.21472	16.45635
+	"Carson County, TX"	"48065"	"Oct"	"10"	22.77750	10.21410
+	"Carson County, TX"	"48065"	"Nov"	"11"	15.75931	3.75755
+	"Carson County, TX"	"48065"	"Dec"	"12"	9.78092	-1.37496
+"Total"	"Carson County, TX"	"48065"			22.23828	9.86790
+	"Cass County, TX"	"48067"	"Jan"	"1"	13.83856	2.31623
+	"Cass County, TX"	"48067"	"Feb"	"2"	15.56261	3.78972
+	"Cass County, TX"	"48067"	"Mar"	"3"	20.46028	7.95622
+	"Cass County, TX"	"48067"	"Apr"	"4"	24.94894	11.19376
+	"Cass County, TX"	"48067"	"May"	"5"	28.85937	16.98952
+	"Cass County, TX"	"48067"	"Jun"	"6"	32.43400	21.41071
+	"Cass County, TX"	"48067"	"Jul"	"7"	34.71393	23.10647
+	"Cass County, TX"	"48067"	"Aug"	"8"	35.51863	23.00429
+	"Cass County, TX"	"48067"	"Sep"	"9"	31.90310	19.17228
+	"Cass County, TX"	"48067"	"Oct"	"10"	26.51106	13.07098
+	"Cass County, TX"	"48067"	"Nov"	"11"	20.26949	7.85939
+	"Cass County, TX"	"48067"	"Dec"	"12"	14.17405	2.24303
+"Total"	"Cass County, TX"	"48067"			24.97590	12.71795
+	"Castro County, TX"	"48069"	"Jan"	"1"	10.59869	-1.22068
+	"Castro County, TX"	"48069"	"Feb"	"2"	12.92405	0.37851
+	"Castro County, TX"	"48069"	"Mar"	"3"	17.71742	4.18195
+	"Castro County, TX"	"48069"	"Apr"	"4"	23.04937	8.25241
+	"Castro County, TX"	"48069"	"May"	"5"	28.62246	13.58171
+	"Castro County, TX"	"48069"	"Jun"	"6"	32.79493	18.73683
+	"Castro County, TX"	"48069"	"Jul"	"7"	33.93181	20.06693
+	"Castro County, TX"	"48069"	"Aug"	"8"	33.38823	19.80461
+	"Castro County, TX"	"48069"	"Sep"	"9"	29.50883	15.31716
+	"Castro County, TX"	"48069"	"Oct"	"10"	23.44735	9.52991
+	"Castro County, TX"	"48069"	"Nov"	"11"	16.40669	2.94515
+	"Castro County, TX"	"48069"	"Dec"	"12"	10.75052	-1.69615
+"Total"	"Castro County, TX"	"48069"			22.80582	9.19846
+	"Chambers County, TX"	"48071"	"Jan"	"1"	16.50035	9.60102
+	"Chambers County, TX"	"48071"	"Feb"	"2"	17.56876	10.61315
+	"Chambers County, TX"	"48071"	"Mar"	"3"	20.46051	13.33556
+	"Chambers County, TX"	"48071"	"Apr"	"4"	23.79556	16.45686
+	"Chambers County, TX"	"48071"	"May"	"5"	27.58612	21.17341
+	"Chambers County, TX"	"48071"	"Jun"	"6"	30.37728	24.72506
+	"Chambers County, TX"	"48071"	"Jul"	"7"	31.21390	25.78798
+	"Chambers County, TX"	"48071"	"Aug"	"8"	31.67946	26.01680
+	"Chambers County, TX"	"48071"	"Sep"	"9"	30.01744	23.87049
+	"Chambers County, TX"	"48071"	"Oct"	"10"	26.13978	19.20151
+	"Chambers County, TX"	"48071"	"Nov"	"11"	21.62022	14.60047
+	"Chambers County, TX"	"48071"	"Dec"	"12"	17.30489	10.06807
+"Total"	"Chambers County, TX"	"48071"			24.55280	17.98756
+	"Cherokee County, TX"	"48073"	"Jan"	"1"	15.33913	3.79192
+	"Cherokee County, TX"	"48073"	"Feb"	"2"	17.17746	5.21273
+	"Cherokee County, TX"	"48073"	"Mar"	"3"	21.50485	9.04654
+	"Cherokee County, TX"	"48073"	"Apr"	"4"	25.89973	12.10043
+	"Cherokee County, TX"	"48073"	"May"	"5"	29.89978	17.56989
+	"Cherokee County, TX"	"48073"	"Jun"	"6"	32.99380	21.78637
+	"Cherokee County, TX"	"48073"	"Jul"	"7"	34.80726	23.09681
+	"Cherokee County, TX"	"48073"	"Aug"	"8"	35.52395	23.23956
+	"Cherokee County, TX"	"48073"	"Sep"	"9"	32.13543	20.10153
+	"Cherokee County, TX"	"48073"	"Oct"	"10"	27.26277	14.18815
+	"Cherokee County, TX"	"48073"	"Nov"	"11"	21.21328	9.01618
+	"Cherokee County, TX"	"48073"	"Dec"	"12"	15.59842	3.66692
+"Total"	"Cherokee County, TX"	"48073"			25.81891	13.60656
+	"Childress County, TX"	"48075"	"Jan"	"1"	12.62534	0.29244
+	"Childress County, TX"	"48075"	"Feb"	"2"	14.71316	1.78710
+	"Childress County, TX"	"48075"	"Mar"	"3"	19.89935	6.19828
+	"Childress County, TX"	"48075"	"Apr"	"4"	25.33045	10.17442
+	"Childress County, TX"	"48075"	"May"	"5"	30.51637	15.83276
+	"Childress County, TX"	"48075"	"Jun"	"6"	34.93663	21.46283
+	"Childress County, TX"	"48075"	"Jul"	"7"	36.90420	23.47994
+	"Childress County, TX"	"48075"	"Aug"	"8"	36.70032	23.67803
+	"Childress County, TX"	"48075"	"Sep"	"9"	31.99179	18.72361
+	"Childress County, TX"	"48075"	"Oct"	"10"	25.56978	12.30646
+	"Childress County, TX"	"48075"	"Nov"	"11"	18.64818	5.65360
+	"Childress County, TX"	"48075"	"Dec"	"12"	12.29891	-0.06747
+"Total"	"Childress County, TX"	"48075"			25.05836	11.67427
+	"Clay County, TX"	"48077"	"Jan"	"1"	12.82059	1.03356
+	"Clay County, TX"	"48077"	"Feb"	"2"	14.73947	2.67205
+	"Clay County, TX"	"48077"	"Mar"	"3"	20.14917	7.11868
+	"Clay County, TX"	"48077"	"Apr"	"4"	25.12224	10.86198
+	"Clay County, TX"	"48077"	"May"	"5"	30.60922	16.65781
+	"Clay County, TX"	"48077"	"Jun"	"6"	34.92688	21.94628
+	"Clay County, TX"	"48077"	"Jul"	"7"	37.28614	24.03853
+	"Clay County, TX"	"48077"	"Aug"	"8"	37.27772	24.49516
+	"Clay County, TX"	"48077"	"Sep"	"9"	32.07541	19.36663
+	"Clay County, TX"	"48077"	"Oct"	"10"	25.86725	12.94203
+	"Clay County, TX"	"48077"	"Nov"	"11"	19.17187	6.68523
+	"Clay County, TX"	"48077"	"Dec"	"12"	12.75023	0.74423
+"Total"	"Clay County, TX"	"48077"			25.28299	12.42710
+	"Cochran County, TX"	"48079"	"Jan"	"1"	11.73831	1.13558
+	"Cochran County, TX"	"48079"	"Feb"	"2"	14.33747	2.76943
+	"Cochran County, TX"	"48079"	"Mar"	"3"	18.82828	6.20971
+	"Cochran County, TX"	"48079"	"Apr"	"4"	24.04749	10.23906
+	"Cochran County, TX"	"48079"	"May"	"5"	29.36103	15.15276
+	"Cochran County, TX"	"48079"	"Jun"	"6"	33.30749	19.98986
+	"Cochran County, TX"	"48079"	"Jul"	"7"	33.81158	21.21326
+	"Cochran County, TX"	"48079"	"Aug"	"8"	33.30062	20.74242
+	"Cochran County, TX"	"48079"	"Sep"	"9"	29.72465	16.61239
+	"Cochran County, TX"	"48079"	"Oct"	"10"	24.07898	11.31392
+	"Cochran County, TX"	"48079"	"Nov"	"11"	17.03751	5.03902
+	"Cochran County, TX"	"48079"	"Dec"	"12"	11.75565	0.70961
+"Total"	"Cochran County, TX"	"48079"			23.48377	10.96579
+	"Coke County, TX"	"48081"	"Jan"	"1"	15.00345	2.78717
+	"Coke County, TX"	"48081"	"Feb"	"2"	17.09938	4.59645
+	"Coke County, TX"	"48081"	"Mar"	"3"	21.92759	8.37418
+	"Coke County, TX"	"48081"	"Apr"	"4"	27.27866	12.59900
+	"Coke County, TX"	"48081"	"May"	"5"	32.04525	17.52337
+	"Coke County, TX"	"48081"	"Jun"	"6"	34.93527	21.94728
+	"Coke County, TX"	"48081"	"Jul"	"7"	35.35977	23.02733
+	"Coke County, TX"	"48081"	"Aug"	"8"	35.25874	23.66368
+	"Coke County, TX"	"48081"	"Sep"	"9"	31.62487	19.77237
+	"Coke County, TX"	"48081"	"Oct"	"10"	26.47232	13.89563
+	"Coke County, TX"	"48081"	"Nov"	"11"	20.05325	7.37059
+	"Coke County, TX"	"48081"	"Dec"	"12"	14.92979	2.40409
+"Total"	"Coke County, TX"	"48081"			26.03838	13.20266
+	"Coleman County, TX"	"48083"	"Jan"	"1"	15.36915	3.09468
+	"Coleman County, TX"	"48083"	"Feb"	"2"	17.17184	4.68669
+	"Coleman County, TX"	"48083"	"Mar"	"3"	21.80448	8.37921
+	"Coleman County, TX"	"48083"	"Apr"	"4"	26.88067	12.37729
+	"Coleman County, TX"	"48083"	"May"	"5"	31.86218	17.50372
+	"Coleman County, TX"	"48083"	"Jun"	"6"	34.80088	21.87154
+	"Coleman County, TX"	"48083"	"Jul"	"7"	35.60869	23.08002
+	"Coleman County, TX"	"48083"	"Aug"	"8"	35.60529	23.94070
+	"Coleman County, TX"	"48083"	"Sep"	"9"	31.57275	19.93238
+	"Coleman County, TX"	"48083"	"Oct"	"10"	26.45088	14.02852
+	"Coleman County, TX"	"48083"	"Nov"	"11"	20.37412	7.83800
+	"Coleman County, TX"	"48083"	"Dec"	"12"	15.35733	2.64122
+"Total"	"Coleman County, TX"	"48083"			26.11239	13.32098
+	"Collin County, TX"	"48085"	"Jan"	"1"	13.09668	2.66751
+	"Collin County, TX"	"48085"	"Feb"	"2"	14.96452	4.05812
+	"Collin County, TX"	"48085"	"Mar"	"3"	19.91698	8.18431
+	"Collin County, TX"	"48085"	"Apr"	"4"	24.64738	11.87156
+	"Collin County, TX"	"48085"	"May"	"5"	30.01144	17.69342
+	"Collin County, TX"	"48085"	"Jun"	"6"	34.22001	22.57415
+	"Collin County, TX"	"48085"	"Jul"	"7"	36.75866	24.46120
+	"Collin County, TX"	"48085"	"Aug"	"8"	36.95569	24.89386
+	"Collin County, TX"	"48085"	"Sep"	"9"	32.12240	20.30632
+	"Collin County, TX"	"48085"	"Oct"	"10"	26.15202	14.15778
+	"Collin County, TX"	"48085"	"Nov"	"11"	19.61641	8.47768
+	"Collin County, TX"	"48085"	"Dec"	"12"	13.21985	2.63821
+"Total"	"Collin County, TX"	"48085"			25.18865	13.54388
+	"Collingsworth County, TX"	"48087"	"Jan"	"1"	11.38603	0.24538
+	"Collingsworth County, TX"	"48087"	"Feb"	"2"	13.34502	1.49863
+	"Collingsworth County, TX"	"48087"	"Mar"	"3"	18.73996	6.02506
+	"Collingsworth County, TX"	"48087"	"Apr"	"4"	24.18369	10.21670
+	"Collingsworth County, TX"	"48087"	"May"	"5"	29.33083	15.67800
+	"Collingsworth County, TX"	"48087"	"Jun"	"6"	33.84201	21.04106
+	"Collingsworth County, TX"	"48087"	"Jul"	"7"	36.02436	23.12599
+	"Collingsworth County, TX"	"48087"	"Aug"	"8"	35.75019	23.25952
+	"Collingsworth County, TX"	"48087"	"Sep"	"9"	30.95249	18.19128
+	"Collingsworth County, TX"	"48087"	"Oct"	"10"	24.41826	12.00364
+	"Collingsworth County, TX"	"48087"	"Nov"	"11"	17.51999	5.58585
+	"Collingsworth County, TX"	"48087"	"Dec"	"12"	11.09444	-0.08403
+"Total"	"Collingsworth County, TX"	"48087"			23.93092	11.44700
+	"Colorado County, TX"	"48089"	"Jan"	"1"	17.69748	6.82369
+	"Colorado County, TX"	"48089"	"Feb"	"2"	19.64989	8.10203
+	"Colorado County, TX"	"48089"	"Mar"	"3"	23.23881	10.77786
+	"Colorado County, TX"	"48089"	"Apr"	"4"	27.51188	14.11405
+	"Colorado County, TX"	"48089"	"May"	"5"	31.74320	18.87825
+	"Colorado County, TX"	"48089"	"Jun"	"6"	34.08131	22.41001
+	"Colorado County, TX"	"48089"	"Jul"	"7"	34.58067	23.41167
+	"Colorado County, TX"	"48089"	"Aug"	"8"	35.35270	24.08692
+	"Colorado County, TX"	"48089"	"Sep"	"9"	32.59217	22.08781
+	"Colorado County, TX"	"48089"	"Oct"	"10"	27.98312	16.76071
+	"Colorado County, TX"	"48089"	"Nov"	"11"	22.68969	11.64277
+	"Colorado County, TX"	"48089"	"Dec"	"12"	18.05562	6.67541
+"Total"	"Colorado County, TX"	"48089"			27.13043	15.51322
+	"Comal County, TX"	"48091"	"Jan"	"1"	17.11689	6.72413
+	"Comal County, TX"	"48091"	"Feb"	"2"	19.38059	7.99503
+	"Comal County, TX"	"48091"	"Mar"	"3"	23.12874	11.14998
+	"Comal County, TX"	"48091"	"Apr"	"4"	27.78377	14.73274
+	"Comal County, TX"	"48091"	"May"	"5"	32.22337	19.22894
+	"Comal County, TX"	"48091"	"Jun"	"6"	34.49995	22.36358
+	"Comal County, TX"	"48091"	"Jul"	"7"	34.72456	23.11239
+	"Comal County, TX"	"48091"	"Aug"	"8"	35.25906	23.91285
+	"Comal County, TX"	"48091"	"Sep"	"9"	31.83897	21.90037
+	"Comal County, TX"	"48091"	"Oct"	"10"	27.34942	16.66312
+	"Comal County, TX"	"48091"	"Nov"	"11"	22.08846	11.40392
+	"Comal County, TX"	"48091"	"Dec"	"12"	17.36673	6.31472
+"Total"	"Comal County, TX"	"48091"			26.92922	15.49075
+	"Comanche County, TX"	"48093"	"Jan"	"1"	15.03109	3.34294
+	"Comanche County, TX"	"48093"	"Feb"	"2"	16.71139	4.80938
+	"Comanche County, TX"	"48093"	"Mar"	"3"	21.33797	8.57690
+	"Comanche County, TX"	"48093"	"Apr"	"4"	26.34656	12.52837
+	"Comanche County, TX"	"48093"	"May"	"5"	31.45117	17.75299
+	"Comanche County, TX"	"48093"	"Jun"	"6"	34.59423	22.11732
+	"Comanche County, TX"	"48093"	"Jul"	"7"	36.10171	23.55372
+	"Comanche County, TX"	"48093"	"Aug"	"8"	36.02881	24.23143
+	"Comanche County, TX"	"48093"	"Sep"	"9"	31.75703	20.17745
+	"Comanche County, TX"	"48093"	"Oct"	"10"	26.59033	14.36572
+	"Comanche County, TX"	"48093"	"Nov"	"11"	20.45632	8.33595
+	"Comanche County, TX"	"48093"	"Dec"	"12"	15.17872	2.95556
+"Total"	"Comanche County, TX"	"48093"			26.00910	13.60327
+	"Concho County, TX"	"48095"	"Jan"	"1"	16.07496	3.57710
+	"Concho County, TX"	"48095"	"Feb"	"2"	17.92347	5.24465
+	"Concho County, TX"	"48095"	"Mar"	"3"	22.46765	8.79794
+	"Concho County, TX"	"48095"	"Apr"	"4"	27.50507	12.85010
+	"Concho County, TX"	"48095"	"May"	"5"	32.39795	17.94209
+	"Concho County, TX"	"48095"	"Jun"	"6"	35.09765	22.00321
+	"Concho County, TX"	"48095"	"Jul"	"7"	35.45192	23.06168
+	"Concho County, TX"	"48095"	"Aug"	"8"	35.45396	23.77406
+	"Concho County, TX"	"48095"	"Sep"	"9"	31.69033	20.06345
+	"Concho County, TX"	"48095"	"Oct"	"10"	26.78220	14.23314
+	"Concho County, TX"	"48095"	"Nov"	"11"	20.79384	8.04155
+	"Concho County, TX"	"48095"	"Dec"	"12"	15.98287	2.97747
+"Total"	"Concho County, TX"	"48095"			26.50707	13.58519
+	"Cooke County, TX"	"48097"	"Jan"	"1"	12.54892	1.94890
+	"Cooke County, TX"	"48097"	"Feb"	"2"	14.29602	3.31626
+	"Cooke County, TX"	"48097"	"Mar"	"3"	19.49606	7.67280
+	"Cooke County, TX"	"48097"	"Apr"	"4"	24.15768	11.46592
+	"Cooke County, TX"	"48097"	"May"	"5"	29.61115	17.20418
+	"Cooke County, TX"	"48097"	"Jun"	"6"	34.03604	22.23369
+	"Cooke County, TX"	"48097"	"Jul"	"7"	36.59116	24.22113
+	"Cooke County, TX"	"48097"	"Aug"	"8"	36.71551	24.61347
+	"Cooke County, TX"	"48097"	"Sep"	"9"	31.64567	19.79226
+	"Cooke County, TX"	"48097"	"Oct"	"10"	25.59220	13.60422
+	"Cooke County, TX"	"48097"	"Nov"	"11"	19.01950	7.76728
+	"Cooke County, TX"	"48097"	"Dec"	"12"	12.54504	1.74857
+"Total"	"Cooke County, TX"	"48097"			24.73783	13.01204
+	"Coryell County, TX"	"48099"	"Jan"	"1"	15.42299	4.59834
+	"Coryell County, TX"	"48099"	"Feb"	"2"	17.23292	6.02532
+	"Coryell County, TX"	"48099"	"Mar"	"3"	21.60628	9.70813
+	"Coryell County, TX"	"48099"	"Apr"	"4"	26.50992	13.48996
+	"Coryell County, TX"	"48099"	"May"	"5"	31.72537	18.70519
+	"Coryell County, TX"	"48099"	"Jun"	"6"	34.68272	22.83949
+	"Coryell County, TX"	"48099"	"Jul"	"7"	36.05893	24.30293
+	"Coryell County, TX"	"48099"	"Aug"	"8"	36.31743	25.07919
+	"Coryell County, TX"	"48099"	"Sep"	"9"	32.25478	21.70910
+	"Coryell County, TX"	"48099"	"Oct"	"10"	26.96130	15.65845
+	"Coryell County, TX"	"48099"	"Nov"	"11"	20.96677	9.73983
+	"Coryell County, TX"	"48099"	"Dec"	"12"	15.72007	4.36882
+"Total"	"Coryell County, TX"	"48099"			26.33055	14.72532
+	"Cottle County, TX"	"48101"	"Jan"	"1"	13.21121	1.21610
+	"Cottle County, TX"	"48101"	"Feb"	"2"	15.26607	2.67916
+	"Cottle County, TX"	"48101"	"Mar"	"3"	20.45838	7.03722
+	"Cottle County, TX"	"48101"	"Apr"	"4"	25.80594	11.06206
+	"Cottle County, TX"	"48101"	"May"	"5"	30.74028	16.36327
+	"Cottle County, TX"	"48101"	"Jun"	"6"	34.94223	21.76945
+	"Cottle County, TX"	"48101"	"Jul"	"7"	36.75379	23.82763
+	"Cottle County, TX"	"48101"	"Aug"	"8"	36.54502	24.15020
+	"Cottle County, TX"	"48101"	"Sep"	"9"	32.06606	19.30672
+	"Cottle County, TX"	"48101"	"Oct"	"10"	25.94635	12.99307
+	"Cottle County, TX"	"48101"	"Nov"	"11"	19.07514	6.44200
+	"Cottle County, TX"	"48101"	"Dec"	"12"	12.95482	0.86133
+"Total"	"Cottle County, TX"	"48101"			25.35968	12.35534
+	"Crane County, TX"	"48103"	"Jan"	"1"	15.88468	3.84422
+	"Crane County, TX"	"48103"	"Feb"	"2"	18.59036	5.79220
+	"Crane County, TX"	"48103"	"Mar"	"3"	23.34808	9.15673
+	"Crane County, TX"	"48103"	"Apr"	"4"	28.44141	13.38914
+	"Crane County, TX"	"48103"	"May"	"5"	33.42513	18.15365
+	"Crane County, TX"	"48103"	"Jun"	"6"	36.38237	22.54682
+	"Crane County, TX"	"48103"	"Jul"	"7"	36.01980	23.35516
+	"Crane County, TX"	"48103"	"Aug"	"8"	35.78086	23.68672
+	"Crane County, TX"	"48103"	"Sep"	"9"	32.51008	19.79050
+	"Crane County, TX"	"48103"	"Oct"	"10"	27.40992	14.48931
+	"Crane County, TX"	"48103"	"Nov"	"11"	20.84514	7.82957
+	"Crane County, TX"	"48103"	"Dec"	"12"	15.68714	3.23900
+"Total"	"Crane County, TX"	"48103"			27.06250	13.80916
+	"Crockett County, TX"	"48105"	"Jan"	"1"	15.99424	4.59001
+	"Crockett County, TX"	"48105"	"Feb"	"2"	18.42338	6.40482
+	"Crockett County, TX"	"48105"	"Mar"	"3"	23.04569	9.82269
+	"Crockett County, TX"	"48105"	"Apr"	"4"	28.00269	14.19170
+	"Crockett County, TX"	"48105"	"May"	"5"	32.73843	19.04729
+	"Crockett County, TX"	"48105"	"Jun"	"6"	35.14721	22.71261
+	"Crockett County, TX"	"48105"	"Jul"	"7"	34.83723	23.19850
+	"Crockett County, TX"	"48105"	"Aug"	"8"	34.86358	23.89295
+	"Crockett County, TX"	"48105"	"Sep"	"9"	31.60535	20.43977
+	"Crockett County, TX"	"48105"	"Oct"	"10"	26.73556	15.11387
+	"Crockett County, TX"	"48105"	"Nov"	"11"	20.67869	8.77800
+	"Crockett County, TX"	"48105"	"Dec"	"12"	15.86114	3.96485
+"Total"	"Crockett County, TX"	"48105"			26.52881	14.38180
+	"Crosby County, TX"	"48107"	"Jan"	"1"	12.28704	0.73028
+	"Crosby County, TX"	"48107"	"Feb"	"2"	14.51934	2.36254
+	"Crosby County, TX"	"48107"	"Mar"	"3"	19.30607	6.21871
+	"Crosby County, TX"	"48107"	"Apr"	"4"	24.64142	10.45233
+	"Crosby County, TX"	"48107"	"May"	"5"	29.66547	15.52349
+	"Crosby County, TX"	"48107"	"Jun"	"6"	33.48045	20.43029
+	"Crosby County, TX"	"48107"	"Jul"	"7"	34.44918	21.89807
+	"Crosby County, TX"	"48107"	"Aug"	"8"	34.19240	21.90083
+	"Crosby County, TX"	"48107"	"Sep"	"9"	30.38884	17.54063
+	"Crosby County, TX"	"48107"	"Oct"	"10"	24.60280	11.66792
+	"Crosby County, TX"	"48107"	"Nov"	"11"	17.75118	5.33168
+	"Crosby County, TX"	"48107"	"Dec"	"12"	12.16340	0.24703
+"Total"	"Crosby County, TX"	"48107"			23.99581	11.23330
+	"Culberson County, TX"	"48109"	"Jan"	"1"	14.08959	3.71231
+	"Culberson County, TX"	"48109"	"Feb"	"2"	16.54643	5.52158
+	"Culberson County, TX"	"48109"	"Mar"	"3"	20.74175	8.61481
+	"Culberson County, TX"	"48109"	"Apr"	"4"	25.69551	12.75552
+	"Culberson County, TX"	"48109"	"May"	"5"	30.82661	17.71923
+	"Culberson County, TX"	"48109"	"Jun"	"6"	34.35562	22.11158
+	"Culberson County, TX"	"48109"	"Jul"	"7"	33.98538	23.05155
+	"Culberson County, TX"	"48109"	"Aug"	"8"	33.33480	22.80403
+	"Culberson County, TX"	"48109"	"Sep"	"9"	30.25758	19.06970
+	"Culberson County, TX"	"48109"	"Oct"	"10"	25.29131	13.92564
+	"Culberson County, TX"	"48109"	"Nov"	"11"	18.77512	7.62991
+	"Culberson County, TX"	"48109"	"Dec"	"12"	13.84153	3.29803
+"Total"	"Culberson County, TX"	"48109"			24.84655	13.38727
+	"Dallam County, TX"	"48111"	"Jan"	"1"	9.09926	-1.97508
+	"Dallam County, TX"	"48111"	"Feb"	"2"	10.85071	-0.91705
+	"Dallam County, TX"	"48111"	"Mar"	"3"	16.23148	3.16533
+	"Dallam County, TX"	"48111"	"Apr"	"4"	21.58365	7.36615
+	"Dallam County, TX"	"48111"	"May"	"5"	27.24741	12.48083
+	"Dallam County, TX"	"48111"	"Jun"	"6"	32.24214	18.16085
+	"Dallam County, TX"	"48111"	"Jul"	"7"	34.27386	20.66047
+	"Dallam County, TX"	"48111"	"Aug"	"8"	33.13564	19.96613
+	"Dallam County, TX"	"48111"	"Sep"	"9"	28.80918	14.99344
+	"Dallam County, TX"	"48111"	"Oct"	"10"	22.16454	8.70876
+	"Dallam County, TX"	"48111"	"Nov"	"11"	15.03768	2.46639
+	"Dallam County, TX"	"48111"	"Dec"	"12"	9.04000	-2.39866
+"Total"	"Dallam County, TX"	"48111"			21.69315	8.60321
+	"Dallas County, TX"	"48113"	"Jan"	"1"	13.97083	3.18554
+	"Dallas County, TX"	"48113"	"Feb"	"2"	15.81204	4.61221
+	"Dallas County, TX"	"48113"	"Mar"	"3"	20.57573	8.54923
+	"Dallas County, TX"	"48113"	"Apr"	"4"	25.35166	12.20000
+	"Dallas County, TX"	"48113"	"May"	"5"	30.67867	17.96350
+	"Dallas County, TX"	"48113"	"Jun"	"6"	34.75773	22.73536
+	"Dallas County, TX"	"48113"	"Jul"	"7"	37.08999	24.51726
+	"Dallas County, TX"	"48113"	"Aug"	"8"	37.28499	25.03267
+	"Dallas County, TX"	"48113"	"Sep"	"9"	32.57832	20.69000
+	"Dallas County, TX"	"48113"	"Oct"	"10"	26.75692	14.51071
+	"Dallas County, TX"	"48113"	"Nov"	"11"	20.26606	8.83842
+	"Dallas County, TX"	"48113"	"Dec"	"12"	14.08701	3.09371
+"Total"	"Dallas County, TX"	"48113"			25.81477	13.87113
+	"Dawson County, TX"	"48115"	"Jan"	"1"	13.33763	2.12128
+	"Dawson County, TX"	"48115"	"Feb"	"2"	15.79967	3.89742
+	"Dawson County, TX"	"48115"	"Mar"	"3"	20.61379	7.57825
+	"Dawson County, TX"	"48115"	"Apr"	"4"	25.82706	11.76365
+	"Dawson County, TX"	"48115"	"May"	"5"	30.91891	16.71693
+	"Dawson County, TX"	"48115"	"Jun"	"6"	34.36783	21.42955
+	"Dawson County, TX"	"48115"	"Jul"	"7"	34.68587	22.42564
+	"Dawson County, TX"	"48115"	"Aug"	"8"	34.34789	22.30741
+	"Dawson County, TX"	"48115"	"Sep"	"9"	30.85327	18.32433
+	"Dawson County, TX"	"48115"	"Oct"	"10"	25.40752	12.77331
+	"Dawson County, TX"	"48115"	"Nov"	"11"	18.49047	6.33565
+	"Dawson County, TX"	"48115"	"Dec"	"12"	13.20113	1.71410
+"Total"	"Dawson County, TX"	"48115"			24.86020	12.32101
+	"Deaf Smith County, TX"	"48117"	"Jan"	"1"	9.82214	-1.15704
+	"Deaf Smith County, TX"	"48117"	"Feb"	"2"	12.19614	0.38743
+	"Deaf Smith County, TX"	"48117"	"Mar"	"3"	17.01050	4.11143
+	"Deaf Smith County, TX"	"48117"	"Apr"	"4"	22.33447	8.09248
+	"Deaf Smith County, TX"	"48117"	"May"	"5"	28.00146	13.38116
+	"Deaf Smith County, TX"	"48117"	"Jun"	"6"	32.48684	18.68201
+	"Deaf Smith County, TX"	"48117"	"Jul"	"7"	33.68564	20.44742
+	"Deaf Smith County, TX"	"48117"	"Aug"	"8"	32.86231	20.01580
+	"Deaf Smith County, TX"	"48117"	"Sep"	"9"	28.91342	15.47245
+	"Deaf Smith County, TX"	"48117"	"Oct"	"10"	22.74267	9.53634
+	"Deaf Smith County, TX"	"48117"	"Nov"	"11"	15.65320	3.04755
+	"Deaf Smith County, TX"	"48117"	"Dec"	"12"	9.97267	-1.52198
+"Total"	"Deaf Smith County, TX"	"48117"			22.18473	9.25061
+	"Delta County, TX"	"48119"	"Jan"	"1"	12.95900	2.60840
+	"Delta County, TX"	"48119"	"Feb"	"2"	14.82096	4.03883
+	"Delta County, TX"	"48119"	"Mar"	"3"	19.62162	8.20227
+	"Delta County, TX"	"48119"	"Apr"	"4"	24.06971	11.77783
+	"Delta County, TX"	"48119"	"May"	"5"	29.25979	17.56968
+	"Delta County, TX"	"48119"	"Jun"	"6"	33.45842	22.25860
+	"Delta County, TX"	"48119"	"Jul"	"7"	36.26477	24.11790
+	"Delta County, TX"	"48119"	"Aug"	"8"	36.70404	24.36896
+	"Delta County, TX"	"48119"	"Sep"	"9"	31.96492	19.99220
+	"Delta County, TX"	"48119"	"Oct"	"10"	25.98824	13.91077
+	"Delta County, TX"	"48119"	"Nov"	"11"	19.44086	8.43130
+	"Delta County, TX"	"48119"	"Dec"	"12"	13.17711	2.55692
+"Total"	"Delta County, TX"	"48119"			24.85884	13.36363
+	"Denton County, TX"	"48121"	"Jan"	"1"	13.46204	2.68342
+	"Denton County, TX"	"48121"	"Feb"	"2"	15.24483	4.04565
+	"Denton County, TX"	"48121"	"Mar"	"3"	20.27184	8.22993
+	"Denton County, TX"	"48121"	"Apr"	"4"	24.97545	11.97460
+	"Denton County, TX"	"48121"	"May"	"5"	30.33391	17.72681
+	"Denton County, TX"	"48121"	"Jun"	"6"	34.61943	22.63471
+	"Denton County, TX"	"48121"	"Jul"	"7"	37.05639	24.50006
+	"Denton County, TX"	"48121"	"Aug"	"8"	37.17741	24.97514
+	"Denton County, TX"	"48121"	"Sep"	"9"	32.28584	20.33728
+	"Denton County, TX"	"48121"	"Oct"	"10"	26.36627	14.18119
+	"Denton County, TX"	"48121"	"Nov"	"11"	19.82314	8.37950
+	"Denton County, TX"	"48121"	"Dec"	"12"	13.51125	2.56936
+"Total"	"Denton County, TX"	"48121"			25.47598	13.56523
+	"DeWitt County, TX"	"48123"	"Jan"	"1"	18.86793	7.95171
+	"DeWitt County, TX"	"48123"	"Feb"	"2"	21.01368	9.18151
+	"DeWitt County, TX"	"48123"	"Mar"	"3"	24.50547	11.71920
+	"DeWitt County, TX"	"48123"	"Apr"	"4"	28.83434	15.21147
+	"DeWitt County, TX"	"48123"	"May"	"5"	32.86561	19.80489
+	"DeWitt County, TX"	"48123"	"Jun"	"6"	34.82155	23.04758
+	"DeWitt County, TX"	"48123"	"Jul"	"7"	34.67342	23.77967
+	"DeWitt County, TX"	"48123"	"Aug"	"8"	35.48624	24.52769
+	"DeWitt County, TX"	"48123"	"Sep"	"9"	32.67828	22.83543
+	"DeWitt County, TX"	"48123"	"Oct"	"10"	28.63367	17.71841
+	"DeWitt County, TX"	"48123"	"Nov"	"11"	23.78110	12.71750
+	"DeWitt County, TX"	"48123"	"Dec"	"12"	19.24033	7.71598
+"Total"	"DeWitt County, TX"	"48123"			27.97916	16.38143
+	"Dickens County, TX"	"48125"	"Jan"	"1"	13.08785	1.84345
+	"Dickens County, TX"	"48125"	"Feb"	"2"	15.17708	3.31371
+	"Dickens County, TX"	"48125"	"Mar"	"3"	20.10123	7.42080
+	"Dickens County, TX"	"48125"	"Apr"	"4"	25.33979	11.62120
+	"Dickens County, TX"	"48125"	"May"	"5"	30.22661	16.54368
+	"Dickens County, TX"	"48125"	"Jun"	"6"	34.07159	21.52332
+	"Dickens County, TX"	"48125"	"Jul"	"7"	35.28334	23.17068
+	"Dickens County, TX"	"48125"	"Aug"	"8"	35.11320	23.55721
+	"Dickens County, TX"	"48125"	"Sep"	"9"	31.03909	19.05975
+	"Dickens County, TX"	"48125"	"Oct"	"10"	25.25770	13.07235
+	"Dickens County, TX"	"48125"	"Nov"	"11"	18.57031	6.77582
+	"Dickens County, TX"	"48125"	"Dec"	"12"	12.87214	1.49811
+"Total"	"Dickens County, TX"	"48125"			24.72105	12.49309
+	"Dimmit County, TX"	"48127"	"Jan"	"1"	20.18803	8.80391
+	"Dimmit County, TX"	"48127"	"Feb"	"2"	22.88447	10.10996
+	"Dimmit County, TX"	"48127"	"Mar"	"3"	27.24767	12.81607
+	"Dimmit County, TX"	"48127"	"Apr"	"4"	32.11322	16.60794
+	"Dimmit County, TX"	"48127"	"May"	"5"	36.07794	21.25410
+	"Dimmit County, TX"	"48127"	"Jun"	"6"	37.71582	24.25833
+	"Dimmit County, TX"	"48127"	"Jul"	"7"	36.65115	24.73286
+	"Dimmit County, TX"	"48127"	"Aug"	"8"	37.32080	25.78455
+	"Dimmit County, TX"	"48127"	"Sep"	"9"	33.69132	23.65844
+	"Dimmit County, TX"	"48127"	"Oct"	"10"	30.33583	18.49794
+	"Dimmit County, TX"	"48127"	"Nov"	"11"	25.10096	12.99575
+	"Dimmit County, TX"	"48127"	"Dec"	"12"	20.27753	8.05688
+"Total"	"Dimmit County, TX"	"48127"			29.99598	17.32893
+	"Donley County, TX"	"48129"	"Jan"	"1"	11.12067	0.34392
+	"Donley County, TX"	"48129"	"Feb"	"2"	12.98815	1.62551
+	"Donley County, TX"	"48129"	"Mar"	"3"	18.20379	5.92998
+	"Donley County, TX"	"48129"	"Apr"	"4"	23.62791	10.14483
+	"Donley County, TX"	"48129"	"May"	"5"	28.71784	15.39226
+	"Donley County, TX"	"48129"	"Jun"	"6"	33.08957	20.54725
+	"Donley County, TX"	"48129"	"Jul"	"7"	35.12329	22.59020
+	"Donley County, TX"	"48129"	"Aug"	"8"	34.71928	22.67775
+	"Donley County, TX"	"48129"	"Sep"	"9"	30.22986	17.69575
+	"Donley County, TX"	"48129"	"Oct"	"10"	23.83731	11.66951
+	"Donley County, TX"	"48129"	"Nov"	"11"	17.03019	5.37402
+	"Donley County, TX"	"48129"	"Dec"	"12"	10.95592	-0.04013
+"Total"	"Donley County, TX"	"48129"			23.35120	11.20883
+	"Duval County, TX"	"48131"	"Jan"	"1"	21.05479	10.21410
+	"Duval County, TX"	"48131"	"Feb"	"2"	23.58920	11.43326
+	"Duval County, TX"	"48131"	"Mar"	"3"	27.30502	13.78866
+	"Duval County, TX"	"48131"	"Apr"	"4"	31.44441	16.92737
+	"Duval County, TX"	"48131"	"May"	"5"	34.84015	20.66297
+	"Duval County, TX"	"48131"	"Jun"	"6"	35.97378	23.07165
+	"Duval County, TX"	"48131"	"Jul"	"7"	35.01806	23.69560
+	"Duval County, TX"	"48131"	"Aug"	"8"	35.57277	24.50642
+	"Duval County, TX"	"48131"	"Sep"	"9"	32.65082	23.43107
+	"Duval County, TX"	"48131"	"Oct"	"10"	29.84671	19.21936
+	"Duval County, TX"	"48131"	"Nov"	"11"	25.36125	14.49513
+	"Duval County, TX"	"48131"	"Dec"	"12"	21.14515	9.91212
+"Total"	"Duval County, TX"	"48131"			29.50700	17.63883
+	"Eastland County, TX"	"48133"	"Jan"	"1"	14.39989	3.10320
+	"Eastland County, TX"	"48133"	"Feb"	"2"	16.13814	4.57860
+	"Eastland County, TX"	"48133"	"Mar"	"3"	20.93619	8.52561
+	"Eastland County, TX"	"48133"	"Apr"	"4"	25.93070	12.52736
+	"Eastland County, TX"	"48133"	"May"	"5"	30.94075	17.64915
+	"Eastland County, TX"	"48133"	"Jun"	"6"	34.37720	22.20773
+	"Eastland County, TX"	"48133"	"Jul"	"7"	35.95345	23.70999
+	"Eastland County, TX"	"48133"	"Aug"	"8"	35.82445	24.33653
+	"Eastland County, TX"	"48133"	"Sep"	"9"	31.46492	20.03572
+	"Eastland County, TX"	"48133"	"Oct"	"10"	26.10405	14.21717
+	"Eastland County, TX"	"48133"	"Nov"	"11"	19.84708	8.20907
+	"Eastland County, TX"	"48133"	"Dec"	"12"	14.53157	2.86073
+"Total"	"Eastland County, TX"	"48133"			25.58162	13.53871
+	"Ector County, TX"	"48135"	"Jan"	"1"	14.41811	3.21545
+	"Ector County, TX"	"48135"	"Feb"	"2"	17.12351	5.06198
+	"Ector County, TX"	"48135"	"Mar"	"3"	21.88837	8.50258
+	"Ector County, TX"	"48135"	"Apr"	"4"	26.99844	12.65164
+	"Ector County, TX"	"48135"	"May"	"5"	32.11860	17.42807
+	"Ector County, TX"	"48135"	"Jun"	"6"	35.34150	21.84557
+	"Ector County, TX"	"48135"	"Jul"	"7"	35.06892	22.63315
+	"Ector County, TX"	"48135"	"Aug"	"8"	34.78068	22.89879
+	"Ector County, TX"	"48135"	"Sep"	"9"	31.45774	19.11597
+	"Ector County, TX"	"48135"	"Oct"	"10"	26.19357	13.66398
+	"Ector County, TX"	"48135"	"Nov"	"11"	19.40319	7.20986
+	"Ector County, TX"	"48135"	"Dec"	"12"	14.16568	2.67530
+"Total"	"Ector County, TX"	"48135"			25.78294	13.11169
+	"Edwards County, TX"	"48137"	"Jan"	"1"	16.82713	5.82856
+	"Edwards County, TX"	"48137"	"Feb"	"2"	19.20778	7.38000
+	"Edwards County, TX"	"48137"	"Mar"	"3"	23.59782	10.74753
+	"Edwards County, TX"	"48137"	"Apr"	"4"	28.34133	14.78208
+	"Edwards County, TX"	"48137"	"May"	"5"	32.39741	19.39121
+	"Edwards County, TX"	"48137"	"Jun"	"6"	34.42262	22.37533
+	"Edwards County, TX"	"48137"	"Jul"	"7"	33.99090	22.77991
+	"Edwards County, TX"	"48137"	"Aug"	"8"	34.28669	23.49823
+	"Edwards County, TX"	"48137"	"Sep"	"9"	30.95436	20.74171
+	"Edwards County, TX"	"48137"	"Oct"	"10"	26.57743	15.79208
+	"Edwards County, TX"	"48137"	"Nov"	"11"	21.34525	9.99747
+	"Edwards County, TX"	"48137"	"Dec"	"12"	16.71387	5.13721
+"Total"	"Edwards County, TX"	"48137"			26.58587	14.90384
+	"Ellis County, TX"	"48139"	"Jan"	"1"	14.40261	3.18759
+	"Ellis County, TX"	"48139"	"Feb"	"2"	16.17075	4.54713
+	"Ellis County, TX"	"48139"	"Mar"	"3"	20.74794	8.25433
+	"Ellis County, TX"	"48139"	"Apr"	"4"	25.43186	11.72840
+	"Ellis County, TX"	"48139"	"May"	"5"	30.78370	17.47390
+	"Ellis County, TX"	"48139"	"Jun"	"6"	34.80240	22.17296
+	"Ellis County, TX"	"48139"	"Jul"	"7"	37.00900	24.03554
+	"Ellis County, TX"	"48139"	"Aug"	"8"	37.23130	24.58980
+	"Ellis County, TX"	"48139"	"Sep"	"9"	32.65943	20.56147
+	"Ellis County, TX"	"48139"	"Oct"	"10"	26.93889	14.25751
+	"Ellis County, TX"	"48139"	"Nov"	"11"	20.54251	8.63114
+	"Ellis County, TX"	"48139"	"Dec"	"12"	14.54556	2.99924
+"Total"	"Ellis County, TX"	"48139"			25.98526	13.57921
+	"El Paso County, TX"	"48141"	"Jan"	"1"	13.65564	3.83575
+	"El Paso County, TX"	"48141"	"Feb"	"2"	16.29355	5.76865
+	"El Paso County, TX"	"48141"	"Mar"	"3"	20.38298	8.41849
+	"El Paso County, TX"	"48141"	"Apr"	"4"	25.29059	11.96288
+	"El Paso County, TX"	"48141"	"May"	"5"	30.57535	16.40277
+	"El Paso County, TX"	"48141"	"Jun"	"6"	34.62737	21.43014
+	"El Paso County, TX"	"48141"	"Jul"	"7"	34.79776	23.93094
+	"El Paso County, TX"	"48141"	"Aug"	"8"	33.64966	23.33117
+	"El Paso County, TX"	"48141"	"Sep"	"9"	30.88731	19.74086
+	"El Paso County, TX"	"48141"	"Oct"	"10"	25.31687	14.21471
+	"El Paso County, TX"	"48141"	"Nov"	"11"	18.63711	7.70533
+	"El Paso County, TX"	"48141"	"Dec"	"12"	13.26113	3.26911
+"Total"	"El Paso County, TX"	"48141"			24.81640	13.37018
+	"Erath County, TX"	"48143"	"Jan"	"1"	14.55768	3.22296
+	"Erath County, TX"	"48143"	"Feb"	"2"	16.23741	4.65977
+	"Erath County, TX"	"48143"	"Mar"	"3"	20.88975	8.53481
+	"Erath County, TX"	"48143"	"Apr"	"4"	25.84447	12.50601
+	"Erath County, TX"	"48143"	"May"	"5"	30.86676	17.72021
+	"Erath County, TX"	"48143"	"Jun"	"6"	34.42769	22.27313
+	"Erath County, TX"	"48143"	"Jul"	"7"	36.21820	23.78813
+	"Erath County, TX"	"48143"	"Aug"	"8"	36.23240	24.46929
+	"Erath County, TX"	"48143"	"Sep"	"9"	31.74388	20.28005
+	"Erath County, TX"	"48143"	"Oct"	"10"	26.43437	14.41537
+	"Erath County, TX"	"48143"	"Nov"	"11"	20.13516	8.38715
+	"Erath County, TX"	"48143"	"Dec"	"12"	14.69922	2.88051
+"Total"	"Erath County, TX"	"48143"			25.73546	13.63667
+	"Falls County, TX"	"48145"	"Jan"	"1"	15.91717	4.38193
+	"Falls County, TX"	"48145"	"Feb"	"2"	17.78300	5.82074
+	"Falls County, TX"	"48145"	"Mar"	"3"	21.91001	9.32286
+	"Falls County, TX"	"48145"	"Apr"	"4"	26.55887	12.65764
+	"Falls County, TX"	"48145"	"May"	"5"	31.59777	17.99077
+	"Falls County, TX"	"48145"	"Jun"	"6"	34.93209	22.19276
+	"Falls County, TX"	"48145"	"Jul"	"7"	36.49618	23.76849
+	"Falls County, TX"	"48145"	"Aug"	"8"	36.83022	24.50743
+	"Falls County, TX"	"48145"	"Sep"	"9"	32.82466	21.36109
+	"Falls County, TX"	"48145"	"Oct"	"10"	27.58398	15.15487
+	"Falls County, TX"	"48145"	"Nov"	"11"	21.57318	9.37173
+	"Falls County, TX"	"48145"	"Dec"	"12"	16.23835	4.00703
+"Total"	"Falls County, TX"	"48145"			26.72858	14.25017
+	"Fannin County, TX"	"48147"	"Jan"	"1"	12.25939	2.04954
+	"Fannin County, TX"	"48147"	"Feb"	"2"	14.14728	3.49002
+	"Fannin County, TX"	"48147"	"Mar"	"3"	19.22567	7.72874
+	"Fannin County, TX"	"48147"	"Apr"	"4"	23.81534	11.38523
+	"Fannin County, TX"	"48147"	"May"	"5"	29.10603	17.19947
+	"Fannin County, TX"	"48147"	"Jun"	"6"	33.49064	22.09396
+	"Fannin County, TX"	"48147"	"Jul"	"7"	36.35535	24.04114
+	"Fannin County, TX"	"48147"	"Aug"	"8"	36.64193	24.34197
+	"Fannin County, TX"	"48147"	"Sep"	"9"	31.64604	19.59080
+	"Fannin County, TX"	"48147"	"Oct"	"10"	25.60635	13.50171
+	"Fannin County, TX"	"48147"	"Nov"	"11"	19.00253	8.04384
+	"Fannin County, TX"	"48147"	"Dec"	"12"	12.43198	1.99432
+"Total"	"Fannin County, TX"	"48147"			24.52701	13.00029
+	"Fayette County, TX"	"48149"	"Jan"	"1"	17.63412	6.54204
+	"Fayette County, TX"	"48149"	"Feb"	"2"	19.66893	7.94074
+	"Fayette County, TX"	"48149"	"Mar"	"3"	23.27486	10.83748
+	"Fayette County, TX"	"48149"	"Apr"	"4"	27.76628	14.14816
+	"Fayette County, TX"	"48149"	"May"	"5"	32.36697	19.03349
+	"Fayette County, TX"	"48149"	"Jun"	"6"	34.68809	22.62236
+	"Fayette County, TX"	"48149"	"Jul"	"7"	35.25573	23.61016
+	"Fayette County, TX"	"48149"	"Aug"	"8"	35.93835	24.31093
+	"Fayette County, TX"	"48149"	"Sep"	"9"	32.73305	22.17321
+	"Fayette County, TX"	"48149"	"Oct"	"10"	28.01125	16.67515
+	"Fayette County, TX"	"48149"	"Nov"	"11"	22.59282	11.43759
+	"Fayette County, TX"	"48149"	"Dec"	"12"	17.98318	6.37124
+"Total"	"Fayette County, TX"	"48149"			27.36010	15.50825
+	"Fisher County, TX"	"48151"	"Jan"	"1"	14.11051	2.04423
+	"Fisher County, TX"	"48151"	"Feb"	"2"	16.26535	3.79450
+	"Fisher County, TX"	"48151"	"Mar"	"3"	21.34241	7.90445
+	"Fisher County, TX"	"48151"	"Apr"	"4"	26.71985	12.08831
+	"Fisher County, TX"	"48151"	"May"	"5"	31.53996	17.21174
+	"Fisher County, TX"	"48151"	"Jun"	"6"	35.01208	22.22601
+	"Fisher County, TX"	"48151"	"Jul"	"7"	35.98812	23.67251
+	"Fisher County, TX"	"48151"	"Aug"	"8"	35.87740	24.20038
+	"Fisher County, TX"	"48151"	"Sep"	"9"	31.88046	19.84207
+	"Fisher County, TX"	"48151"	"Oct"	"10"	26.26882	13.63063
+	"Fisher County, TX"	"48151"	"Nov"	"11"	19.62096	7.03499
+	"Fisher County, TX"	"48151"	"Dec"	"12"	14.01050	1.76721
+"Total"	"Fisher County, TX"	"48151"			25.76194	12.99409
+	"Floyd County, TX"	"48153"	"Jan"	"1"	11.58189	0.05045
+	"Floyd County, TX"	"48153"	"Feb"	"2"	13.68050	1.51624
+	"Floyd County, TX"	"48153"	"Mar"	"3"	18.55692	5.60468
+	"Floyd County, TX"	"48153"	"Apr"	"4"	23.90373	9.87607
+	"Floyd County, TX"	"48153"	"May"	"5"	29.01349	15.05523
+	"Floyd County, TX"	"48153"	"Jun"	"6"	32.93952	20.10932
+	"Floyd County, TX"	"48153"	"Jul"	"7"	34.14410	21.53727
+	"Floyd County, TX"	"48153"	"Aug"	"8"	33.91867	21.41489
+	"Floyd County, TX"	"48153"	"Sep"	"9"	29.96015	16.97039
+	"Floyd County, TX"	"48153"	"Oct"	"10"	24.02901	11.13927
+	"Floyd County, TX"	"48153"	"Nov"	"11"	17.19045	4.82024
+	"Floyd County, TX"	"48153"	"Dec"	"12"	11.47816	-0.31466
+"Total"	"Floyd County, TX"	"48153"			23.40988	10.69133
+	"Foard County, TX"	"48155"	"Jan"	"1"	13.08170	1.07105
+	"Foard County, TX"	"48155"	"Feb"	"2"	15.09756	2.56895
+	"Foard County, TX"	"48155"	"Mar"	"3"	20.41783	6.98439
+	"Foard County, TX"	"48155"	"Apr"	"4"	25.74569	10.98014
+	"Foard County, TX"	"48155"	"May"	"5"	30.99282	16.56437
+	"Foard County, TX"	"48155"	"Jun"	"6"	35.27984	22.16054
+	"Foard County, TX"	"48155"	"Jul"	"7"	37.08559	24.12666
+	"Foard County, TX"	"48155"	"Aug"	"8"	36.88690	24.39422
+	"Foard County, TX"	"48155"	"Sep"	"9"	32.21390	19.55739
+	"Foard County, TX"	"48155"	"Oct"	"10"	26.00418	13.05446
+	"Foard County, TX"	"48155"	"Nov"	"11"	18.99676	6.38698
+	"Foard County, TX"	"48155"	"Dec"	"12"	12.81764	0.68486
+"Total"	"Foard County, TX"	"48155"			25.43256	12.42486
+	"Fort Bend County, TX"	"48157"	"Jan"	"1"	17.72325	7.74074
+	"Fort Bend County, TX"	"48157"	"Feb"	"2"	19.31013	8.83438
+	"Fort Bend County, TX"	"48157"	"Mar"	"3"	22.82122	11.46018
+	"Fort Bend County, TX"	"48157"	"Apr"	"4"	26.61737	14.75000
+	"Fort Bend County, TX"	"48157"	"May"	"5"	30.66060	19.54198
+	"Fort Bend County, TX"	"48157"	"Jun"	"6"	33.05295	23.04448
+	"Fort Bend County, TX"	"48157"	"Jul"	"7"	33.42875	23.91720
+	"Fort Bend County, TX"	"48157"	"Aug"	"8"	33.96198	24.30265
+	"Fort Bend County, TX"	"48157"	"Sep"	"9"	31.82006	22.23436
+	"Fort Bend County, TX"	"48157"	"Oct"	"10"	27.64963	17.23967
+	"Fort Bend County, TX"	"48157"	"Nov"	"11"	22.67583	12.44296
+	"Fort Bend County, TX"	"48157"	"Dec"	"12"	18.13220	7.76157
+"Total"	"Fort Bend County, TX"	"48157"			26.51893	16.13811
+	"Franklin County, TX"	"48159"	"Jan"	"1"	13.59942	2.32529
+	"Franklin County, TX"	"48159"	"Feb"	"2"	15.41043	3.76789
+	"Franklin County, TX"	"48159"	"Mar"	"3"	20.11620	7.81720
+	"Franklin County, TX"	"48159"	"Apr"	"4"	24.40335	11.08456
+	"Franklin County, TX"	"48159"	"May"	"5"	29.17446	16.92135
+	"Franklin County, TX"	"48159"	"Jun"	"6"	33.01843	21.40161
+	"Franklin County, TX"	"48159"	"Jul"	"7"	35.60641	23.24213
+	"Franklin County, TX"	"48159"	"Aug"	"8"	36.37777	23.29882
+	"Franklin County, TX"	"48159"	"Sep"	"9"	32.05715	19.18534
+	"Franklin County, TX"	"48159"	"Oct"	"10"	26.22937	13.06206
+	"Franklin County, TX"	"48159"	"Nov"	"11"	19.87220	7.83063
+	"Franklin County, TX"	"48159"	"Dec"	"12"	13.84049	2.12414
+"Total"	"Franklin County, TX"	"48159"			25.02102	12.71410
+	"Freestone County, TX"	"48161"	"Jan"	"1"	15.50305	3.95278
+	"Freestone County, TX"	"48161"	"Feb"	"2"	17.30965	5.41253
+	"Freestone County, TX"	"48161"	"Mar"	"3"	21.49948	9.01522
+	"Freestone County, TX"	"48161"	"Apr"	"4"	25.80930	12.14562
+	"Freestone County, TX"	"48161"	"May"	"5"	30.62213	17.57070
+	"Freestone County, TX"	"48161"	"Jun"	"6"	34.15829	21.88118
+	"Freestone County, TX"	"48161"	"Jul"	"7"	36.18822	23.45935
+	"Freestone County, TX"	"48161"	"Aug"	"8"	36.63174	23.88326
+	"Freestone County, TX"	"48161"	"Sep"	"9"	32.61870	20.45968
+	"Freestone County, TX"	"48161"	"Oct"	"10"	27.38640	14.35355
+	"Freestone County, TX"	"48161"	"Nov"	"11"	21.29169	9.04633
+	"Freestone County, TX"	"48161"	"Dec"	"12"	15.73819	3.71877
+"Total"	"Freestone County, TX"	"48161"			26.27181	13.78032
+	"Frio County, TX"	"48163"	"Jan"	"1"	19.84268	8.38354
+	"Frio County, TX"	"48163"	"Feb"	"2"	22.49298	9.56048
+	"Frio County, TX"	"48163"	"Mar"	"3"	26.42774	12.18182
+	"Frio County, TX"	"48163"	"Apr"	"4"	31.14089	15.67993
+	"Frio County, TX"	"48163"	"May"	"5"	35.25580	20.34266
+	"Frio County, TX"	"48163"	"Jun"	"6"	36.88129	23.36066
+	"Frio County, TX"	"48163"	"Jul"	"7"	36.07964	24.09174
+	"Frio County, TX"	"48163"	"Aug"	"8"	36.81459	25.08221
+	"Frio County, TX"	"48163"	"Sep"	"9"	33.24573	23.12984
+	"Frio County, TX"	"48163"	"Oct"	"10"	29.73739	17.90212
+	"Frio County, TX"	"48163"	"Nov"	"11"	24.69146	12.63904
+	"Frio County, TX"	"48163"	"Dec"	"12"	19.95824	7.68239
+"Total"	"Frio County, TX"	"48163"			29.40903	16.70052
+	"Gaines County, TX"	"48165"	"Jan"	"1"	13.16474	2.15715
+	"Gaines County, TX"	"48165"	"Feb"	"2"	15.79058	3.89019
+	"Gaines County, TX"	"48165"	"Mar"	"3"	20.40233	7.34855
+	"Gaines County, TX"	"48165"	"Apr"	"4"	25.58078	11.34061
+	"Gaines County, TX"	"48165"	"May"	"5"	30.83286	16.29421
+	"Gaines County, TX"	"48165"	"Jun"	"6"	34.45467	20.86192
+	"Gaines County, TX"	"48165"	"Jul"	"7"	34.56550	21.88314
+	"Gaines County, TX"	"48165"	"Aug"	"8"	34.21449	21.61122
+	"Gaines County, TX"	"48165"	"Sep"	"9"	30.73678	17.67644
+	"Gaines County, TX"	"48165"	"Oct"	"10"	25.28512	12.40660
+	"Gaines County, TX"	"48165"	"Nov"	"11"	18.26213	6.09771
+	"Gaines County, TX"	"48165"	"Dec"	"12"	12.99039	1.73922
+"Total"	"Gaines County, TX"	"48165"			24.72835	11.97990
+	"Galveston County, TX"	"48167"	"Jan"	"1"	16.78823	10.82743
+	"Galveston County, TX"	"48167"	"Feb"	"2"	17.58619	11.65793
+	"Galveston County, TX"	"48167"	"Mar"	"3"	20.18371	14.20350
+	"Galveston County, TX"	"48167"	"Apr"	"4"	23.41931	17.45994
+	"Galveston County, TX"	"48167"	"May"	"5"	27.11537	21.87085
+	"Galveston County, TX"	"48167"	"Jun"	"6"	29.87529	25.24781
+	"Galveston County, TX"	"48167"	"Jul"	"7"	30.77668	26.32079
+	"Galveston County, TX"	"48167"	"Aug"	"8"	31.29162	26.65903
+	"Galveston County, TX"	"48167"	"Sep"	"9"	29.73811	24.84187
+	"Galveston County, TX"	"48167"	"Oct"	"10"	26.07373	20.51145
+	"Galveston County, TX"	"48167"	"Nov"	"11"	21.83697	15.94202
+	"Galveston County, TX"	"48167"	"Dec"	"12"	17.78134	11.44036
+"Total"	"Galveston County, TX"	"48167"			24.40267	18.94800
+	"Garza County, TX"	"48169"	"Jan"	"1"	13.60075	1.73680
+	"Garza County, TX"	"48169"	"Feb"	"2"	15.86519	3.48099
+	"Garza County, TX"	"48169"	"Mar"	"3"	20.75046	7.30242
+	"Garza County, TX"	"48169"	"Apr"	"4"	26.01709	11.36428
+	"Garza County, TX"	"48169"	"May"	"5"	30.97157	16.30863
+	"Garza County, TX"	"48169"	"Jun"	"6"	34.66091	21.12985
+	"Garza County, TX"	"48169"	"Jul"	"7"	35.47333	22.68345
+	"Garza County, TX"	"48169"	"Aug"	"8"	35.17635	22.98244
+	"Garza County, TX"	"48169"	"Sep"	"9"	31.43332	18.71233
+	"Garza County, TX"	"48169"	"Oct"	"10"	25.80249	12.72985
+	"Garza County, TX"	"48169"	"Nov"	"11"	18.96877	6.30060
+	"Garza County, TX"	"48169"	"Dec"	"12"	13.45851	1.28085
+"Total"	"Garza County, TX"	"48169"			25.22277	12.20838
+	"Gillespie County, TX"	"48171"	"Jan"	"1"	16.11598	4.84441
+	"Gillespie County, TX"	"48171"	"Feb"	"2"	18.30228	6.33810
+	"Gillespie County, TX"	"48171"	"Mar"	"3"	22.15920	9.72825
+	"Gillespie County, TX"	"48171"	"Apr"	"4"	26.73720	13.60917
+	"Gillespie County, TX"	"48171"	"May"	"5"	31.23896	18.34135
+	"Gillespie County, TX"	"48171"	"Jun"	"6"	33.64083	21.44471
+	"Gillespie County, TX"	"48171"	"Jul"	"7"	33.88774	22.14531
+	"Gillespie County, TX"	"48171"	"Aug"	"8"	34.18599	22.85059
+	"Gillespie County, TX"	"48171"	"Sep"	"9"	30.64532	20.18735
+	"Gillespie County, TX"	"48171"	"Oct"	"10"	26.16540	14.93683
+	"Gillespie County, TX"	"48171"	"Nov"	"11"	20.81974	9.29727
+	"Gillespie County, TX"	"48171"	"Dec"	"12"	16.22752	4.26282
+"Total"	"Gillespie County, TX"	"48171"			25.87697	14.03266
+	"Glasscock County, TX"	"48173"	"Jan"	"1"	14.68909	2.71528
+	"Glasscock County, TX"	"48173"	"Feb"	"2"	17.04145	4.63636
+	"Glasscock County, TX"	"48173"	"Mar"	"3"	21.83160	8.17888
+	"Glasscock County, TX"	"48173"	"Apr"	"4"	27.00618	12.61129
+	"Glasscock County, TX"	"48173"	"May"	"5"	31.96165	17.57038
+	"Glasscock County, TX"	"48173"	"Jun"	"6"	34.91327	22.01282
+	"Glasscock County, TX"	"48173"	"Jul"	"7"	34.97942	22.72769
+	"Glasscock County, TX"	"48173"	"Aug"	"8"	34.73329	23.15906
+	"Glasscock County, TX"	"48173"	"Sep"	"9"	31.30955	19.24066
+	"Glasscock County, TX"	"48173"	"Oct"	"10"	26.18676	13.55383
+	"Glasscock County, TX"	"48173"	"Nov"	"11"	19.64992	7.06898
+	"Glasscock County, TX"	"48173"	"Dec"	"12"	14.52676	2.09037
+"Total"	"Glasscock County, TX"	"48173"			25.77346	13.00112
+	"Goliad County, TX"	"48175"	"Jan"	"1"	19.66396	8.69796
+	"Goliad County, TX"	"48175"	"Feb"	"2"	21.80968	9.78306
+	"Goliad County, TX"	"48175"	"Mar"	"3"	25.03646	12.01283
+	"Goliad County, TX"	"48175"	"Apr"	"4"	28.96503	15.34253
+	"Goliad County, TX"	"48175"	"May"	"5"	32.67859	19.74856
+	"Goliad County, TX"	"48175"	"Jun"	"6"	34.59416	22.93415
+	"Goliad County, TX"	"48175"	"Jul"	"7"	34.30457	23.75707
+	"Goliad County, TX"	"48175"	"Aug"	"8"	35.02495	24.45585
+	"Goliad County, TX"	"48175"	"Sep"	"9"	32.58409	22.94232
+	"Goliad County, TX"	"48175"	"Oct"	"10"	28.92544	18.17293
+	"Goliad County, TX"	"48175"	"Nov"	"11"	24.38077	13.30313
+	"Goliad County, TX"	"48175"	"Dec"	"12"	20.05884	8.52266
+"Total"	"Goliad County, TX"	"48175"			28.19487	16.66881
+	"Gonzales County, TX"	"48177"	"Jan"	"1"	18.57145	7.38386
+	"Gonzales County, TX"	"48177"	"Feb"	"2"	20.75724	8.58723
+	"Gonzales County, TX"	"48177"	"Mar"	"3"	24.42829	11.26662
+	"Gonzales County, TX"	"48177"	"Apr"	"4"	28.94814	14.67268
+	"Gonzales County, TX"	"48177"	"May"	"5"	33.26343	19.43801
+	"Gonzales County, TX"	"48177"	"Jun"	"6"	35.26266	22.84771
+	"Gonzales County, TX"	"48177"	"Jul"	"7"	35.26730	23.68508
+	"Gonzales County, TX"	"48177"	"Aug"	"8"	36.04411	24.56084
+	"Gonzales County, TX"	"48177"	"Sep"	"9"	32.90210	22.71937
+	"Gonzales County, TX"	"48177"	"Oct"	"10"	28.69780	17.29754
+	"Gonzales County, TX"	"48177"	"Nov"	"11"	23.64555	12.21025
+	"Gonzales County, TX"	"48177"	"Dec"	"12"	18.95990	7.09097
+"Total"	"Gonzales County, TX"	"48177"			28.09358	16.01186
+	"Gray County, TX"	"48179"	"Jan"	"1"	9.91883	-0.52910
+	"Gray County, TX"	"48179"	"Feb"	"2"	11.67015	0.64712
+	"Gray County, TX"	"48179"	"Mar"	"3"	17.07300	5.02409
+	"Gray County, TX"	"48179"	"Apr"	"4"	22.55986	9.30426
+	"Gray County, TX"	"48179"	"May"	"5"	27.60511	14.48934
+	"Gray County, TX"	"48179"	"Jun"	"6"	32.25580	19.99401
+	"Gray County, TX"	"48179"	"Jul"	"7"	34.39653	22.03351
+	"Gray County, TX"	"48179"	"Aug"	"8"	33.85812	22.00864
+	"Gray County, TX"	"48179"	"Sep"	"9"	29.34584	17.01279
+	"Gray County, TX"	"48179"	"Oct"	"10"	22.79397	10.85072
+	"Gray County, TX"	"48179"	"Nov"	"11"	15.88822	4.56026
+	"Gray County, TX"	"48179"	"Dec"	"12"	9.78063	-0.87893
+"Total"	"Gray County, TX"	"48179"			22.31114	10.42340
+	"Grayson County, TX"	"48181"	"Jan"	"1"	12.33836	1.79817
+	"Grayson County, TX"	"48181"	"Feb"	"2"	14.18700	3.15284
+	"Grayson County, TX"	"48181"	"Mar"	"3"	19.34386	7.43414
+	"Grayson County, TX"	"48181"	"Apr"	"4"	24.02887	11.11325
+	"Grayson County, TX"	"48181"	"May"	"5"	29.46112	16.94522
+	"Grayson County, TX"	"48181"	"Jun"	"6"	33.90313	21.92270
+	"Grayson County, TX"	"48181"	"Jul"	"7"	36.59480	23.92879
+	"Grayson County, TX"	"48181"	"Aug"	"8"	36.77375	24.30361
+	"Grayson County, TX"	"48181"	"Sep"	"9"	31.69902	19.48473
+	"Grayson County, TX"	"48181"	"Oct"	"10"	25.63796	13.30286
+	"Grayson County, TX"	"48181"	"Nov"	"11"	19.03089	7.73579
+	"Grayson County, TX"	"48181"	"Dec"	"12"	12.40503	1.68192
+"Total"	"Grayson County, TX"	"48181"			24.66695	12.77968
+	"Gregg County, TX"	"48183"	"Jan"	"1"	14.80057	3.21396
+	"Gregg County, TX"	"48183"	"Feb"	"2"	16.63313	4.68566
+	"Gregg County, TX"	"48183"	"Mar"	"3"	21.16111	8.61990
+	"Gregg County, TX"	"48183"	"Apr"	"4"	25.60244	11.80212
+	"Gregg County, TX"	"48183"	"May"	"5"	29.64079	17.41141
+	"Gregg County, TX"	"48183"	"Jun"	"6"	32.90081	21.66103
+	"Gregg County, TX"	"48183"	"Jul"	"7"	34.92535	23.17555
+	"Gregg County, TX"	"48183"	"Aug"	"8"	35.65278	23.15589
+	"Gregg County, TX"	"48183"	"Sep"	"9"	32.17438	19.76261
+	"Gregg County, TX"	"48183"	"Oct"	"10"	27.04781	13.78819
+	"Gregg County, TX"	"48183"	"Nov"	"11"	20.95497	8.64662
+	"Gregg County, TX"	"48183"	"Dec"	"12"	15.09421	3.11887
+"Total"	"Gregg County, TX"	"48183"			25.58976	13.29320
+	"Grimes County, TX"	"48185"	"Jan"	"1"	16.98088	5.16244
+	"Grimes County, TX"	"48185"	"Feb"	"2"	18.89195	6.58671
+	"Grimes County, TX"	"48185"	"Mar"	"3"	22.80100	9.75906
+	"Grimes County, TX"	"48185"	"Apr"	"4"	26.98238	12.78305
+	"Grimes County, TX"	"48185"	"May"	"5"	31.17061	18.08289
+	"Grimes County, TX"	"48185"	"Jun"	"6"	33.86046	21.93441
+	"Grimes County, TX"	"48185"	"Jul"	"7"	34.91969	23.13221
+	"Grimes County, TX"	"48185"	"Aug"	"8"	35.49999	23.62821
+	"Grimes County, TX"	"48185"	"Sep"	"9"	32.39539	21.06009
+	"Grimes County, TX"	"48185"	"Oct"	"10"	27.88689	15.24523
+	"Grimes County, TX"	"48185"	"Nov"	"11"	22.27701	9.98689
+	"Grimes County, TX"	"48185"	"Dec"	"12"	17.28160	4.90389
+"Total"	"Grimes County, TX"	"48185"			26.78093	14.39059
+	"Guadalupe County, TX"	"48187"	"Jan"	"1"	18.19910	7.13656
+	"Guadalupe County, TX"	"48187"	"Feb"	"2"	20.48968	8.30604
+	"Guadalupe County, TX"	"48187"	"Mar"	"3"	24.10693	11.08341
+	"Guadalupe County, TX"	"48187"	"Apr"	"4"	28.70303	14.43566
+	"Guadalupe County, TX"	"48187"	"May"	"5"	33.14024	19.05755
+	"Guadalupe County, TX"	"48187"	"Jun"	"6"	35.35183	22.51181
+	"Guadalupe County, TX"	"48187"	"Jul"	"7"	35.45390	23.41333
+	"Guadalupe County, TX"	"48187"	"Aug"	"8"	36.10531	24.36971
+	"Guadalupe County, TX"	"48187"	"Sep"	"9"	32.74112	22.49410
+	"Guadalupe County, TX"	"48187"	"Oct"	"10"	28.39767	17.02064
+	"Guadalupe County, TX"	"48187"	"Nov"	"11"	23.17691	11.81735
+	"Guadalupe County, TX"	"48187"	"Dec"	"12"	18.47729	6.74499
+"Total"	"Guadalupe County, TX"	"48187"			27.89362	15.73130
+	"Hale County, TX"	"48189"	"Jan"	"1"	11.39444	-0.52085
+	"Hale County, TX"	"48189"	"Feb"	"2"	13.66429	1.06812
+	"Hale County, TX"	"48189"	"Mar"	"3"	18.48671	5.04668
+	"Hale County, TX"	"48189"	"Apr"	"4"	23.85225	9.31144
+	"Hale County, TX"	"48189"	"May"	"5"	29.11412	14.57328
+	"Hale County, TX"	"48189"	"Jun"	"6"	33.01235	19.56428
+	"Hale County, TX"	"48189"	"Jul"	"7"	34.06046	20.74217
+	"Hale County, TX"	"48189"	"Aug"	"8"	33.77948	20.41620
+	"Hale County, TX"	"48189"	"Sep"	"9"	30.00863	16.06820
+	"Hale County, TX"	"48189"	"Oct"	"10"	24.05711	10.39940
+	"Hale County, TX"	"48189"	"Nov"	"11"	17.04777	3.94258
+	"Hale County, TX"	"48189"	"Dec"	"12"	11.42088	-0.86853
+"Total"	"Hale County, TX"	"48189"			23.36793	10.02055
+	"Hall County, TX"	"48191"	"Jan"	"1"	12.60927	1.01253
+	"Hall County, TX"	"48191"	"Feb"	"2"	14.63235	2.43782
+	"Hall County, TX"	"48191"	"Mar"	"3"	19.75520	6.75493
+	"Hall County, TX"	"48191"	"Apr"	"4"	25.12995	10.85204
+	"Hall County, TX"	"48191"	"May"	"5"	30.23807	16.19160
+	"Hall County, TX"	"48191"	"Jun"	"6"	34.47448	21.36895
+	"Hall County, TX"	"48191"	"Jul"	"7"	36.37512	23.50650
+	"Hall County, TX"	"48191"	"Aug"	"8"	36.09165	23.69769
+	"Hall County, TX"	"48191"	"Sep"	"9"	31.60325	18.72019
+	"Hall County, TX"	"48191"	"Oct"	"10"	25.31760	12.58014
+	"Hall County, TX"	"48191"	"Nov"	"11"	18.56932	6.16204
+	"Hall County, TX"	"48191"	"Dec"	"12"	12.37593	0.64131
+"Total"	"Hall County, TX"	"48191"			24.81065	12.04017
+	"Hamilton County, TX"	"48193"	"Jan"	"1"	14.98565	3.98483
+	"Hamilton County, TX"	"48193"	"Feb"	"2"	16.66505	5.42449
+	"Hamilton County, TX"	"48193"	"Mar"	"3"	21.15480	9.18755
+	"Hamilton County, TX"	"48193"	"Apr"	"4"	26.16808	13.12493
+	"Hamilton County, TX"	"48193"	"May"	"5"	31.32786	18.36785
+	"Hamilton County, TX"	"48193"	"Jun"	"6"	34.39213	22.59665
+	"Hamilton County, TX"	"48193"	"Jul"	"7"	35.87796	23.99787
+	"Hamilton County, TX"	"48193"	"Aug"	"8"	35.97235	24.65972
+	"Hamilton County, TX"	"48193"	"Sep"	"9"	31.76634	20.86782
+	"Hamilton County, TX"	"48193"	"Oct"	"10"	26.54956	15.06094
+	"Hamilton County, TX"	"48193"	"Nov"	"11"	20.48427	9.08146
+	"Hamilton County, TX"	"48193"	"Dec"	"12"	15.19786	3.68524
+"Total"	"Hamilton County, TX"	"48193"			25.92183	14.21063
+	"Hansford County, TX"	"48195"	"Jan"	"1"	9.65284	-1.72024
+	"Hansford County, TX"	"48195"	"Feb"	"2"	11.10034	-0.71392
+	"Hansford County, TX"	"48195"	"Mar"	"3"	16.71910	3.86519
+	"Hansford County, TX"	"48195"	"Apr"	"4"	22.32419	8.17159
+	"Hansford County, TX"	"48195"	"May"	"5"	27.69218	13.54533
+	"Hansford County, TX"	"48195"	"Jun"	"6"	32.70372	19.47205
+	"Hansford County, TX"	"48195"	"Jul"	"7"	34.98449	21.83258
+	"Hansford County, TX"	"48195"	"Aug"	"8"	34.12820	21.52465
+	"Hansford County, TX"	"48195"	"Sep"	"9"	29.51286	16.31214
+	"Hansford County, TX"	"48195"	"Oct"	"10"	22.62648	9.74337
+	"Hansford County, TX"	"48195"	"Nov"	"11"	15.41842	3.11634
+	"Hansford County, TX"	"48195"	"Dec"	"12"	9.25169	-2.14184
+"Total"	"Hansford County, TX"	"48195"			22.22810	9.46717
+	"Hardeman County, TX"	"48197"	"Jan"	"1"	12.73526	0.69618
+	"Hardeman County, TX"	"48197"	"Feb"	"2"	14.74902	2.17360
+	"Hardeman County, TX"	"48197"	"Mar"	"3"	20.06910	6.58806
+	"Hardeman County, TX"	"48197"	"Apr"	"4"	25.46376	10.58115
+	"Hardeman County, TX"	"48197"	"May"	"5"	30.74416	16.30907
+	"Hardeman County, TX"	"48197"	"Jun"	"6"	35.15638	22.03184
+	"Hardeman County, TX"	"48197"	"Jul"	"7"	37.05029	23.97929
+	"Hardeman County, TX"	"48197"	"Aug"	"8"	36.86532	24.21478
+	"Hardeman County, TX"	"48197"	"Sep"	"9"	32.10422	19.30933
+	"Hardeman County, TX"	"48197"	"Oct"	"10"	25.76996	12.76396
+	"Hardeman County, TX"	"48197"	"Nov"	"11"	18.72246	6.06028
+	"Hardeman County, TX"	"48197"	"Dec"	"12"	12.42133	0.26288
+"Total"	"Hardeman County, TX"	"48197"			25.20231	12.12840
+	"Hardin County, TX"	"48199"	"Jan"	"1"	16.94936	6.09285
+	"Hardin County, TX"	"48199"	"Feb"	"2"	18.74878	7.41581
+	"Hardin County, TX"	"48199"	"Mar"	"3"	22.58280	10.56006
+	"Hardin County, TX"	"48199"	"Apr"	"4"	26.32709	13.42082
+	"Hardin County, TX"	"48199"	"May"	"5"	29.87643	18.57605
+	"Hardin County, TX"	"48199"	"Jun"	"6"	32.30888	22.52593
+	"Hardin County, TX"	"48199"	"Jul"	"7"	33.32621	23.57649
+	"Hardin County, TX"	"48199"	"Aug"	"8"	33.77459	23.81747
+	"Hardin County, TX"	"48199"	"Sep"	"9"	31.58330	21.08783
+	"Hardin County, TX"	"48199"	"Oct"	"10"	27.46877	15.51918
+	"Hardin County, TX"	"48199"	"Nov"	"11"	22.21241	10.69827
+	"Hardin County, TX"	"48199"	"Dec"	"12"	17.37639	6.02933
+"Total"	"Hardin County, TX"	"48199"			26.07646	14.97775
+	"Harris County, TX"	"48201"	"Jan"	"1"	17.35088	7.13312
+	"Harris County, TX"	"48201"	"Feb"	"2"	19.04387	8.33161
+	"Harris County, TX"	"48201"	"Mar"	"3"	22.56286	11.16372
+	"Harris County, TX"	"48201"	"Apr"	"4"	26.29541	14.26573
+	"Harris County, TX"	"48201"	"May"	"5"	30.25919	19.27016
+	"Harris County, TX"	"48201"	"Jun"	"6"	32.71237	22.95183
+	"Harris County, TX"	"48201"	"Jul"	"7"	33.41599	23.92190
+	"Harris County, TX"	"48201"	"Aug"	"8"	33.88474	24.21555
+	"Harris County, TX"	"48201"	"Sep"	"9"	31.61083	21.90042
+	"Harris County, TX"	"48201"	"Oct"	"10"	27.41771	16.67402
+	"Harris County, TX"	"48201"	"Nov"	"11"	22.33502	11.84051
+	"Harris County, TX"	"48201"	"Dec"	"12"	17.72256	7.14499
+"Total"	"Harris County, TX"	"48201"			26.24905	15.76778
+	"Harrison County, TX"	"48203"	"Jan"	"1"	14.57619	3.21640
+	"Harrison County, TX"	"48203"	"Feb"	"2"	16.35357	4.67657
+	"Harrison County, TX"	"48203"	"Mar"	"3"	21.00530	8.70331
+	"Harrison County, TX"	"48203"	"Apr"	"4"	25.43336	11.94245
+	"Harrison County, TX"	"48203"	"May"	"5"	29.40014	17.62659
+	"Harrison County, TX"	"48203"	"Jun"	"6"	32.71878	21.88117
+	"Harrison County, TX"	"48203"	"Jul"	"7"	34.78680	23.37004
+	"Harrison County, TX"	"48203"	"Aug"	"8"	35.53344	23.37015
+	"Harrison County, TX"	"48203"	"Sep"	"9"	32.11567	19.91329
+	"Harrison County, TX"	"48203"	"Oct"	"10"	26.96590	13.89943
+	"Harrison County, TX"	"48203"	"Nov"	"11"	20.83900	8.73482
+	"Harrison County, TX"	"48203"	"Dec"	"12"	14.92063	3.18104
+"Total"	"Harrison County, TX"	"48203"			25.42868	13.41668
+	"Hartley County, TX"	"48205"	"Jan"	"1"	9.53329	-0.93815
+	"Hartley County, TX"	"48205"	"Feb"	"2"	11.57401	0.25332
+	"Hartley County, TX"	"48205"	"Mar"	"3"	16.83745	4.23881
+	"Hartley County, TX"	"48205"	"Apr"	"4"	22.19413	8.36192
+	"Hartley County, TX"	"48205"	"May"	"5"	27.73161	13.35430
+	"Hartley County, TX"	"48205"	"Jun"	"6"	32.59021	18.91258
+	"Hartley County, TX"	"48205"	"Jul"	"7"	34.28138	21.22888
+	"Hartley County, TX"	"48205"	"Aug"	"8"	33.31267	20.65962
+	"Hartley County, TX"	"48205"	"Sep"	"9"	29.11204	15.86539
+	"Hartley County, TX"	"48205"	"Oct"	"10"	22.59668	9.73114
+	"Hartley County, TX"	"48205"	"Nov"	"11"	15.40487	3.47612
+	"Hartley County, TX"	"48205"	"Dec"	"12"	9.50797	-1.24023
+"Total"	"Hartley County, TX"	"48205"			22.10430	9.53728
+	"Haskell County, TX"	"48207"	"Jan"	"1"	13.87345	1.78623
+	"Haskell County, TX"	"48207"	"Feb"	"2"	15.87961	3.46816
+	"Haskell County, TX"	"48207"	"Mar"	"3"	21.06266	7.82741
+	"Haskell County, TX"	"48207"	"Apr"	"4"	26.34628	11.88942
+	"Haskell County, TX"	"48207"	"May"	"5"	31.40045	17.32617
+	"Haskell County, TX"	"48207"	"Jun"	"6"	35.23330	22.68396
+	"Haskell County, TX"	"48207"	"Jul"	"7"	36.65942	24.25097
+	"Haskell County, TX"	"48207"	"Aug"	"8"	36.60835	24.81288
+	"Haskell County, TX"	"48207"	"Sep"	"9"	32.14072	20.15352
+	"Haskell County, TX"	"48207"	"Oct"	"10"	26.29193	13.75721
+	"Haskell County, TX"	"48207"	"Nov"	"11"	19.56611	7.05600
+	"Haskell County, TX"	"48207"	"Dec"	"12"	13.74905	1.55246
+"Total"	"Haskell County, TX"	"48207"			25.77952	13.09228
+	"Hays County, TX"	"48209"	"Jan"	"1"	16.81096	6.36459
+	"Hays County, TX"	"48209"	"Feb"	"2"	19.04166	7.76384
+	"Hays County, TX"	"48209"	"Mar"	"3"	22.84416	11.05627
+	"Hays County, TX"	"48209"	"Apr"	"4"	27.52670	14.71160
+	"Hays County, TX"	"48209"	"May"	"5"	32.12942	19.32374
+	"Hays County, TX"	"48209"	"Jun"	"6"	34.53605	22.53902
+	"Hays County, TX"	"48209"	"Jul"	"7"	34.93038	23.37344
+	"Hays County, TX"	"48209"	"Aug"	"8"	35.46543	24.14134
+	"Hays County, TX"	"48209"	"Sep"	"9"	32.02124	21.95707
+	"Hays County, TX"	"48209"	"Oct"	"10"	27.30253	16.53662
+	"Hays County, TX"	"48209"	"Nov"	"11"	21.94519	11.21589
+	"Hays County, TX"	"48209"	"Dec"	"12"	17.14583	6.06107
+"Total"	"Hays County, TX"	"48209"			26.84220	15.45361
+	"Hemphill County, TX"	"48211"	"Jan"	"1"	9.59958	-1.53689
+	"Hemphill County, TX"	"48211"	"Feb"	"2"	11.29745	-0.39301
+	"Hemphill County, TX"	"48211"	"Mar"	"3"	17.18548	4.37208
+	"Hemphill County, TX"	"48211"	"Apr"	"4"	22.78046	8.55186
+	"Hemphill County, TX"	"48211"	"May"	"5"	27.89850	14.05038
+	"Hemphill County, TX"	"48211"	"Jun"	"6"	32.63642	19.52289
+	"Hemphill County, TX"	"48211"	"Jul"	"7"	35.25633	21.73229
+	"Hemphill County, TX"	"48211"	"Aug"	"8"	34.89012	21.82345
+	"Hemphill County, TX"	"48211"	"Sep"	"9"	29.89493	16.53255
+	"Hemphill County, TX"	"48211"	"Oct"	"10"	23.02109	10.26620
+	"Hemphill County, TX"	"48211"	"Nov"	"11"	16.01497	3.88425
+	"Hemphill County, TX"	"48211"	"Dec"	"12"	9.26503	-1.94046
+"Total"	"Hemphill County, TX"	"48211"			22.53060	9.78834
+	"Henderson County, TX"	"48213"	"Jan"	"1"	14.95657	3.34989
+	"Henderson County, TX"	"48213"	"Feb"	"2"	16.80341	4.77676
+	"Henderson County, TX"	"48213"	"Mar"	"3"	21.24945	8.60864
+	"Henderson County, TX"	"48213"	"Apr"	"4"	25.57617	11.67120
+	"Henderson County, TX"	"48213"	"May"	"5"	30.07173	17.21861
+	"Henderson County, TX"	"48213"	"Jun"	"6"	33.55515	21.58199
+	"Henderson County, TX"	"48213"	"Jul"	"7"	35.77745	23.21384
+	"Henderson County, TX"	"48213"	"Aug"	"8"	36.49743	23.55046
+	"Henderson County, TX"	"48213"	"Sep"	"9"	32.53978	20.06351
+	"Henderson County, TX"	"48213"	"Oct"	"10"	27.14166	13.85629
+	"Henderson County, TX"	"48213"	"Nov"	"11"	20.99632	8.68961
+	"Henderson County, TX"	"48213"	"Dec"	"12"	15.15032	3.24105
+"Total"	"Henderson County, TX"	"48213"			25.90197	13.35836
+	"Hidalgo County, TX"	"48215"	"Jan"	"1"	22.84689	12.48287
+	"Hidalgo County, TX"	"48215"	"Feb"	"2"	25.25069	13.36299
+	"Hidalgo County, TX"	"48215"	"Mar"	"3"	28.75707	15.32370
+	"Hidalgo County, TX"	"48215"	"Apr"	"4"	32.16812	17.92109
+	"Hidalgo County, TX"	"48215"	"May"	"5"	35.11305	21.09828
+	"Hidalgo County, TX"	"48215"	"Jun"	"6"	36.02990	23.35064
+	"Hidalgo County, TX"	"48215"	"Jul"	"7"	35.63217	24.22548
+	"Hidalgo County, TX"	"48215"	"Aug"	"8"	35.84994	25.00593
+	"Hidalgo County, TX"	"48215"	"Sep"	"9"	33.21990	24.30620
+	"Hidalgo County, TX"	"48215"	"Oct"	"10"	30.82578	20.70389
+	"Hidalgo County, TX"	"48215"	"Nov"	"11"	26.88669	16.11606
+	"Hidalgo County, TX"	"48215"	"Dec"	"12"	23.14383	12.16906
+"Total"	"Hidalgo County, TX"	"48215"			30.49851	18.86238
+	"Hill County, TX"	"48217"	"Jan"	"1"	14.86882	3.88511
+	"Hill County, TX"	"48217"	"Feb"	"2"	16.60070	5.30544
+	"Hill County, TX"	"48217"	"Mar"	"3"	21.06199	8.97447
+	"Hill County, TX"	"48217"	"Apr"	"4"	25.84498	12.73054
+	"Hill County, TX"	"48217"	"May"	"5"	31.04635	18.20032
+	"Hill County, TX"	"48217"	"Jun"	"6"	34.75512	22.68440
+	"Hill County, TX"	"48217"	"Jul"	"7"	36.77294	24.35819
+	"Hill County, TX"	"48217"	"Aug"	"8"	36.94382	25.01422
+	"Hill County, TX"	"48217"	"Sep"	"9"	32.55627	21.16525
+	"Hill County, TX"	"48217"	"Oct"	"10"	27.05734	15.05505
+	"Hill County, TX"	"48217"	"Nov"	"11"	20.73938	9.23146
+	"Hill County, TX"	"48217"	"Dec"	"12"	15.06793	3.69050
+"Total"	"Hill County, TX"	"48217"			26.15474	14.23282
+	"Hockley County, TX"	"48219"	"Jan"	"1"	11.84125	0.67578
+	"Hockley County, TX"	"48219"	"Feb"	"2"	14.44169	2.37431
+	"Hockley County, TX"	"48219"	"Mar"	"3"	19.10651	5.92645
+	"Hockley County, TX"	"48219"	"Apr"	"4"	24.44447	10.09441
+	"Hockley County, TX"	"48219"	"May"	"5"	29.72005	15.21703
+	"Hockley County, TX"	"48219"	"Jun"	"6"	33.55818	20.18987
+	"Hockley County, TX"	"48219"	"Jul"	"7"	34.15036	21.21675
+	"Hockley County, TX"	"48219"	"Aug"	"8"	33.69256	20.61651
+	"Hockley County, TX"	"48219"	"Sep"	"9"	30.11603	16.38303
+	"Hockley County, TX"	"48219"	"Oct"	"10"	24.44969	11.04712
+	"Hockley County, TX"	"48219"	"Nov"	"11"	17.36312	4.77662
+	"Hockley County, TX"	"48219"	"Dec"	"12"	11.91305	0.29175
+"Total"	"Hockley County, TX"	"48219"			23.77357	10.77326
+	"Hood County, TX"	"48221"	"Jan"	"1"	14.76528	3.53235
+	"Hood County, TX"	"48221"	"Feb"	"2"	16.43785	4.91379
+	"Hood County, TX"	"48221"	"Mar"	"3"	21.08594	8.82668
+	"Hood County, TX"	"48221"	"Apr"	"4"	25.98715	12.75187
+	"Hood County, TX"	"48221"	"May"	"5"	30.98612	18.03315
+	"Hood County, TX"	"48221"	"Jun"	"6"	34.85687	22.67806
+	"Hood County, TX"	"48221"	"Jul"	"7"	36.85692	24.26899
+	"Hood County, TX"	"48221"	"Aug"	"8"	36.93502	24.98069
+	"Hood County, TX"	"48221"	"Sep"	"9"	32.32801	20.84769
+	"Hood County, TX"	"48221"	"Oct"	"10"	26.91190	14.82885
+	"Hood County, TX"	"48221"	"Nov"	"11"	20.46641	8.82036
+	"Hood County, TX"	"48221"	"Dec"	"12"	14.87711	3.21850
+"Total"	"Hood County, TX"	"48221"			26.08698	14.01756
+	"Hopkins County, TX"	"48223"	"Jan"	"1"	13.32047	2.48106
+	"Hopkins County, TX"	"48223"	"Feb"	"2"	15.17330	3.92673
+	"Hopkins County, TX"	"48223"	"Mar"	"3"	19.85927	8.03566
+	"Hopkins County, TX"	"48223"	"Apr"	"4"	24.24641	11.45487
+	"Hopkins County, TX"	"48223"	"May"	"5"	29.30262	17.25018
+	"Hopkins County, TX"	"48223"	"Jun"	"6"	33.33756	21.84552
+	"Hopkins County, TX"	"48223"	"Jul"	"7"	36.08349	23.68114
+	"Hopkins County, TX"	"48223"	"Aug"	"8"	36.64258	23.93170
+	"Hopkins County, TX"	"48223"	"Sep"	"9"	32.06755	19.81184
+	"Hopkins County, TX"	"48223"	"Oct"	"10"	26.12030	13.58691
+	"Hopkins County, TX"	"48223"	"Nov"	"11"	19.65282	8.17234
+	"Hopkins County, TX"	"48223"	"Dec"	"12"	13.51183	2.39929
+"Total"	"Hopkins County, TX"	"48223"			24.99004	13.09132
+	"Houston County, TX"	"48225"	"Jan"	"1"	16.19141	4.47642
+	"Houston County, TX"	"48225"	"Feb"	"2"	18.01447	5.87980
+	"Houston County, TX"	"48225"	"Mar"	"3"	22.19988	9.52516
+	"Houston County, TX"	"48225"	"Apr"	"4"	26.48146	12.50792
+	"Houston County, TX"	"48225"	"May"	"5"	30.44867	17.85886
+	"Houston County, TX"	"48225"	"Jun"	"6"	33.31632	21.98297
+	"Houston County, TX"	"48225"	"Jul"	"7"	34.85078	23.23323
+	"Houston County, TX"	"48225"	"Aug"	"8"	35.43834	23.49217
+	"Houston County, TX"	"48225"	"Sep"	"9"	32.24609	20.59332
+	"Houston County, TX"	"48225"	"Oct"	"10"	27.66482	14.70738
+	"Houston County, TX"	"48225"	"Nov"	"11"	21.76708	9.50285
+	"Houston County, TX"	"48225"	"Dec"	"12"	16.40778	4.25870
+"Total"	"Houston County, TX"	"48225"			26.28967	14.03871
+	"Howard County, TX"	"48227"	"Jan"	"1"	14.43147	2.41161
+	"Howard County, TX"	"48227"	"Feb"	"2"	16.75625	4.28852
+	"Howard County, TX"	"48227"	"Mar"	"3"	21.60436	7.93965
+	"Howard County, TX"	"48227"	"Apr"	"4"	26.88207	12.31873
+	"Howard County, TX"	"48227"	"May"	"5"	31.78530	17.18024
+	"Howard County, TX"	"48227"	"Jun"	"6"	34.97021	21.79439
+	"Howard County, TX"	"48227"	"Jul"	"7"	35.29923	22.70657
+	"Howard County, TX"	"48227"	"Aug"	"8"	35.04182	23.10170
+	"Howard County, TX"	"48227"	"Sep"	"9"	31.54683	19.22092
+	"Howard County, TX"	"48227"	"Oct"	"10"	26.24418	13.35456
+	"Howard County, TX"	"48227"	"Nov"	"11"	19.54700	6.82051
+	"Howard County, TX"	"48227"	"Dec"	"12"	14.26403	1.83577
+"Total"	"Howard County, TX"	"48227"			25.73669	12.78584
+	"Hudspeth County, TX"	"48229"	"Jan"	"1"	13.45263	3.39036
+	"Hudspeth County, TX"	"48229"	"Feb"	"2"	15.80791	5.21983
+	"Hudspeth County, TX"	"48229"	"Mar"	"3"	19.79103	8.15253
+	"Hudspeth County, TX"	"48229"	"Apr"	"4"	24.67121	11.99784
+	"Hudspeth County, TX"	"48229"	"May"	"5"	29.86998	16.87859
+	"Hudspeth County, TX"	"48229"	"Jun"	"6"	33.62018	21.52844
+	"Hudspeth County, TX"	"48229"	"Jul"	"7"	33.50723	22.98456
+	"Hudspeth County, TX"	"48229"	"Aug"	"8"	32.68553	22.61444
+	"Hudspeth County, TX"	"48229"	"Sep"	"9"	29.75877	18.88171
+	"Hudspeth County, TX"	"48229"	"Oct"	"10"	24.63779	13.68554
+	"Hudspeth County, TX"	"48229"	"Nov"	"11"	18.16523	7.29147
+	"Hudspeth County, TX"	"48229"	"Dec"	"12"	13.16139	2.84699
+"Total"	"Hudspeth County, TX"	"48229"			24.12900	12.99223
+	"Hunt County, TX"	"48231"	"Jan"	"1"	13.18364	2.32037
+	"Hunt County, TX"	"48231"	"Feb"	"2"	15.08893	3.81552
+	"Hunt County, TX"	"48231"	"Mar"	"3"	19.85940	7.91412
+	"Hunt County, TX"	"48231"	"Apr"	"4"	24.42869	11.39997
+	"Hunt County, TX"	"48231"	"May"	"5"	29.65009	17.20331
+	"Hunt County, TX"	"48231"	"Jun"	"6"	33.78867	21.98218
+	"Hunt County, TX"	"48231"	"Jul"	"7"	36.50002	23.81754
+	"Hunt County, TX"	"48231"	"Aug"	"8"	36.84925	24.20323
+	"Hunt County, TX"	"48231"	"Sep"	"9"	32.17545	20.03239
+	"Hunt County, TX"	"48231"	"Oct"	"10"	26.18326	13.65618
+	"Hunt County, TX"	"48231"	"Nov"	"11"	19.67248	8.14203
+	"Hunt County, TX"	"48231"	"Dec"	"12"	13.35257	2.31665
+"Total"	"Hunt County, TX"	"48231"			25.10861	13.11060
+	"Hutchinson County, TX"	"48233"	"Jan"	"1"	10.16975	-1.53098
+	"Hutchinson County, TX"	"48233"	"Feb"	"2"	11.95813	-0.19520
+	"Hutchinson County, TX"	"48233"	"Mar"	"3"	17.58093	4.30036
+	"Hutchinson County, TX"	"48233"	"Apr"	"4"	23.21687	8.54096
+	"Hutchinson County, TX"	"48233"	"May"	"5"	28.50371	14.02897
+	"Hutchinson County, TX"	"48233"	"Jun"	"6"	33.28963	19.72185
+	"Hutchinson County, TX"	"48233"	"Jul"	"7"	35.34563	21.91637
+	"Hutchinson County, TX"	"48233"	"Aug"	"8"	34.58229	21.75450
+	"Hutchinson County, TX"	"48233"	"Sep"	"9"	30.14272	16.56257
+	"Hutchinson County, TX"	"48233"	"Oct"	"10"	23.44476	10.02849
+	"Hutchinson County, TX"	"48233"	"Nov"	"11"	16.21122	3.34062
+	"Hutchinson County, TX"	"48233"	"Dec"	"12"	9.99660	-1.92155
+"Total"	"Hutchinson County, TX"	"48233"			22.92050	9.76071
+	"Irion County, TX"	"48235"	"Jan"	"1"	15.59266	3.59602
+	"Irion County, TX"	"48235"	"Feb"	"2"	17.76270	5.48288
+	"Irion County, TX"	"48235"	"Mar"	"3"	22.42842	8.98602
+	"Irion County, TX"	"48235"	"Apr"	"4"	27.49919	13.23033
+	"Irion County, TX"	"48235"	"May"	"5"	32.31372	18.07402
+	"Irion County, TX"	"48235"	"Jun"	"6"	34.93253	22.06857
+	"Irion County, TX"	"48235"	"Jul"	"7"	34.86787	22.74718
+	"Irion County, TX"	"48235"	"Aug"	"8"	34.80661	23.36095
+	"Irion County, TX"	"48235"	"Sep"	"9"	31.38284	19.79473
+	"Irion County, TX"	"48235"	"Oct"	"10"	26.50310	14.29164
+	"Irion County, TX"	"48235"	"Nov"	"11"	20.28362	7.89232
+	"Irion County, TX"	"48235"	"Dec"	"12"	15.46599	3.02251
+"Total"	"Irion County, TX"	"48235"			26.18995	13.58170
+	"Jack County, TX"	"48237"	"Jan"	"1"	13.43399	2.13529
+	"Jack County, TX"	"48237"	"Feb"	"2"	15.20551	3.64769
+	"Jack County, TX"	"48237"	"Mar"	"3"	20.36021	7.99676
+	"Jack County, TX"	"48237"	"Apr"	"4"	25.14738	11.77865
+	"Jack County, TX"	"48237"	"May"	"5"	30.40856	17.26030
+	"Jack County, TX"	"48237"	"Jun"	"6"	34.55113	22.26588
+	"Jack County, TX"	"48237"	"Jul"	"7"	36.78512	24.12794
+	"Jack County, TX"	"48237"	"Aug"	"8"	36.84451	24.66087
+	"Jack County, TX"	"48237"	"Sep"	"9"	31.93042	19.92793
+	"Jack County, TX"	"48237"	"Oct"	"10"	26.00480	13.75967
+	"Jack County, TX"	"48237"	"Nov"	"11"	19.51147	7.68594
+	"Jack County, TX"	"48237"	"Dec"	"12"	13.52925	1.95870
+"Total"	"Jack County, TX"	"48237"			25.35769	13.14571
+	"Jackson County, TX"	"48239"	"Jan"	"1"	18.59557	8.51579
+	"Jackson County, TX"	"48239"	"Feb"	"2"	20.41760	9.68577
+	"Jackson County, TX"	"48239"	"Mar"	"3"	23.66848	12.05979
+	"Jackson County, TX"	"48239"	"Apr"	"4"	27.59610	15.48903
+	"Jackson County, TX"	"48239"	"May"	"5"	31.34548	19.92327
+	"Jackson County, TX"	"48239"	"Jun"	"6"	33.49113	23.24366
+	"Jackson County, TX"	"48239"	"Jul"	"7"	33.70979	24.10568
+	"Jackson County, TX"	"48239"	"Aug"	"8"	34.47105	24.67357
+	"Jackson County, TX"	"48239"	"Sep"	"9"	32.29243	22.98278
+	"Jackson County, TX"	"48239"	"Oct"	"10"	28.13847	18.14320
+	"Jackson County, TX"	"48239"	"Nov"	"11"	23.41457	13.28862
+	"Jackson County, TX"	"48239"	"Dec"	"12"	19.03847	8.52220
+"Total"	"Jackson County, TX"	"48239"			27.21001	16.74972
+	"Jasper County, TX"	"48241"	"Jan"	"1"	16.37547	4.96374
+	"Jasper County, TX"	"48241"	"Feb"	"2"	18.27334	6.46359
+	"Jasper County, TX"	"48241"	"Mar"	"3"	22.26430	9.82683
+	"Jasper County, TX"	"48241"	"Apr"	"4"	26.23981	12.73636
+	"Jasper County, TX"	"48241"	"May"	"5"	29.82597	18.03025
+	"Jasper County, TX"	"48241"	"Jun"	"6"	32.37625	22.17625
+	"Jasper County, TX"	"48241"	"Jul"	"7"	33.58911	23.35749
+	"Jasper County, TX"	"48241"	"Aug"	"8"	34.05150	23.54875
+	"Jasper County, TX"	"48241"	"Sep"	"9"	31.67111	20.61617
+	"Jasper County, TX"	"48241"	"Oct"	"10"	27.36708	14.72948
+	"Jasper County, TX"	"48241"	"Nov"	"11"	21.86753	9.73726
+	"Jasper County, TX"	"48241"	"Dec"	"12"	16.78798	4.96515
+"Total"	"Jasper County, TX"	"48241"			25.92414	14.29835
+	"Jeff Davis County, TX"	"48243"	"Jan"	"1"	13.15009	3.01595
+	"Jeff Davis County, TX"	"48243"	"Feb"	"2"	15.40174	4.72092
+	"Jeff Davis County, TX"	"48243"	"Mar"	"3"	19.32938	7.60965
+	"Jeff Davis County, TX"	"48243"	"Apr"	"4"	24.18079	11.64771
+	"Jeff Davis County, TX"	"48243"	"May"	"5"	28.94633	16.35066
+	"Jeff Davis County, TX"	"48243"	"Jun"	"6"	31.91052	20.24085
+	"Jeff Davis County, TX"	"48243"	"Jul"	"7"	31.34441	20.63841
+	"Jeff Davis County, TX"	"48243"	"Aug"	"8"	30.72964	20.29424
+	"Jeff Davis County, TX"	"48243"	"Sep"	"9"	27.96958	17.04131
+	"Jeff Davis County, TX"	"48243"	"Oct"	"10"	23.57263	12.56616
+	"Jeff Davis County, TX"	"48243"	"Nov"	"11"	17.49347	6.58694
+	"Jeff Davis County, TX"	"48243"	"Dec"	"12"	13.05022	2.54444
+"Total"	"Jeff Davis County, TX"	"48243"			23.12213	11.97073
+	"Jefferson County, TX"	"48245"	"Jan"	"1"	16.64233	8.18564
+	"Jefferson County, TX"	"48245"	"Feb"	"2"	18.02758	9.33575
+	"Jefferson County, TX"	"48245"	"Mar"	"3"	21.39785	12.28142
+	"Jefferson County, TX"	"48245"	"Apr"	"4"	24.92904	15.41521
+	"Jefferson County, TX"	"48245"	"May"	"5"	28.62397	20.37294
+	"Jefferson County, TX"	"48245"	"Jun"	"6"	31.22830	24.04609
+	"Jefferson County, TX"	"48245"	"Jul"	"7"	31.92878	25.03947
+	"Jefferson County, TX"	"48245"	"Aug"	"8"	32.34881	25.17742
+	"Jefferson County, TX"	"48245"	"Sep"	"9"	30.58007	22.68652
+	"Jefferson County, TX"	"48245"	"Oct"	"10"	26.58540	17.73739
+	"Jefferson County, TX"	"48245"	"Nov"	"11"	21.88281	13.03722
+	"Jefferson County, TX"	"48245"	"Dec"	"12"	17.31838	8.44295
+"Total"	"Jefferson County, TX"	"48245"			25.15519	16.84728
+	"Jim Hogg County, TX"	"48247"	"Jan"	"1"	21.56451	11.15186
+	"Jim Hogg County, TX"	"48247"	"Feb"	"2"	24.11754	12.38132
+	"Jim Hogg County, TX"	"48247"	"Mar"	"3"	28.00730	14.69744
+	"Jim Hogg County, TX"	"48247"	"Apr"	"4"	32.04094	17.68659
+	"Jim Hogg County, TX"	"48247"	"May"	"5"	35.31442	21.20619
+	"Jim Hogg County, TX"	"48247"	"Jun"	"6"	36.34054	23.40246
+	"Jim Hogg County, TX"	"48247"	"Jul"	"7"	35.45247	23.94359
+	"Jim Hogg County, TX"	"48247"	"Aug"	"8"	35.85236	24.80824
+	"Jim Hogg County, TX"	"48247"	"Sep"	"9"	32.80611	23.77949
+	"Jim Hogg County, TX"	"48247"	"Oct"	"10"	30.23207	19.82146
+	"Jim Hogg County, TX"	"48247"	"Nov"	"11"	25.78247	15.06970
+	"Jim Hogg County, TX"	"48247"	"Dec"	"12"	21.68193	10.83558
+"Total"	"Jim Hogg County, TX"	"48247"			29.95632	18.25649
+	"Jim Wells County, TX"	"48249"	"Jan"	"1"	21.20142	10.52480
+	"Jim Wells County, TX"	"48249"	"Feb"	"2"	23.60563	11.68489
+	"Jim Wells County, TX"	"48249"	"Mar"	"3"	26.91700	13.77069
+	"Jim Wells County, TX"	"48249"	"Apr"	"4"	30.91338	16.88036
+	"Jim Wells County, TX"	"48249"	"May"	"5"	34.41534	20.57725
+	"Jim Wells County, TX"	"48249"	"Jun"	"6"	35.63357	23.31236
+	"Jim Wells County, TX"	"48249"	"Jul"	"7"	34.87019	24.03308
+	"Jim Wells County, TX"	"48249"	"Aug"	"8"	35.41052	24.85772
+	"Jim Wells County, TX"	"48249"	"Sep"	"9"	32.76901	23.77408
+	"Jim Wells County, TX"	"48249"	"Oct"	"10"	29.78056	19.53261
+	"Jim Wells County, TX"	"48249"	"Nov"	"11"	25.39762	14.78696
+	"Jim Wells County, TX"	"48249"	"Dec"	"12"	21.34220	10.29047
+"Total"	"Jim Wells County, TX"	"48249"			29.37766	17.86107
+	"Johnson County, TX"	"48251"	"Jan"	"1"	14.46784	3.49248
+	"Johnson County, TX"	"48251"	"Feb"	"2"	16.14238	4.86304
+	"Johnson County, TX"	"48251"	"Mar"	"3"	20.73994	8.72806
+	"Johnson County, TX"	"48251"	"Apr"	"4"	25.53989	12.55373
+	"Johnson County, TX"	"48251"	"May"	"5"	30.68316	17.99991
+	"Johnson County, TX"	"48251"	"Jun"	"6"	34.61635	22.63011
+	"Johnson County, TX"	"48251"	"Jul"	"7"	36.72680	24.25723
+	"Johnson County, TX"	"48251"	"Aug"	"8"	36.85252	24.92076
+	"Johnson County, TX"	"48251"	"Sep"	"9"	32.25951	20.80179
+	"Johnson County, TX"	"48251"	"Oct"	"10"	26.69761	14.73417
+	"Johnson County, TX"	"48251"	"Nov"	"11"	20.28687	8.85527
+	"Johnson County, TX"	"48251"	"Dec"	"12"	14.56675	3.24164
+"Total"	"Johnson County, TX"	"48251"			25.84436	13.96579
+	"Jones County, TX"	"48253"	"Jan"	"1"	14.38835	2.11757
+	"Jones County, TX"	"48253"	"Feb"	"2"	16.42212	3.80893
+	"Jones County, TX"	"48253"	"Mar"	"3"	21.52827	8.05910
+	"Jones County, TX"	"48253"	"Apr"	"4"	26.81708	12.14072
+	"Jones County, TX"	"48253"	"May"	"5"	31.69552	17.39386
+	"Jones County, TX"	"48253"	"Jun"	"6"	35.24924	22.53167
+	"Jones County, TX"	"48253"	"Jul"	"7"	36.47029	24.05502
+	"Jones County, TX"	"48253"	"Aug"	"8"	36.37022	24.72337
+	"Jones County, TX"	"48253"	"Sep"	"9"	32.14991	20.19459
+	"Jones County, TX"	"48253"	"Oct"	"10"	26.49474	13.87189
+	"Jones County, TX"	"48253"	"Nov"	"11"	19.92124	7.21019
+	"Jones County, TX"	"48253"	"Dec"	"12"	14.32893	1.83788
+"Total"	"Jones County, TX"	"48253"			26.02983	13.20609
+	"Karnes County, TX"	"48255"	"Jan"	"1"	19.43670	8.21197
+	"Karnes County, TX"	"48255"	"Feb"	"2"	21.81836	9.34381
+	"Karnes County, TX"	"48255"	"Mar"	"3"	25.45830	11.92060
+	"Karnes County, TX"	"48255"	"Apr"	"4"	29.74979	15.37064
+	"Karnes County, TX"	"48255"	"May"	"5"	33.80977	19.90891
+	"Karnes County, TX"	"48255"	"Jun"	"6"	35.62776	23.07819
+	"Karnes County, TX"	"48255"	"Jul"	"7"	35.21565	23.80076
+	"Karnes County, TX"	"48255"	"Aug"	"8"	35.95514	24.61477
+	"Karnes County, TX"	"48255"	"Sep"	"9"	32.94274	22.98695
+	"Karnes County, TX"	"48255"	"Oct"	"10"	29.22817	17.87554
+	"Karnes County, TX"	"48255"	"Nov"	"11"	24.35518	12.87802
+	"Karnes County, TX"	"48255"	"Dec"	"12"	19.76834	7.88634
+"Total"	"Karnes County, TX"	"48255"			28.64206	16.52019
+	"Kaufman County, TX"	"48257"	"Jan"	"1"	14.11065	3.00407
+	"Kaufman County, TX"	"48257"	"Feb"	"2"	16.01432	4.52052
+	"Kaufman County, TX"	"48257"	"Mar"	"3"	20.58698	8.35738
+	"Kaufman County, TX"	"48257"	"Apr"	"4"	25.18620	11.77934
+	"Kaufman County, TX"	"48257"	"May"	"5"	30.47559	17.57902
+	"Kaufman County, TX"	"48257"	"Jun"	"6"	34.48822	22.29595
+	"Kaufman County, TX"	"48257"	"Jul"	"7"	36.88095	24.10189
+	"Kaufman County, TX"	"48257"	"Aug"	"8"	37.21928	24.53048
+	"Kaufman County, TX"	"48257"	"Sep"	"9"	32.66496	20.46112
+	"Kaufman County, TX"	"48257"	"Oct"	"10"	26.84316	14.08711
+	"Kaufman County, TX"	"48257"	"Nov"	"11"	20.41482	8.63570
+	"Kaufman County, TX"	"48257"	"Dec"	"12"	14.26918	2.95849
+"Total"	"Kaufman County, TX"	"48257"			25.80908	13.56834
+	"Kendall County, TX"	"48259"	"Jan"	"1"	16.35008	6.18777
+	"Kendall County, TX"	"48259"	"Feb"	"2"	18.60161	7.55221
+	"Kendall County, TX"	"48259"	"Mar"	"3"	22.37426	10.84163
+	"Kendall County, TX"	"48259"	"Apr"	"4"	26.90134	14.56179
+	"Kendall County, TX"	"48259"	"May"	"5"	31.31618	19.00157
+	"Kendall County, TX"	"48259"	"Jun"	"6"	33.61682	21.85939
+	"Kendall County, TX"	"48259"	"Jul"	"7"	33.82932	22.48282
+	"Kendall County, TX"	"48259"	"Aug"	"8"	34.24226	23.22685
+	"Kendall County, TX"	"48259"	"Sep"	"9"	30.78772	21.04852
+	"Kendall County, TX"	"48259"	"Oct"	"10"	26.30277	15.97984
+	"Kendall County, TX"	"48259"	"Nov"	"11"	21.15931	10.76093
+	"Kendall County, TX"	"48259"	"Dec"	"12"	16.56055	5.75514
+"Total"	"Kendall County, TX"	"48259"			26.03565	14.97014
+	"Kenedy County, TX"	"48261"	"Jan"	"1"	21.81266	12.62381
+	"Kenedy County, TX"	"48261"	"Feb"	"2"	23.84217	13.48591
+	"Kenedy County, TX"	"48261"	"Mar"	"3"	26.73015	15.03193
+	"Kenedy County, TX"	"48261"	"Apr"	"4"	30.23365	17.81731
+	"Kenedy County, TX"	"48261"	"May"	"5"	33.19533	21.31712
+	"Kenedy County, TX"	"48261"	"Jun"	"6"	34.33568	23.76260
+	"Kenedy County, TX"	"48261"	"Jul"	"7"	34.05947	24.56324
+	"Kenedy County, TX"	"48261"	"Aug"	"8"	34.43166	25.16173
+	"Kenedy County, TX"	"48261"	"Sep"	"9"	32.22262	24.37619
+	"Kenedy County, TX"	"48261"	"Oct"	"10"	29.53490	20.87867
+	"Kenedy County, TX"	"48261"	"Nov"	"11"	25.74826	16.49096
+	"Kenedy County, TX"	"48261"	"Dec"	"12"	22.16547	12.49393
+"Total"	"Kenedy County, TX"	"48261"			29.04709	19.02381
+	"Kent County, TX"	"48263"	"Jan"	"1"	13.82619	1.84698
+	"Kent County, TX"	"48263"	"Feb"	"2"	16.03053	3.53361
+	"Kent County, TX"	"48263"	"Mar"	"3"	21.03674	7.57822
+	"Kent County, TX"	"48263"	"Apr"	"4"	26.36313	11.71825
+	"Kent County, TX"	"48263"	"May"	"5"	31.24139	16.68727
+	"Kent County, TX"	"48263"	"Jun"	"6"	34.93328	21.66116
+	"Kent County, TX"	"48263"	"Jul"	"7"	36.01798	23.41845
+	"Kent County, TX"	"48263"	"Aug"	"8"	35.86241	23.87386
+	"Kent County, TX"	"48263"	"Sep"	"9"	31.86292	19.51759
+	"Kent County, TX"	"48263"	"Oct"	"10"	26.05833	13.28541
+	"Kent County, TX"	"48263"	"Nov"	"11"	19.36958	6.80274
+	"Kent County, TX"	"48263"	"Dec"	"12"	13.64467	1.53439
+"Total"	"Kent County, TX"	"48263"			25.56285	12.66412
+	"Kerr County, TX"	"48265"	"Jan"	"1"	16.35208	5.46022
+	"Kerr County, TX"	"48265"	"Feb"	"2"	18.61533	6.91315
+	"Kerr County, TX"	"48265"	"Mar"	"3"	22.52061	10.21570
+	"Kerr County, TX"	"48265"	"Apr"	"4"	27.05417	14.03063
+	"Kerr County, TX"	"48265"	"May"	"5"	31.29339	18.56603
+	"Kerr County, TX"	"48265"	"Jun"	"6"	33.47944	21.45021
+	"Kerr County, TX"	"48265"	"Jul"	"7"	33.36570	21.99059
+	"Kerr County, TX"	"48265"	"Aug"	"8"	33.67459	22.66880
+	"Kerr County, TX"	"48265"	"Sep"	"9"	30.23121	20.22935
+	"Kerr County, TX"	"48265"	"Oct"	"10"	25.93428	15.23913
+	"Kerr County, TX"	"48265"	"Nov"	"11"	20.84860	9.77010
+	"Kerr County, TX"	"48265"	"Dec"	"12"	16.41071	4.91080
+"Total"	"Kerr County, TX"	"48265"			25.84590	14.31931
+	"Kimble County, TX"	"48267"	"Jan"	"1"	16.65083	4.46850
+	"Kimble County, TX"	"48267"	"Feb"	"2"	18.75417	6.06525
+	"Kimble County, TX"	"48267"	"Mar"	"3"	22.95277	9.57047
+	"Kimble County, TX"	"48267"	"Apr"	"4"	27.64575	13.59726
+	"Kimble County, TX"	"48267"	"May"	"5"	31.96071	18.42871
+	"Kimble County, TX"	"48267"	"Jun"	"6"	34.22710	21.73365
+	"Kimble County, TX"	"48267"	"Jul"	"7"	34.21655	22.39367
+	"Kimble County, TX"	"48267"	"Aug"	"8"	34.38279	23.07616
+	"Kimble County, TX"	"48267"	"Sep"	"9"	30.91446	20.04732
+	"Kimble County, TX"	"48267"	"Oct"	"10"	26.44564	14.67719
+	"Kimble County, TX"	"48267"	"Nov"	"11"	21.10901	8.79671
+	"Kimble County, TX"	"48267"	"Dec"	"12"	16.59708	3.82939
+"Total"	"Kimble County, TX"	"48267"			26.35433	13.92520
+	"King County, TX"	"48269"	"Jan"	"1"	13.56359	1.72119
+	"King County, TX"	"48269"	"Feb"	"2"	15.63169	3.25410
+	"King County, TX"	"48269"	"Mar"	"3"	20.79808	7.56331
+	"King County, TX"	"48269"	"Apr"	"4"	26.06068	11.65774
+	"King County, TX"	"48269"	"May"	"5"	31.06244	16.87806
+	"King County, TX"	"48269"	"Jun"	"6"	34.96255	22.14402
+	"King County, TX"	"48269"	"Jul"	"7"	36.39326	23.88303
+	"King County, TX"	"48269"	"Aug"	"8"	36.27879	24.30715
+	"King County, TX"	"48269"	"Sep"	"9"	31.93278	19.69686
+	"King County, TX"	"48269"	"Oct"	"10"	26.02421	13.45281
+	"King County, TX"	"48269"	"Nov"	"11"	19.25705	6.90549
+	"King County, TX"	"48269"	"Dec"	"12"	13.36244	1.44463
+"Total"	"King County, TX"	"48269"			25.48865	12.78738
+	"Kinney County, TX"	"48271"	"Jan"	"1"	18.61303	7.97030
+	"Kinney County, TX"	"48271"	"Feb"	"2"	21.24413	9.41569
+	"Kinney County, TX"	"48271"	"Mar"	"3"	25.70628	12.41362
+	"Kinney County, TX"	"48271"	"Apr"	"4"	30.53810	16.31274
+	"Kinney County, TX"	"48271"	"May"	"5"	34.75339	20.99565
+	"Kinney County, TX"	"48271"	"Jun"	"6"	36.67716	24.11019
+	"Kinney County, TX"	"48271"	"Jul"	"7"	35.91219	24.49460
+	"Kinney County, TX"	"48271"	"Aug"	"8"	36.34156	25.41221
+	"Kinney County, TX"	"48271"	"Sep"	"9"	32.85966	22.83831
+	"Kinney County, TX"	"48271"	"Oct"	"10"	28.78243	17.62122
+	"Kinney County, TX"	"48271"	"Nov"	"11"	23.30426	11.89029
+	"Kinney County, TX"	"48271"	"Dec"	"12"	18.50317	7.13091
+"Total"	"Kinney County, TX"	"48271"			28.63334	16.74898
+	"Kleberg County, TX"	"48273"	"Jan"	"1"	20.94259	12.10051
+	"Kleberg County, TX"	"48273"	"Feb"	"2"	22.90576	13.10921
+	"Kleberg County, TX"	"48273"	"Mar"	"3"	25.69650	14.88776
+	"Kleberg County, TX"	"48273"	"Apr"	"4"	29.35507	17.95268
+	"Kleberg County, TX"	"48273"	"May"	"5"	32.62801	21.54031
+	"Kleberg County, TX"	"48273"	"Jun"	"6"	34.01175	24.22019
+	"Kleberg County, TX"	"48273"	"Jul"	"7"	33.67048	24.93079
+	"Kleberg County, TX"	"48273"	"Aug"	"8"	34.20111	25.62262
+	"Kleberg County, TX"	"48273"	"Sep"	"9"	32.05454	24.66629
+	"Kleberg County, TX"	"48273"	"Oct"	"10"	29.19949	20.88051
+	"Kleberg County, TX"	"48273"	"Nov"	"11"	25.09939	16.32239
+	"Kleberg County, TX"	"48273"	"Dec"	"12"	21.33071	12.04769
+"Total"	"Kleberg County, TX"	"48273"			28.44715	19.04822
+	"Knox County, TX"	"48275"	"Jan"	"1"	13.52576	1.45966
+	"Knox County, TX"	"48275"	"Feb"	"2"	15.53320	3.04089
+	"Knox County, TX"	"48275"	"Mar"	"3"	20.78058	7.41510
+	"Knox County, TX"	"48275"	"Apr"	"4"	26.10352	11.46700
+	"Knox County, TX"	"48275"	"May"	"5"	31.33062	17.02564
+	"Knox County, TX"	"48275"	"Jun"	"6"	35.36490	22.50893
+	"Knox County, TX"	"48275"	"Jul"	"7"	36.96731	24.25720
+	"Knox County, TX"	"48275"	"Aug"	"8"	36.85179	24.63563
+	"Knox County, TX"	"48275"	"Sep"	"9"	32.27709	19.88592
+	"Knox County, TX"	"48275"	"Oct"	"10"	26.21571	13.47137
+	"Knox County, TX"	"48275"	"Nov"	"11"	19.32849	6.79070
+	"Knox County, TX"	"48275"	"Dec"	"12"	13.29939	1.12414
+"Total"	"Knox County, TX"	"48275"			25.67805	12.80304
+	"Lamar County, TX"	"48277"	"Jan"	"1"	12.51761	1.79500
+	"Lamar County, TX"	"48277"	"Feb"	"2"	14.39661	3.31469
+	"Lamar County, TX"	"48277"	"Mar"	"3"	19.30487	7.49491
+	"Lamar County, TX"	"48277"	"Apr"	"4"	23.72045	10.97550
+	"Lamar County, TX"	"48277"	"May"	"5"	28.74654	16.86698
+	"Lamar County, TX"	"48277"	"Jun"	"6"	33.01274	21.53523
+	"Lamar County, TX"	"48277"	"Jul"	"7"	35.97655	23.46650
+	"Lamar County, TX"	"48277"	"Aug"	"8"	36.58708	23.61654
+	"Lamar County, TX"	"48277"	"Sep"	"9"	31.72708	19.13450
+	"Lamar County, TX"	"48277"	"Oct"	"10"	25.71339	12.94181
+	"Lamar County, TX"	"48277"	"Nov"	"11"	19.11134	7.56541
+	"Lamar County, TX"	"48277"	"Dec"	"12"	12.77736	1.64319
+"Total"	"Lamar County, TX"	"48277"			24.51457	12.57309
+	"Lamb County, TX"	"48279"	"Jan"	"1"	11.28400	-0.38424
+	"Lamb County, TX"	"48279"	"Feb"	"2"	13.79039	1.27867
+	"Lamb County, TX"	"48279"	"Mar"	"3"	18.53398	4.97120
+	"Lamb County, TX"	"48279"	"Apr"	"4"	23.88077	9.14187
+	"Lamb County, TX"	"48279"	"May"	"5"	29.28372	14.33146
+	"Lamb County, TX"	"48279"	"Jun"	"6"	33.24458	19.37160
+	"Lamb County, TX"	"48279"	"Jul"	"7"	34.07381	20.49979
+	"Lamb County, TX"	"48279"	"Aug"	"8"	33.61252	19.96722
+	"Lamb County, TX"	"48279"	"Sep"	"9"	29.94241	15.60407
+	"Lamb County, TX"	"48279"	"Oct"	"10"	24.08353	10.13591
+	"Lamb County, TX"	"48279"	"Nov"	"11"	16.98688	3.73796
+	"Lamb County, TX"	"48279"	"Dec"	"12"	11.43994	-0.76807
+"Total"	"Lamb County, TX"	"48279"			23.38852	9.86432
+	"Lampasas County, TX"	"48281"	"Jan"	"1"	15.69519	4.56421
+	"Lampasas County, TX"	"48281"	"Feb"	"2"	17.51414	5.97094
+	"Lampasas County, TX"	"48281"	"Mar"	"3"	21.84632	9.66844
+	"Lampasas County, TX"	"48281"	"Apr"	"4"	26.75558	13.49950
+	"Lampasas County, TX"	"48281"	"May"	"5"	31.87609	18.61455
+	"Lampasas County, TX"	"48281"	"Jun"	"6"	34.51322	22.40023
+	"Lampasas County, TX"	"48281"	"Jul"	"7"	35.59203	23.77056
+	"Lampasas County, TX"	"48281"	"Aug"	"8"	35.89714	24.61927
+	"Lampasas County, TX"	"48281"	"Sep"	"9"	31.96920	21.29570
+	"Lampasas County, TX"	"48281"	"Oct"	"10"	26.89185	15.45115
+	"Lampasas County, TX"	"48281"	"Nov"	"11"	21.01589	9.53686
+	"Lampasas County, TX"	"48281"	"Dec"	"12"	15.99948	4.33940
+"Total"	"Lampasas County, TX"	"48281"			26.33794	14.51693
+	"La Salle County, TX"	"48283"	"Jan"	"1"	20.60189	8.98143
+	"La Salle County, TX"	"48283"	"Feb"	"2"	23.29064	10.25490
+	"La Salle County, TX"	"48283"	"Mar"	"3"	27.33252	12.87514
+	"La Salle County, TX"	"48283"	"Apr"	"4"	32.04679	16.39493
+	"La Salle County, TX"	"48283"	"May"	"5"	35.98254	20.96236
+	"La Salle County, TX"	"48283"	"Jun"	"6"	37.36060	23.79208
+	"La Salle County, TX"	"48283"	"Jul"	"7"	36.35901	24.37878
+	"La Salle County, TX"	"48283"	"Aug"	"8"	37.07764	25.33311
+	"La Salle County, TX"	"48283"	"Sep"	"9"	33.59844	23.55934
+	"La Salle County, TX"	"48283"	"Oct"	"10"	30.37379	18.52789
+	"La Salle County, TX"	"48283"	"Nov"	"11"	25.46119	13.32125
+	"La Salle County, TX"	"48283"	"Dec"	"12"	20.72843	8.38232
+"Total"	"La Salle County, TX"	"48283"			30.04503	17.26007
+	"Lavaca County, TX"	"48285"	"Jan"	"1"	18.22214	7.31013
+	"Lavaca County, TX"	"48285"	"Feb"	"2"	20.25438	8.62030
+	"Lavaca County, TX"	"48285"	"Mar"	"3"	23.78589	11.24924
+	"Lavaca County, TX"	"48285"	"Apr"	"4"	28.09553	14.65253
+	"Lavaca County, TX"	"48285"	"May"	"5"	32.36219	19.37793
+	"Lavaca County, TX"	"48285"	"Jun"	"6"	34.46958	22.76158
+	"Lavaca County, TX"	"48285"	"Jul"	"7"	34.68436	23.62247
+	"Lavaca County, TX"	"48285"	"Aug"	"8"	35.50383	24.37734
+	"Lavaca County, TX"	"48285"	"Sep"	"9"	32.65954	22.52569
+	"Lavaca County, TX"	"48285"	"Oct"	"10"	28.18787	17.20018
+	"Lavaca County, TX"	"48285"	"Nov"	"11"	23.18931	12.16606
+	"Lavaca County, TX"	"48285"	"Dec"	"12"	18.60892	7.16809
+"Total"	"Lavaca County, TX"	"48285"			27.53306	15.95072
+	"Lee County, TX"	"48287"	"Jan"	"1"	17.23438	6.04061
+	"Lee County, TX"	"48287"	"Feb"	"2"	19.19655	7.38163
+	"Lee County, TX"	"48287"	"Mar"	"3"	22.97728	10.50268
+	"Lee County, TX"	"48287"	"Apr"	"4"	27.50098	13.75522
+	"Lee County, TX"	"48287"	"May"	"5"	32.29257	18.69579
+	"Lee County, TX"	"48287"	"Jun"	"6"	34.88601	22.43250
+	"Lee County, TX"	"48287"	"Jul"	"7"	35.74723	23.61277
+	"Lee County, TX"	"48287"	"Aug"	"8"	36.34508	24.34023
+	"Lee County, TX"	"48287"	"Sep"	"9"	32.86588	21.95345
+	"Lee County, TX"	"48287"	"Oct"	"10"	27.93904	16.28529
+	"Lee County, TX"	"48287"	"Nov"	"11"	22.39143	10.90228
+	"Lee County, TX"	"48287"	"Dec"	"12"	17.57266	5.79498
+"Total"	"Lee County, TX"	"48287"			27.28214	15.17618
+	"Leon County, TX"	"48289"	"Jan"	"1"	16.15873	4.55778
+	"Leon County, TX"	"48289"	"Feb"	"2"	17.97499	6.00125
+	"Leon County, TX"	"48289"	"Mar"	"3"	22.02870	9.53061
+	"Leon County, TX"	"48289"	"Apr"	"4"	26.27498	12.59318
+	"Leon County, TX"	"48289"	"May"	"5"	30.81431	17.87464
+	"Leon County, TX"	"48289"	"Jun"	"6"	33.94450	21.99092
+	"Leon County, TX"	"48289"	"Jul"	"7"	35.67975	23.35679
+	"Leon County, TX"	"48289"	"Aug"	"8"	36.21621	23.79689
+	"Leon County, TX"	"48289"	"Sep"	"9"	32.54551	20.77693
+	"Leon County, TX"	"48289"	"Oct"	"10"	27.57926	14.79242
+	"Leon County, TX"	"48289"	"Nov"	"11"	21.69375	9.51908
+	"Leon County, TX"	"48289"	"Dec"	"12"	16.38206	4.29528
+"Total"	"Leon County, TX"	"48289"			26.48047	14.12756
+	"Liberty County, TX"	"48291"	"Jan"	"1"	17.12052	6.58766
+	"Liberty County, TX"	"48291"	"Feb"	"2"	18.85386	7.87640
+	"Liberty County, TX"	"48291"	"Mar"	"3"	22.52238	10.87437
+	"Liberty County, TX"	"48291"	"Apr"	"4"	26.12898	13.78241
+	"Liberty County, TX"	"48291"	"May"	"5"	29.86013	18.90359
+	"Liberty County, TX"	"48291"	"Jun"	"6"	32.35662	22.74708
+	"Liberty County, TX"	"48291"	"Jul"	"7"	33.22862	23.75599
+	"Liberty County, TX"	"48291"	"Aug"	"8"	33.68520	23.97269
+	"Liberty County, TX"	"48291"	"Sep"	"9"	31.49287	21.38222
+	"Liberty County, TX"	"48291"	"Oct"	"10"	27.38940	15.99450
+	"Liberty County, TX"	"48291"	"Nov"	"11"	22.21999	11.21768
+	"Liberty County, TX"	"48291"	"Dec"	"12"	17.48994	6.55676
+"Total"	"Liberty County, TX"	"48291"			26.06049	15.33808
+	"Limestone County, TX"	"48293"	"Jan"	"1"	15.40340	4.36663
+	"Limestone County, TX"	"48293"	"Feb"	"2"	17.19206	5.78286
+	"Limestone County, TX"	"48293"	"Mar"	"3"	21.40109	9.36222
+	"Limestone County, TX"	"48293"	"Apr"	"4"	25.90904	12.79508
+	"Limestone County, TX"	"48293"	"May"	"5"	30.90377	18.11590
+	"Limestone County, TX"	"48293"	"Jun"	"6"	34.46011	22.36572
+	"Limestone County, TX"	"48293"	"Jul"	"7"	36.31513	23.90455
+	"Limestone County, TX"	"48293"	"Aug"	"8"	36.64203	24.50710
+	"Limestone County, TX"	"48293"	"Sep"	"9"	32.54777	21.16707
+	"Limestone County, TX"	"48293"	"Oct"	"10"	27.25705	15.10559
+	"Limestone County, TX"	"48293"	"Nov"	"11"	21.14038	9.47863
+	"Limestone County, TX"	"48293"	"Dec"	"12"	15.67057	4.05300
+"Total"	"Limestone County, TX"	"48293"			26.27946	14.28948
+	"Lipscomb County, TX"	"48295"	"Jan"	"1"	9.03267	-1.54007
+	"Lipscomb County, TX"	"48295"	"Feb"	"2"	10.45789	-0.56139
+	"Lipscomb County, TX"	"48295"	"Mar"	"3"	16.47662	4.32089
+	"Lipscomb County, TX"	"48295"	"Apr"	"4"	22.18763	8.64518
+	"Lipscomb County, TX"	"48295"	"May"	"5"	27.47150	14.20696
+	"Lipscomb County, TX"	"48295"	"Jun"	"6"	32.30644	19.84535
+	"Lipscomb County, TX"	"48295"	"Jul"	"7"	35.00620	22.22851
+	"Lipscomb County, TX"	"48295"	"Aug"	"8"	34.45617	22.20429
+	"Lipscomb County, TX"	"48295"	"Sep"	"9"	29.44110	16.80126
+	"Lipscomb County, TX"	"48295"	"Oct"	"10"	22.34862	10.31283
+	"Lipscomb County, TX"	"48295"	"Nov"	"11"	15.33824	3.85541
+	"Lipscomb County, TX"	"48295"	"Dec"	"12"	8.62016	-1.93295
+"Total"	"Lipscomb County, TX"	"48295"			21.98260	9.91686
+	"Live Oak County, TX"	"48297"	"Jan"	"1"	20.61673	9.05990
+	"Live Oak County, TX"	"48297"	"Feb"	"2"	23.15375	10.27120
+	"Live Oak County, TX"	"48297"	"Mar"	"3"	26.75201	12.64472
+	"Live Oak County, TX"	"48297"	"Apr"	"4"	31.00584	16.01417
+	"Live Oak County, TX"	"48297"	"May"	"5"	34.74506	20.31408
+	"Live Oak County, TX"	"48297"	"Jun"	"6"	36.18967	23.21012
+	"Live Oak County, TX"	"48297"	"Jul"	"7"	35.51542	23.95334
+	"Live Oak County, TX"	"48297"	"Aug"	"8"	36.20689	24.79671
+	"Live Oak County, TX"	"48297"	"Sep"	"9"	33.26470	23.37786
+	"Live Oak County, TX"	"48297"	"Oct"	"10"	30.00329	18.56039
+	"Live Oak County, TX"	"48297"	"Nov"	"11"	25.32273	13.63384
+	"Live Oak County, TX"	"48297"	"Dec"	"12"	20.83089	8.70001
+"Total"	"Live Oak County, TX"	"48297"			29.49272	17.07321
+	"Llano County, TX"	"48299"	"Jan"	"1"	16.84221	5.00438
+	"Llano County, TX"	"48299"	"Feb"	"2"	18.85451	6.42268
+	"Llano County, TX"	"48299"	"Mar"	"3"	22.93061	9.90797
+	"Llano County, TX"	"48299"	"Apr"	"4"	27.73027	13.75151
+	"Llano County, TX"	"48299"	"May"	"5"	32.47639	18.70590
+	"Llano County, TX"	"48299"	"Jun"	"6"	35.02702	22.22498
+	"Llano County, TX"	"48299"	"Jul"	"7"	35.60432	23.32174
+	"Llano County, TX"	"48299"	"Aug"	"8"	35.98423	24.21235
+	"Llano County, TX"	"48299"	"Sep"	"9"	32.24774	21.29007
+	"Llano County, TX"	"48299"	"Oct"	"10"	27.54109	15.62191
+	"Llano County, TX"	"48299"	"Nov"	"11"	21.84622	9.71667
+	"Llano County, TX"	"48299"	"Dec"	"12"	17.06292	4.50804
+"Total"	"Llano County, TX"	"48299"			27.04911	14.59412
+	"Loving County, TX"	"48301"	"Jan"	"1"	15.59332	3.88592
+	"Loving County, TX"	"48301"	"Feb"	"2"	18.36136	5.90490
+	"Loving County, TX"	"48301"	"Mar"	"3"	22.96439	9.42624
+	"Loving County, TX"	"48301"	"Apr"	"4"	28.07968	13.54647
+	"Loving County, TX"	"48301"	"May"	"5"	33.32490	18.41613
+	"Loving County, TX"	"48301"	"Jun"	"6"	36.86339	22.83342
+	"Loving County, TX"	"48301"	"Jul"	"7"	36.52891	23.84647
+	"Loving County, TX"	"48301"	"Aug"	"8"	36.06635	23.85518
+	"Loving County, TX"	"48301"	"Sep"	"9"	32.67283	19.94659
+	"Loving County, TX"	"48301"	"Oct"	"10"	27.43308	14.49016
+	"Loving County, TX"	"48301"	"Nov"	"11"	20.46113	8.11578
+	"Loving County, TX"	"48301"	"Dec"	"12"	15.23609	3.48627
+"Total"	"Loving County, TX"	"48301"			27.00173	14.01641
+	"Lubbock County, TX"	"48303"	"Jan"	"1"	12.05599	0.56439
+	"Lubbock County, TX"	"48303"	"Feb"	"2"	14.47722	2.30819
+	"Lubbock County, TX"	"48303"	"Mar"	"3"	19.17853	6.02917
+	"Lubbock County, TX"	"48303"	"Apr"	"4"	24.55195	10.32883
+	"Lubbock County, TX"	"48303"	"May"	"5"	29.72625	15.50120
+	"Lubbock County, TX"	"48303"	"Jun"	"6"	33.50787	20.46867
+	"Lubbock County, TX"	"48303"	"Jul"	"7"	34.23664	21.59329
+	"Lubbock County, TX"	"48303"	"Aug"	"8"	33.89112	21.13198
+	"Lubbock County, TX"	"48303"	"Sep"	"9"	30.28385	16.93428
+	"Lubbock County, TX"	"48303"	"Oct"	"10"	24.53863	11.33966
+	"Lubbock County, TX"	"48303"	"Nov"	"11"	17.51035	4.99216
+	"Lubbock County, TX"	"48303"	"Dec"	"12"	12.04697	0.20571
+"Total"	"Lubbock County, TX"	"48303"			23.87484	10.98988
+	"Lynn County, TX"	"48305"	"Jan"	"1"	12.74615	0.95317
+	"Lynn County, TX"	"48305"	"Feb"	"2"	15.17100	2.77816
+	"Lynn County, TX"	"48305"	"Mar"	"3"	19.93721	6.45139
+	"Lynn County, TX"	"48305"	"Apr"	"4"	25.25318	10.63898
+	"Lynn County, TX"	"48305"	"May"	"5"	30.35077	15.73135
+	"Lynn County, TX"	"48305"	"Jun"	"6"	33.99974	20.62593
+	"Lynn County, TX"	"48305"	"Jul"	"7"	34.54166	21.77706
+	"Lynn County, TX"	"48305"	"Aug"	"8"	34.18090	21.61524
+	"Lynn County, TX"	"48305"	"Sep"	"9"	30.60684	17.43278
+	"Lynn County, TX"	"48305"	"Oct"	"10"	25.04119	11.76198
+	"Lynn County, TX"	"48305"	"Nov"	"11"	18.04122	5.34361
+	"Lynn County, TX"	"48305"	"Dec"	"12"	12.64363	0.51688
+"Total"	"Lynn County, TX"	"48305"			24.41639	11.34167
+	"McCulloch County, TX"	"48307"	"Jan"	"1"	16.10160	3.72304
+	"McCulloch County, TX"	"48307"	"Feb"	"2"	17.85150	5.25627
+	"McCulloch County, TX"	"48307"	"Mar"	"3"	22.27422	8.76654
+	"McCulloch County, TX"	"48307"	"Apr"	"4"	27.24354	12.76403
+	"McCulloch County, TX"	"48307"	"May"	"5"	32.19855	17.89022
+	"McCulloch County, TX"	"48307"	"Jun"	"6"	34.88600	21.89847
+	"McCulloch County, TX"	"48307"	"Jul"	"7"	35.49129	23.08553
+	"McCulloch County, TX"	"48307"	"Aug"	"8"	35.56627	23.89487
+	"McCulloch County, TX"	"48307"	"Sep"	"9"	31.66824	20.18002
+	"McCulloch County, TX"	"48307"	"Oct"	"10"	26.83533	14.39252
+	"McCulloch County, TX"	"48307"	"Nov"	"11"	20.98686	8.30233
+	"McCulloch County, TX"	"48307"	"Dec"	"12"	16.09533	3.11436
+"Total"	"McCulloch County, TX"	"48307"			26.47252	13.64415
+	"McLennan County, TX"	"48309"	"Jan"	"1"	15.45282	4.45228
+	"McLennan County, TX"	"48309"	"Feb"	"2"	17.24862	5.85939
+	"McLennan County, TX"	"48309"	"Mar"	"3"	21.58280	9.44185
+	"McLennan County, TX"	"48309"	"Apr"	"4"	26.36105	13.11491
+	"McLennan County, TX"	"48309"	"May"	"5"	31.53265	18.47444
+	"McLennan County, TX"	"48309"	"Jun"	"6"	34.90985	22.77580
+	"McLennan County, TX"	"48309"	"Jul"	"7"	36.63339	24.44119
+	"McLennan County, TX"	"48309"	"Aug"	"8"	36.86296	25.12564
+	"McLennan County, TX"	"48309"	"Sep"	"9"	32.73303	21.61696
+	"McLennan County, TX"	"48309"	"Oct"	"10"	27.32333	15.47549
+	"McLennan County, TX"	"48309"	"Nov"	"11"	21.18805	9.61268
+	"McLennan County, TX"	"48309"	"Dec"	"12"	15.74024	4.16192
+"Total"	"McLennan County, TX"	"48309"			26.50731	14.58644
+	"McMullen County, TX"	"48311"	"Jan"	"1"	20.76161	8.95481
+	"McMullen County, TX"	"48311"	"Feb"	"2"	23.40772	10.25131
+	"McMullen County, TX"	"48311"	"Mar"	"3"	27.12420	12.76421
+	"McMullen County, TX"	"48311"	"Apr"	"4"	31.63955	16.21005
+	"McMullen County, TX"	"48311"	"May"	"5"	35.45464	20.67944
+	"McMullen County, TX"	"48311"	"Jun"	"6"	36.81221	23.44035
+	"McMullen County, TX"	"48311"	"Jul"	"7"	35.97199	24.07082
+	"McMullen County, TX"	"48311"	"Aug"	"8"	36.68775	24.98454
+	"McMullen County, TX"	"48311"	"Sep"	"9"	33.44794	23.44094
+	"McMullen County, TX"	"48311"	"Oct"	"10"	30.25285	18.50618
+	"McMullen County, TX"	"48311"	"Nov"	"11"	25.51276	13.45899
+	"McMullen County, TX"	"48311"	"Dec"	"12"	20.91940	8.46116
+"Total"	"McMullen County, TX"	"48311"			29.85856	17.13076
+	"Madison County, TX"	"48313"	"Jan"	"1"	16.67065	4.80713
+	"Madison County, TX"	"48313"	"Feb"	"2"	18.52582	6.26461
+	"Madison County, TX"	"48313"	"Mar"	"3"	22.55888	9.66881
+	"Madison County, TX"	"48313"	"Apr"	"4"	26.79825	12.65412
+	"Madison County, TX"	"48313"	"May"	"5"	31.12516	17.99260
+	"Madison County, TX"	"48313"	"Jun"	"6"	33.96345	22.00273
+	"Madison County, TX"	"48313"	"Jul"	"7"	35.41955	23.32082
+	"Madison County, TX"	"48313"	"Aug"	"8"	35.94444	23.79354
+	"Madison County, TX"	"48313"	"Sep"	"9"	32.57713	20.98043
+	"Madison County, TX"	"48313"	"Oct"	"10"	27.88642	15.01034
+	"Madison County, TX"	"48313"	"Nov"	"11"	22.10624	9.72130
+	"Madison County, TX"	"48313"	"Dec"	"12"	16.90752	4.53604
+"Total"	"Madison County, TX"	"48313"			26.74445	14.26573
+	"Marion County, TX"	"48315"	"Jan"	"1"	14.31086	2.75948
+	"Marion County, TX"	"48315"	"Feb"	"2"	16.05801	4.23815
+	"Marion County, TX"	"48315"	"Mar"	"3"	20.83614	8.32917
+	"Marion County, TX"	"48315"	"Apr"	"4"	25.30343	11.53119
+	"Marion County, TX"	"48315"	"May"	"5"	29.24335	17.27795
+	"Marion County, TX"	"48315"	"Jun"	"6"	32.70140	21.63539
+	"Marion County, TX"	"48315"	"Jul"	"7"	34.88660	23.23420
+	"Marion County, TX"	"48315"	"Aug"	"8"	35.68452	23.20770
+	"Marion County, TX"	"48315"	"Sep"	"9"	32.12328	19.53716
+	"Marion County, TX"	"48315"	"Oct"	"10"	26.83822	13.47938
+	"Marion County, TX"	"48315"	"Nov"	"11"	20.65896	8.28119
+	"Marion County, TX"	"48315"	"Dec"	"12"	14.64596	2.70919
+"Total"	"Marion County, TX"	"48315"			25.31651	13.05950
+	"Martin County, TX"	"48317"	"Jan"	"1"	14.07285	2.41111
+	"Martin County, TX"	"48317"	"Feb"	"2"	16.60326	4.24010
+	"Martin County, TX"	"48317"	"Mar"	"3"	21.42212	7.80944
+	"Martin County, TX"	"48317"	"Apr"	"4"	26.61748	11.98245
+	"Martin County, TX"	"48317"	"May"	"5"	31.74558	16.93338
+	"Martin County, TX"	"48317"	"Jun"	"6"	35.01709	21.45764
+	"Martin County, TX"	"48317"	"Jul"	"7"	35.14855	22.53131
+	"Martin County, TX"	"48317"	"Aug"	"8"	34.83012	22.64207
+	"Martin County, TX"	"48317"	"Sep"	"9"	31.37713	18.65568
+	"Martin County, TX"	"48317"	"Oct"	"10"	26.01952	13.05186
+	"Martin County, TX"	"48317"	"Nov"	"11"	19.16983	6.58873
+	"Martin County, TX"	"48317"	"Dec"	"12"	13.88146	1.88925
+"Total"	"Martin County, TX"	"48317"			25.53049	12.55428
+	"Mason County, TX"	"48319"	"Jan"	"1"	16.68373	4.56189
+	"Mason County, TX"	"48319"	"Feb"	"2"	18.63571	6.10394
+	"Mason County, TX"	"48319"	"Mar"	"3"	22.80785	9.62181
+	"Mason County, TX"	"48319"	"Apr"	"4"	27.60398	13.63557
+	"Mason County, TX"	"48319"	"May"	"5"	32.24753	18.61653
+	"Mason County, TX"	"48319"	"Jun"	"6"	34.71764	22.14186
+	"Mason County, TX"	"48319"	"Jul"	"7"	35.02163	23.01701
+	"Mason County, TX"	"48319"	"Aug"	"8"	35.23079	23.77773
+	"Mason County, TX"	"48319"	"Sep"	"9"	31.54481	20.49229
+	"Mason County, TX"	"48319"	"Oct"	"10"	26.99360	14.98638
+	"Mason County, TX"	"48319"	"Nov"	"11"	21.34838	8.98881
+	"Mason County, TX"	"48319"	"Dec"	"12"	16.70268	3.98251
+"Total"	"Mason County, TX"	"48319"			26.66405	14.19709
+	"Matagorda County, TX"	"48321"	"Jan"	"1"	18.01025	10.09299
+	"Matagorda County, TX"	"48321"	"Feb"	"2"	19.22092	11.03210
+	"Matagorda County, TX"	"48321"	"Mar"	"3"	22.05044	13.31605
+	"Matagorda County, TX"	"48321"	"Apr"	"4"	25.48452	16.70949
+	"Matagorda County, TX"	"48321"	"May"	"5"	29.00907	20.98389
+	"Matagorda County, TX"	"48321"	"Jun"	"6"	31.26945	24.19240
+	"Matagorda County, TX"	"48321"	"Jul"	"7"	31.83172	25.20395
+	"Matagorda County, TX"	"48321"	"Aug"	"8"	32.51385	25.62790
+	"Matagorda County, TX"	"48321"	"Sep"	"9"	30.91703	23.92178
+	"Matagorda County, TX"	"48321"	"Oct"	"10"	27.20873	19.61430
+	"Matagorda County, TX"	"48321"	"Nov"	"11"	22.87849	14.97158
+	"Matagorda County, TX"	"48321"	"Dec"	"12"	18.73772	10.39646
+"Total"	"Matagorda County, TX"	"48321"			25.78930	18.03602
+	"Maverick County, TX"	"48323"	"Jan"	"1"	19.76397	8.95305
+	"Maverick County, TX"	"48323"	"Feb"	"2"	22.44527	10.30096
+	"Maverick County, TX"	"48323"	"Mar"	"3"	26.83642	13.12276
+	"Maverick County, TX"	"48323"	"Apr"	"4"	31.58063	17.01746
+	"Maverick County, TX"	"48323"	"May"	"5"	35.67274	21.68140
+	"Maverick County, TX"	"48323"	"Jun"	"6"	37.47683	24.68344
+	"Maverick County, TX"	"48323"	"Jul"	"7"	36.68158	25.14870
+	"Maverick County, TX"	"48323"	"Aug"	"8"	37.22683	26.18188
+	"Maverick County, TX"	"48323"	"Sep"	"9"	33.70946	23.83010
+	"Maverick County, TX"	"48323"	"Oct"	"10"	30.03092	18.58610
+	"Maverick County, TX"	"48323"	"Nov"	"11"	24.56538	12.84555
+	"Maverick County, TX"	"48323"	"Dec"	"12"	19.77251	8.06283
+"Total"	"Maverick County, TX"	"48323"			29.67671	17.56597
+	"Medina County, TX"	"48325"	"Jan"	"1"	18.39690	7.67186
+	"Medina County, TX"	"48325"	"Feb"	"2"	20.88881	8.91990
+	"Medina County, TX"	"48325"	"Mar"	"3"	24.70713	11.82777
+	"Medina County, TX"	"48325"	"Apr"	"4"	29.31353	15.29251
+	"Medina County, TX"	"48325"	"May"	"5"	33.67987	19.83220
+	"Medina County, TX"	"48325"	"Jun"	"6"	35.65246	22.83658
+	"Medina County, TX"	"48325"	"Jul"	"7"	35.25064	23.55822
+	"Medina County, TX"	"48325"	"Aug"	"8"	35.81499	24.42642
+	"Medina County, TX"	"48325"	"Sep"	"9"	32.26992	22.40525
+	"Medina County, TX"	"48325"	"Oct"	"10"	28.25483	17.28311
+	"Medina County, TX"	"48325"	"Nov"	"11"	23.09148	12.03372
+	"Medina County, TX"	"48325"	"Dec"	"12"	18.49280	7.08744
+"Total"	"Medina County, TX"	"48325"			28.01446	16.12912
+	"Menard County, TX"	"48327"	"Jan"	"1"	16.13629	3.65779
+	"Menard County, TX"	"48327"	"Feb"	"2"	18.03653	5.30634
+	"Menard County, TX"	"48327"	"Mar"	"3"	22.35356	8.77756
+	"Menard County, TX"	"48327"	"Apr"	"4"	27.19279	12.85089
+	"Menard County, TX"	"48327"	"May"	"5"	31.99891	17.91311
+	"Menard County, TX"	"48327"	"Jun"	"6"	34.47174	21.61910
+	"Menard County, TX"	"48327"	"Jul"	"7"	34.65015	22.50426
+	"Menard County, TX"	"48327"	"Aug"	"8"	34.71146	23.19760
+	"Menard County, TX"	"48327"	"Sep"	"9"	31.10580	19.73339
+	"Menard County, TX"	"48327"	"Oct"	"10"	26.38176	14.05266
+	"Menard County, TX"	"48327"	"Nov"	"11"	20.65282	7.99961
+	"Menard County, TX"	"48327"	"Dec"	"12"	15.99826	2.98735
+"Total"	"Menard County, TX"	"48327"			26.17709	13.41987
+	"Midland County, TX"	"48329"	"Jan"	"1"	14.70791	2.51719
+	"Midland County, TX"	"48329"	"Feb"	"2"	17.27915	4.42497
+	"Midland County, TX"	"48329"	"Mar"	"3"	22.07340	7.81544
+	"Midland County, TX"	"48329"	"Apr"	"4"	27.26856	12.13459
+	"Midland County, TX"	"48329"	"May"	"5"	32.34851	17.10333
+	"Midland County, TX"	"48329"	"Jun"	"6"	35.42181	21.64685
+	"Midland County, TX"	"48329"	"Jul"	"7"	35.28364	22.46294
+	"Midland County, TX"	"48329"	"Aug"	"8"	34.98940	22.76765
+	"Midland County, TX"	"48329"	"Sep"	"9"	31.61132	18.83388
+	"Midland County, TX"	"48329"	"Oct"	"10"	26.38628	13.12435
+	"Midland County, TX"	"48329"	"Nov"	"11"	19.71361	6.64585
+	"Midland County, TX"	"48329"	"Dec"	"12"	14.47683	1.82908
+"Total"	"Midland County, TX"	"48329"			26.00039	12.64578
+	"Milam County, TX"	"48331"	"Jan"	"1"	16.68062	5.28692
+	"Milam County, TX"	"48331"	"Feb"	"2"	18.56628	6.60238
+	"Milam County, TX"	"48331"	"Mar"	"3"	22.52028	9.94487
+	"Milam County, TX"	"48331"	"Apr"	"4"	27.16962	13.24217
+	"Milam County, TX"	"48331"	"May"	"5"	32.10286	18.41763
+	"Milam County, TX"	"48331"	"Jun"	"6"	35.03278	22.37091
+	"Milam County, TX"	"48331"	"Jul"	"7"	36.20994	23.77416
+	"Milam County, TX"	"48331"	"Aug"	"8"	36.67067	24.52750
+	"Milam County, TX"	"48331"	"Sep"	"9"	32.93323	21.72221
+	"Milam County, TX"	"48331"	"Oct"	"10"	27.84092	15.73987
+	"Milam County, TX"	"48331"	"Nov"	"11"	22.09568	10.15102
+	"Milam County, TX"	"48331"	"Dec"	"12"	16.95823	4.94304
+"Total"	"Milam County, TX"	"48331"			27.10399	14.76407
+	"Mills County, TX"	"48333"	"Jan"	"1"	15.29093	4.15234
+	"Mills County, TX"	"48333"	"Feb"	"2"	16.95721	5.60630
+	"Mills County, TX"	"48333"	"Mar"	"3"	21.40144	9.32812
+	"Mills County, TX"	"48333"	"Apr"	"4"	26.41957	13.33661
+	"Mills County, TX"	"48333"	"May"	"5"	31.60932	18.55001
+	"Mills County, TX"	"48333"	"Jun"	"6"	34.24655	22.41988
+	"Mills County, TX"	"48333"	"Jul"	"7"	35.36316	23.62455
+	"Mills County, TX"	"48333"	"Aug"	"8"	35.48845	24.39860
+	"Mills County, TX"	"48333"	"Sep"	"9"	31.46586	20.72128
+	"Mills County, TX"	"48333"	"Oct"	"10"	26.45926	15.06321
+	"Mills County, TX"	"48333"	"Nov"	"11"	20.55857	9.03788
+	"Mills County, TX"	"48333"	"Dec"	"12"	15.50748	3.84526
+"Total"	"Mills County, TX"	"48333"			25.93915	14.21349
+	"Mitchell County, TX"	"48335"	"Jan"	"1"	14.64691	2.61154
+	"Mitchell County, TX"	"48335"	"Feb"	"2"	16.85382	4.45543
+	"Mitchell County, TX"	"48335"	"Mar"	"3"	21.73316	8.21792
+	"Mitchell County, TX"	"48335"	"Apr"	"4"	27.07336	12.50079
+	"Mitchell County, TX"	"48335"	"May"	"5"	31.87891	17.40383
+	"Mitchell County, TX"	"48335"	"Jun"	"6"	35.03765	22.00008
+	"Mitchell County, TX"	"48335"	"Jul"	"7"	35.56520	23.04369
+	"Mitchell County, TX"	"48335"	"Aug"	"8"	35.40205	23.55006
+	"Mitchell County, TX"	"48335"	"Sep"	"9"	31.78844	19.64075
+	"Mitchell County, TX"	"48335"	"Oct"	"10"	26.45593	13.72311
+	"Mitchell County, TX"	"48335"	"Nov"	"11"	19.86732	7.21952
+	"Mitchell County, TX"	"48335"	"Dec"	"12"	14.54445	2.19274
+"Total"	"Mitchell County, TX"	"48335"			25.94371	13.08565
+	"Montague County, TX"	"48337"	"Jan"	"1"	12.70046	1.47626
+	"Montague County, TX"	"48337"	"Feb"	"2"	14.50118	3.02526
+	"Montague County, TX"	"48337"	"Mar"	"3"	19.82650	7.44591
+	"Montague County, TX"	"48337"	"Apr"	"4"	24.58785	11.21807
+	"Montague County, TX"	"48337"	"May"	"5"	29.98143	16.87568
+	"Montague County, TX"	"48337"	"Jun"	"6"	34.29370	21.99074
+	"Montague County, TX"	"48337"	"Jul"	"7"	36.77746	23.99676
+	"Montague County, TX"	"48337"	"Aug"	"8"	36.83283	24.34697
+	"Montague County, TX"	"48337"	"Sep"	"9"	31.76372	19.40649
+	"Montague County, TX"	"48337"	"Oct"	"10"	25.65365	13.16758
+	"Montague County, TX"	"48337"	"Nov"	"11"	19.08347	7.16192
+	"Montague County, TX"	"48337"	"Dec"	"12"	12.69378	1.25100
+"Total"	"Montague County, TX"	"48337"			24.94109	12.65962
+	"Montgomery County, TX"	"48339"	"Jan"	"1"	17.13812	6.02683
+	"Montgomery County, TX"	"48339"	"Feb"	"2"	19.02720	7.39265
+	"Montgomery County, TX"	"48339"	"Mar"	"3"	22.85999	10.55571
+	"Montgomery County, TX"	"48339"	"Apr"	"4"	26.68111	13.59396
+	"Montgomery County, TX"	"48339"	"May"	"5"	30.49744	18.65754
+	"Montgomery County, TX"	"48339"	"Jun"	"6"	33.04194	22.47013
+	"Montgomery County, TX"	"48339"	"Jul"	"7"	34.03913	23.49996
+	"Montgomery County, TX"	"48339"	"Aug"	"8"	34.59818	23.85510
+	"Montgomery County, TX"	"48339"	"Sep"	"9"	31.96232	21.38130
+	"Montgomery County, TX"	"48339"	"Oct"	"10"	27.67605	15.86879
+	"Montgomery County, TX"	"48339"	"Nov"	"11"	22.27203	10.87084
+	"Montgomery County, TX"	"48339"	"Dec"	"12"	17.41786	5.87750
+"Total"	"Montgomery County, TX"	"48339"			26.46708	15.03830
+	"Moore County, TX"	"48341"	"Jan"	"1"	9.76066	-1.56069
+	"Moore County, TX"	"48341"	"Feb"	"2"	11.61897	-0.38951
+	"Moore County, TX"	"48341"	"Mar"	"3"	17.10246	3.95003
+	"Moore County, TX"	"48341"	"Apr"	"4"	22.61277	8.09097
+	"Moore County, TX"	"48341"	"May"	"5"	28.05702	13.38701
+	"Moore County, TX"	"48341"	"Jun"	"6"	32.85998	19.04635
+	"Moore County, TX"	"48341"	"Jul"	"7"	34.78259	21.25024
+	"Moore County, TX"	"48341"	"Aug"	"8"	33.94991	20.97296
+	"Moore County, TX"	"48341"	"Sep"	"9"	29.57944	15.91943
+	"Moore County, TX"	"48341"	"Oct"	"10"	22.96117	9.58076
+	"Moore County, TX"	"48341"	"Nov"	"11"	15.73514	3.03311
+	"Moore County, TX"	"48341"	"Dec"	"12"	9.63587	-1.99387
+"Total"	"Moore County, TX"	"48341"			22.43765	9.32143
+	"Morris County, TX"	"48343"	"Jan"	"1"	13.80925	2.37627
+	"Morris County, TX"	"48343"	"Feb"	"2"	15.57389	3.84390
+	"Morris County, TX"	"48343"	"Mar"	"3"	20.40951	7.97523
+	"Morris County, TX"	"48343"	"Apr"	"4"	24.76503	11.21319
+	"Morris County, TX"	"48343"	"May"	"5"	28.92419	16.98781
+	"Morris County, TX"	"48343"	"Jun"	"6"	32.58705	21.36511
+	"Morris County, TX"	"48343"	"Jul"	"7"	34.91518	23.05637
+	"Morris County, TX"	"48343"	"Aug"	"8"	35.80870	23.03533
+	"Morris County, TX"	"48343"	"Sep"	"9"	31.95903	19.14269
+	"Morris County, TX"	"48343"	"Oct"	"10"	26.43297	13.13046
+	"Morris County, TX"	"48343"	"Nov"	"11"	20.15866	7.92524
+	"Morris County, TX"	"48343"	"Dec"	"12"	14.10679	2.25038
+"Total"	"Morris County, TX"	"48343"			24.99780	12.73359
+	"Motley County, TX"	"48345"	"Jan"	"1"	12.98142	1.56132
+	"Motley County, TX"	"48345"	"Feb"	"2"	14.99097	2.97824
+	"Motley County, TX"	"48345"	"Mar"	"3"	19.94798	7.18289
+	"Motley County, TX"	"48345"	"Apr"	"4"	25.22714	11.36483
+	"Motley County, TX"	"48345"	"May"	"5"	30.16898	16.39064
+	"Motley County, TX"	"48345"	"Jun"	"6"	34.21897	21.52386
+	"Motley County, TX"	"48345"	"Jul"	"7"	35.76874	23.38026
+	"Motley County, TX"	"48345"	"Aug"	"8"	35.56132	23.72626
+	"Motley County, TX"	"48345"	"Sep"	"9"	31.29372	18.93582
+	"Motley County, TX"	"48345"	"Oct"	"10"	25.34532	12.92525
+	"Motley County, TX"	"48345"	"Nov"	"11"	18.62179	6.60180
+	"Motley County, TX"	"48345"	"Dec"	"12"	12.80984	1.23025
+"Total"	"Motley County, TX"	"48345"			24.78908	12.36143
+	"Nacogdoches County, TX"	"48347"	"Jan"	"1"	15.49504	4.25537
+	"Nacogdoches County, TX"	"48347"	"Feb"	"2"	17.30254	5.68235
+	"Nacogdoches County, TX"	"48347"	"Mar"	"3"	21.53680	9.47074
+	"Nacogdoches County, TX"	"48347"	"Apr"	"4"	25.81846	12.57910
+	"Nacogdoches County, TX"	"48347"	"May"	"5"	29.73180	18.05323
+	"Nacogdoches County, TX"	"48347"	"Jun"	"6"	32.70687	22.21694
+	"Nacogdoches County, TX"	"48347"	"Jul"	"7"	34.33473	23.37976
+	"Nacogdoches County, TX"	"48347"	"Aug"	"8"	35.01718	23.46922
+	"Nacogdoches County, TX"	"48347"	"Sep"	"9"	31.92738	20.43456
+	"Nacogdoches County, TX"	"48347"	"Oct"	"10"	27.29573	14.57457
+	"Nacogdoches County, TX"	"48347"	"Nov"	"11"	21.27511	9.40724
+	"Nacogdoches County, TX"	"48347"	"Dec"	"12"	15.77426	4.11267
+"Total"	"Nacogdoches County, TX"	"48347"			25.72263	14.00754
+	"Navarro County, TX"	"48349"	"Jan"	"1"	14.97789	3.72184
+	"Navarro County, TX"	"48349"	"Feb"	"2"	16.77466	5.17125
+	"Navarro County, TX"	"48349"	"Mar"	"3"	21.17008	8.81923
+	"Navarro County, TX"	"48349"	"Apr"	"4"	25.66129	12.14858
+	"Navarro County, TX"	"48349"	"May"	"5"	30.79799	17.74106
+	"Navarro County, TX"	"48349"	"Jun"	"6"	34.62074	22.23956
+	"Navarro County, TX"	"48349"	"Jul"	"7"	36.72264	23.98943
+	"Navarro County, TX"	"48349"	"Aug"	"8"	37.07695	24.47023
+	"Navarro County, TX"	"48349"	"Sep"	"9"	32.79220	20.71845
+	"Navarro County, TX"	"48349"	"Oct"	"10"	27.28233	14.52254
+	"Navarro County, TX"	"48349"	"Nov"	"11"	20.98158	9.04024
+	"Navarro County, TX"	"48349"	"Dec"	"12"	15.19020	3.52831
+"Total"	"Navarro County, TX"	"48349"			26.21521	13.88328
+	"Newton County, TX"	"48351"	"Jan"	"1"	16.14030	4.96777
+	"Newton County, TX"	"48351"	"Feb"	"2"	18.05008	6.46151
+	"Newton County, TX"	"48351"	"Mar"	"3"	22.07510	9.90250
+	"Newton County, TX"	"48351"	"Apr"	"4"	26.02484	12.90985
+	"Newton County, TX"	"48351"	"May"	"5"	29.61519	18.19772
+	"Newton County, TX"	"48351"	"Jun"	"6"	32.11390	22.29253
+	"Newton County, TX"	"48351"	"Jul"	"7"	33.37823	23.52625
+	"Newton County, TX"	"48351"	"Aug"	"8"	33.77623	23.65534
+	"Newton County, TX"	"48351"	"Sep"	"9"	31.45997	20.69509
+	"Newton County, TX"	"48351"	"Oct"	"10"	27.14666	14.80312
+	"Newton County, TX"	"48351"	"Nov"	"11"	21.70327	9.79045
+	"Newton County, TX"	"48351"	"Dec"	"12"	16.59281	4.99452
+"Total"	"Newton County, TX"	"48351"			25.70639	14.38592
+	"Nolan County, TX"	"48353"	"Jan"	"1"	13.84573	2.03964
+	"Nolan County, TX"	"48353"	"Feb"	"2"	15.94891	3.82684
+	"Nolan County, TX"	"48353"	"Mar"	"3"	20.88152	7.77291
+	"Nolan County, TX"	"48353"	"Apr"	"4"	26.22295	12.04194
+	"Nolan County, TX"	"48353"	"May"	"5"	30.97770	16.98801
+	"Nolan County, TX"	"48353"	"Jun"	"6"	34.11900	21.58234
+	"Nolan County, TX"	"48353"	"Jul"	"7"	34.85939	22.73472
+	"Nolan County, TX"	"48353"	"Aug"	"8"	34.73271	23.28887
+	"Nolan County, TX"	"48353"	"Sep"	"9"	30.99169	19.29364
+	"Nolan County, TX"	"48353"	"Oct"	"10"	25.62549	13.35250
+	"Nolan County, TX"	"48353"	"Nov"	"11"	19.13584	6.87097
+	"Nolan County, TX"	"48353"	"Dec"	"12"	13.80182	1.77016
+"Total"	"Nolan County, TX"	"48353"			25.13590	12.67057
+	"Nueces County, TX"	"48355"	"Jan"	"1"	20.73041	11.38951
+	"Nueces County, TX"	"48355"	"Feb"	"2"	22.79062	12.48848
+	"Nueces County, TX"	"48355"	"Mar"	"3"	25.66025	14.42093
+	"Nueces County, TX"	"48355"	"Apr"	"4"	29.37393	17.56878
+	"Nueces County, TX"	"48355"	"May"	"5"	32.69654	21.24541
+	"Nueces County, TX"	"48355"	"Jun"	"6"	34.28266	24.01565
+	"Nueces County, TX"	"48355"	"Jul"	"7"	33.94073	24.80006
+	"Nueces County, TX"	"48355"	"Aug"	"8"	34.54329	25.53264
+	"Nueces County, TX"	"48355"	"Sep"	"9"	32.36304	24.41953
+	"Nueces County, TX"	"48355"	"Oct"	"10"	29.32309	20.45080
+	"Nueces County, TX"	"48355"	"Nov"	"11"	25.02765	15.78917
+	"Nueces County, TX"	"48355"	"Dec"	"12"	21.09557	11.44003
+"Total"	"Nueces County, TX"	"48355"			28.50872	18.65603
+	"Ochiltree County, TX"	"48357"	"Jan"	"1"	9.39342	-1.80545
+	"Ochiltree County, TX"	"48357"	"Feb"	"2"	10.79619	-0.81448
+	"Ochiltree County, TX"	"48357"	"Mar"	"3"	16.64831	3.94128
+	"Ochiltree County, TX"	"48357"	"Apr"	"4"	22.32890	8.25675
+	"Ochiltree County, TX"	"48357"	"May"	"5"	27.59487	13.67080
+	"Ochiltree County, TX"	"48357"	"Jun"	"6"	32.62387	19.54774
+	"Ochiltree County, TX"	"48357"	"Jul"	"7"	35.07672	21.95767
+	"Ochiltree County, TX"	"48357"	"Aug"	"8"	34.30506	21.73088
+	"Ochiltree County, TX"	"48357"	"Sep"	"9"	29.54574	16.43211
+	"Ochiltree County, TX"	"48357"	"Oct"	"10"	22.53564	9.85079
+	"Ochiltree County, TX"	"48357"	"Nov"	"11"	15.37033	3.29015
+	"Ochiltree County, TX"	"48357"	"Dec"	"12"	8.89671	-2.21319
+"Total"	"Ochiltree County, TX"	"48357"			22.14585	9.53778
+	"Oldham County, TX"	"48359"	"Jan"	"1"	9.92077	-0.66404
+	"Oldham County, TX"	"48359"	"Feb"	"2"	12.28733	0.76534
+	"Oldham County, TX"	"48359"	"Mar"	"3"	17.47914	4.74573
+	"Oldham County, TX"	"48359"	"Apr"	"4"	22.84590	8.79126
+	"Oldham County, TX"	"48359"	"May"	"5"	28.37229	13.89281
+	"Oldham County, TX"	"48359"	"Jun"	"6"	33.09227	19.27887
+	"Oldham County, TX"	"48359"	"Jul"	"7"	34.58373	21.55884
+	"Oldham County, TX"	"48359"	"Aug"	"8"	33.65170	21.10329
+	"Oldham County, TX"	"48359"	"Sep"	"9"	29.57329	16.28906
+	"Oldham County, TX"	"48359"	"Oct"	"10"	23.18567	10.18335
+	"Oldham County, TX"	"48359"	"Nov"	"11"	15.93770	3.75473
+	"Oldham County, TX"	"48359"	"Dec"	"12"	10.02750	-0.92604
+"Total"	"Oldham County, TX"	"48359"			22.62615	9.94262
+	"Orange County, TX"	"48361"	"Jan"	"1"	16.76173	6.68885
+	"Orange County, TX"	"48361"	"Feb"	"2"	18.50670	8.01268
+	"Orange County, TX"	"48361"	"Mar"	"3"	22.24488	11.09096
+	"Orange County, TX"	"48361"	"Apr"	"4"	26.03765	14.18419
+	"Orange County, TX"	"48361"	"May"	"5"	29.52874	19.34876
+	"Orange County, TX"	"48361"	"Jun"	"6"	31.86293	23.20294
+	"Orange County, TX"	"48361"	"Jul"	"7"	32.62841	24.28183
+	"Orange County, TX"	"48361"	"Aug"	"8"	32.95445	24.35729
+	"Orange County, TX"	"48361"	"Sep"	"9"	31.05950	21.56897
+	"Orange County, TX"	"48361"	"Oct"	"10"	27.03021	16.16681
+	"Orange County, TX"	"48361"	"Nov"	"11"	22.13233	11.38538
+	"Orange County, TX"	"48361"	"Dec"	"12"	17.35068	6.78461
+"Total"	"Orange County, TX"	"48361"			25.70539	15.62415
+	"Palo Pinto County, TX"	"48363"	"Jan"	"1"	14.37560	2.99447
+	"Palo Pinto County, TX"	"48363"	"Feb"	"2"	16.09900	4.46103
+	"Palo Pinto County, TX"	"48363"	"Mar"	"3"	20.95619	8.59343
+	"Palo Pinto County, TX"	"48363"	"Apr"	"4"	25.83727	12.53043
+	"Palo Pinto County, TX"	"48363"	"May"	"5"	30.90741	17.82291
+	"Palo Pinto County, TX"	"48363"	"Jun"	"6"	34.85947	22.68084
+	"Palo Pinto County, TX"	"48363"	"Jul"	"7"	36.83926	24.30773
+	"Palo Pinto County, TX"	"48363"	"Aug"	"8"	36.87507	24.98996
+	"Palo Pinto County, TX"	"48363"	"Sep"	"9"	32.14328	20.43879
+	"Palo Pinto County, TX"	"48363"	"Oct"	"10"	26.57861	14.44794
+	"Palo Pinto County, TX"	"48363"	"Nov"	"11"	20.11379	8.31927
+	"Palo Pinto County, TX"	"48363"	"Dec"	"12"	14.48883	2.68486
+"Total"	"Palo Pinto County, TX"	"48363"			25.88594	13.73299
+	"Panola County, TX"	"48365"	"Jan"	"1"	15.01197	3.49957
+	"Panola County, TX"	"48365"	"Feb"	"2"	16.84777	4.92980
+	"Panola County, TX"	"48365"	"Mar"	"3"	21.30515	8.81357
+	"Panola County, TX"	"48365"	"Apr"	"4"	25.61948	11.89085
+	"Panola County, TX"	"48365"	"May"	"5"	29.54639	17.56673
+	"Panola County, TX"	"48365"	"Jun"	"6"	32.68800	21.85567
+	"Panola County, TX"	"48365"	"Jul"	"7"	34.59200	23.28407
+	"Panola County, TX"	"48365"	"Aug"	"8"	35.31660	23.31335
+	"Panola County, TX"	"48365"	"Sep"	"9"	32.13897	19.96237
+	"Panola County, TX"	"48365"	"Oct"	"10"	27.22365	13.94906
+	"Panola County, TX"	"48365"	"Nov"	"11"	21.13745	8.80232
+	"Panola County, TX"	"48365"	"Dec"	"12"	15.36929	3.37749
+"Total"	"Panola County, TX"	"48365"			25.60598	13.47660
+	"Parker County, TX"	"48367"	"Jan"	"1"	14.04124	3.02820
+	"Parker County, TX"	"48367"	"Feb"	"2"	15.71271	4.43738
+	"Parker County, TX"	"48367"	"Mar"	"3"	20.56597	8.53142
+	"Parker County, TX"	"48367"	"Apr"	"4"	25.33632	12.39694
+	"Parker County, TX"	"48367"	"May"	"5"	30.44379	17.77575
+	"Parker County, TX"	"48367"	"Jun"	"6"	34.51353	22.52347
+	"Parker County, TX"	"48367"	"Jul"	"7"	36.71498	24.23921
+	"Parker County, TX"	"48367"	"Aug"	"8"	36.77259	24.85463
+	"Parker County, TX"	"48367"	"Sep"	"9"	32.03608	20.48886
+	"Parker County, TX"	"48367"	"Oct"	"10"	26.40726	14.45309
+	"Parker County, TX"	"48367"	"Nov"	"11"	19.91951	8.47380
+	"Parker County, TX"	"48367"	"Dec"	"12"	14.13481	2.81640
+"Total"	"Parker County, TX"	"48367"			25.59705	13.71197
+	"Parmer County, TX"	"48369"	"Jan"	"1"	10.48794	-1.11238
+	"Parmer County, TX"	"48369"	"Feb"	"2"	12.93912	0.51976
+	"Parmer County, TX"	"48369"	"Mar"	"3"	17.56715	4.09011
+	"Parmer County, TX"	"48369"	"Apr"	"4"	22.85436	8.10324
+	"Parmer County, TX"	"48369"	"May"	"5"	28.55686	13.37225
+	"Parmer County, TX"	"48369"	"Jun"	"6"	32.91247	18.52873
+	"Parmer County, TX"	"48369"	"Jul"	"7"	33.88352	19.99729
+	"Parmer County, TX"	"48369"	"Aug"	"8"	33.12546	19.67208
+	"Parmer County, TX"	"48369"	"Sep"	"9"	29.25673	15.26815
+	"Parmer County, TX"	"48369"	"Oct"	"10"	23.21622	9.44655
+	"Parmer County, TX"	"48369"	"Nov"	"11"	16.19539	2.92173
+	"Parmer County, TX"	"48369"	"Dec"	"12"	10.69245	-1.54004
+"Total"	"Parmer County, TX"	"48369"			22.68390	9.14673
+	"Pecos County, TX"	"48371"	"Jan"	"1"	16.00763	4.88167
+	"Pecos County, TX"	"48371"	"Feb"	"2"	18.45937	6.70397
+	"Pecos County, TX"	"48371"	"Mar"	"3"	22.81975	9.85904
+	"Pecos County, TX"	"48371"	"Apr"	"4"	27.79154	14.22646
+	"Pecos County, TX"	"48371"	"May"	"5"	32.54408	18.96453
+	"Pecos County, TX"	"48371"	"Jun"	"6"	35.22324	22.78060
+	"Pecos County, TX"	"48371"	"Jul"	"7"	34.61685	23.20405
+	"Pecos County, TX"	"48371"	"Aug"	"8"	34.38037	23.36657
+	"Pecos County, TX"	"48371"	"Sep"	"9"	31.32572	19.90070
+	"Pecos County, TX"	"48371"	"Oct"	"10"	26.66787	14.97471
+	"Pecos County, TX"	"48371"	"Nov"	"11"	20.61573	8.85056
+	"Pecos County, TX"	"48371"	"Dec"	"12"	16.00870	4.34161
+"Total"	"Pecos County, TX"	"48371"			26.40489	14.37185
+	"Polk County, TX"	"48373"	"Jan"	"1"	16.58249	5.12009
+	"Polk County, TX"	"48373"	"Feb"	"2"	18.44881	6.58975
+	"Polk County, TX"	"48373"	"Mar"	"3"	22.44536	9.98680
+	"Polk County, TX"	"48373"	"Apr"	"4"	26.44565	12.91878
+	"Polk County, TX"	"48373"	"May"	"5"	30.09025	18.13838
+	"Polk County, TX"	"48373"	"Jun"	"6"	32.75200	22.12760
+	"Polk County, TX"	"48373"	"Jul"	"7"	33.95568	23.20753
+	"Polk County, TX"	"48373"	"Aug"	"8"	34.48508	23.48490
+	"Polk County, TX"	"48373"	"Sep"	"9"	31.87994	20.77745
+	"Polk County, TX"	"48373"	"Oct"	"10"	27.59185	15.02786
+	"Polk County, TX"	"48373"	"Nov"	"11"	21.91128	9.95341
+	"Polk County, TX"	"48373"	"Dec"	"12"	16.82915	4.97739
+"Total"	"Polk County, TX"	"48373"			26.15207	14.39434
+	"Potter County, TX"	"48375"	"Jan"	"1"	10.14883	-1.09767
+	"Potter County, TX"	"48375"	"Feb"	"2"	12.28237	0.28298
+	"Potter County, TX"	"48375"	"Mar"	"3"	17.56287	4.41232
+	"Potter County, TX"	"48375"	"Apr"	"4"	23.01860	8.43484
+	"Potter County, TX"	"48375"	"May"	"5"	28.39171	13.78090
+	"Potter County, TX"	"48375"	"Jun"	"6"	33.00368	19.19579
+	"Potter County, TX"	"48375"	"Jul"	"7"	34.64543	21.14868
+	"Potter County, TX"	"48375"	"Aug"	"8"	33.87337	20.95574
+	"Potter County, TX"	"48375"	"Sep"	"9"	29.72708	16.09985
+	"Potter County, TX"	"48375"	"Oct"	"10"	23.33218	9.95695
+	"Potter County, TX"	"48375"	"Nov"	"11"	16.19274	3.43824
+	"Potter County, TX"	"48375"	"Dec"	"12"	10.18031	-1.43927
+"Total"	"Potter County, TX"	"48375"			22.74381	9.64296
+	"Presidio County, TX"	"48377"	"Jan"	"1"	15.04756	4.42429
+	"Presidio County, TX"	"48377"	"Feb"	"2"	17.61815	6.34370
+	"Presidio County, TX"	"48377"	"Mar"	"3"	21.30736	9.18957
+	"Presidio County, TX"	"48377"	"Apr"	"4"	26.18298	13.26905
+	"Presidio County, TX"	"48377"	"May"	"5"	30.67988	17.86360
+	"Presidio County, TX"	"48377"	"Jun"	"6"	33.36233	21.53766
+	"Presidio County, TX"	"48377"	"Jul"	"7"	32.77571	21.93022
+	"Presidio County, TX"	"48377"	"Aug"	"8"	32.32787	21.75186
+	"Presidio County, TX"	"48377"	"Sep"	"9"	29.75394	18.68060
+	"Presidio County, TX"	"48377"	"Oct"	"10"	25.50787	14.16704
+	"Presidio County, TX"	"48377"	"Nov"	"11"	19.53533	8.16173
+	"Presidio County, TX"	"48377"	"Dec"	"12"	15.03533	3.91070
+"Total"	"Presidio County, TX"	"48377"			24.95746	13.46714
+	"Rains County, TX"	"48379"	"Jan"	"1"	13.89204	2.61277
+	"Rains County, TX"	"48379"	"Feb"	"2"	15.79938	4.15394
+	"Rains County, TX"	"48379"	"Mar"	"3"	20.38173	8.19452
+	"Rains County, TX"	"48379"	"Apr"	"4"	24.85233	11.53029
+	"Rains County, TX"	"48379"	"May"	"5"	29.65325	17.23778
+	"Rains County, TX"	"48379"	"Jun"	"6"	33.53340	21.84466
+	"Rains County, TX"	"48379"	"Jul"	"7"	36.04776	23.57942
+	"Rains County, TX"	"48379"	"Aug"	"8"	36.67957	23.91102
+	"Rains County, TX"	"48379"	"Sep"	"9"	32.37182	20.03732
+	"Rains County, TX"	"48379"	"Oct"	"10"	26.50724	13.75388
+	"Rains County, TX"	"48379"	"Nov"	"11"	20.12786	8.33174
+	"Rains County, TX"	"48379"	"Dec"	"12"	14.00292	2.62486
+"Total"	"Rains County, TX"	"48379"			25.36558	13.19317
+	"Randall County, TX"	"48381"	"Jan"	"1"	10.22547	-1.52100
+	"Randall County, TX"	"48381"	"Feb"	"2"	12.39307	-0.04396
+	"Randall County, TX"	"48381"	"Mar"	"3"	17.46459	4.06902
+	"Randall County, TX"	"48381"	"Apr"	"4"	22.84003	8.03212
+	"Randall County, TX"	"48381"	"May"	"5"	28.27159	13.47486
+	"Randall County, TX"	"48381"	"Jun"	"6"	32.68793	18.81422
+	"Randall County, TX"	"48381"	"Jul"	"7"	34.16534	20.63356
+	"Randall County, TX"	"48381"	"Aug"	"8"	33.48703	20.51624
+	"Randall County, TX"	"48381"	"Sep"	"9"	29.37838	15.59216
+	"Randall County, TX"	"48381"	"Oct"	"10"	23.19149	9.57295
+	"Randall County, TX"	"48381"	"Nov"	"11"	16.12703	2.94371
+	"Randall County, TX"	"48381"	"Dec"	"12"	10.23769	-1.91285
+"Total"	"Randall County, TX"	"48381"			22.58511	9.22609
+	"Reagan County, TX"	"48383"	"Jan"	"1"	15.33245	3.41220
+	"Reagan County, TX"	"48383"	"Feb"	"2"	17.65028	5.31649
+	"Reagan County, TX"	"48383"	"Mar"	"3"	22.33061	8.76887
+	"Reagan County, TX"	"48383"	"Apr"	"4"	27.39081	13.20717
+	"Reagan County, TX"	"48383"	"May"	"5"	32.26199	18.08333
+	"Reagan County, TX"	"48383"	"Jun"	"6"	34.93812	22.18263
+	"Reagan County, TX"	"48383"	"Jul"	"7"	34.82264	22.78540
+	"Reagan County, TX"	"48383"	"Aug"	"8"	34.71812	23.35111
+	"Reagan County, TX"	"48383"	"Sep"	"9"	31.36184	19.61087
+	"Reagan County, TX"	"48383"	"Oct"	"10"	26.37165	14.10112
+	"Reagan County, TX"	"48383"	"Nov"	"11"	20.10908	7.69323
+	"Reagan County, TX"	"48383"	"Dec"	"12"	15.21140	2.73090
+"Total"	"Reagan County, TX"	"48383"			26.07786	13.47308
+	"Real County, TX"	"48385"	"Jan"	"1"	16.74094	6.06094
+	"Real County, TX"	"48385"	"Feb"	"2"	19.01552	7.49717
+	"Real County, TX"	"48385"	"Mar"	"3"	23.14514	10.71048
+	"Real County, TX"	"48385"	"Apr"	"4"	27.83576	14.57958
+	"Real County, TX"	"48385"	"May"	"5"	31.80963	19.04586
+	"Real County, TX"	"48385"	"Jun"	"6"	33.79798	21.82003
+	"Real County, TX"	"48385"	"Jul"	"7"	33.36492	22.24561
+	"Real County, TX"	"48385"	"Aug"	"8"	33.71738	22.91236
+	"Real County, TX"	"48385"	"Sep"	"9"	30.35421	20.48777
+	"Real County, TX"	"48385"	"Oct"	"10"	26.15771	15.68392
+	"Real County, TX"	"48385"	"Nov"	"11"	21.24303	10.25805
+	"Real County, TX"	"48385"	"Dec"	"12"	16.76412	5.46041
+"Total"	"Real County, TX"	"48385"			26.19206	14.76167
+	"Red River County, TX"	"48387"	"Jan"	"1"	12.93869	1.52421
+	"Red River County, TX"	"48387"	"Feb"	"2"	14.78949	3.05247
+	"Red River County, TX"	"48387"	"Mar"	"3"	19.66686	7.18728
+	"Red River County, TX"	"48387"	"Apr"	"4"	23.97700	10.43327
+	"Red River County, TX"	"48387"	"May"	"5"	28.62031	16.37616
+	"Red River County, TX"	"48387"	"Jun"	"6"	32.66893	20.89624
+	"Red River County, TX"	"48387"	"Jul"	"7"	35.49924	22.80360
+	"Red River County, TX"	"48387"	"Aug"	"8"	36.36755	22.81566
+	"Red River County, TX"	"48387"	"Sep"	"9"	31.83136	18.56825
+	"Red River County, TX"	"48387"	"Oct"	"10"	25.89862	12.34647
+	"Red River County, TX"	"48387"	"Nov"	"11"	19.38371	7.01614
+	"Red River County, TX"	"48387"	"Dec"	"12"	13.24686	1.24639
+"Total"	"Red River County, TX"	"48387"			24.62092	12.06499
+	"Reeves County, TX"	"48389"	"Jan"	"1"	16.30849	4.78386
+	"Reeves County, TX"	"48389"	"Feb"	"2"	18.91554	6.74697
+	"Reeves County, TX"	"48389"	"Mar"	"3"	23.36839	10.11174
+	"Reeves County, TX"	"48389"	"Apr"	"4"	28.42217	14.38650
+	"Reeves County, TX"	"48389"	"May"	"5"	33.47165	19.29656
+	"Reeves County, TX"	"48389"	"Jun"	"6"	36.74831	23.54084
+	"Reeves County, TX"	"48389"	"Jul"	"7"	36.24400	24.27960
+	"Reeves County, TX"	"48389"	"Aug"	"8"	35.78736	24.19268
+	"Reeves County, TX"	"48389"	"Sep"	"9"	32.57023	20.44971
+	"Reeves County, TX"	"48389"	"Oct"	"10"	27.67569	15.18545
+	"Reeves County, TX"	"48389"	"Nov"	"11"	21.03223	8.85275
+	"Reeves County, TX"	"48389"	"Dec"	"12"	16.10903	4.33488
+"Total"	"Reeves County, TX"	"48389"			27.25603	14.71606
+	"Refugio County, TX"	"48391"	"Jan"	"1"	19.42622	10.84211
+	"Refugio County, TX"	"48391"	"Feb"	"2"	21.02730	11.83849
+	"Refugio County, TX"	"48391"	"Mar"	"3"	23.68159	13.92454
+	"Refugio County, TX"	"48391"	"Apr"	"4"	27.15693	17.21985
+	"Refugio County, TX"	"48391"	"May"	"5"	30.38826	21.21044
+	"Refugio County, TX"	"48391"	"Jun"	"6"	32.47170	24.24174
+	"Refugio County, TX"	"48391"	"Jul"	"7"	32.58088	25.09639
+	"Refugio County, TX"	"48391"	"Aug"	"8"	33.24306	25.66807
+	"Refugio County, TX"	"48391"	"Sep"	"9"	31.57448	24.30731
+	"Refugio County, TX"	"48391"	"Oct"	"10"	28.24164	20.22473
+	"Refugio County, TX"	"48391"	"Nov"	"11"	24.03764	15.54014
+	"Refugio County, TX"	"48391"	"Dec"	"12"	20.03337	11.07786
+"Total"	"Refugio County, TX"	"48391"			27.01315	18.46113
+	"Roberts County, TX"	"48393"	"Jan"	"1"	9.76926	-1.19821
+	"Roberts County, TX"	"48393"	"Feb"	"2"	11.40029	-0.05941
+	"Roberts County, TX"	"48393"	"Mar"	"3"	17.10784	4.54304
+	"Roberts County, TX"	"48393"	"Apr"	"4"	22.70130	8.80674
+	"Roberts County, TX"	"48393"	"May"	"5"	27.77626	14.08082
+	"Roberts County, TX"	"48393"	"Jun"	"6"	32.60667	19.68219
+	"Roberts County, TX"	"48393"	"Jul"	"7"	34.99675	21.97155
+	"Roberts County, TX"	"48393"	"Aug"	"8"	34.41476	21.98700
+	"Roberts County, TX"	"48393"	"Sep"	"9"	29.71571	16.74630
+	"Roberts County, TX"	"48393"	"Oct"	"10"	22.90806	10.35224
+	"Roberts County, TX"	"48393"	"Nov"	"11"	15.86056	3.96744
+	"Roberts County, TX"	"48393"	"Dec"	"12"	9.46287	-1.67125
+"Total"	"Roberts County, TX"	"48393"			22.44447	9.98274
+	"Robertson County, TX"	"48395"	"Jan"	"1"	16.43922	4.96658
+	"Robertson County, TX"	"48395"	"Feb"	"2"	18.28291	6.37288
+	"Robertson County, TX"	"48395"	"Mar"	"3"	22.18592	9.75998
+	"Robertson County, TX"	"48395"	"Apr"	"4"	26.55023	12.96470
+	"Robertson County, TX"	"48395"	"May"	"5"	31.37888	18.19641
+	"Robertson County, TX"	"48395"	"Jun"	"6"	34.47631	22.17076
+	"Robertson County, TX"	"48395"	"Jul"	"7"	35.93964	23.50983
+	"Robertson County, TX"	"48395"	"Aug"	"8"	36.35592	24.09302
+	"Robertson County, TX"	"48395"	"Sep"	"9"	32.66412	21.22576
+	"Robertson County, TX"	"48395"	"Oct"	"10"	27.63380	15.28412
+	"Robertson County, TX"	"48395"	"Nov"	"11"	21.83272	9.83172
+	"Robertson County, TX"	"48395"	"Dec"	"12"	16.65212	4.61724
+"Total"	"Robertson County, TX"	"48395"			26.73827	14.45279
+	"Rockwall County, TX"	"48397"	"Jan"	"1"	13.66730	2.64475
+	"Rockwall County, TX"	"48397"	"Feb"	"2"	15.60073	4.13576
+	"Rockwall County, TX"	"48397"	"Mar"	"3"	20.35653	8.08243
+	"Rockwall County, TX"	"48397"	"Apr"	"4"	25.11327	11.62137
+	"Rockwall County, TX"	"48397"	"May"	"5"	30.39114	17.42146
+	"Rockwall County, TX"	"48397"	"Jun"	"6"	34.45561	22.24922
+	"Rockwall County, TX"	"48397"	"Jul"	"7"	36.90140	24.02164
+	"Rockwall County, TX"	"48397"	"Aug"	"8"	37.22259	24.57093
+	"Rockwall County, TX"	"48397"	"Sep"	"9"	32.51158	20.29846
+	"Rockwall County, TX"	"48397"	"Oct"	"10"	26.61019	13.92415
+	"Rockwall County, TX"	"48397"	"Nov"	"11"	20.09400	8.34763
+	"Rockwall County, TX"	"48397"	"Dec"	"12"	13.83324	2.62268
+"Total"	"Rockwall County, TX"	"48397"			25.61035	13.37181
+	"Runnels County, TX"	"48399"	"Jan"	"1"	15.34948	2.95357
+	"Runnels County, TX"	"48399"	"Feb"	"2"	17.29346	4.62522
+	"Runnels County, TX"	"48399"	"Mar"	"3"	22.08901	8.40241
+	"Runnels County, TX"	"48399"	"Apr"	"4"	27.36327	12.47734
+	"Runnels County, TX"	"48399"	"May"	"5"	32.17114	17.52594
+	"Runnels County, TX"	"48399"	"Jun"	"6"	35.04468	21.93181
+	"Runnels County, TX"	"48399"	"Jul"	"7"	35.62119	23.13114
+	"Runnels County, TX"	"48399"	"Aug"	"8"	35.60015	23.87987
+	"Runnels County, TX"	"48399"	"Sep"	"9"	31.79410	19.95722
+	"Runnels County, TX"	"48399"	"Oct"	"10"	26.64697	14.00971
+	"Runnels County, TX"	"48399"	"Nov"	"11"	20.37239	7.61647
+	"Runnels County, TX"	"48399"	"Dec"	"12"	15.30912	2.56546
+"Total"	"Runnels County, TX"	"48399"			26.26138	13.29627
+	"Rusk County, TX"	"48401"	"Jan"	"1"	14.93561	3.44874
+	"Rusk County, TX"	"48401"	"Feb"	"2"	16.76492	4.89711
+	"Rusk County, TX"	"48401"	"Mar"	"3"	21.18083	8.75772
+	"Rusk County, TX"	"48401"	"Apr"	"4"	25.58059	11.91430
+	"Rusk County, TX"	"48401"	"May"	"5"	29.56531	17.49802
+	"Rusk County, TX"	"48401"	"Jun"	"6"	32.72033	21.71631
+	"Rusk County, TX"	"48401"	"Jul"	"7"	34.60967	23.09311
+	"Rusk County, TX"	"48401"	"Aug"	"8"	35.32679	23.11295
+	"Rusk County, TX"	"48401"	"Sep"	"9"	31.98882	19.86252
+	"Rusk County, TX"	"48401"	"Oct"	"10"	27.03894	13.92903
+	"Rusk County, TX"	"48401"	"Nov"	"11"	20.96078	8.76889
+	"Rusk County, TX"	"48401"	"Dec"	"12"	15.25148	3.33709
+"Total"	"Rusk County, TX"	"48401"			25.53345	13.40038
+	"Sabine County, TX"	"48403"	"Jan"	"1"	15.67478	3.92517
+	"Sabine County, TX"	"48403"	"Feb"	"2"	17.58049	5.55244
+	"Sabine County, TX"	"48403"	"Mar"	"3"	21.77313	9.14735
+	"Sabine County, TX"	"48403"	"Apr"	"4"	25.84063	12.07770
+	"Sabine County, TX"	"48403"	"May"	"5"	29.58901	17.53959
+	"Sabine County, TX"	"48403"	"Jun"	"6"	32.39059	21.83425
+	"Sabine County, TX"	"48403"	"Jul"	"7"	33.93744	23.18118
+	"Sabine County, TX"	"48403"	"Aug"	"8"	34.44131	23.28129
+	"Sabine County, TX"	"48403"	"Sep"	"9"	31.80194	20.21922
+	"Sabine County, TX"	"48403"	"Oct"	"10"	27.28784	14.09718
+	"Sabine County, TX"	"48403"	"Nov"	"11"	21.45131	9.01009
+	"Sabine County, TX"	"48403"	"Dec"	"12"	16.01051	3.93118
+"Total"	"Sabine County, TX"	"48403"			25.68414	13.68679
+	"San Augustine County, TX"	"48405"	"Jan"	"1"	15.77545	3.99798
+	"San Augustine County, TX"	"48405"	"Feb"	"2"	17.65211	5.56779
+	"San Augustine County, TX"	"48405"	"Mar"	"3"	21.83165	9.24248
+	"San Augustine County, TX"	"48405"	"Apr"	"4"	25.96284	12.17332
+	"San Augustine County, TX"	"48405"	"May"	"5"	29.74865	17.64474
+	"San Augustine County, TX"	"48405"	"Jun"	"6"	32.57079	21.88237
+	"San Augustine County, TX"	"48405"	"Jul"	"7"	34.02299	23.11666
+	"San Augustine County, TX"	"48405"	"Aug"	"8"	34.63786	23.27458
+	"San Augustine County, TX"	"48405"	"Sep"	"9"	31.89258	20.23338
+	"San Augustine County, TX"	"48405"	"Oct"	"10"	27.37153	14.13677
+	"San Augustine County, TX"	"48405"	"Nov"	"11"	21.48840	9.06494
+	"San Augustine County, TX"	"48405"	"Dec"	"12"	16.10002	4.00545
+"Total"	"San Augustine County, TX"	"48405"			25.79071	13.73225
+	"San Jacinto County, TX"	"48407"	"Jan"	"1"	16.89669	5.42413
+	"San Jacinto County, TX"	"48407"	"Feb"	"2"	18.77170	6.82022
+	"San Jacinto County, TX"	"48407"	"Mar"	"3"	22.73014	10.09285
+	"San Jacinto County, TX"	"48407"	"Apr"	"4"	26.64983	13.03817
+	"San Jacinto County, TX"	"48407"	"May"	"5"	30.31229	18.20342
+	"San Jacinto County, TX"	"48407"	"Jun"	"6"	32.93350	22.14990
+	"San Jacinto County, TX"	"48407"	"Jul"	"7"	34.08362	23.25503
+	"San Jacinto County, TX"	"48407"	"Aug"	"8"	34.63734	23.60229
+	"San Jacinto County, TX"	"48407"	"Sep"	"9"	32.00081	20.94246
+	"San Jacinto County, TX"	"48407"	"Oct"	"10"	27.74143	15.27034
+	"San Jacinto County, TX"	"48407"	"Nov"	"11"	22.13757	10.24636
+	"San Jacinto County, TX"	"48407"	"Dec"	"12"	17.11954	5.18381
+"Total"	"San Jacinto County, TX"	"48407"			26.36805	14.55384
+	"San Patricio County, TX"	"48409"	"Jan"	"1"	20.38838	10.83798
+	"San Patricio County, TX"	"48409"	"Feb"	"2"	22.42207	11.95938
+	"San Patricio County, TX"	"48409"	"Mar"	"3"	25.33660	14.02411
+	"San Patricio County, TX"	"48409"	"Apr"	"4"	29.00539	17.27367
+	"San Patricio County, TX"	"48409"	"May"	"5"	32.22046	21.09850
+	"San Patricio County, TX"	"48409"	"Jun"	"6"	33.98929	23.96324
+	"San Patricio County, TX"	"48409"	"Jul"	"7"	33.80147	24.78199
+	"San Patricio County, TX"	"48409"	"Aug"	"8"	34.43874	25.44602
+	"San Patricio County, TX"	"48409"	"Sep"	"9"	32.38726	24.20580
+	"San Patricio County, TX"	"48409"	"Oct"	"10"	29.24212	20.11005
+	"San Patricio County, TX"	"48409"	"Nov"	"11"	24.94021	15.46864
+	"San Patricio County, TX"	"48409"	"Dec"	"12"	20.83722	10.95941
+"Total"	"San Patricio County, TX"	"48409"			28.27425	18.37111
+	"San Saba County, TX"	"48411"	"Jan"	"1"	16.10112	4.24694
+	"San Saba County, TX"	"48411"	"Feb"	"2"	17.86964	5.70965
+	"San Saba County, TX"	"48411"	"Mar"	"3"	22.19156	9.28617
+	"San Saba County, TX"	"48411"	"Apr"	"4"	27.14084	13.24412
+	"San Saba County, TX"	"48411"	"May"	"5"	32.14223	18.41747
+	"San Saba County, TX"	"48411"	"Jun"	"6"	34.70434	22.17878
+	"San Saba County, TX"	"48411"	"Jul"	"7"	35.50159	23.39195
+	"San Saba County, TX"	"48411"	"Aug"	"8"	35.71918	24.28629
+	"San Saba County, TX"	"48411"	"Sep"	"9"	31.80332	20.70772
+	"San Saba County, TX"	"48411"	"Oct"	"10"	26.99910	15.03045
+	"San Saba County, TX"	"48411"	"Nov"	"11"	21.17786	8.99308
+	"San Saba County, TX"	"48411"	"Dec"	"12"	16.26807	3.79707
+"Total"	"San Saba County, TX"	"48411"			26.50793	14.14637
+	"Schleicher County, TX"	"48413"	"Jan"	"1"	15.78972	3.92776
+	"Schleicher County, TX"	"48413"	"Feb"	"2"	17.84350	5.68075
+	"Schleicher County, TX"	"48413"	"Mar"	"3"	22.36659	9.17627
+	"Schleicher County, TX"	"48413"	"Apr"	"4"	27.23549	13.32645
+	"Schleicher County, TX"	"48413"	"May"	"5"	31.98885	18.12737
+	"Schleicher County, TX"	"48413"	"Jun"	"6"	34.46230	21.81257
+	"Schleicher County, TX"	"48413"	"Jul"	"7"	34.37333	22.48320
+	"Schleicher County, TX"	"48413"	"Aug"	"8"	34.37845	23.12196
+	"Schleicher County, TX"	"48413"	"Sep"	"9"	30.95952	19.79400
+	"Schleicher County, TX"	"48413"	"Oct"	"10"	26.18403	14.38229
+	"Schleicher County, TX"	"48413"	"Nov"	"11"	20.25476	8.19230
+	"Schleicher County, TX"	"48413"	"Dec"	"12"	15.61393	3.34128
+"Total"	"Schleicher County, TX"	"48413"			25.98986	13.64935
+	"Scurry County, TX"	"48415"	"Jan"	"1"	13.78855	2.27520
+	"Scurry County, TX"	"48415"	"Feb"	"2"	16.00826	4.03777
+	"Scurry County, TX"	"48415"	"Mar"	"3"	20.96045	7.90831
+	"Scurry County, TX"	"48415"	"Apr"	"4"	26.27850	12.15459
+	"Scurry County, TX"	"48415"	"May"	"5"	31.10208	17.07020
+	"Scurry County, TX"	"48415"	"Jun"	"6"	34.53846	21.83238
+	"Scurry County, TX"	"48415"	"Jul"	"7"	35.28073	23.07215
+	"Scurry County, TX"	"48415"	"Aug"	"8"	35.08671	23.48085
+	"Scurry County, TX"	"48415"	"Sep"	"9"	31.34293	19.36519
+	"Scurry County, TX"	"48415"	"Oct"	"10"	25.83212	13.42039
+	"Scurry County, TX"	"48415"	"Nov"	"11"	19.15657	6.97674
+	"Scurry County, TX"	"48415"	"Dec"	"12"	13.67938	1.91234
+"Total"	"Scurry County, TX"	"48415"			25.29541	12.83246
+	"Shackelford County, TX"	"48417"	"Jan"	"1"	14.18093	2.41210
+	"Shackelford County, TX"	"48417"	"Feb"	"2"	16.06837	4.02257
+	"Shackelford County, TX"	"48417"	"Mar"	"3"	21.10721	8.20522
+	"Shackelford County, TX"	"48417"	"Apr"	"4"	26.21634	12.09158
+	"Shackelford County, TX"	"48417"	"May"	"5"	31.20994	17.28633
+	"Shackelford County, TX"	"48417"	"Jun"	"6"	34.89355	22.23025
+	"Shackelford County, TX"	"48417"	"Jul"	"7"	36.36907	23.84232
+	"Shackelford County, TX"	"48417"	"Aug"	"8"	36.25778	24.49447
+	"Shackelford County, TX"	"48417"	"Sep"	"9"	31.86400	19.92431
+	"Shackelford County, TX"	"48417"	"Oct"	"10"	26.24844	13.84737
+	"Shackelford County, TX"	"48417"	"Nov"	"11"	19.77013	7.59815
+	"Shackelford County, TX"	"48417"	"Dec"	"12"	14.21276	2.19432
+"Total"	"Shackelford County, TX"	"48417"			25.74457	13.22246
+	"Shelby County, TX"	"48419"	"Jan"	"1"	15.31888	3.78637
+	"Shelby County, TX"	"48419"	"Feb"	"2"	17.16577	5.25264
+	"Shelby County, TX"	"48419"	"Mar"	"3"	21.46001	9.00577
+	"Shelby County, TX"	"48419"	"Apr"	"4"	25.67523	12.00258
+	"Shelby County, TX"	"48419"	"May"	"5"	29.56757	17.64098
+	"Shelby County, TX"	"48419"	"Jun"	"6"	32.55141	21.92317
+	"Shelby County, TX"	"48419"	"Jul"	"7"	34.24220	23.23611
+	"Shelby County, TX"	"48419"	"Aug"	"8"	34.92708	23.27447
+	"Shelby County, TX"	"48419"	"Sep"	"9"	31.96519	20.04154
+	"Shelby County, TX"	"48419"	"Oct"	"10"	27.26647	14.02333
+	"Shelby County, TX"	"48419"	"Nov"	"11"	21.25035	8.92549
+	"Shelby County, TX"	"48419"	"Dec"	"12"	15.64383	3.62693
+"Total"	"Shelby County, TX"	"48419"			25.62413	13.59998
+	"Sherman County, TX"	"48421"	"Jan"	"1"	9.52209	-2.12164
+	"Sherman County, TX"	"48421"	"Feb"	"2"	11.13751	-1.12880
+	"Sherman County, TX"	"48421"	"Mar"	"3"	16.71518	3.28511
+	"Sherman County, TX"	"48421"	"Apr"	"4"	22.20407	7.45906
+	"Sherman County, TX"	"48421"	"May"	"5"	27.82089	12.82893
+	"Sherman County, TX"	"48421"	"Jun"	"6"	32.79921	18.74073
+	"Sherman County, TX"	"48421"	"Jul"	"7"	34.99070	21.18699
+	"Sherman County, TX"	"48421"	"Aug"	"8"	34.00709	20.78442
+	"Sherman County, TX"	"48421"	"Sep"	"9"	29.48178	15.57002
+	"Sherman County, TX"	"48421"	"Oct"	"10"	22.66535	9.02110
+	"Sherman County, TX"	"48421"	"Nov"	"11"	15.42753	2.42720
+	"Sherman County, TX"	"48421"	"Dec"	"12"	9.30098	-2.61763
+"Total"	"Sherman County, TX"	"48421"			22.22437	8.83554
+	"Smith County, TX"	"48423"	"Jan"	"1"	14.64312	2.99660
+	"Smith County, TX"	"48423"	"Feb"	"2"	16.50787	4.46638
+	"Smith County, TX"	"48423"	"Mar"	"3"	21.03892	8.41056
+	"Smith County, TX"	"48423"	"Apr"	"4"	25.41201	11.51851
+	"Smith County, TX"	"48423"	"May"	"5"	29.58108	17.09959
+	"Smith County, TX"	"48423"	"Jun"	"6"	32.97902	21.42465
+	"Smith County, TX"	"48423"	"Jul"	"7"	35.11704	22.97072
+	"Smith County, TX"	"48423"	"Aug"	"8"	35.92912	23.11272
+	"Smith County, TX"	"48423"	"Sep"	"9"	32.20283	19.64231
+	"Smith County, TX"	"48423"	"Oct"	"10"	26.90904	13.56072
+	"Smith County, TX"	"48423"	"Nov"	"11"	20.81018	8.43337
+	"Smith County, TX"	"48423"	"Dec"	"12"	14.89383	2.92094
+"Total"	"Smith County, TX"	"48423"			25.54344	13.08630
+	"Somervell County, TX"	"48425"	"Jan"	"1"	14.98266	3.87026
+	"Somervell County, TX"	"48425"	"Feb"	"2"	16.66760	5.28438
+	"Somervell County, TX"	"48425"	"Mar"	"3"	21.25576	9.16231
+	"Somervell County, TX"	"48425"	"Apr"	"4"	26.17730	13.10139
+	"Somervell County, TX"	"48425"	"May"	"5"	31.21611	18.39522
+	"Somervell County, TX"	"48425"	"Jun"	"6"	35.03274	23.02658
+	"Somervell County, TX"	"48425"	"Jul"	"7"	36.92307	24.58377
+	"Somervell County, TX"	"48425"	"Aug"	"8"	37.01761	25.25646
+	"Somervell County, TX"	"48425"	"Sep"	"9"	32.47404	21.16249
+	"Somervell County, TX"	"48425"	"Oct"	"10"	27.06981	15.18267
+	"Somervell County, TX"	"48425"	"Nov"	"11"	20.66305	9.18877
+	"Somervell County, TX"	"48425"	"Dec"	"12"	15.10952	3.60090
+"Total"	"Somervell County, TX"	"48425"			26.26110	14.36017
+	"Starr County, TX"	"48427"	"Jan"	"1"	22.39461	11.89241
+	"Starr County, TX"	"48427"	"Feb"	"2"	24.96931	13.06772
+	"Starr County, TX"	"48427"	"Mar"	"3"	28.89616	15.31683
+	"Starr County, TX"	"48427"	"Apr"	"4"	32.74558	18.18339
+	"Starr County, TX"	"48427"	"May"	"5"	35.94225	21.52495
+	"Starr County, TX"	"48427"	"Jun"	"6"	36.88943	23.69330
+	"Starr County, TX"	"48427"	"Jul"	"7"	36.21748	24.35315
+	"Starr County, TX"	"48427"	"Aug"	"8"	36.46832	25.23611
+	"Starr County, TX"	"48427"	"Sep"	"9"	33.34427	24.26284
+	"Starr County, TX"	"48427"	"Oct"	"10"	30.98728	20.52431
+	"Starr County, TX"	"48427"	"Nov"	"11"	26.61424	15.63252
+	"Starr County, TX"	"48427"	"Dec"	"12"	22.57070	11.54713
+"Total"	"Starr County, TX"	"48427"			30.69361	18.79380
+	"Stephens County, TX"	"48429"	"Jan"	"1"	14.39794	2.24013
+	"Stephens County, TX"	"48429"	"Feb"	"2"	16.25365	3.81292
+	"Stephens County, TX"	"48429"	"Mar"	"3"	21.27111	8.00628
+	"Stephens County, TX"	"48429"	"Apr"	"4"	26.35772	11.87383
+	"Stephens County, TX"	"48429"	"May"	"5"	31.38576	17.20333
+	"Stephens County, TX"	"48429"	"Jun"	"6"	35.15285	22.16569
+	"Stephens County, TX"	"48429"	"Jul"	"7"	36.91264	23.96384
+	"Stephens County, TX"	"48429"	"Aug"	"8"	36.84842	24.55233
+	"Stephens County, TX"	"48429"	"Sep"	"9"	32.29291	19.86684
+	"Stephens County, TX"	"48429"	"Oct"	"10"	26.63508	13.71676
+	"Stephens County, TX"	"48429"	"Nov"	"11"	20.14477	7.52945
+	"Stephens County, TX"	"48429"	"Dec"	"12"	14.48172	1.98005
+"Total"	"Stephens County, TX"	"48429"			26.05696	13.12012
+	"Sterling County, TX"	"48431"	"Jan"	"1"	14.84332	2.74130
+	"Sterling County, TX"	"48431"	"Feb"	"2"	17.04740	4.66273
+	"Sterling County, TX"	"48431"	"Mar"	"3"	21.82286	8.26047
+	"Sterling County, TX"	"48431"	"Apr"	"4"	27.07722	12.57514
+	"Sterling County, TX"	"48431"	"May"	"5"	31.93959	17.50818
+	"Sterling County, TX"	"48431"	"Jun"	"6"	34.80176	21.85173
+	"Sterling County, TX"	"48431"	"Jul"	"7"	35.01789	22.72923
+	"Sterling County, TX"	"48431"	"Aug"	"8"	34.87795	23.40636
+	"Sterling County, TX"	"48431"	"Sep"	"9"	31.34711	19.46530
+	"Sterling County, TX"	"48431"	"Oct"	"10"	26.26910	13.70578
+	"Sterling County, TX"	"48431"	"Nov"	"11"	19.78853	7.16038
+	"Sterling County, TX"	"48431"	"Dec"	"12"	14.73084	2.21365
+"Total"	"Sterling County, TX"	"48431"			25.83539	13.06125
+	"Stonewall County, TX"	"48433"	"Jan"	"1"	14.03660	1.87083
+	"Stonewall County, TX"	"48433"	"Feb"	"2"	16.18314	3.53542
+	"Stonewall County, TX"	"48433"	"Mar"	"3"	21.30521	7.77074
+	"Stonewall County, TX"	"48433"	"Apr"	"4"	26.70951	11.89087
+	"Stonewall County, TX"	"48433"	"May"	"5"	31.62228	17.07275
+	"Stonewall County, TX"	"48433"	"Jun"	"6"	35.34495	22.34908
+	"Stonewall County, TX"	"48433"	"Jul"	"7"	36.51066	23.97362
+	"Stonewall County, TX"	"48433"	"Aug"	"8"	36.43858	24.45899
+	"Stonewall County, TX"	"48433"	"Sep"	"9"	32.25408	19.96732
+	"Stonewall County, TX"	"48433"	"Oct"	"10"	26.39522	13.63635
+	"Stonewall County, TX"	"48433"	"Nov"	"11"	19.62456	6.96503
+	"Stonewall County, TX"	"48433"	"Dec"	"12"	13.81779	1.61416
+"Total"	"Stonewall County, TX"	"48433"			25.89695	12.96961
+	"Sutton County, TX"	"48435"	"Jan"	"1"	16.40550	4.64341
+	"Sutton County, TX"	"48435"	"Feb"	"2"	18.60827	6.33124
+	"Sutton County, TX"	"48435"	"Mar"	"3"	23.04056	9.79429
+	"Sutton County, TX"	"48435"	"Apr"	"4"	27.72681	13.90532
+	"Sutton County, TX"	"48435"	"May"	"5"	32.31843	18.67461
+	"Sutton County, TX"	"48435"	"Jun"	"6"	34.57493	22.06078
+	"Sutton County, TX"	"48435"	"Jul"	"7"	34.34402	22.60117
+	"Sutton County, TX"	"48435"	"Aug"	"8"	34.45693	23.26275
+	"Sutton County, TX"	"48435"	"Sep"	"9"	31.12080	20.15786
+	"Sutton County, TX"	"48435"	"Oct"	"10"	26.43318	14.92386
+	"Sutton County, TX"	"48435"	"Nov"	"11"	20.75796	8.82279
+	"Sutton County, TX"	"48435"	"Dec"	"12"	16.21676	4.00013
+"Total"	"Sutton County, TX"	"48435"			26.36714	14.13276
+	"Swisher County, TX"	"48437"	"Jan"	"1"	10.88445	-0.95721
+	"Swisher County, TX"	"48437"	"Feb"	"2"	13.06406	0.56191
+	"Swisher County, TX"	"48437"	"Mar"	"3"	17.98255	4.62429
+	"Swisher County, TX"	"48437"	"Apr"	"4"	23.30141	8.72073
+	"Swisher County, TX"	"48437"	"May"	"5"	28.69550	14.07654
+	"Swisher County, TX"	"48437"	"Jun"	"6"	32.84078	19.24892
+	"Swisher County, TX"	"48437"	"Jul"	"7"	34.14696	20.62217
+	"Swisher County, TX"	"48437"	"Aug"	"8"	33.70001	20.47955
+	"Swisher County, TX"	"48437"	"Sep"	"9"	29.71983	15.85839
+	"Swisher County, TX"	"48437"	"Oct"	"10"	23.65692	10.01467
+	"Swisher County, TX"	"48437"	"Nov"	"11"	16.66984	3.43440
+	"Swisher County, TX"	"48437"	"Dec"	"12"	10.91846	-1.39592
+"Total"	"Swisher County, TX"	"48437"			23.00978	9.65073
+	"Tarrant County, TX"	"48439"	"Jan"	"1"	14.20778	3.00020
+	"Tarrant County, TX"	"48439"	"Feb"	"2"	15.92806	4.41155
+	"Tarrant County, TX"	"48439"	"Mar"	"3"	20.72700	8.39876
+	"Tarrant County, TX"	"48439"	"Apr"	"4"	25.48631	12.15354
+	"Tarrant County, TX"	"48439"	"May"	"5"	30.64002	17.71950
+	"Tarrant County, TX"	"48439"	"Jun"	"6"	34.81365	22.48589
+	"Tarrant County, TX"	"48439"	"Jul"	"7"	37.15880	24.24097
+	"Tarrant County, TX"	"48439"	"Aug"	"8"	37.28196	24.88812
+	"Tarrant County, TX"	"48439"	"Sep"	"9"	32.51957	20.47481
+	"Tarrant County, TX"	"48439"	"Oct"	"10"	26.75600	14.30818
+	"Tarrant County, TX"	"48439"	"Nov"	"11"	20.24815	8.51687
+	"Tarrant County, TX"	"48439"	"Dec"	"12"	14.23880	2.80879
+"Total"	"Tarrant County, TX"	"48439"			25.88116	13.66092
+	"Taylor County, TX"	"48441"	"Jan"	"1"	14.23895	2.38388
+	"Taylor County, TX"	"48441"	"Feb"	"2"	16.18020	4.02392
+	"Taylor County, TX"	"48441"	"Mar"	"3"	21.04365	7.95879
+	"Taylor County, TX"	"48441"	"Apr"	"4"	26.26557	12.05239
+	"Taylor County, TX"	"48441"	"May"	"5"	31.12819	17.10279
+	"Taylor County, TX"	"48441"	"Jun"	"6"	34.33124	21.69674
+	"Taylor County, TX"	"48441"	"Jul"	"7"	35.32131	23.00416
+	"Taylor County, TX"	"48441"	"Aug"	"8"	35.24316	23.77136
+	"Taylor County, TX"	"48441"	"Sep"	"9"	31.21306	19.57330
+	"Taylor County, TX"	"48441"	"Oct"	"10"	25.78913	13.62041
+	"Taylor County, TX"	"48441"	"Nov"	"11"	19.44605	7.29310
+	"Taylor County, TX"	"48441"	"Dec"	"12"	14.22299	2.08926
+"Total"	"Taylor County, TX"	"48441"			25.41045	12.92208
+	"Terrell County, TX"	"48443"	"Jan"	"1"	16.91853	5.86625
+	"Terrell County, TX"	"48443"	"Feb"	"2"	19.50550	7.67502
+	"Terrell County, TX"	"48443"	"Mar"	"3"	24.10719	10.94857
+	"Terrell County, TX"	"48443"	"Apr"	"4"	29.09766	15.28298
+	"Terrell County, TX"	"48443"	"May"	"5"	33.61268	20.03757
+	"Terrell County, TX"	"48443"	"Jun"	"6"	36.00277	23.48129
+	"Terrell County, TX"	"48443"	"Jul"	"7"	35.36223	23.77780
+	"Terrell County, TX"	"48443"	"Aug"	"8"	35.32429	24.37035
+	"Terrell County, TX"	"48443"	"Sep"	"9"	32.26826	21.24522
+	"Terrell County, TX"	"48443"	"Oct"	"10"	27.55248	15.97203
+	"Terrell County, TX"	"48443"	"Nov"	"11"	21.57851	9.89238
+	"Terrell County, TX"	"48443"	"Dec"	"12"	16.84283	5.22968
+"Total"	"Terrell County, TX"	"48443"			27.38014	15.34831
+	"Terry County, TX"	"48445"	"Jan"	"1"	12.55535	1.42982
+	"Terry County, TX"	"48445"	"Feb"	"2"	15.15669	3.16619
+	"Terry County, TX"	"48445"	"Mar"	"3"	19.77488	6.62807
+	"Terry County, TX"	"48445"	"Apr"	"4"	25.06168	10.77290
+	"Terry County, TX"	"48445"	"May"	"5"	30.29464	15.82042
+	"Terry County, TX"	"48445"	"Jun"	"6"	33.98554	20.63965
+	"Terry County, TX"	"48445"	"Jul"	"7"	34.33604	21.69669
+	"Terry County, TX"	"48445"	"Aug"	"8"	33.91811	21.16225
+	"Terry County, TX"	"48445"	"Sep"	"9"	30.40209	17.08123
+	"Terry County, TX"	"48445"	"Oct"	"10"	24.88227	11.77380
+	"Terry County, TX"	"48445"	"Nov"	"11"	17.82497	5.50238
+	"Terry County, TX"	"48445"	"Dec"	"12"	12.47619	0.99213
+"Total"	"Terry County, TX"	"48445"			24.26163	11.42708
+	"Throckmorton County, TX"	"48447"	"Jan"	"1"	13.79153	1.73358
+	"Throckmorton County, TX"	"48447"	"Feb"	"2"	15.70730	3.33555
+	"Throckmorton County, TX"	"48447"	"Mar"	"3"	20.88025	7.62919
+	"Throckmorton County, TX"	"48447"	"Apr"	"4"	26.07903	11.56134
+	"Throckmorton County, TX"	"48447"	"May"	"5"	31.23847	17.02615
+	"Throckmorton County, TX"	"48447"	"Jun"	"6"	35.17854	22.26895
+	"Throckmorton County, TX"	"48447"	"Jul"	"7"	36.83547	24.04223
+	"Throckmorton County, TX"	"48447"	"Aug"	"8"	36.79494	24.65935
+	"Throckmorton County, TX"	"48447"	"Sep"	"9"	32.15737	19.90340
+	"Throckmorton County, TX"	"48447"	"Oct"	"10"	26.27137	13.50007
+	"Throckmorton County, TX"	"48447"	"Nov"	"11"	19.60520	7.09222
+	"Throckmorton County, TX"	"48447"	"Dec"	"12"	13.72821	1.43702
+"Total"	"Throckmorton County, TX"	"48447"			25.73540	12.89430
+	"Titus County, TX"	"48449"	"Jan"	"1"	13.69410	2.18719
+	"Titus County, TX"	"48449"	"Feb"	"2"	15.48953	3.63473
+	"Titus County, TX"	"48449"	"Mar"	"3"	20.19508	7.66409
+	"Titus County, TX"	"48449"	"Apr"	"4"	24.45094	10.86308
+	"Titus County, TX"	"48449"	"May"	"5"	29.16126	16.74648
+	"Titus County, TX"	"48449"	"Jun"	"6"	32.97021	21.20145
+	"Titus County, TX"	"48449"	"Jul"	"7"	35.49972	23.04796
+	"Titus County, TX"	"48449"	"Aug"	"8"	36.37004	23.06918
+	"Titus County, TX"	"48449"	"Sep"	"9"	32.10468	18.91909
+	"Titus County, TX"	"48449"	"Oct"	"10"	26.27596	12.79002
+	"Titus County, TX"	"48449"	"Nov"	"11"	19.94442	7.62196
+	"Titus County, TX"	"48449"	"Dec"	"12"	13.96679	1.93161
+"Total"	"Titus County, TX"	"48449"			25.05550	12.51521
+	"Tom Green County, TX"	"48451"	"Jan"	"1"	15.78850	3.56770
+	"Tom Green County, TX"	"48451"	"Feb"	"2"	17.81433	5.37751
+	"Tom Green County, TX"	"48451"	"Mar"	"3"	22.52102	9.00510
+	"Tom Green County, TX"	"48451"	"Apr"	"4"	27.70111	13.21814
+	"Tom Green County, TX"	"48451"	"May"	"5"	32.44433	18.07542
+	"Tom Green County, TX"	"48451"	"Jun"	"6"	35.13572	22.18593
+	"Tom Green County, TX"	"48451"	"Jul"	"7"	35.24460	23.06683
+	"Tom Green County, TX"	"48451"	"Aug"	"8"	35.18056	23.69705
+	"Tom Green County, TX"	"48451"	"Sep"	"9"	31.62446	20.06233
+	"Tom Green County, TX"	"48451"	"Oct"	"10"	26.72298	14.34033
+	"Tom Green County, TX"	"48451"	"Nov"	"11"	20.53111	7.98222
+	"Tom Green County, TX"	"48451"	"Dec"	"12"	15.67399	3.06582
+"Total"	"Tom Green County, TX"	"48451"			26.40297	13.67433
+	"Travis County, TX"	"48453"	"Jan"	"1"	16.92675	6.22611
+	"Travis County, TX"	"48453"	"Feb"	"2"	19.01857	7.57717
+	"Travis County, TX"	"48453"	"Mar"	"3"	22.92954	10.86661
+	"Travis County, TX"	"48453"	"Apr"	"4"	27.73495	14.48499
+	"Travis County, TX"	"48453"	"May"	"5"	32.51640	19.25622
+	"Travis County, TX"	"48453"	"Jun"	"6"	35.03201	22.78684
+	"Travis County, TX"	"48453"	"Jul"	"7"	35.65436	23.82680
+	"Travis County, TX"	"48453"	"Aug"	"8"	36.19348	24.64973
+	"Travis County, TX"	"48453"	"Sep"	"9"	32.62946	22.32377
+	"Travis County, TX"	"48453"	"Oct"	"10"	27.78034	16.67194
+	"Travis County, TX"	"48453"	"Nov"	"11"	22.18666	11.11325
+	"Travis County, TX"	"48453"	"Dec"	"12"	17.29244	5.90196
+"Total"	"Travis County, TX"	"48453"			27.19418	15.50861
+	"Trinity County, TX"	"48455"	"Jan"	"1"	16.44678	4.26259
+	"Trinity County, TX"	"48455"	"Feb"	"2"	18.29567	5.71329
+	"Trinity County, TX"	"48455"	"Mar"	"3"	22.46615	9.34143
+	"Trinity County, TX"	"48455"	"Apr"	"4"	26.65562	12.12575
+	"Trinity County, TX"	"48455"	"May"	"5"	30.46672	17.49483
+	"Trinity County, TX"	"48455"	"Jun"	"6"	33.21766	21.67168
+	"Trinity County, TX"	"48455"	"Jul"	"7"	34.56262	22.87280
+	"Trinity County, TX"	"48455"	"Aug"	"8"	35.09082	23.12809
+	"Trinity County, TX"	"48455"	"Sep"	"9"	32.18065	20.33365
+	"Trinity County, TX"	"48455"	"Oct"	"10"	27.80155	14.37520
+	"Trinity County, TX"	"48455"	"Nov"	"11"	21.94131	9.19451
+	"Trinity County, TX"	"48455"	"Dec"	"12"	16.66307	4.11018
+"Total"	"Trinity County, TX"	"48455"			26.35169	13.75530
+	"Tyler County, TX"	"48457"	"Jan"	"1"	16.38562	5.14157
+	"Tyler County, TX"	"48457"	"Feb"	"2"	18.27454	6.65816
+	"Tyler County, TX"	"48457"	"Mar"	"3"	22.25662	10.05815
+	"Tyler County, TX"	"48457"	"Apr"	"4"	26.26031	13.02266
+	"Tyler County, TX"	"48457"	"May"	"5"	29.85366	18.21978
+	"Tyler County, TX"	"48457"	"Jun"	"6"	32.45301	22.24993
+	"Tyler County, TX"	"48457"	"Jul"	"7"	33.66704	23.36068
+	"Tyler County, TX"	"48457"	"Aug"	"8"	34.15994	23.58112
+	"Tyler County, TX"	"48457"	"Sep"	"9"	31.68057	20.78450
+	"Tyler County, TX"	"48457"	"Oct"	"10"	27.39459	15.02290
+	"Tyler County, TX"	"48457"	"Nov"	"11"	21.79190	9.98411
+	"Tyler County, TX"	"48457"	"Dec"	"12"	16.72934	5.13254
+"Total"	"Tyler County, TX"	"48457"			25.94252	14.47001
+	"Upshur County, TX"	"48459"	"Jan"	"1"	14.37154	2.77519
+	"Upshur County, TX"	"48459"	"Feb"	"2"	16.17902	4.20520
+	"Upshur County, TX"	"48459"	"Mar"	"3"	20.86376	8.26115
+	"Upshur County, TX"	"48459"	"Apr"	"4"	25.23097	11.44109
+	"Upshur County, TX"	"48459"	"May"	"5"	29.40275	17.10547
+	"Upshur County, TX"	"48459"	"Jun"	"6"	32.86085	21.42498
+	"Upshur County, TX"	"48459"	"Jul"	"7"	35.04412	23.03486
+	"Upshur County, TX"	"48459"	"Aug"	"8"	35.84201	23.05755
+	"Upshur County, TX"	"48459"	"Sep"	"9"	32.13583	19.46473
+	"Upshur County, TX"	"48459"	"Oct"	"10"	26.74889	13.39539
+	"Upshur County, TX"	"48459"	"Nov"	"11"	20.62734	8.25258
+	"Upshur County, TX"	"48459"	"Dec"	"12"	14.62277	2.65923
+"Total"	"Upshur County, TX"	"48459"			25.36966	12.96387
+	"Upton County, TX"	"48461"	"Jan"	"1"	15.40645	3.30872
+	"Upton County, TX"	"48461"	"Feb"	"2"	17.93602	5.24600
+	"Upton County, TX"	"48461"	"Mar"	"3"	22.63951	8.55406
+	"Upton County, TX"	"48461"	"Apr"	"4"	27.72988	12.90220
+	"Upton County, TX"	"48461"	"May"	"5"	32.68818	17.85613
+	"Upton County, TX"	"48461"	"Jun"	"6"	35.46516	22.15786
+	"Upton County, TX"	"48461"	"Jul"	"7"	35.17719	22.84598
+	"Upton County, TX"	"48461"	"Aug"	"8"	35.00547	23.32848
+	"Upton County, TX"	"48461"	"Sep"	"9"	31.72805	19.44278
+	"Upton County, TX"	"48461"	"Oct"	"10"	26.65061	13.92087
+	"Upton County, TX"	"48461"	"Nov"	"11"	20.28845	7.42827
+	"Upton County, TX"	"48461"	"Dec"	"12"	15.25292	2.61667
+"Total"	"Upton County, TX"	"48461"			26.36626	13.33691
+	"Uvalde County, TX"	"48463"	"Jan"	"1"	18.56647	7.90608
+	"Uvalde County, TX"	"48463"	"Feb"	"2"	21.07980	9.20360
+	"Uvalde County, TX"	"48463"	"Mar"	"3"	25.27003	12.11681
+	"Uvalde County, TX"	"48463"	"Apr"	"4"	30.02965	15.79451
+	"Uvalde County, TX"	"48463"	"May"	"5"	34.16913	20.38181
+	"Uvalde County, TX"	"48463"	"Jun"	"6"	36.02918	23.33571
+	"Uvalde County, TX"	"48463"	"Jul"	"7"	35.29290	23.85443
+	"Uvalde County, TX"	"48463"	"Aug"	"8"	35.86516	24.84907
+	"Uvalde County, TX"	"48463"	"Sep"	"9"	32.37629	22.54612
+	"Uvalde County, TX"	"48463"	"Oct"	"10"	28.39388	17.38350
+	"Uvalde County, TX"	"48463"	"Nov"	"11"	23.24529	11.98428
+	"Uvalde County, TX"	"48463"	"Dec"	"12"	18.60319	7.18290
+"Total"	"Uvalde County, TX"	"48463"			28.27306	16.40950
+	"Val Verde County, TX"	"48465"	"Jan"	"1"	17.83244	6.66357
+	"Val Verde County, TX"	"48465"	"Feb"	"2"	20.49837	8.32183
+	"Val Verde County, TX"	"48465"	"Mar"	"3"	25.11421	11.66798
+	"Val Verde County, TX"	"48465"	"Apr"	"4"	29.92537	15.90093
+	"Val Verde County, TX"	"48465"	"May"	"5"	34.29953	20.65774
+	"Val Verde County, TX"	"48465"	"Jun"	"6"	36.53215	24.04198
+	"Val Verde County, TX"	"48465"	"Jul"	"7"	36.04338	24.43807
+	"Val Verde County, TX"	"48465"	"Aug"	"8"	36.27708	25.30449
+	"Val Verde County, TX"	"48465"	"Sep"	"9"	32.92088	22.25994
+	"Val Verde County, TX"	"48465"	"Oct"	"10"	28.42737	16.87473
+	"Val Verde County, TX"	"48465"	"Nov"	"11"	22.55351	10.68773
+	"Val Verde County, TX"	"48465"	"Dec"	"12"	17.64667	5.82522
+"Total"	"Val Verde County, TX"	"48465"			28.20458	16.08766
+	"Van Zandt County, TX"	"48467"	"Jan"	"1"	14.28699	3.37462
+	"Van Zandt County, TX"	"48467"	"Feb"	"2"	16.16402	4.84879
+	"Van Zandt County, TX"	"48467"	"Mar"	"3"	20.70021	8.77861
+	"Van Zandt County, TX"	"48467"	"Apr"	"4"	25.07314	12.14451
+	"Van Zandt County, TX"	"48467"	"May"	"5"	29.76493	17.71891
+	"Van Zandt County, TX"	"48467"	"Jun"	"6"	33.49309	22.16223
+	"Van Zandt County, TX"	"48467"	"Jul"	"7"	35.85649	23.80861
+	"Van Zandt County, TX"	"48467"	"Aug"	"8"	36.52718	24.14102
+	"Van Zandt County, TX"	"48467"	"Sep"	"9"	32.35440	20.43016
+	"Van Zandt County, TX"	"48467"	"Oct"	"10"	26.68784	14.35275
+	"Van Zandt County, TX"	"48467"	"Nov"	"11"	20.48127	8.99896
+	"Van Zandt County, TX"	"48467"	"Dec"	"12"	14.45045	3.37712
+"Total"	"Van Zandt County, TX"	"48467"			25.53039	13.71924
+	"Victoria County, TX"	"48469"	"Jan"	"1"	19.07633	8.75912
+	"Victoria County, TX"	"48469"	"Feb"	"2"	21.00380	9.89938
+	"Victoria County, TX"	"48469"	"Mar"	"3"	24.13447	12.15988
+	"Victoria County, TX"	"48469"	"Apr"	"4"	28.02093	15.55259
+	"Victoria County, TX"	"48469"	"May"	"5"	31.75649	19.92821
+	"Victoria County, TX"	"48469"	"Jun"	"6"	33.86504	23.20467
+	"Victoria County, TX"	"48469"	"Jul"	"7"	33.87375	24.03704
+	"Victoria County, TX"	"48469"	"Aug"	"8"	34.61875	24.65008
+	"Victoria County, TX"	"48469"	"Sep"	"9"	32.39252	23.06226
+	"Victoria County, TX"	"48469"	"Oct"	"10"	28.36856	18.30245
+	"Victoria County, TX"	"48469"	"Nov"	"11"	23.77842	13.43187
+	"Victoria County, TX"	"48469"	"Dec"	"12"	19.48165	8.70602
+"Total"	"Victoria County, TX"	"48469"			27.55791	16.83742
+	"Walker County, TX"	"48471"	"Jan"	"1"	16.79784	5.04974
+	"Walker County, TX"	"48471"	"Feb"	"2"	18.67254	6.46459
+	"Walker County, TX"	"48471"	"Mar"	"3"	22.73029	9.87498
+	"Walker County, TX"	"48471"	"Apr"	"4"	26.92367	12.87598
+	"Walker County, TX"	"48471"	"May"	"5"	30.81899	18.12901
+	"Walker County, TX"	"48471"	"Jun"	"6"	33.48077	22.03187
+	"Walker County, TX"	"48471"	"Jul"	"7"	34.72755	23.25296
+	"Walker County, TX"	"48471"	"Aug"	"8"	35.27812	23.64287
+	"Walker County, TX"	"48471"	"Sep"	"9"	32.28598	20.98671
+	"Walker County, TX"	"48471"	"Oct"	"10"	27.88116	15.14958
+	"Walker County, TX"	"48471"	"Nov"	"11"	22.17181	10.00024
+	"Walker County, TX"	"48471"	"Dec"	"12"	17.03166	4.79525
+"Total"	"Walker County, TX"	"48471"			26.60211	14.39018
+	"Waller County, TX"	"48473"	"Jan"	"1"	17.42960	6.32507
+	"Waller County, TX"	"48473"	"Feb"	"2"	19.27643	7.55626
+	"Waller County, TX"	"48473"	"Mar"	"3"	22.91709	10.41344
+	"Waller County, TX"	"48473"	"Apr"	"4"	26.97029	13.55739
+	"Waller County, TX"	"48473"	"May"	"5"	31.11257	18.60128
+	"Waller County, TX"	"48473"	"Jun"	"6"	33.70354	22.36412
+	"Waller County, TX"	"48473"	"Jul"	"7"	34.31887	23.38085
+	"Waller County, TX"	"48473"	"Aug"	"8"	34.95932	23.89171
+	"Waller County, TX"	"48473"	"Sep"	"9"	32.24651	21.58801
+	"Waller County, TX"	"48473"	"Oct"	"10"	27.77181	16.10977
+	"Waller County, TX"	"48473"	"Nov"	"11"	22.41006	11.05973
+	"Waller County, TX"	"48473"	"Dec"	"12"	17.69093	6.11425
+"Total"	"Waller County, TX"	"48473"			26.76662	15.11375
+	"Ward County, TX"	"48475"	"Jan"	"1"	16.34309	4.34594
+	"Ward County, TX"	"48475"	"Feb"	"2"	19.17269	6.41968
+	"Ward County, TX"	"48475"	"Mar"	"3"	23.88889	9.93228
+	"Ward County, TX"	"48475"	"Apr"	"4"	29.04374	14.22357
+	"Ward County, TX"	"48475"	"May"	"5"	34.09802	19.01034
+	"Ward County, TX"	"48475"	"Jun"	"6"	37.34549	23.30779
+	"Ward County, TX"	"48475"	"Jul"	"7"	36.89586	24.19933
+	"Ward County, TX"	"48475"	"Aug"	"8"	36.51807	24.23782
+	"Ward County, TX"	"48475"	"Sep"	"9"	33.21656	20.39137
+	"Ward County, TX"	"48475"	"Oct"	"10"	28.10182	15.03083
+	"Ward County, TX"	"48475"	"Nov"	"11"	21.25288	8.45403
+	"Ward County, TX"	"48475"	"Dec"	"12"	16.04130	3.91225
+"Total"	"Ward County, TX"	"48475"			27.69526	14.49201
+	"Washington County, TX"	"48477"	"Jan"	"1"	17.29605	5.90512
+	"Washington County, TX"	"48477"	"Feb"	"2"	19.22467	7.28254
+	"Washington County, TX"	"48477"	"Mar"	"3"	22.96969	10.29627
+	"Washington County, TX"	"48477"	"Apr"	"4"	27.09521	13.45816
+	"Washington County, TX"	"48477"	"May"	"5"	31.58452	18.53196
+	"Washington County, TX"	"48477"	"Jun"	"6"	34.24155	22.26647
+	"Washington County, TX"	"48477"	"Jul"	"7"	35.05324	23.38928
+	"Washington County, TX"	"48477"	"Aug"	"8"	35.70603	23.96176
+	"Washington County, TX"	"48477"	"Sep"	"9"	32.56645	21.55489
+	"Washington County, TX"	"48477"	"Oct"	"10"	27.86861	15.95324
+	"Washington County, TX"	"48477"	"Nov"	"11"	22.42978	10.74200
+	"Washington County, TX"	"48477"	"Dec"	"12"	17.65523	5.66864
+"Total"	"Washington County, TX"	"48477"			27.00902	14.95167
+	"Webb County, TX"	"48479"	"Jan"	"1"	20.70872	9.91241
+	"Webb County, TX"	"48479"	"Feb"	"2"	23.38157	11.32888
+	"Webb County, TX"	"48479"	"Mar"	"3"	27.60310	14.03969
+	"Webb County, TX"	"48479"	"Apr"	"4"	32.15363	17.55239
+	"Webb County, TX"	"48479"	"May"	"5"	35.82989	21.71310
+	"Webb County, TX"	"48479"	"Jun"	"6"	37.18278	24.16375
+	"Webb County, TX"	"48479"	"Jul"	"7"	36.17299	24.51544
+	"Webb County, TX"	"48479"	"Aug"	"8"	36.70986	25.51927
+	"Webb County, TX"	"48479"	"Sep"	"9"	33.27113	23.76919
+	"Webb County, TX"	"48479"	"Oct"	"10"	30.30202	19.19111
+	"Webb County, TX"	"48479"	"Nov"	"11"	25.39758	14.00844
+	"Webb County, TX"	"48479"	"Dec"	"12"	20.79600	9.26563
+"Total"	"Webb County, TX"	"48479"			29.98585	17.94267
+	"Wharton County, TX"	"48481"	"Jan"	"1"	18.02822	7.78805
+	"Wharton County, TX"	"48481"	"Feb"	"2"	19.78323	8.91153
+	"Wharton County, TX"	"48481"	"Mar"	"3"	23.25478	11.38462
+	"Wharton County, TX"	"48481"	"Apr"	"4"	27.17380	14.74740
+	"Wharton County, TX"	"48481"	"May"	"5"	31.05993	19.33010
+	"Wharton County, TX"	"48481"	"Jun"	"6"	33.35537	22.75263
+	"Wharton County, TX"	"48481"	"Jul"	"7"	33.72780	23.70188
+	"Wharton County, TX"	"48481"	"Aug"	"8"	34.47307	24.27136
+	"Wharton County, TX"	"48481"	"Sep"	"9"	32.23954	22.40160
+	"Wharton County, TX"	"48481"	"Oct"	"10"	27.96489	17.43497
+	"Wharton County, TX"	"48481"	"Nov"	"11"	22.99090	12.54985
+	"Wharton County, TX"	"48481"	"Dec"	"12"	18.47895	7.77270
+"Total"	"Wharton County, TX"	"48481"			26.90792	16.11862
+	"Wheeler County, TX"	"48483"	"Jan"	"1"	10.18031	-0.80702
+	"Wheeler County, TX"	"48483"	"Feb"	"2"	12.01445	0.34860
+	"Wheeler County, TX"	"48483"	"Mar"	"3"	17.63560	5.03462
+	"Wheeler County, TX"	"48483"	"Apr"	"4"	23.12592	9.28246
+	"Wheeler County, TX"	"48483"	"May"	"5"	28.19776	14.65085
+	"Wheeler County, TX"	"48483"	"Jun"	"6"	32.88228	20.10911
+	"Wheeler County, TX"	"48483"	"Jul"	"7"	35.27991	22.25720
+	"Wheeler County, TX"	"48483"	"Aug"	"8"	34.97934	22.34515
+	"Wheeler County, TX"	"48483"	"Sep"	"9"	30.04076	17.15453
+	"Wheeler County, TX"	"48483"	"Oct"	"10"	23.37157	10.98232
+	"Wheeler County, TX"	"48483"	"Nov"	"11"	16.41415	4.62226
+	"Wheeler County, TX"	"48483"	"Dec"	"12"	9.87611	-1.12506
+"Total"	"Wheeler County, TX"	"48483"			22.88348	10.45352
+	"Wichita County, TX"	"48485"	"Jan"	"1"	12.60637	0.66140
+	"Wichita County, TX"	"48485"	"Feb"	"2"	14.57372	2.24695
+	"Wichita County, TX"	"48485"	"Mar"	"3"	20.03810	6.69423
+	"Wichita County, TX"	"48485"	"Apr"	"4"	25.22309	10.54804
+	"Wichita County, TX"	"48485"	"May"	"5"	30.78443	16.45898
+	"Wichita County, TX"	"48485"	"Jun"	"6"	35.19226	21.95280
+	"Wichita County, TX"	"48485"	"Jul"	"7"	37.32370	24.05112
+	"Wichita County, TX"	"48485"	"Aug"	"8"	37.29932	24.52485
+	"Wichita County, TX"	"48485"	"Sep"	"9"	32.13579	19.32536
+	"Wichita County, TX"	"48485"	"Oct"	"10"	25.81164	12.71448
+	"Wichita County, TX"	"48485"	"Nov"	"11"	18.94646	6.32873
+	"Wichita County, TX"	"48485"	"Dec"	"12"	12.44101	0.30953
+"Total"	"Wichita County, TX"	"48485"			25.24801	12.19918
+	"Wilbarger County, TX"	"48487"	"Jan"	"1"	12.74228	0.82158
+	"Wilbarger County, TX"	"48487"	"Feb"	"2"	14.69328	2.31186
+	"Wilbarger County, TX"	"48487"	"Mar"	"3"	20.14858	6.71025
+	"Wilbarger County, TX"	"48487"	"Apr"	"4"	25.47054	10.69500
+	"Wilbarger County, TX"	"48487"	"May"	"5"	30.89576	16.51967
+	"Wilbarger County, TX"	"48487"	"Jun"	"6"	35.34626	22.15481
+	"Wilbarger County, TX"	"48487"	"Jul"	"7"	37.26819	24.19999
+	"Wilbarger County, TX"	"48487"	"Aug"	"8"	37.17097	24.49512
+	"Wilbarger County, TX"	"48487"	"Sep"	"9"	32.30009	19.45704
+	"Wilbarger County, TX"	"48487"	"Oct"	"10"	25.95735	12.86053
+	"Wilbarger County, TX"	"48487"	"Nov"	"11"	18.89634	6.30880
+	"Wilbarger County, TX"	"48487"	"Dec"	"12"	12.46708	0.31724
+"Total"	"Wilbarger County, TX"	"48487"			25.32894	12.28531
+	"Willacy County, TX"	"48489"	"Jan"	"1"	22.05818	13.56412
+	"Willacy County, TX"	"48489"	"Feb"	"2"	23.90014	14.32126
+	"Willacy County, TX"	"48489"	"Mar"	"3"	26.53854	15.82986
+	"Willacy County, TX"	"48489"	"Apr"	"4"	29.65685	18.33485
+	"Willacy County, TX"	"48489"	"May"	"5"	32.42392	21.43098
+	"Willacy County, TX"	"48489"	"Jun"	"6"	33.64936	23.68430
+	"Willacy County, TX"	"48489"	"Jul"	"7"	33.62124	24.69018
+	"Willacy County, TX"	"48489"	"Aug"	"8"	33.90091	25.30341
+	"Willacy County, TX"	"48489"	"Sep"	"9"	31.91811	24.78165
+	"Willacy County, TX"	"48489"	"Oct"	"10"	29.45388	21.50417
+	"Willacy County, TX"	"48489"	"Nov"	"11"	25.93581	17.26816
+	"Willacy County, TX"	"48489"	"Dec"	"12"	22.52264	13.51681
+"Total"	"Willacy County, TX"	"48489"			28.81854	19.54155
+	"Williamson County, TX"	"48491"	"Jan"	"1"	16.40442	5.66385
+	"Williamson County, TX"	"48491"	"Feb"	"2"	18.39126	7.04270
+	"Williamson County, TX"	"48491"	"Mar"	"3"	22.44206	10.45518
+	"Williamson County, TX"	"48491"	"Apr"	"4"	27.30172	14.13829
+	"Williamson County, TX"	"48491"	"May"	"5"	32.17504	18.99065
+	"Williamson County, TX"	"48491"	"Jun"	"6"	34.87685	22.69268
+	"Williamson County, TX"	"48491"	"Jul"	"7"	35.79030	23.90681
+	"Williamson County, TX"	"48491"	"Aug"	"8"	36.24599	24.76929
+	"Williamson County, TX"	"48491"	"Sep"	"9"	32.53872	22.17589
+	"Williamson County, TX"	"48491"	"Oct"	"10"	27.53176	16.34583
+	"Williamson County, TX"	"48491"	"Nov"	"11"	21.79191	10.63402
+	"Williamson County, TX"	"48491"	"Dec"	"12"	16.80415	5.40726
+"Total"	"Williamson County, TX"	"48491"			26.89621	15.22163
+	"Wilson County, TX"	"48493"	"Jan"	"1"	18.91816	7.76168
+	"Wilson County, TX"	"48493"	"Feb"	"2"	21.31579	8.90004
+	"Wilson County, TX"	"48493"	"Mar"	"3"	24.97288	11.58048
+	"Wilson County, TX"	"48493"	"Apr"	"4"	29.41517	14.96524
+	"Wilson County, TX"	"48493"	"May"	"5"	33.73566	19.56002
+	"Wilson County, TX"	"48493"	"Jun"	"6"	35.77036	22.88766
+	"Wilson County, TX"	"48493"	"Jul"	"7"	35.53699	23.70215
+	"Wilson County, TX"	"48493"	"Aug"	"8"	36.21090	24.57267
+	"Wilson County, TX"	"48493"	"Sep"	"9"	32.90653	22.82436
+	"Wilson County, TX"	"48493"	"Oct"	"10"	28.90381	17.49793
+	"Wilson County, TX"	"48493"	"Nov"	"11"	23.86360	12.37546
+	"Wilson County, TX"	"48493"	"Dec"	"12"	19.18288	7.36839
+"Total"	"Wilson County, TX"	"48493"			28.42431	16.19763
+	"Winkler County, TX"	"48495"	"Jan"	"1"	15.01655	3.71034
+	"Winkler County, TX"	"48495"	"Feb"	"2"	17.83471	5.66548
+	"Winkler County, TX"	"48495"	"Mar"	"3"	22.57437	9.17697
+	"Winkler County, TX"	"48495"	"Apr"	"4"	27.68432	13.29586
+	"Winkler County, TX"	"48495"	"May"	"5"	32.82813	17.99648
+	"Winkler County, TX"	"48495"	"Jun"	"6"	36.23906	22.38227
+	"Winkler County, TX"	"48495"	"Jul"	"7"	35.90374	23.27152
+	"Winkler County, TX"	"48495"	"Aug"	"8"	35.53059	23.40659
+	"Winkler County, TX"	"48495"	"Sep"	"9"	32.20638	19.66035
+	"Winkler County, TX"	"48495"	"Oct"	"10"	26.93783	14.28444
+	"Winkler County, TX"	"48495"	"Nov"	"11"	19.96067	7.75823
+	"Winkler County, TX"	"48495"	"Dec"	"12"	14.68663	3.26991
+"Total"	"Winkler County, TX"	"48495"			26.48641	13.69301
+	"Wise County, TX"	"48497"	"Jan"	"1"	13.52912	2.46965
+	"Wise County, TX"	"48497"	"Feb"	"2"	15.26344	3.92937
+	"Wise County, TX"	"48497"	"Mar"	"3"	20.38959	8.21960
+	"Wise County, TX"	"48497"	"Apr"	"4"	25.05585	11.99895
+	"Wise County, TX"	"48497"	"May"	"5"	30.32019	17.56237
+	"Wise County, TX"	"48497"	"Jun"	"6"	34.60150	22.49257
+	"Wise County, TX"	"48497"	"Jul"	"7"	36.97126	24.48079
+	"Wise County, TX"	"48497"	"Aug"	"8"	37.05307	24.86796
+	"Wise County, TX"	"48497"	"Sep"	"9"	32.18169	20.15576
+	"Wise County, TX"	"48497"	"Oct"	"10"	26.28100	14.07259
+	"Wise County, TX"	"48497"	"Nov"	"11"	19.74709	8.12386
+	"Wise County, TX"	"48497"	"Dec"	"12"	13.60495	2.36179
+"Total"	"Wise County, TX"	"48497"			25.46521	13.44011
+	"Wood County, TX"	"48499"	"Jan"	"1"	14.13340	2.65754
+	"Wood County, TX"	"48499"	"Feb"	"2"	15.95333	4.02171
+	"Wood County, TX"	"48499"	"Mar"	"3"	20.64186	8.10208
+	"Wood County, TX"	"48499"	"Apr"	"4"	24.93380	11.28357
+	"Wood County, TX"	"48499"	"May"	"5"	29.36198	16.93951
+	"Wood County, TX"	"48499"	"Jun"	"6"	32.99336	21.36316
+	"Wood County, TX"	"48499"	"Jul"	"7"	35.33514	23.04731
+	"Wood County, TX"	"48499"	"Aug"	"8"	36.13524	23.22027
+	"Wood County, TX"	"48499"	"Sep"	"9"	32.15919	19.50752
+	"Wood County, TX"	"48499"	"Oct"	"10"	26.53523	13.33068
+	"Wood County, TX"	"48499"	"Nov"	"11"	20.37615	8.14835
+	"Wood County, TX"	"48499"	"Dec"	"12"	14.33081	2.52450
+"Total"	"Wood County, TX"	"48499"			25.28413	12.88698
+	"Yoakum County, TX"	"48501"	"Jan"	"1"	12.26890	1.35299
+	"Yoakum County, TX"	"48501"	"Feb"	"2"	14.91674	3.01581
+	"Yoakum County, TX"	"48501"	"Mar"	"3"	19.42773	6.39900
+	"Yoakum County, TX"	"48501"	"Apr"	"4"	24.64930	10.38852
+	"Yoakum County, TX"	"48501"	"May"	"5"	29.95872	15.38473
+	"Yoakum County, TX"	"48501"	"Jun"	"6"	33.75285	20.13937
+	"Yoakum County, TX"	"48501"	"Jul"	"7"	34.03425	21.22919
+	"Yoakum County, TX"	"48501"	"Aug"	"8"	33.58965	20.75459
+	"Yoakum County, TX"	"48501"	"Sep"	"9"	30.07324	16.68927
+	"Yoakum County, TX"	"48501"	"Oct"	"10"	24.53600	11.51074
+	"Yoakum County, TX"	"48501"	"Nov"	"11"	17.47697	5.22369
+	"Yoakum County, TX"	"48501"	"Dec"	"12"	12.20342	0.89461
+"Total"	"Yoakum County, TX"	"48501"			23.94618	11.11989
+	"Young County, TX"	"48503"	"Jan"	"1"	13.76813	1.99926
+	"Young County, TX"	"48503"	"Feb"	"2"	15.60336	3.53772
+	"Young County, TX"	"48503"	"Mar"	"3"	20.71143	7.84648
+	"Young County, TX"	"48503"	"Apr"	"4"	25.77925	11.74719
+	"Young County, TX"	"48503"	"May"	"5"	30.92296	17.18166
+	"Young County, TX"	"48503"	"Jun"	"6"	34.93428	22.27715
+	"Young County, TX"	"48503"	"Jul"	"7"	36.91427	24.06776
+	"Young County, TX"	"48503"	"Aug"	"8"	36.94547	24.66173
+	"Young County, TX"	"48503"	"Sep"	"9"	32.10819	19.89789
+	"Young County, TX"	"48503"	"Oct"	"10"	26.21415	13.59710
+	"Young County, TX"	"48503"	"Nov"	"11"	19.69020	7.44039
+	"Young County, TX"	"48503"	"Dec"	"12"	13.80238	1.70279
+"Total"	"Young County, TX"	"48503"			25.66343	13.04138
+	"Zapata County, TX"	"48505"	"Jan"	"1"	21.72300	11.25257
+	"Zapata County, TX"	"48505"	"Feb"	"2"	24.39553	12.69932
+	"Zapata County, TX"	"48505"	"Mar"	"3"	28.63388	15.31087
+	"Zapata County, TX"	"48505"	"Apr"	"4"	32.83607	18.54877
+	"Zapata County, TX"	"48505"	"May"	"5"	36.27518	22.29430
+	"Zapata County, TX"	"48505"	"Jun"	"6"	37.39242	24.43104
+	"Zapata County, TX"	"48505"	"Jul"	"7"	36.44578	24.86203
+	"Zapata County, TX"	"48505"	"Aug"	"8"	36.82368	25.79263
+	"Zapata County, TX"	"48505"	"Sep"	"9"	33.46830	24.38380
+	"Zapata County, TX"	"48505"	"Oct"	"10"	30.90457	20.20697
+	"Zapata County, TX"	"48505"	"Nov"	"11"	26.18863	15.06050
+	"Zapata County, TX"	"48505"	"Dec"	"12"	21.85492	10.77313
+"Total"	"Zapata County, TX"	"48505"			30.60393	18.82712
+	"Zavala County, TX"	"48507"	"Jan"	"1"	19.77502	8.44779
+	"Zavala County, TX"	"48507"	"Feb"	"2"	22.42438	9.70207
+	"Zavala County, TX"	"48507"	"Mar"	"3"	26.73537	12.35049
+	"Zavala County, TX"	"48507"	"Apr"	"4"	31.61902	16.07584
+	"Zavala County, TX"	"48507"	"May"	"5"	35.69363	20.83853
+	"Zavala County, TX"	"48507"	"Jun"	"6"	37.45000	23.93845
+	"Zavala County, TX"	"48507"	"Jul"	"7"	36.46021	24.52163
+	"Zavala County, TX"	"48507"	"Aug"	"8"	37.15521	25.61963
+	"Zavala County, TX"	"48507"	"Sep"	"9"	33.54654	23.41327
+	"Zavala County, TX"	"48507"	"Oct"	"10"	29.92631	18.06041
+	"Zavala County, TX"	"48507"	"Nov"	"11"	24.65819	12.54343
+	"Zavala County, TX"	"48507"	"Dec"	"12"	19.84677	7.62894
+"Total"	"Zavala County, TX"	"48507"			29.63697	16.95972
+"Total"					25.99408	13.93698
+"---"
+"Dataset: North America Land Data Assimilation System (NLDAS) Daily Air Temperatures and Heat Index (1979-2011)"
+"Query Parameters:"
+"Title:"
+"Daily Max Air Temperature (C): All, -35 to 49"
+"Daily Max Heat Index (C): All, 25 to 57"
+"Daily Min Air Temperature (C): All, -44 to 35"
+"Dates: Jan 01, 2000 to Dec 31, 2010"
+"States: Texas (48)"
+"Group By: County, Month"
+"Show Totals: True"
+"Show Zero Values: False"
+"---"
+"Help: See http://wonder.cdc.gov/wonder/help/nldas.html for more information."
+"---"
+"Query Date: Nov 1, 2016 12:09:56 PM"
+"---"
+"Suggested Citation: North America Land Data Assimilation System (NLDAS) Daily Air Temperatures and Heat Index, years 1979-2011"
+"on CDC WONDER Online Database, released 2013. Accessed at http://wonder.cdc.gov/NASA-NLDAS.html on Nov 1, 2016 12:09:56 PM"
