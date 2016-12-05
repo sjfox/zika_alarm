@@ -43,8 +43,7 @@ texas.county <- readOGR(dsn = "../TexasCountyShapeFiles", layer = "texas.county"
 mosquito.occurrence <- mean.county(raster = texas.aegypti, shapefile = texas.county, name = "occurrence") 
 
 # Converting to proxy for mosquito abundance 
-mosquito.abundance <- -log(1-mosquito.occurrence)
-mosquito.abundance <- mosquito.abundance
+mosquito.abundance <- -log(1-mosquito.occurrence, base = 10)
 county_parms$mosquito.abundance <- mosquito.abundance$occurrence
 
 
