@@ -6,20 +6,20 @@ if(grepl('tacc', Sys.info()['nodename'])) setwd('/home1/02958/sjf826/zika_alarm/
 if(grepl('meyerslab', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
 if(grepl('laurencastro', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
 
-run_type <- "rnot_sensitivity"
+run_type <- "importations"
 
 ## Want total discovery rates of  10%,  20%, 50% 
 ## Calculated by total discovery probability = (1-(1-daily_prob)^9.88)
-disc_probs <- c( 0.011, 0.0224, 0.0671) 
+disc_probs <- c(0.0224) 
 if(run_type== "importations"){
-  imports <- read.csv("../csvs/county_master.csv")
-  current_combos <- as.character(unique(interaction(imports$rnott.expected.round, imports$importation.current,sep = "_")))
-  projected_combos <- as.character(unique(interaction(imports$rnott.expected.round, imports$importation.projected,sep = "_")))
-  projected_worst_combos <- as.character(unique(interaction(imports$rnott.expected.round, imports$importation.worse.projected,sep = "_")))
+  imports <- read.csv("../csvs/county.tacc.csv")
+  # current_combos <- as.character(unique(interaction(imports$rnott.expected.round, imports$importation.current,sep = "_")))
+  aug_combos <- as.character(unique(interaction(round(imports$Aug, 1), imports$importation.projected,sep = "_")))
+  # projected_worst_combos <- as.character(unique(interaction(imports$rnott.expected.round, imports$importation.worse.projected,sep = "_")))
   
-  all_combos <- unique(c(current_combos, projected_combos, projected_worst_combos))
+  # all_combos <- unique(c(current_combos, projected_combos, projected_worst_combos))
   
-  values <- unlist(strsplit(all_combos, "_"))
+  values <- unlist(strsplit(aug_combos, "_"))
   ## R0s are the first item in each combo
   r_nots <- values[seq(1,length(values), by=2)]
   intro_rates <- values[seq(2,length(values), by=2)]
