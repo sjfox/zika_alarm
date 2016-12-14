@@ -17,7 +17,8 @@ library(cowplot)
 library(gridExtra)
 
 dir_path <- "~/projects/zika_alarm/data/all_trials/"
-trigger_dir_path <- "~/projects/zika_alarm/data/triggers_local/"
+dir_path2 <- "~/projects/zika_alarm/data/perkins_county_sims/"
+trigger_dir_path <- "~/projects/zika_alarm/data/perkins_county_triggers/"
 save_path <- "~/projects/zika_alarm/data/"
 fig_path <- "~/projects/zika_alarm/ExploratoryFigures/"
 
@@ -60,62 +61,66 @@ get_epi_data <- function(trials, n){
   ldply(trials[1:n], data.frame)
 }
 
-data.files <- list.files(path="../data/rand_trials", pattern="*.Rdata", full.names=T, recursive=FALSE)
-load(data.files[4])
+# data.files <- list.files(path="../data/rand_trials", pattern="*.Rdata", full.names=T, recursive=FALSE)
+# load(data.files[4])
 # plot_final_sizes(rand_trials)
-temp <- ldply(data.files, function(x) {
-  load(x)
-  disc_prob <- get_disc_prob_rand(x)
-  risk_level <- get_risk_level_rand(x)
-  data <- get_epi_data(rand_trials, n= 3000)
-  cbind(risk_level, disc_prob, data)
-})  
-# temp <- temp[which(temp$disc_prob==0.0224),]
-temp <- temp[which(temp$risk_level=="high_risk" & temp$disc_prob==0.0224),]
-temp$disc_prob <- paste0(calculate.discover(temp$disc_prob), "%")
-# temp$disc_prob <- factor(temp$disc_prob, levels = c("20%", "10%"))
+# temp <- ldply(data.files, function(x) {
+#   load(x)
+#   disc_prob <- get_disc_prob_rand(x)
+#   risk_level <- get_risk_level_rand(x)
+#   data <- get_epi_data(rand_trials, n= 3000)
+#   cbind(risk_level, disc_prob, data)
+# })  
+# # temp <- temp[which(temp$disc_prob==0.0224),]
+# temp <- temp[which(temp$risk_level=="high_risk" & temp$disc_prob==0.0224),]
+# temp$disc_prob <- paste0(calculate.discover(temp$disc_prob), "%")
+# # temp$disc_prob <- factor(temp$disc_prob, levels = c("20%", "10%"))
 
-load(get_vec_of_files(dir_path, 1.1, 0.0224, 0.01))
+load(get_vec_of_files(dir_path2, 1.1, 0.0224, 0.003))
 known_rnot <- cbind(data.frame(risk_level="1.1", disc_prob=0.0224), get_epi_data(trials, 3000))
 known_rnot$disc_prob <- paste0(calculate.discover(known_rnot$disc_prob), "%")
-both_rnots <- rbind(temp, known_rnot)
-both_rnots$risk_level <- ifelse(both_rnots$risk_level=="high_risk", "High Risk", "1.1")
-both_rnots$risk_level <- factor(both_rnots$risk_level, levels = c("High Risk", "1.1"))
+# both_rnots <- rbind(temp, known_rnot)
+# both_rnots$risk_level <- ifelse(both_rnots$risk_level=="high_risk", "High Risk", "1.1")
+# both_rnots$risk_level <- factor(both_rnots$risk_level, levels = c("High Risk", "1.1"))
 
-outbreak_plot <- ggplot(both_rnots, aes(time, Cum_Detections, group=interaction(.id, risk_level), color=risk_level)) + 
-  geom_line(alpha=0.15,size=1) + 
-  scale_color_brewer(palette="Set1", direction = 1)+
+outbreak_plot <- ggplot(known_rnot, aes(time, Cum_Detections, group=.id)) + 
+  geom_line(alpha=0.3,size=1) + 
+  # scale_color_brewer(palette="Set1", direction = 1)+
   coord_cartesian(xlim=c(0,150), ylim=c(0,50), expand=FALSE) +
-  guides(color=guide_legend(override.aes=list(alpha=1))) +
-  theme(legend.position=c(0.3,0.8))+
+  # guides(color=guide_legend(override.aes=list(alpha=1))) +
+  theme(legend.position="none")+
   labs(x = "Time (days)", 
-       y = "Reported Autochthonous Cases", 
-       color = expression("R"[0]))
+       y = "Reported Autochthonous Cases")
 print(outbreak_plot)
 
 
 
-unknown_prev <- ldply(data.files, function(x) {
-  load(x)
-  disc_prob <- get_disc_prob_rand(x)
-  risk_level <- get_risk_level_rand(x)
-  prevalences <- get_prev_by_detects_all(rand_trials, f=totalprev_by_totaldetects)  
-  
-  prevalences <- ddply(prevalences, .(detected), .fun = function(x){ 
-    quants <-  quantile(x = x$prevalence, probs = c(0.5, 0.25, 0.75), names=FALSE) 
-    data.frame(median=quants[1], min = quants[2], max = quants[3])
-  })
-  cbind(risk_level, disc_prob, prevalences)
-})
-unknown_prev <- unknown_prev[which(unknown_prev$risk_level=="high_risk" ),]
+# unknown_prev <- ldply(data.files, function(x) {
+#   load(x)
+#   disc_prob <- get_disc_prob_rand(x)
+#   risk_level <- get_risk_level_rand(x)
+#   prevalences <- get_prev_by_detects_all(rand_trials, f=totalprev_by_totaldetects)  
+#   
+#   prevalences <- ddply(prevalences, .(detected), .fun = function(x){ 
+#     quants <-  quantile(x = x$prevalence, probs = c(0.5, 0.25, 0.75), names=FALSE) 
+#     data.frame(median=quants[1], min = quants[2], max = quants[3])
+#   })
+#   cbind(risk_level, disc_prob, prevalences)
+# })
+# unknown_prev <- unknown_prev[which(unknown_prev$risk_level=="high_risk" ),]
 
-known_prev <- get_prev_by_detects_plot(dir_path, r_nots = 1.1, disc_probs = c(0.011,0.0224), intro_rates = 0.01)
+known_prev <- get_prev_by_detects_plot(dir_path2, r_nots = 1.1, disc_probs = c(0.0224), intro_rates = 0.003)
 known_prev$intro_rate <- NULL
 names(known_prev)[1] <- "risk_level"
 known_prev$risk_level <- "1.1"
+temp <- get_prev_by_detects_plot(dir_path, r_nots = 1.1, disc_probs = c(0.011), intro_rates = 0.004)
+temp$intro_rate <- NULL
+names(temp)[1] <- "risk_level"
+temp$risk_level <- "1.1"
 
-prev_plot_data <- rbind(unknown_prev, known_prev)
 
+prev_plot_data <- rbind(known_prev, temp)
+rm(temp)
 prev_plot_data$disc_prob <- paste0(calculate.discover(prev_plot_data$disc_prob), "%")
 # prev_plot_data$disc_prob <- factor(prev_plot_data$disc_prob, levels = c("20%", "10%"))
 prev_plot_data$risk_level <- ifelse(prev_plot_data$risk_level=="high_risk", "High Risk", "1.1")
@@ -123,17 +128,17 @@ prev_plot_data$risk_level <- factor(prev_plot_data$risk_level, levels = c("High 
 
 
 prev_plot <- ggplot(prev_plot_data, aes(detected, median, color=risk_level, fill=risk_level, linetype=as.factor(disc_prob), group = interaction(risk_level, disc_prob))) + 
-  geom_line(size=1)+
+  geom_line(size=1, color="black")+
   #geom_hline(yintercept=20)+
-  geom_ribbon(aes(ymax=max, ymin=min), alpha=0.1, color=NA)+
-  scale_y_log10(expand=c(0,0),limits=c(1,50), breaks = c(5,10,25,50))+
+  geom_ribbon(aes(ymax=max, ymin=min), alpha=0.1, color=NA, fill="black")+
+  scale_y_log10(expand=c(0,0),limits=c(1,20), breaks = c(5,10,20))+
   coord_cartesian(xlim = c(0,15))+
   scale_x_continuous(expand=c(0.01,0.01))+
   theme(legend.position = c(0.3,0.79),
         #legend.direction = "horizontal",
         legend.box="horizontal")+
-  scale_color_brewer(palette="Set1", direction = 1)+
-  scale_fill_brewer(palette="Set1", direction=1)+
+  # scale_color_brewer(palette="Set1", direction = 1)+
+  # scale_fill_brewer(palette="Set1", direction=1)+
   guides(linetype=guide_legend(title.hjust = 0, override.aes=list("fill"=NA), title="Reporting Rate"),
          color=FALSE,fill=FALSE)+
   labs(x = "Reported Cases", 
@@ -143,15 +148,15 @@ prev_plot <- ggplot(prev_plot_data, aes(detected, median, color=risk_level, fill
 print(prev_plot)  
 # prev_plot_data[prev_plot_data$detected==10,]
 
-load("../data/rand_county_prob_data.Rdata")
-# prob_data <- prob_data[which(prob_data$disc_prob==0.0224),]
-prob_data <- prob_data[which(prob_data$risk_level=="high_risk"), ]
-prob_data <- prob_data[which(prob_data$variable=="prob_epidemic"), ]
-prob_data$variable <- NULL
+# load("../data/rand_county_prob_data.Rdata")
+# # prob_data <- prob_data[which(prob_data$disc_prob==0.0224),]
+# prob_data <- prob_data[which(prob_data$risk_level=="high_risk"), ]
+# prob_data <- prob_data[which(prob_data$variable=="prob_epidemic"), ]
+# prob_data$variable <- NULL
 
-load(get_vec_of_files(dir_path = dir_path, r_nots = 1.1, disc_probs = c(0.0224), intro_rates = 0.01))
+load(get_vec_of_files(dir_path = dir_path2, r_nots = 1.1, disc_probs = c(0.0224), intro_rates = 0.003))
 temp_prev_below <- cbind("1.1", 0.0224, get_epidemic_prob_by_d(trials,20, 2000, 100, 100))
-load(get_vec_of_files(dir_path = dir_path, r_nots = 1.1, disc_probs = c(0.011), intro_rates = 0.01))
+load(get_vec_of_files(dir_path = dir_path, r_nots = 1.1, disc_probs = c(0.011), intro_rates = 0.004))
 temp_prev_below2 <- cbind("1.1", 0.011, get_epidemic_prob_by_d(trials,20, 2000, 100, 100))
 names(temp_prev_below2) <- names(temp_prev_below)
 temp_prev_below <- rbind(temp_prev_below, temp_prev_below2)
@@ -160,7 +165,9 @@ names(temp_prev_below)[c(1:2, 4)] <- c("risk_level", "disc_prob", "value")
 # temp_prev_below$prob_below <- 1 - temp_prev_below$prob_below
 # temp_prev_below <- melt(temp_prev_below, measure.vars = c("prob_epidemic"))
 
-prob_data <- rbind(prob_data, temp_prev_below)
+prob_data <- temp_prev_below
+# prob_data <- rbind(prob_data, temp_prev_below)
+
 prob_data$risk_level <- ifelse(prob_data$risk_level=="1.1", "1.1", "High Risk")
 # prob_data$variable <- ifelse(prob_data$variable=="prob_below", "Prevalence", "Epidemic")
 prob_data$risk_level <- factor(prob_data$risk_level, levels = c("High Risk", "1.1"))
@@ -169,10 +176,10 @@ prob_data$disc_prob <- paste0(calculate.discover(prob_data$disc_prob), "%")
 # prob_data <- prob_data[seq(1,nrow(prob_data),by=3),]
 
 prob_plot <- ggplot(prob_data, aes(detected, value, linetype=as.factor(disc_prob), color=risk_level)) + 
-  geom_line(size=1) + 
+  geom_line(size=1, color = "black") + 
   coord_cartesian(xlim=c(0,15), ylim=c(0,1), expand=FALSE)+
   geom_vline(xintercept=2, size=0.5, linetype=2)+
-  scale_color_brewer(palette="Set1", direction = 1) +
+  # scale_color_brewer(palette="Set1", direction = 1) +
   background_grid(major = "xy", minor = "none")+
   theme(legend.position="none",
         legend.box.just="left")+
@@ -180,7 +187,7 @@ prob_plot <- ggplot(prob_data, aes(detected, value, linetype=as.factor(disc_prob
        y = "Epidemic Probability", 
        color = "Trigger Type",
        linetype= "County Risk")
-# print(prob_plot)
+print(prob_plot)
 # fig2 <- plot_grid(outbreak_plot, prev_plot, prob_plot, nrow = 1, labels="AUTO")
 
 fig2 <- ggdraw() + draw_plot(outbreak_plot, x = 0, y=0, width=.33, height=1)+
