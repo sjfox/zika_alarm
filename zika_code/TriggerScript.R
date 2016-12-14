@@ -1,70 +1,75 @@
-rm(list=ls())
-if(grepl('spencerfox', Sys.info()['login'])) setwd('~/projects/zika_alarm/zika_code/')
-if(grepl('vagrant', Sys.info()['user'])) setwd('/vagrant/zika_alarm/zika_code/')
-if(grepl('sjf826', Sys.info()['login'])) setwd('/home1/02958/sjf826/zika_alarm/zika_code/')
-if(grepl('tacc', Sys.info()['nodename'])) setwd('/home1/02958/sjf826/zika_alarm/zika_code/')
-if(grepl('meyerslab', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
-if(grepl('laurencastro', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
-
-
-sapply(c('branch.functions.R','plot.functions.R', 'analyze_saved_sims.R'), source)
-library(plyr)
-library(maptools)
-library(rgeos)
-library(rgdal)
-library(raster)
-library(plyr)
-library(cowplot)
-library(ggrepel)
-
-dir_path <- "~/projects/zika_alarm/data/all_trials/"
-trigger_dir_path <- "~/projects/zika_alarm/data/triggers_local/"
-save_path <- "~/projects/zika_alarm/data/"
-fig_path <- "~/projects/zika_alarm/ExploratoryFigures/"
-
-#### Read in file with county R0 and Texas shape file
-county_plot <- read.csv("../csvs/county_master.csv")
+# rm(list=ls())
+# if(grepl('spencerfox', Sys.info()['login'])) setwd('~/projects/zika_alarm/zika_code/')
+# if(grepl('vagrant', Sys.info()['user'])) setwd('/vagrant/zika_alarm/zika_code/')
+# if(grepl('sjf826', Sys.info()['login'])) setwd('/home1/02958/sjf826/zika_alarm/zika_code/')
+# if(grepl('tacc', Sys.info()['nodename'])) setwd('/home1/02958/sjf826/zika_alarm/zika_code/')
+# if(grepl('meyerslab', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
+# if(grepl('laurencastro', Sys.info()['login'])) setwd('~/Documents/zika_alarm/zika_code/')
+# 
+# 
+# sapply(c('branch.functions.R','plot.functions.R', 'analyze_saved_sims.R'), source)
+# library(plyr)
+# library(maptools)
+# library(rgeos)
+# library(rgdal)
+# library(raster)
+# library(plyr)
+# library(cowplot)
+# library(ggrepel)
+# 
+# dir_path <- "~/projects/zika_alarm/data/perkins_county_sims/"
+# trigger_dir_path <- "~/projects/zika_alarm/data/perkins_county_triggers/"
+# save_path <- "~/projects/zika_alarm/data/"
+# fig_path <- "~/projects/zika_alarm/ExploratoryFigures/"
+# 
+# #### Read in file with county R0 and Texas shape file
+# county_plot <- read.csv("../csvs/county.tacc.csv")
+# county_old <- read.csv("../csvs/county_master.csv")
+# county_plot <- merge(county_plot, county_old[,c("id", "importation_probability")], by="id")
+# 
+# ## Set importation to "worse", or "expected"
+# import <- "expected"
+# 
+# ## Melt R0
+# ## Change measure.vars between "importation.projected" and "importation.worse.projected", depending on ms vs supplement
+# county_plot.m <- melt(data = county_plot, id.vars = c("id", "county", "Aug", "importation_probability"), 
+#                       measure.vars = ifelse(import=="worse","importation.worse.projected", "importation.projected"))
+# colnames(county_plot.m) <- c("id", "county", "rnot", "import_prob", "scenario", "import.rate")
+# county_plot.m$round_rnot <- round(county_plot.m$rnot, 1)
+# ### Calculate Surveillance Triggers For R0s and Import Rates 
+# rnots <- sort(unique(county_plot.m$round_rnot))
+# import.rates <- sort(unique(county_plot.m$import.rate))
+# 
+# triggers <- get_trigger_data(rnot = rnots, intro = import.rates, disc = 0.0224, confidence = .5, num_necessary = 100)
+# # triggers$prev_trigger <- ifelse(triggers$prev_trigger>200, 200, triggers$prev_trigger)
+# 
+# 
+# #### Match R0/Import Rate with Triggers
+# county_plot.m <- merge(x = county_plot.m, y = triggers[,c("r_not", "intro_rate", "epi_trigger")], 
+#                        by.x=c("round_rnot", "import.rate"), by.y=c("r_not", "intro_rate"), all.x=TRUE, sort=FALSE)
+# 
+# 
+# ## Match R0/import rate with probability of seeing 2 cases and probability ofepidemic given seeing 2 cases
+# load("../data/county_prob_detect_x.Rdata")
+# county_prob_detect_x <- county_prob_detect_x[which(county_prob_detect_x$detected==2),]
+# 
+# ## Merge probability of seeing 2 cases in each county
+# county_plot.m <- merge(x = county_plot.m, y = county_prob_detect_x[,c("r_not", "intro_rate", "prob_detect")], 
+#                        by.x=c("round_rnot", "import.rate"), by.y=c("r_not", "intro_rate"), all.x=TRUE, sort=FALSE)
+# 
+# ## Merge probability of epidemic given you've seen 2 cases
+# load("../data/county_epi_prob_by_d.Rdata")
+# county_epi_prob_by_d <- county_epi_prob_by_d[which(county_epi_prob_by_d$detected==2),]
+# 
+# county_plot.m <- merge(x = county_plot.m, y = county_epi_prob_by_d[,c("r_not", "intro_rate", "prob_epidemic")], 
+#                        by.x=c("round_rnot", "import.rate"), by.y=c("r_not", "intro_rate"), all.x=TRUE, sort=FALSE)
+# 
+# 
+# save(list=c("county_plot.m"), file = "../data/county_plot.m.RData")
+###############################################################################
+## Start here if already reading in the county_data csv with all merged csvs
+load("../data/county_plot.m.RData")
 texas.county <- readShapeSpatial('../TexasCountyShapeFiles/texas.county.shp', proj4string = CRS("+proj=longlat +datum=WGS84"))
-
-## Set importation to "worse", or "expected"
-import <- "expected"
-
-## Melt R0
-## Change measure.vars between "importation.projected" and "importation.worse.projected", depending on ms vs supplement
-county_plot.m <- melt(data = county_plot, id.vars = c("id", "Geography", "rnott.expected.round", "importation_probability"), 
-                      measure.vars = ifelse(import=="worse","importation.worse.projected", "importation.projected"))
-colnames(county_plot.m) <- c("id", "geography", "rnott.expected", "importation_probability", "scenario", "import.rate")
-
-### Calculate Surveillance Triggers For R0s and Import Rates 
-rnots <- sort(unique(county_plot.m$rnott.expected))
-import.rates <- sort(unique(county_plot.m$import.rate))
-
-triggers <- get_trigger_data(rnot = rnots, intro = import.rates, disc = 0.0224, confidence = .5, num_necessary = 100)
-# triggers$prev_trigger <- ifelse(triggers$prev_trigger>200, 200, triggers$prev_trigger)
-
-
-#### Match R0/Import Rate with Triggers
-county_plot.m <- merge(x = county_plot.m, y = triggers[,c("r_not", "intro_rate", "epi_trigger")], 
-                       by.x=c("rnott.expected", "import.rate"), by.y=c("r_not", "intro_rate"), all.x=TRUE, sort=FALSE)
-
-
-## Match R0/import rate with probability of seeing 2 cases and probability ofepidemic given seeing 2 cases
-load("../data/county_prob_detect_x.Rdata")
-county_prob_detect_x <- county_prob_detect_x[which(county_prob_detect_x$detected==2),]
-
-## Merge probability of seeing 2 cases in each county
-county_plot.m <- merge(x = county_plot.m, y = county_prob_detect_x[,c("r_not", "intro_rate", "prob_detect")], 
-                       by.x=c("rnott.expected", "import.rate"), by.y=c("r_not", "intro_rate"), all.x=TRUE, sort=FALSE)
-
-## Merge probability of epidemic given you've seen 2 cases
-load("../data/county_epi_prob_by_d.Rdata")
-county_epi_prob_by_d <- county_epi_prob_by_d[which(county_epi_prob_by_d$detected==2),]
-
-county_plot.m <- merge(x = county_plot.m, y = county_epi_prob_by_d[,c("r_not", "intro_rate", "prob_epidemic")], 
-                       by.x=c("rnott.expected", "import.rate"), by.y=c("r_not", "intro_rate"), all.x=TRUE, sort=FALSE)
-
-
-
 
 
 #### Fortifying Data to ShapeFile for ggplot 
@@ -83,13 +88,14 @@ map_data <- map_data[1:10,]
 ## R0 and importation figure first (Figure 2)
 ############################################
 #### Importation Probability Map 
-merge.texas.county.import <- merge(texas.county.f, county_plot, by = "id", all.x = TRUE)
-import.plot <- merge.texas.county[order(merge.texas.county$id),]
-import.plot$importation_probability.log <- log(import.plot$importation_probability)
+# merge.texas.county.import <- merge(texas.county.f, county_plot, by = "id", all.x = TRUE)
 
 
-plot.importation.log <- ggplot(import.plot, aes(x = long, y = lat)) +
-  geom_polygon(data = import.plot, aes(group = group, fill = importation_probability.log), color = "grey", size = .1) +
+final.plot$importation_probability.log <- log(final.plot$import_prob)
+
+
+plot.importation.log <- ggplot(final.plot, aes(x = long, y = lat)) +
+  geom_polygon(aes(group = group, fill = importation_probability.log), color = "grey", size = .1) +
   scale_x_continuous("", breaks=NULL) + 
   scale_y_continuous("", breaks=NULL) + 
   scale_fill_continuous(name = "Import Probability", low ="white", high = "blue", breaks = log(c(0.002, 0.02, 0.2)), labels = c(0.002,0.02,0.2),
@@ -101,7 +107,7 @@ plot.importation.log <- ggplot(import.plot, aes(x = long, y = lat)) +
                                    legend.position = c(0.2, 0.17), 
                                    legend.title.align = 0.5) +
   guides(fill = guide_colorbar(label.position = "bottom", title.position="top",direction = "horizontal", barwidth = 10))
-# print(plot.importation.log)
+print(plot.importation.log)
 
 
 # colorends <- c("white", "darkseagreen", "yellow", "red")
@@ -109,11 +115,11 @@ plot.importation.log <- ggplot(import.plot, aes(x = long, y = lat)) +
 
 
 r0.plot <- ggplot(final.plot[which(final.plot$scenario=="importation.projected"),], aes(x=long, y = lat)) +
-  geom_polygon(data = final.plot, aes(group = group, fill = rnott.expected), color = "grey", size = .1) +
+  geom_polygon(data = final.plot, aes(group = group, fill = rnot/1.5), color = "grey", size = .1) +
   scale_x_continuous("", breaks=NULL) + 
   scale_y_continuous("", breaks=NULL) + 
   # scale_fill_gradientn(name = expression("R"[0]), colours = colorends, values = rescale(gradientends)) +
-  scale_fill_gradient2(name = "Transmission Risk", low = "lightgreen", high = "darkgreen", na.value = "white") +
+  scale_fill_gradient2(name = "Relative Transmission Risk", low = "lightgreen", high = "darkgreen", na.value = "white") +
   theme_cowplot() %+replace% theme(strip.background=element_blank(),
                                    strip.text.x = element_blank(),
                                    legend.position = c(0.2, 0.17), 
@@ -419,7 +425,7 @@ save_plot(filename = "../ExploratoryFigures/alison_fig.pdf", plot = alison_fig, 
 ## Get county probability of detecting certain number of cases
 ## Takes at least 15 minutes (both are this long)
 temp <- get_epidemic_prob_plot(dir_path, 50, 2000,
-                       r_nots = unique(county_plot.m$rnott.expected),
+                       r_nots = unique(county_plot.m$round_rnot),
                        disc_probs=0.0224,
                        intro_rates = unique(county_plot.m$import.rate),
                        max_detect=5, num_necessary = 100)
@@ -428,7 +434,7 @@ county_epi_prob_by_d <- temp
 save(list = c("county_epi_prob_by_d"), file = "../data/county_epi_prob_by_d.Rdata")
 
 temp <- get_detect_prob_plot(dir_path, 50, 2000,
-                              r_nots = unique(county_plot.m$rnott.expected),
+                              r_nots = unique(county_plot.m$round_rnot),
                               disc_probs=0.0224,
                               intro_rates = unique(county_plot.m$import.rate),
                               max_detect=5, num_necessary = 100)
@@ -442,9 +448,9 @@ save(list = c("county_prob_detect_x"), file = "../data/county_prob_detect_x.Rdat
 
 get_rand_trials <- function(dir_path, import_loc, disc_prob, num_trials, high_risk=FALSE){
   imports <- read.csv(import_loc)
-  dir_path <-"~/projects/zika_alarm/data/all_trials/"
+  dir_path <-"~/projects/zika_alarm/data/perkins_county_sims/"
   
-  projected_combos <- as.character(unique(interaction(imports$rnott.expected.round, imports$importation.projected,sep = "_")))
+  projected_combos <- as.character(unique(interaction(round(imports$rnot, 1), imports$importation.projected,sep = "_")))
   
   values <- unlist(strsplit(projected_combos, "_"))
   ## R0s are the first item in each combo
