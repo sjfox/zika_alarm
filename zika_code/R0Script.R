@@ -275,12 +275,30 @@ texas.county.f <- fortify(texas.county, region = "ID")
 merge.texas.county <- merge(texas.county.f, county_master, by = "id", all.x = TRUE)
 test.plot <- merge.texas.county[order(merge.texas.county$id),]
 
-test.sub.county <- test.plot[test.plot$Geography == "Medina County, Texas", ]
 
+sub.county <- test.plot[test.plot$Geography == "Medina County, Texas", ]
 
-plot <- ggplot(test.plot, aes(x = long, y = lat)) + geom_polygon(data = test.plot, aes(group = group, fill = "red"), color = "black", size = .25)
-layer <- plot + geom_polygon(data =test.sub.county, aes(x = long, y = lat, group = group, fill = "grey"))
-save_plot(filename = paste0(fig_path, "testing_id.pdf"), plot = layer, base_height = 8, base_aspect_ratio = 1.1)
+local.counties = c("hidalgo", "willacy", "cameron")
+chikv.counties = c("cameron")
+
+rnott.data %>% filter(county %in% local.counties) -> sub.county
+rnott.data %>% filter(county %in% chikv.counties) -> chikv.counties
+
+plot <- ggplot(rnott.data, aes(x = long, y = lat)) + 
+  geom_polygon(data = rnott.data, aes(group = group), fill = "white", color = "grey", size = .25) +
+  theme_cowplot() %+replace% theme(strip.background=element_blank(),
+                                   strip.text.x = element_blank(),
+                                   legend.position = c(0.2, 0.17), 
+                                   legend.title.align = 0.5) +
+  theme(axis.ticks = element_blank(), axis.text.x = element_blank(), 
+        axis.text.y = element_blank(), line = element_blank())+
+  labs(x = "", y = "")
+
+layer <- plot + geom_polygon(data = sub.county, aes(x = long, y = lat, group = group, fill = "indianred2")) +
+  geom_polygon(data = chikv.counties, aes(x = long, y = lat, group = group, fill = "indianred2"), color = "darkorchid4", size = .3) +
+  theme(legend.position="none") + labs(title = "")
+
+save_plot(filename = paste0(fig_path, "localcases.pdf"), plot = layer, base_height = 4, base_aspect_ratio = 1.1)
 
 
 library(weathermetrics)

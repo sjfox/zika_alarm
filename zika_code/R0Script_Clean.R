@@ -1,3 +1,4 @@
+library(plyr)
 library(tidyverse)
 library(rgdal)
 library(raster)
@@ -11,159 +12,143 @@ library(reshape2)
 library(RColorBrewer)
 library(scam)
 library(scales)
+library(stringr)
+###################################
+# This script is to use after going through calculate_perkinsr0.
+# Different starting points based on whether you're normalizing rnots or just plotting
+# Script is separated into two parts: (1) Multiple months and (2) Single Month
 
 #######################################################
-# Step 2: # Script to read csvs of rnots and plot across 
+# Part 1 - MULTIPLE MONTHS 
+# Step 2: Script to read csvs of rnots and plot across 
 # Texas based on hypothetical ranges 
 ########################################################
 load("../data/perkins_sims/functions_R0_AR_random_draws.RData")
-
-county_parms <- read.csv("../csvs/county_r0_parameters.csv")
-
+county.parms <- read.csv("../csvs/county_r0_parameters.csv")
 fig_path <- "../ExploratoryFigures/"
 csv_path <- "../csvs/rnot_temp/"
-
 fileList <- list.files(path=csv_path, pattern="r0.csv")
 
-# Read in csvs - Currently just all available csvs 
+# Read in csvs 
 allData <- lapply(fileList, function(.file){
   dat <-read.csv(paste0(csv_path,.file), header=T)
   dat$month <-as.character(.file)
   dat    # return the dataframe
 })
-
 # combine into a single dataframe
-r0.temps <- do.call(rbind, allData)
-colnames(r0.temps)[1:1000] <- seq(1:1000)
+rnot.temps <- do.call(rbind, allData)
+colnames(rnot.temps)[1:1000] <- seq(1:1000)
+colnames(rnot.temps)[1001:1002] <- c("county", "file")
 
-# For each county calculate the average of each rep across the months
+#---------------------Normalizing Across the 6 Months 
+# Calculate Median of Each across the Months 
 # Avg for each rep across the 6 months
-r0.temps %>% 
+
+rnot.temps %>% 
+  separate(file, c("month", "file"), "_") %>%
   gather(key = rep, value = rnot, 1:1000) %>%
-  group_by(county, rep) %>%
-  summarise(rep.6median.rnot = median(rnot)) -> rnot.rep.sixmonth 
-# Avg over the reps 
-rnot.rep.sixmonth %>%
-  group_by(county) %>%
-  summarise(final.rnot = median(rep.6median.rnot)) -> rnot.sixmonth
+  group_by(county, month) %>%
+  summarise(monthly.median = median(rnot)) %>%
+  ungroup() %>%
+  mutate(normalized.rnot = (monthly.median - min(monthly.median))/(max(monthly.median)-min(monthly.median))) %>%
+  mutate(hypo.max.1.5 = normalized.rnot *1.5) -> rnot.norm.hypo
 
-r0.plot <- left_join(county_parms, rnot.sixmonth)
+#---------------------Plotting  
 
-# Normalized absolute rnot values and calculated hypothetical rnots based on 
-# range 
-r0.plot %>%
-  mutate(normalized.rnot = (final.rnot - min(final.rnot))/(max(final.rnot)-min(final.rnot))) %>%
-  mutate(hypo.max.2 = normalized.rnot * 2) %>% 
-  mutate(hypo.max.1.5 = normalized.rnot *1.5) -> r0.hypo
+rnot.norm.hypo %>% 
+  gather(key = metric, value = rnot, -county, -month) %>%
+  left_join(y = county.parms, by = "county") -> plot.data
+plot.data$month <- factor(plot.data$month, 
+                                      levels = c("May", "Jun", "Jul", "Aug", "Sep", "Oct"))
 
-#########################
-# PLOTTING 
-#########################
 texas.county <- readOGR(dsn = "../TexasCountyShapeFiles", layer = "texas.county")
 texas.county.f <- fortify(texas.county, region = "ID")
-merge.texas.county <- merge(texas.county.f, r0.hypo, by = "id", all.x = TRUE)
-rnott.data <- merge.texas.county[order(merge.texas.county$id),]
+merge.texas.county <- merge(texas.county.f, plot.data, by = "id", all.x = TRUE)
+rnot.data <- merge.texas.county[order(merge.texas.county$id),]
+
+rnot.data %>% filter(metric == "normalized.rnot") %>%
+  ggplot(aes(x=long, y = lat)) +
+  geom_polygon(aes(group = group, fill = rnot), color = "grey", size = .1) +
+  facet_wrap(facets = "month", nrow = 2) +
+  scale_x_continuous("", breaks=NULL) + 
+  scale_y_continuous("", breaks=NULL) + 
+  scale_fill_gradient(name = "Relative Transmission Risk", low = "white", high = "darkseagreen") +
+  theme_cowplot() + 
+  theme(strip.background = element_blank(),
+        axis.ticks = element_blank(), 
+        axis.text.x = element_blank(),
+        axis.text.y = element_blank(), 
+        line = element_blank(),
+        strip.text.x = element_text(size = 14),
+        legend.position = "bottom", 
+        legend.key.size =  unit(0.4, "in")) -> plot.months
+
+save_plot(filename = "~/Documents/projects/zika_alarm/ExploratoryFigures/plot.months.pdf", plot = plot.months,  base_height = 8, base_aspect_ratio = 1.5) 
+
+# ind <- which(map_data$Name %in% c("Austin", "Houston", "Dallas", "San Antonio"))
+# geom_point(data = map_data[ind,], aes(x = lon, y = lat), color = "black", size=1, show.legend = FALSE) +
+# geom_text_repel(data = map_data[ind,], aes(x=lon, y = lat, label = Name), force=100, nudge_x = ifelse(map_data[ind,]$Name=="Austin",-1,1),
+# size = 5, point.padding = unit(0.25, "lines"), segment.color = "black") +
 
 
-colorends <- c("white", "darkseagreen", "yellow", "red")
-gradientends <- c(0,1,1.01,max(rnott.data.decrease$hypo.max.1.5))
-gradientends <- c(0,.25,.5,.75)
+######################################################
+# Section 2: ONE MONTH 
+###################################################
+rnot.ests$county = county.parms$county
 
-ind <- which(map_data$Name %in% c("Austin", "Houston", "Dallas", "San Antonio"))
+rnot.ests %>% gather(key = rep, value = rnot, -county) %>%
+  group_by(county) %>%
+  summarise(median = median(rnot),
+            lowerbound = quantile(rnot, probs = .025),
+            upperbound = quantile(rnot, probs = .975)) -> rnot.ests.summary
 
-## 
-plot.rnott <- ggplot(rnott.data, aes(x=long, y = lat)) +
-    geom_polygon(data = rnott.data, aes(group = group, fill = round(normalized.rnot, digits = 1)), color = "grey", size = .1) +
-    scale_x_continuous("", breaks=NULL) + 
-    scale_y_continuous("", breaks=NULL) + 
-    scale_fill_gradientn(name = expression("R"[0]), colours = colorends, values = rescale(gradientends)) +
-  #  scale_fill_gradient(name = expression("R"[0]), low = "white", high = "darkseagreen") +
-    # geom_point(data = map_data[ind,], aes(x = lon, y = lat), color = "black", size=1, show.legend = FALSE) +
-    # geom_text_repel(data = map_data[ind,], aes(x=lon, y = lat, label = Name), force=100, nudge_x = ifelse(map_data[ind,]$Name=="Austin",-1,1),
-                  # size = 5, point.padding = unit(0.25, "lines"), segment.color = "black") +
-    theme_cowplot() + theme(strip.background = element_blank()) + 
-    theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(), line = element_blank()) +
-    theme(legend.position = "right", legend.key.size =  unit(0.5, "in")) +
-    theme(strip.text.x = element_text(size = 14)) 
+# ------------- Normalization ---------------------
+# Normalizing just the median
 
-save_plot(filename = "~/Documents/projects/zika_alarm/ExploratoryFigures/relativernot.pdf", plot = plot.rnott,  base_height = 8, base_aspect_ratio = 1.1) 
+rnot.ests.summary %>%
+  mutate(normalized.rnot = (median - min(median))/(max(median)-min(median))) %>%
+  mutate(hypo.max.1.5 = normalized.rnot *1.5) -> rnot.norm.1.5
+
+#-------------- Plotting ---------------------
+# Choose whether plotting normalized or raw values
+left_join(county.parms, rnot.ests.summary, by = "county") %>%
+  gather(quantile, value = rnot, 6:8) -> plot.data
+texas.county <- readOGR(dsn = "../TexasCountyShapeFiles", layer = "texas.county")
+texas.county.f <- fortify(texas.county, region = "ID")
+
+
+merge.texas.county <- merge(texas.county.f, plot.data , by = "id", all.x = TRUE)
+rnot.data <- merge.texas.county[order(merge.texas.county$id),]
+colorends <- c("white", "blue", "yellow", "red")
+gradientends <- c(0,1,1.01,max(rnot.data$rnot))
+
+plot.range <- ggplot(rnot.data, aes(x=long, y = lat)) +
+  geom_polygon(data = rnot.data, aes(group = group, fill = round(rnot, digits = 1)), color = "grey", size = .1) +
+  scale_x_continuous("", breaks=NULL) + 
+  scale_y_continuous("", breaks=NULL) + 
+  facet_wrap(~quantile) +
+  scale_fill_gradientn(name = expression("R"[0]), colours = colorends, values = rescale(gradientends)) + 
+  theme_cowplot() + theme(strip.background = element_blank()) + 
+  theme(axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank(), line = element_blank()) +
+  theme(legend.position = "bottom", legend.key.size =  unit(0.5, "in")) +
+  theme(strip.background = element_blank(),strip.text.x = element_blank())
+
+save_plot(filename = "~/Documents/projects/zika_alarm/ExploratoryFigures/plot.range.pdf", plot = plot.range,base_height = 4, base_aspect_ratio = 2.0) 
+
+# Code for including points on map 
+#ind <- which(map_data$Name %in% c("Austin", "Houston", "Dallas", "San Antonio"))
+# geom_point(data = map_data[ind,], aes(x = lon, y = lat), color = "black", size=1, show.legend = FALSE) +
+# geom_text_repel(data = map_data[ind,], aes(x=lon, y = lat, label = Name), force=100, nudge_x = ifelse(map_data[ind,]$Name=="Austin",-1,1),
+# size = 5, point.padding = unit(0.25, "lines"), segment.color = "black") +
+
+
 
 ####################### Econ Plots ###################################################
-#### Ploting relationship for SCAME functions 
+#### Ploting relationship for SCAM functions 
 econ <- seq(6, 15, by=0.1)
 plot(econ, predict(scam.est.list[[1]], newdata=data.frame(econ=econ)), type="l", ylim=c(-2, 5))
 for(ii in 2:1000){
   lines(econ, predict(scam.est.list[[ii]], newdata=data.frame(econ=econ)), type="l")
 }
-
-#######################R0 Sensitivity R0 Calculations #################################
-
-# logMF.high <- -.9-(.07/.5)*GDP #High
-# logMF.low <- -2.6-(.07/.5)*GDP #Low 
-# logMF.high.slope <- -1.35-(.9/.5)*GDP
-
-
-
-# # Function to calculate the mean value of all cells 
-# # in a shapefile 
-# mean.county <- function(raster, shapefile, name) { 
-#   raster.polygon <- extract(raster, shapefile)
-#   raster.mean <- data.frame(unlist(lapply(raster.polygon, FUN = mean, na.rm = TRUE)))
-#   colnames(raster.mean) <- name
-#   raster.mean <- data.frame(raster.mean)
-#   return(raster.mean)
-# }
-
-###########################################################################
-# #########################################################
-# # Step 1: Getting mosquito abundance data for each county 
-# #########################################################
-# 
-# # Importing the aegypti occurrence projections from Kraemer 
-# tx.aegypti <- raster("../data/mosquito/texas.aegypti.asc")  
-# 
-# texas.county <- readShapeSpatial('../TexasCountyShapeFiles/texas.county.shp',
-#                                  proj4string = CRS("+proj=longlat +datum=WGS84"))
-# 
-# ## setting the projection to match Texas shape files  
-# # bb <- extent(-180, 180, -90, 90)
-# # extent(world.aegypti) <- bb
-# # world.aegypti <- setExtent(world.aegypti, bb, keepres=TRUE)
-# # projection(world.aegypti) <- CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs")
-# # 
-# # # Cutting the world layer to Texas 
-# # world.cut <- crop(world.aegypti, extent(texas.county))
-# # texas.cut <- mask(world.cut, texas.county)
-# 
-# # Calculating Mosquito Occurrence for each county as the 
-# # average occurrence for each cell in a county 
-# mosquito.occurrence <- mean.county(raster = tx.aegypti, shapefile = texas.county, name = "occurrence") 
-# 
-# # Converting to proxy 
-# mosquito.abundance <- -log(1-mosquito.occurrence)
-# mosquito.abundance <- as.numeric(mosquito.abundance)
-
-
-#######################################################
-# Step 3: Calculate R0 
-#######################################################
-
-# R0 equation is set to use the August eip from the county master 
-# Baseline parameters 
-
-#mos.hum.transmission = .634
-#c_over_r = 9 *.77
-#alpha = .63
-#mos.mortality = 1/14
-#eip = county_master$aug.eip
-
-
-#rnott.expected <- c_over_r *(mosquito.expected * mos.hum.transmission*alpha^2*
-#                               exp(-mos.mortality*eip))/mos.mortality
-
-#county_master$rnott.expected <- NA; county_master$rnott.expected <- rnott.expected
-
-
-
 
 

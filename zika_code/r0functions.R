@@ -113,28 +113,29 @@ rnot_calc <- function(mosq_abundance, gdp, temperature,
 
 
 rnot_calc_counties_q <- function(mosq_abundance, gdp, temperature,
-                                 a, b, c.r, mort.fun.list, eip.fun.list, scam.est.list){
-  # Function returns median, hi, low r0 for vector of abundances/gdp/temperatures
-  args <- list(mosq_abundance = as.list(mosq_abundance),
-               gdp = as.list(gdp),
-               temperature = as.list(temperature))
-  
-  cty_rnot_dists <- purrr::pmap(args, rnot_calc_dist, a=a, b=b, c.r=c.r, 
-                                mort.fun.list=mort.fun.list, eip.fun.list=eip.fun.list,scam.est.list=scam.est.list)
-  quantile_df <- function(x, probs, na.rm =F, names = F){
-    z <- quantile(x, probs, na.rm, names)
-    df <- data.frame(low_rnot=numeric(1), median_rnot = numeric(1), high_rnot=numeric(1))
-    df[1,] <- z
-    df
-  }
-  cty_rnot_dists %>% purrr::map( ~ quantile_df(.x, probs = c(0.025, 0.5, 0.975))) %>%
-    bind_rows() %>%
-    mutate(low_rnot = ifelse(low_rnot<0, 0, low_rnot))
+                               a, b, c.r, mort.fun.list, eip.fun.list, scam.est.list){
+# Function returns median, hi, low r0 for vector of abundances/gdp/temperatures
+args <- list(mosq_abundance = as.list(mosq_abundance),
+             gdp = as.list(gdp),
+             temperature = as.list(temperature))
+
+cty_rnot_dists <- purrr::pmap(args, rnot_calc_dist, a=a, b=b, c.r=c.r, 
+                              mort.fun.list=mort.fun.list, eip.fun.list=eip.fun.list,scam.est.list=scam.est.list)
+quantile_df <- function(x, probs, na.rm =F, names = F){
+  z <- quantile(x, probs, na.rm, names)
+  df <- data.frame(low_rnot=numeric(1), median_rnot = numeric(1), high_rnot=numeric(1))
+  df[1,] <- z
+  df
+}
+cty_rnot_dists %>% purrr::map( ~ quantile_df(.x, probs = c(0.025, 0.5, 0.975))) %>%
+  bind_rows() %>%
+  mutate(low_rnot = ifelse(low_rnot<0, 0, low_rnot))
 }
 
 rnot_calc_counties <- function(mosq_abundance, gdp, temperature,
                                a, b, c.r, mort.fun.list, eip.fun.list, scam.est.list){
   # Function returns for vector of abundances/gdp/temperatures
+  # Returns a list with 254 entries 
   args <- list(mosq_abundance = as.list(mosq_abundance),
                gdp = as.list(gdp),
                temperature = as.list(temperature))
